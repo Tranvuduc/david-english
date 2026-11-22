@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bài xếp lớp | David English</title>
+<meta name="description" content="David English — Học tiếng Anh miễn phí cho người Việt, giải thích bằng tiếng Việt.">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/chat/de-chat.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">DAVID <span>ENGLISH</span></a>
+    <p class="tagline">Học tiếng Anh miễn phí — giải thích bằng tiếng Việt</p>
+    <details class="nav-toggle">
+      <summary>☰ Menu</summary>
+      <nav class="site-nav" aria-label="Điều hướng chính">
+<a href="/">Trang chủ</a>
+<a href="/bai-xep-lop.html" class="active">Bài xếp lớp</a>
+<a href="/trinh-do/">Theo trình độ</a>
+<a href="/ky-nang/">Theo kỹ năng</a>
+<a href="/luyen-thi/">Luyện thi</a>
+<a href="/tre-em.html">Trẻ em</a>
+<a href="/cong-viec.html">Tiếng Anh công việc</a>
+<a href="/du-hoc.html">Du học</a>
+<a href="/tai-nguyen.html">Tài nguyên miễn phí</a>
+<a href="/tro-chuyen-ai.html">Trò chuyện AI</a>
+      </nav>
+    </details>
+    <nav class="site-nav desktop" aria-label="Điều hướng chính">
+<a href="/">Trang chủ</a>
+<a href="/bai-xep-lop.html" class="active">Bài xếp lớp</a>
+<a href="/trinh-do/">Theo trình độ</a>
+<a href="/ky-nang/">Theo kỹ năng</a>
+<a href="/luyen-thi/">Luyện thi</a>
+<a href="/tre-em.html">Trẻ em</a>
+<a href="/cong-viec.html">Tiếng Anh công việc</a>
+<a href="/du-hoc.html">Du học</a>
+<a href="/tai-nguyen.html">Tài nguyên miễn phí</a>
+<a href="/tro-chuyen-ai.html">Trò chuyện AI</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Bài xếp lớp</h1>
+
+<p class="lead">Bài kiểm tra ngắn giúp bạn biết mình đang ở trình độ nào (A1–C2), để chọn lộ trình học phù hợp.</p>
+<p><span class="badge">Đang hoàn thiện</span> Đây là bản demo giao diện — bộ câu hỏi chính thức và cách chấm điểm thật chưa có. Kết quả dưới đây chỉ để thử giao diện, chưa dùng để xếp lớp thật.</p>
+<form id="placementForm">
+  <fieldset>
+    <legend>Câu 1 (mẫu) — Chọn câu đúng ngữ pháp:</legend>
+    <label><input type="radio" name="q1" value="0"> She don't like coffee.</label>
+    <label><input type="radio" name="q1" value="1"> She doesn't like coffee.</label>
+    <label><input type="radio" name="q1" value="0"> She not like coffee.</label>
+  </fieldset>
+  <fieldset>
+    <legend>Câu 2 (mẫu) — “Book” trong câu “I read a book every week” là:</legend>
+    <label><input type="radio" name="q2" value="0"> Động từ</label>
+    <label><input type="radio" name="q2" value="1"> Danh từ</label>
+    <label><input type="radio" name="q2" value="0"> Tính từ</label>
+  </fieldset>
+  <fieldset>
+    <legend>Câu 3 (mẫu) — Câu nào lịch sự nhất khi nhờ giúp đỡ?</legend>
+    <label><input type="radio" name="q3" value="0"> Help me now.</label>
+    <label><input type="radio" name="q3" value="0"> You help me.</label>
+    <label><input type="radio" name="q3" value="1"> Could you help me, please?</label>
+  </fieldset>
+  <button type="submit" class="btn">Xem kết quả demo</button>
+</form>
+<div id="placementResult" class="result" hidden></div>
+<p class="muted">Bộ câu hỏi chính thức sẽ có nhiều câu hơn, phủ nghe — nói — đọc — viết, và chấm theo khung CEFR. Khi đó kết quả sẽ dẫn thẳng tới lộ trình học của bạn.</p>
+<script>
+(function () {
+  var form = document.getElementById('placementForm');
+  var out = document.getElementById('placementResult');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var score = 0, answered = 0;
+    ['q1', 'q2', 'q3'].forEach(function (n) {
+      var sel = form.querySelector('input[name="' + n + '"]:checked');
+      if (sel) { answered += 1; score += Number(sel.value); }
+    });
+    if (answered < 3) {
+      out.hidden = false;
+      out.innerHTML = '<p>Vui lòng trả lời cả 3 câu mẫu.</p>';
+      return;
+    }
+    var level = score === 3 ? 'A2 (tạm tính)' : score === 2 ? 'A1–A2 (tạm tính)' : 'A1 (tạm tính)';
+    out.hidden = false;
+    out.innerHTML = '<p><strong>Kết quả demo: ' + level + '</strong> — ' + score + '/3 câu đúng.</p>'
+      + '<p>Đây là kết quả tạm tính từ 3 câu mẫu, <strong>không phải kết quả xếp lớp thật</strong>. Bộ câu hỏi chính thức đang hoàn thiện.</p>'
+      + '<p><a href="/trinh-do/">Xem lộ trình theo trình độ →</a></p>';
+  });
+})();
+</script>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>David English</strong> — Học tiếng Anh miễn phí cho người Việt.</p>
+    <p>Mọi câu trả lời của AI đều ghi rõ “AI, chưa duyệt” — chưa được giáo viên duyệt.</p>
+    <p><a href="/">Trang chủ</a> · <a href="/tro-chuyen-ai.html">Trò chuyện AI</a> · <a href="/bai-xep-lop.html">Bài xếp lớp</a> · <a href="/tai-nguyen.html">Tài nguyên miễn phí</a></p>
+    <p class="muted">Trang đang xây dựng — khung sườn v1, nội dung sẽ thêm sau.</p>
+  </div>
+</footer>
+<script src="/chat/de-chat.js" defer></script>
+</body>
+</html>

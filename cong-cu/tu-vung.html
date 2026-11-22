@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tra từ bằng AI | David English</title>
+<meta name="description" content="David English — Học tiếng Anh miễn phí cho người Việt, giải thích bằng tiếng Việt.">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/chat/de-chat.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">DAVID <span>ENGLISH</span></a>
+    <p class="tagline">Học tiếng Anh miễn phí — giải thích bằng tiếng Việt</p>
+    <details class="nav-toggle">
+      <summary>☰ Menu</summary>
+      <nav class="site-nav" aria-label="Điều hướng chính">
+<a href="/">Trang chủ</a>
+<a href="/bai-xep-lop.html">Bài xếp lớp</a>
+<a href="/trinh-do/">Theo trình độ</a>
+<a href="/ky-nang/">Theo kỹ năng</a>
+<a href="/luyen-thi/">Luyện thi</a>
+<a href="/tre-em.html">Trẻ em</a>
+<a href="/cong-viec.html">Tiếng Anh công việc</a>
+<a href="/du-hoc.html">Du học</a>
+<a href="/tai-nguyen.html">Tài nguyên miễn phí</a>
+<a href="/tro-chuyen-ai.html" class="active">Trò chuyện AI</a>
+      </nav>
+    </details>
+    <nav class="site-nav desktop" aria-label="Điều hướng chính">
+<a href="/">Trang chủ</a>
+<a href="/bai-xep-lop.html">Bài xếp lớp</a>
+<a href="/trinh-do/">Theo trình độ</a>
+<a href="/ky-nang/">Theo kỹ năng</a>
+<a href="/luyen-thi/">Luyện thi</a>
+<a href="/tre-em.html">Trẻ em</a>
+<a href="/cong-viec.html">Tiếng Anh công việc</a>
+<a href="/du-hoc.html">Du học</a>
+<a href="/tai-nguyen.html">Tài nguyên miễn phí</a>
+<a href="/tro-chuyen-ai.html" class="active">Trò chuyện AI</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+  <h1>Tra từ bằng AI</h1>
+
+<p class="lead">Gõ một từ hoặc cụm từ tiếng Anh — AI giải nghĩa bằng tiếng Việt, kèm ví dụ, cách phát âm và từ đồng nghĩa.</p>
+<p><span class="badge">AI, chưa duyệt</span> Nghĩa do AI đưa ra, chưa được giáo viên duyệt.</p>
+<form id="vocabForm">
+  <label for="vocabWord">Từ hoặc cụm từ tiếng Anh:</label>
+  <input id="vocabWord" type="text" maxlength="100" placeholder="VD: perseverance" autocomplete="off">
+  <button type="submit" class="btn">Tra từ</button>
+</form>
+<div id="vocabResult" class="result" hidden></div>
+<p class="muted">Công cụ này gọi cùng API chat AI của trang. Khi chưa có khóa API, công cụ báo “đang được chuẩn bị”.</p>
+<script>
+(function () {
+  var form = document.getElementById('vocabForm');
+  var input = document.getElementById('vocabWord');
+  var out = document.getElementById('vocabResult');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var w = input.value.trim();
+    if (!w) return;
+    out.hidden = false;
+    out.innerHTML = '<p>Đang tra…</p>';
+    fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question: 'Giải thích từ/cụm từ tiếng Anh này bằng tiếng Việt: ' + w + '. Cho nghĩa, phiên âm, 2 ví dụ, và 1 từ đồng nghĩa.', mode: 'vocab' })
+    })
+      .then(function (r) { return r.json().then(function (d) { return { status: r.status, d: d }; }); })
+      .then(function (res) {
+        var d = res.d || {};
+        if (res.status === 200 && d.answer) {
+          out.innerHTML = '<p>' + d.answer.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>') + '</p><p class="muted">AI, chưa duyệt.</p>';
+        } else {
+          out.innerHTML = '<p>' + (d.message || 'Có lỗi xảy ra, mời thử lại sau.') + '</p>';
+        }
+      })
+      .catch(function () { out.innerHTML = '<p>Không kết nối được, thử lại sau.</p>'; });
+  });
+})();
+</script>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>David English</strong> — Học tiếng Anh miễn phí cho người Việt.</p>
+    <p>Mọi câu trả lời của AI đều ghi rõ “AI, chưa duyệt” — chưa được giáo viên duyệt.</p>
+    <p><a href="/">Trang chủ</a> · <a href="/tro-chuyen-ai.html">Trò chuyện AI</a> · <a href="/bai-xep-lop.html">Bài xếp lớp</a> · <a href="/tai-nguyen.html">Tài nguyên miễn phí</a></p>
+    <p class="muted">Trang đang xây dựng — khung sườn v1, nội dung sẽ thêm sau.</p>
+  </div>
+</footer>
+<script src="/chat/de-chat.js" defer></script>
+</body>
+</html>
