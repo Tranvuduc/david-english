@@ -212,3 +212,24 @@
   dưới đây.
 - `chat/de-chat.css` tự chứa biến màu riêng (không `@import` style.css) vì
   widget có thể load độc lập.
+
+## 7. Bổ sung 23/11 (đợt nhất quán UI)
+
+- **Bảng:** mọi `<table>` trong `_build.py` đều bọc `<div class="table-wrap">`
+  (cuộn ngang trên mobile). CSS trong `style.css`: tiêu đề `th` nền navy chữ
+  trắng (serif), `td` nền trắng, hàng chẵn `#fbfaf6`, chữ 15px.
+- **OG image:** mọi trang đều có `og:image` →
+  `https://davidenglish.vercel.app/assets/og-default.png` (1200×630, PIL: gradient
+  navy + "DAVID ENGLISH" serif + tagline) và `og:url` chính tắc theo đường
+  dẫn trang. File: `assets/og-default.png`.
+- **Trò chơi (`tro-choi/`, file đơn):** mỗi game có dải `.de-back` giống hệt
+  nhau ngay sau `<body>` — nền navy `#123a6d`, link "← David English" về `/`,
+  cao tối thiểu 44px, hover vàng, `:focus-visible` viền vàng. Nền sáng của
+  game là kem `#f7f5ef` (giống trang chính); dark mode của từng game giữ
+  nguyên. Ngoại lệ cố ý: **TOEIC Arcade tối theo thiết kế** (nền `--ink`
+  `#14173A`) — không đổi. Mỗi game giữ font hiển thị riêng nhưng mọi stack
+  đều kết thúc bằng generic (`serif`/`sans-serif`/`monospace`) và mọi link
+  Google Fonts đều có `display=swap`. Tất cả game đều có `lang="vi"` và
+  `meta description` (lấy từ trang hub `/tro-choi/`).
+- **Footer:** không còn dòng "khung sườn v1" — footer ghi "Bài học, trò chơi
+  và sách học miễn phí — nội dung mới thêm dần."
