@@ -1,0 +1,299 @@
+{
+ "slug": "b1-lesson-10-money-work-contentment",
+ "level": "b1",
+ "lesson_no": 10,
+ "title": "Bài 10: Tiền Bạc, Công Việc & Sự Thỏa Lòng",
+ "title_en": "Money, Work & Contentment",
+ "subtitle": "Money, Work & Contentment — Matthew 6:19-34 (treasures in heaven; do not worry) and 1 Timothy 6:6-10, 17-19 (godliness with contentment) · Ngữ pháp: Used to / would for past habits (used to + verb for habits and states; would + verb only for repeated actions; did not use to for negatives); future perfect intro (will have + past participle with by + future time)",
+ "scripture": "Matthew 6:19-34 (treasures in heaven; do not worry) and 1 Timothy 6:6-10, 17-19 (godliness with contentment)",
+ "grammar_topic": "Used to / would for past habits (used to + verb for habits and states; would + verb only for repeated actions; did not use to for negatives); future perfect intro (will have + past participle with by + future time)",
+ "pronunciation": "Linking sounds + intrusive /r/: when a word ending in /ə/, /ɔː/ or /ɑː/ meets a word beginning with a vowel, add a linking /r/ sound (law (r) and order, idea (r) of it, more (r) and more, far (r) away, Asia (r) and Africa); consonant-to-vowel linking (pick it up, save up) and vowel-to-vowel linking with /w/ and /j/ (go on, my own)",
+ "objectives": [
+  "Học và thực hành: Used to / would for past habits (used to + verb for habits and states; would + verb only for repeated actions; did not use to for negatives); future perfect intro (will have + past participle with by + future time).",
+  "Luyện phát âm: Linking sounds + intrusive /r/: when a word ending in /ə/, /ɔː/ or /ɑː/ meets a word beginning with a vowel, add a linking /r/ sound (law (r) and order, idea (r) of it, more (r) and more, far (r) away, Asia (r) and Africa); consonant-to-vowel linking (pick it up, save up) and vowel-to-vowel linking with /w/ and /j/ (go on, my own).",
+  "Đọc và hiểu đoạn Kinh Thánh Matthew 6:19-34 (treasures in heaven; do not worry) and 1 Timothy 6:6-10, 17-19 (godliness with contentment)."
+ ],
+ "vocabulary": [
+  {
+   "word": "treasure",
+   "pos": "n",
+   "ipa": "ˈtreʒ.ər",
+   "vi": "Kho báu, của cải quý giá",
+   "ex": "Do not store up treasures on earth."
+  },
+  {
+   "word": "store up",
+   "pos": "v.phr",
+   "ipa": "stɔːr ʌp",
+   "vi": "Tích trữ, chất chứa",
+   "ex": "Store up treasures in heaven, not on earth."
+  },
+  {
+   "word": "moth",
+   "pos": "n",
+   "ipa": "mɒθ",
+   "vi": "Bướm đêm, mối ăn vải",
+   "ex": "Moth and rust destroy treasures on earth."
+  },
+  {
+   "word": "rust",
+   "pos": "n",
+   "ipa": "rʌst",
+   "vi": "Gỉ sét",
+   "ex": "Rust destroys old tools and cars."
+  },
+  {
+   "word": "thief",
+   "pos": "n",
+   "ipa": "θiːf",
+   "vi": "Kẻ trộm",
+   "ex": "Thieves break in and steal at night."
+  },
+  {
+   "word": "steal",
+   "pos": "v",
+   "ipa": "stiːl",
+   "vi": "Ăn trộm, lấy cắp",
+   "ex": "Do not steal from your neighbour."
+  },
+  {
+   "word": "worry",
+   "pos": "v",
+   "ipa": "ˈwʌr.i",
+   "vi": "Lo lắng",
+   "ex": "Do not worry about tomorrow."
+  },
+  {
+   "word": "anxious",
+   "pos": "adj",
+   "ipa": "ˈæŋk.ʃəs",
+   "vi": "Lo âu, bồn chồn",
+   "ex": "She felt anxious about her job."
+  },
+  {
+   "word": "contentment",
+   "pos": "n",
+   "ipa": "kənˈtent.mənt",
+   "vi": "Sự thỏa lòng, sự bằng lòng",
+   "ex": "Godliness with contentment is great gain."
+  },
+  {
+   "word": "godliness",
+   "pos": "n",
+   "ipa": "ˈɡɒd.li.nəs",
+   "vi": "Sự tin kính, lòng đạo đức",
+   "ex": "Godliness means living to please God."
+  },
+  {
+   "word": "wealth",
+   "pos": "n",
+   "ipa": "welθ",
+   "vi": "Sự giàu có, của cải",
+   "ex": "Do not trust in uncertain wealth."
+  },
+  {
+   "word": "rich",
+   "pos": "adj",
+   "ipa": "rɪtʃ",
+   "vi": "Giàu có",
+   "ex": "The rich man trusted in his money."
+  },
+  {
+   "word": "generous",
+   "pos": "adj",
+   "ipa": "ˈdʒen.ər.əs",
+   "vi": "Rộng rãi, hào phóng",
+   "ex": "Be generous and ready to share."
+  },
+  {
+   "word": "enough",
+   "pos": "adj / adv",
+   "ipa": "ɪˈnʌf",
+   "vi": "Đủ",
+   "ex": "Enough is enough — I am content."
+  },
+  {
+   "word": "daily bread",
+   "pos": "n.phr",
+   "ipa": "ˈdeɪ.li bred",
+   "vi": "Bánh hằng ngày, nhu cầu hằng ngày",
+   "ex": "Give us this day our daily bread."
+  },
+  {
+   "word": "tomorrow",
+   "pos": "adv / n",
+   "ipa": "təˈmɒr.əʊ",
+   "vi": "Ngày mai",
+   "ex": "Do not be anxious about tomorrow."
+  },
+  {
+   "word": "serve",
+   "pos": "v",
+   "ipa": "sɜːv",
+   "vi": "Phục vụ, hầu việc",
+   "ex": "No one can serve two masters."
+  },
+  {
+   "word": "master",
+   "pos": "n",
+   "ipa": "ˈmɑː.stər",
+   "vi": "Chủ, ông chủ",
+   "ex": "You cannot serve God and money."
+  },
+  {
+   "word": "earn",
+   "pos": "v",
+   "ipa": "ɜːn",
+   "vi": "Kiếm được (tiền)",
+   "ex": "He earns money by working hard."
+  },
+  {
+   "word": "spend",
+   "pos": "v",
+   "ipa": "spend",
+   "vi": "Tiêu, chi tiêu",
+   "ex": "Do not spend all your money in one week."
+  },
+  {
+   "word": "save",
+   "pos": "v",
+   "ipa": "seɪv",
+   "vi": "Tiết kiệm, dành dụm",
+   "ex": "Save a little money every month."
+  },
+  {
+   "word": "budget",
+   "pos": "n",
+   "ipa": "ˈbʌdʒ.ɪt",
+   "vi": "Ngân sách, kế hoạch chi tiêu",
+   "ex": "Make a simple budget every month."
+  },
+  {
+   "word": "greedy",
+   "pos": "adj",
+   "ipa": "ˈɡriː.di",
+   "vi": "Tham lam",
+   "ex": "The love of money is a root of all kinds of evil."
+  },
+  {
+   "word": "blessing",
+   "pos": "n",
+   "ipa": "ˈbles.ɪŋ",
+   "vi": "Phước lành",
+   "ex": "God has given us many blessings."
+  }
+ ],
+ "grammar": [
+  {
+   "title": "Used to / would for past habits (used to + verb for habits and states; would + verb only for repeated actions; did not use to for negatives); future perfect intro (will have + past participle with by + future time)",
+   "explain": "Phần Grammar Blueprint đầy đủ (giải thích chi tiết và ví dụ) nằm trong file PDF bài học.",
+   "examples": []
+  }
+ ],
+ "listening": {
+  "audio": "/tai-lieu/b1/audio/b1-lesson-10-listening.mp3",
+  "duration_secs": 148,
+  "words": 392,
+  "script": "/tai-lieu/b1/scripts/b1-lesson-10-listening-script.txt"
+ },
+ "reading_passage": "Lan used to worry about money all the time. Every night, she would check her bank account on her phone, and she would think about tomorrow. Would she have enough? Would she lose her job? She worked hard, but her money always seemed to run away. One Sunday, her pastor read the words of Jesus: 'Do not store up for yourselves treasures on earth, where moth and rust destroy, and where thieves break in and steal. But store up for yourselves treasures in heaven.' Lan listened carefully. Jesus also said, 'Do not be anxious about your life. Look at the birds of the air: they neither sow nor reap nor gather into barns, and yet your heavenly Father feeds them. Are you not of more value than they?' Lan thought about her grandmother, who had never been rich. Every month, her grandmother would save a little money, and she would give some of it to help her neighbours. 'God gives us our daily bread,' she used to say. 'Enough is enough.' Lan decided to change. She made a simple budget. She saved a little every month, and she gave a little to help others. She stopped checking her bank account every night. By next year, she will have saved enough money for an emergency, and she plans to help her younger sister with her school fees. Lan is learning contentment. She cannot serve both God and money, so she has chosen her Master. Money is a good servant, but it is a bad master. 'Do not be anxious about tomorrow,' Jesus said, 'for tomorrow will be anxious for itself. Sufficient for the day is its own trouble.'",
+ "reading_comprehension": [
+  {
+   "q": "1. How did Lan worry about money before she learned contentment?",
+   "a": "She used to check her bank account every night and worry about tomorrow — whether she would have enough, and whether she would lose her job."
+  },
+  {
+   "q": "2. What did Lan's grandmother do with her money?",
+   "a": "She saved a little money every month, gave some to help others, and said, 'God gives us our daily bread. Enough is enough.'"
+  },
+  {
+   "q": "3. What does Jesus say about the birds in Matthew 6:26?",
+   "a": "The birds do not store up food, but God feeds them; Jesus says we are more valuable than the birds, so God will take care of us too."
+  },
+  {
+   "q": "4. Can we serve both God and money? Why not?",
+   "a": "No — Jesus says we cannot serve both God and money; money is a good servant, but it is a bad master."
+  },
+  {
+   "q": "5. What will Lan have saved by next year, and what does she plan to do with her savings?",
+   "a": "By next year she will have saved enough for an emergency, and she plans to help her younger sister with school fees."
+  }
+ ],
+ "listening_questions": [
+  {
+   "q": "1. What did Jesus say about storing up treasures?",
+   "a": "Do not store up treasures on earth, where moth and rust destroy and thieves steal; store up treasures in heaven instead."
+  },
+  {
+   "q": "2. What did the Friend use to do every night?",
+   "a": "She used to worry about money all the time; every night she would check her bank account and think about tomorrow."
+  },
+  {
+   "q": "3. What does Jesus say about the birds of the air?",
+   "a": "Look at the birds of the air: they do not store up food, but God feeds them, and we are more valuable than they are."
+  },
+  {
+   "q": "4. What did Paul write about godliness and contentment?",
+   "a": "Godliness with contentment is great gain; we brought nothing into the world and cannot take anything out, so if we have food and clothing we should be content."
+  },
+  {
+   "q": "5. What three things does the Narrator say the Friend should do with her money?",
+   "a": "Make a simple budget, save a little every month, and give a little to help others; be generous and do not be greedy."
+  },
+  {
+   "q": "6. What will the Friend have done by next year and the year after that?",
+   "a": "By next year she will have saved enough for an emergency, and by the year after that she will have helped her sister with her school fees."
+  }
+ ],
+ "exercises": [
+  {
+   "title": "Exercise 1: Linking Sounds and Intrusive /r/",
+   "instruction": "In fast, natural English, a word ending in a vowel sound links to the next word. When the first word ends in /ə/, /ɔː/ or /ɑː/ and the next word begins with a vowel, speakers add a linking /r/ sound — even though there is no letter 'r' in the spelling. Mark the link with (r) and read each phrase aloud, linking the words together.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 2: Used to / Would — Past Habits",
+   "instruction": "Complete each sentence with 'used to' + verb or 'would' + verb. Remember: 'used to' is for past habits AND past states; 'would' is only for repeated past actions, never for states.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 3: Future Perfect — Will Have + Past Participle",
+   "instruction": "Complete each sentence with the future perfect: will have + past participle. Use the verb in brackets. The future perfect talks about something that will be finished BEFORE a time in the future (by next year, by June, by the end of the year).",
+   "items": 5
+  },
+  {
+   "title": "Exercise 4: Vocabulary Matching",
+   "instruction": "Match each word with its correct definition.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 5: Reading — True or False?",
+   "instruction": "Read the passage in Section 5 again. Mark T (true) or F (false). Correct the false sentences.",
+   "items": 5
+  },
+  {
+   "title": "Exercise 6: Translation Lab (Vietnamese to English)",
+   "instruction": "Translate into natural English. Use 'used to' or 'would' for past habits (items 1-2) and the future perfect for item 3.",
+   "items": 3
+  }
+ ],
+ "speaking_task": "Roleplay in pairs (3 minutes): Student A tells Student B about their past money habits, using 'used to' and 'would' ('I used to worry about money...', 'Every month, my mother would save...'). Student B asks two questions ('What did you use to worry about?', 'What will you have saved by next year?'). Then Student A answers with the future perfect ('By next year, I will have saved...'). Use at least 2 'used to' sentences, 1 'would' sentence, 2 future perfect sentences, 5 vocabulary words from Section 3, and 3 linking /r/ phrases (law and order, idea of it, more and more, far away).",
+ "writing_task": "Write a short paragraph (80-100 words) about money and contentment in your life. Begin: 'I used to worry about money, but now...' Use at least 2 'used to' sentences, 1 'would' sentence, 1 future perfect sentence ('By next year, I will have...'), and 5 vocabulary words from Section 3.",
+ "homework": {
+  "written": [
+   "A. Complete these 5 sentences: 1) I used to ______ (worry) about tomorrow. 2) Every week, my father would ______ (give) money to the church. 3) By next year, I will have ______ (save) 5 million dong. 4) We did not use to ______ (have) much money, but we were happy. 5) By the time I am forty, I will have ______ (learn) to be content.",
+   "B. Write 6 sentences about money in your life, using 'used to' twice, 'would' once, and the future perfect twice. Begin: 'I used to worry about money, but now...'"
+  ],
+  "listening": "Listen to the audio again. Fill in the missing words: 'Jesus said, \"Do not store up ______ on earth, where moth and rust ______, and where thieves break in and ______.\" Paul wrote that godliness with ______ is great gain. The Friend used to ______ about money all the time. By next year, she will have ______ enough for an emergency.' Then answer: What three things does the Narrator say we should do with our money?",
+  "memory_verse": "But godliness with contentment is great gain, for we brought nothing into the world, and we cannot take anything out of the world. — 1 Timothy 6:6-7 (ESV)",
+  "memory_verse_vi": ""
+ },
+ "_source": {
+  "json": "teaching/b1/content/b1-lesson-10.json",
+  "json_sha256": "d400cb130f3fd143747c058590f26ee9d301ae7dbdca934c3424912ece19458b",
+  "pdf": "teaching/b1/output/b1-lesson-10-money-work-contentment.pdf",
+  "pdf_sha256": "02a86168d27c07a8bc61e30009a38885254d938ce12ee3b0315890d623ab61dc",
+  "mp3": "teaching/b1/audio/b1-lesson-10-listening.mp3",
+  "mp3_sha256": "ed1c2551eed34bfb1bd82a9c729a1878b698f626d515f1c53f81d795d2ba94d2"
+ }
+}

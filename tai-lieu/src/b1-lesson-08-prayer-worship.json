@@ -1,0 +1,286 @@
+{
+ "slug": "b1-lesson-08-prayer-worship",
+ "level": "b1",
+ "lesson_no": 8,
+ "title": "Bài 8: Cầu Nguyện Và Thờ Phượng",
+ "title_en": "Prayer & Worship",
+ "subtitle": "Prayer & Worship — Psalm 95 (come, let us worship and bow down); John 4:19-26 (worship in spirit and truth) · Ngữ pháp: Modals — advice (should / ought to), obligation (must / have to), possibility (might / may / could); prohibition (mustn't) vs no obligation (don't have to)",
+ "scripture": "Psalm 95 (come, let us worship and bow down); John 4:19-26 (worship in spirit and truth)",
+ "grammar_topic": "Modals — advice (should / ought to), obligation (must / have to), possibility (might / may / could); prohibition (mustn't) vs no obligation (don't have to)",
+ "pronunciation": "Intonation — polite requests vs commands: rising, softer intonation for “Could you please...?” vs falling, firm intonation for “Kneel down and pray.”",
+ "objectives": [
+  "Học và thực hành: Modals — advice (should / ought to), obligation (must / have to), possibility (might / may / could); prohibition (mustn't) vs no obligation (don't have to).",
+  "Luyện phát âm: Intonation — polite requests vs commands: rising, softer intonation for “Could you please...?” vs falling, firm intonation for “Kneel down and pray.”.",
+  "Đọc và hiểu đoạn Kinh Thánh Psalm 95 (come, let us worship and bow down); John 4:19-26 (worship in spirit and truth)."
+ ],
+ "vocabulary": [
+  {
+   "word": "worship",
+   "pos": "v",
+   "ipa": "ˈwɜː.ʃɪp",
+   "vi": "Thờ phượng",
+   "ex": "Let us worship the Lord with a sincere heart."
+  },
+  {
+   "word": "bow down",
+   "pos": "v.phr",
+   "ipa": "baʊ daʊn",
+   "vi": "Cúi xuống, sấp mình",
+   "ex": "Oh come, let us worship and bow down."
+  },
+  {
+   "word": "kneel",
+   "pos": "v",
+   "ipa": "niːl",
+   "vi": "Quỳ gối",
+   "ex": "Let us kneel before the Lord, our Maker."
+  },
+  {
+   "word": "adore",
+   "pos": "v",
+   "ipa": "əˈdɔːr",
+   "vi": "Tôn thờ, yêu mến hết lòng",
+   "ex": "We adore You, Lord, for You are holy."
+  },
+  {
+   "word": "reverence",
+   "pos": "n",
+   "ipa": "ˈrev.ər.əns",
+   "vi": "Sự tôn kính",
+   "ex": "We come before God with reverence and awe."
+  },
+  {
+   "word": "spirit",
+   "pos": "n",
+   "ipa": "ˈspɪr.ɪt",
+   "vi": "Thần, tâm linh",
+   "ex": "God is spirit, and we must worship Him in spirit."
+  },
+  {
+   "word": "truth",
+   "pos": "n",
+   "ipa": "truːθ",
+   "vi": "Lẽ thật, sự thật",
+   "ex": "Worship God in spirit and truth."
+  },
+  {
+   "word": "seek",
+   "pos": "v",
+   "ipa": "siːk",
+   "vi": "Tìm kiếm",
+   "ex": "The Father is seeking true worshipers."
+  },
+  {
+   "word": "intercede",
+   "pos": "v",
+   "ipa": "ˌɪn.təˈsiːd",
+   "vi": "Cầu thay",
+   "ex": "Jesus lives to intercede for us."
+  },
+  {
+   "word": "confess",
+   "pos": "v",
+   "ipa": "kənˈfes",
+   "vi": "Xưng tội, thú nhận",
+   "ex": "We ought to confess our sins honestly."
+  },
+  {
+   "word": "thanksgiving",
+   "pos": "n",
+   "ipa": "ˌθæŋksˈɡɪv.ɪŋ",
+   "vi": "Sự tạ ơn",
+   "ex": "Enter His gates with thanksgiving."
+  },
+  {
+   "word": "praise",
+   "pos": "n/v",
+   "ipa": "preɪz",
+   "vi": "Sự ngợi khen / Ngợi khen",
+   "ex": "Let everything that has breath praise the Lord!"
+  },
+  {
+   "word": "humble",
+   "pos": "adj",
+   "ipa": "ˈhʌm.bəl",
+   "vi": "Khiêm nhường",
+   "ex": "God gives grace to the humble."
+  },
+  {
+   "word": "sincere",
+   "pos": "adj",
+   "ipa": "sɪnˈsɪər",
+   "vi": "Chân thành",
+   "ex": "God wants a sincere heart, not empty words."
+  },
+  {
+   "word": "Samaritan",
+   "pos": "n/adj",
+   "ipa": "səˈmær.ɪ.tən",
+   "vi": "Người Sa-ma-ri",
+   "ex": "A Samaritan woman came to draw water at the well."
+  },
+  {
+   "word": "well",
+   "pos": "n",
+   "ipa": "wel",
+   "vi": "Giếng nước",
+   "ex": "Jesus sat beside the well in Samaria."
+  },
+  {
+   "word": "living water",
+   "pos": "n.phr",
+   "ipa": "ˈlɪv.ɪŋ ˈwɔː.tər",
+   "vi": "Nước hằng sống",
+   "ex": "Jesus gives living water to all who ask Him."
+  },
+  {
+   "word": "offer",
+   "pos": "v",
+   "ipa": "ˈɒf.ər",
+   "vi": "Dâng lên",
+   "ex": "We offer our lives as a living sacrifice to God."
+  },
+  {
+   "word": "sacrifice",
+   "pos": "n",
+   "ipa": "ˈsæk.rɪ.faɪs",
+   "vi": "Của lễ, sự hy sinh",
+   "ex": "Jesus gave Himself as a sacrifice for our sins."
+  },
+  {
+   "word": "holy",
+   "pos": "adj",
+   "ipa": "ˈhəʊ.li",
+   "vi": "Thánh khiết",
+   "ex": "Be holy, for I am holy. (1 Peter 1:16)"
+  },
+  {
+   "word": "gather",
+   "pos": "v",
+   "ipa": "ˈɡæð.ər",
+   "vi": "Nhóm lại, tụ họp",
+   "ex": "Let us gather together to worship the Lord."
+  },
+  {
+   "word": "lift up",
+   "pos": "v.phr",
+   "ipa": "lɪft ʌp",
+   "vi": "Giơ lên, cất lên",
+   "ex": "Let us lift up our hands to the Lord in prayer."
+  }
+ ],
+ "grammar": [
+  {
+   "title": "Modals — advice (should / ought to), obligation (must / have to), possibility (might / may / could); prohibition (mustn't) vs no obligation (don't have to)",
+   "explain": "Phần Grammar Blueprint đầy đủ (giải thích chi tiết và ví dụ) nằm trong file PDF bài học.",
+   "examples": []
+  }
+ ],
+ "listening": {
+  "audio": "/tai-lieu/b1/audio/b1-lesson-08-listening.mp3",
+  "duration_secs": 141,
+  "words": 365,
+  "script": "/tai-lieu/b1/scripts/b1-lesson-08-listening-script.txt"
+ },
+ "reading_passage": "Psalm 95 begins with a joyful invitation: “Oh come, let us sing to the LORD; let us make a joyful noise to the rock of our salvation!” Then it gives the reason: the Lord is a great God and a great King above all gods. He made the sea and the dry land, and we are the people of His pasture, the sheep of His hand. So the psalm says, “Oh come, let us worship and bow down; let us kneel before the LORD, our Maker!” True worship begins with knowing who God is — and who we are. We should come to Him with a humble heart, because He is holy and we are small. We ought to thank Him for His goodness before we ask Him for anything. And we must remember that worship is not only singing; it is a whole life offered to God. In John 4, Jesus met a Samaritan woman at a well. She asked Him where people ought to worship — on the mountain or in Jerusalem. Jesus answered that true worshipers must worship the Father in spirit and truth. To worship in spirit means to worship with a sincere heart, not just with words or a ceremony. To worship in truth means to worship God as He really is, not as we imagine Him. The Father is seeking such people to worship Him. God might answer our prayers in a way we do not expect, but He always hears us. So we should pray every day, we ought to confess our sins honestly, and we must never worship with a proud heart. When we come to God in spirit and truth, we find what the woman at the well found: living water, and a Saviour who knows us completely and loves us still.",
+ "reading_comprehension": [
+  {
+   "q": "1. According to Psalm 95, why should we worship the Lord?",
+   "a": "Because the Lord is a great God and a great King, and He made us — He is our Maker."
+  },
+  {
+   "q": "2. According to John 4:20, what did the Samaritan woman ask Jesus?",
+   "a": "Where people ought to worship — on the mountain or in Jerusalem."
+  },
+  {
+   "q": "3. According to John 4:24, how must those who worship God worship Him?",
+   "a": "They must worship the Father in spirit and truth."
+  },
+  {
+   "q": "4. According to John 4:23, whom is the Father seeking?",
+   "a": "The Father is seeking such people to worship Him."
+  },
+  {
+   "q": "5. According to John 4:25–26, what did the woman say, and how did Jesus answer?",
+   "a": "The woman said, “I know that Messiah is coming,” and Jesus answered, “I who speak to you am He.”"
+  }
+ ],
+ "listening_questions": [
+  {
+   "q": "1. Where did Jesus meet the Samaritan woman?",
+   "a": "Beside a well in Samaria."
+  },
+  {
+   "q": "2. What did the woman ask Jesus about?",
+   "a": "Where people ought to worship — on the mountain or in Jerusalem."
+  },
+  {
+   "q": "3. What did Jesus say true worshipers must do?",
+   "a": "They must worship the Father in spirit and truth."
+  },
+  {
+   "q": "4. What does “worship in spirit” mean, according to the narrator?",
+   "a": "To worship with a sincere heart, not just with words."
+  },
+  {
+   "q": "5. What might God do when we pray?",
+   "a": "He might answer our prayer in a way we do not expect — but he always hears us."
+  },
+  {
+   "q": "6. What did the Friend decide to do this week?",
+   "a": "She decided to pray every morning this week, and to tell her sister about the living water."
+  }
+ ],
+ "exercises": [
+  {
+   "title": "Exercise 1: Intonation — Polite Requests or Commands?",
+   "instruction": "Mark each sentence U (rising — voice goes UP: polite request) or D (falling — voice goes DOWN: command). Remember: polite requests with Could you...? / Would you...? rise; direct commands fall.",
+   "items": 7
+  },
+  {
+   "title": "Exercise 2: Modals — Advice and Obligation",
+   "instruction": "Complete each sentence with should, ought to, must, or have to. (Sometimes more than one answer is possible — the key gives the best fit.)",
+   "items": 6
+  },
+  {
+   "title": "Exercise 3: Modals — Possibility, Permission, and Prohibition",
+   "instruction": "Complete each sentence with might, may, could, mustn't, or don't have to.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 4: Worship Vocabulary Matching",
+   "instruction": "Match each word with its correct definition.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 5: Reading Comprehension — Choose the Best Answer",
+   "instruction": "Read the passage in Section 5 again and choose the best answer (a, b, or c).",
+   "items": 5
+  },
+  {
+   "title": "Exercise 6: Ministry Translation Lab (Vietnamese to English)",
+   "instruction": "Translate into natural English. Use the modals (should / ought to / must / might) and the intonation you learned in this lesson.",
+   "items": 4
+  }
+ ],
+ "speaking_task": "Roleplay in pairs (3 minutes): Student A is a new believer who wants to learn how to pray. Student B is a friend who helps. Student B gives advice with should and ought to (“You should pray every day”, “You ought to confess your sins honestly”), and talks about possibility with might and could (“God might answer in a way you do not expect”). Student A makes two polite requests with rising intonation (“Could you please pray with me?”) and gives one command with falling intonation (“Kneel down and pray with me.”). Use at least 5 vocabulary words from Section 3.",
+ "writing_task": "Write a short prayer of worship (80-100 words) to God, beginning: “Lord, I come to worship You in spirit and truth...” Use at least 4 modal verbs (should / ought to / must / might / may / could) and 5 vocabulary words from Section 3. Include adoration, thanksgiving, and one request.",
+ "homework": {
+  "written": [
+   "A. Rewrite these 5 sentences using a modal (should / ought to / must / might / may / could). 1) It is a good idea to pray every day. 2) It is necessary to worship God in spirit and truth. 3) It is possible that God will answer in a way we do not expect. 4) It is a good idea to confess our sins honestly. 5) You are allowed to come to the prayer meeting tonight.",
+   "B. Correct the mistake in each sentence (one mistake each). 1) We must to worship God with a humble heart. 2) You should to pray every day. 3) God might answers our prayer. 4) We ought worship in spirit and truth. 5) She mustn't to be proud when she prays.",
+   "C. Write 5 sentences about your own prayer life, using a different modal in each: should, ought to, must, might, could."
+  ],
+  "listening": "Listen to the audio again. Fill in the missing words: “God is spirit, and those who worship him ______ worship in spirit and ______. To worship in spirit means to worship with a ______ heart, not just with words. God ______ answer your prayer in a way you do not expect, but he always hears you.” Then answer: What did the Friend decide to do this week?",
+  "memory_verse": "“Oh come, let us worship and bow down; let us kneel before the LORD, our Maker! For He is our God, and we are the people of His pasture, and the sheep of His hand.” — Psalm 95:6–7 (ESV)",
+  "memory_verse_vi": ""
+ },
+ "_source": {
+  "json": "teaching/b1/content/b1-lesson-08.json",
+  "json_sha256": "65686ee211294ba7e7883313479acd00b8247f74e606ab9cc7814825e381b75b",
+  "pdf": "teaching/b1/output/b1-lesson-08-prayer-worship.pdf",
+  "pdf_sha256": "ca3d6226d167d189e275faf25eb33000cbde8377abe5a3b3e7d5e09969284d38",
+  "mp3": "teaching/b1/audio/b1-lesson-08-listening.mp3",
+  "mp3_sha256": "c240ba06518ea25952cd9527ea0ed37146f17519f5b41576689c70ace9606048"
+ }
+}

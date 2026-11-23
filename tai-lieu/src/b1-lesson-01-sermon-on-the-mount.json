@@ -1,0 +1,257 @@
+{
+ "slug": "b1-lesson-01-sermon-on-the-mount",
+ "level": "b1",
+ "lesson_no": 1,
+ "title": "Bài 1: Bài Giảng Trên Núi",
+ "title_en": "The Sermon on the Mount",
+ "subtitle": "The Sermon on the Mount — Matthew 5-7 · Ngữ pháp: Present perfect: since/for, already/yet; present perfect vs past simple",
+ "scripture": "Matthew 5-7",
+ "grammar_topic": "Present perfect: since/for, already/yet; present perfect vs past simple",
+ "pronunciation": "Word stress in longer words + sentence stress",
+ "objectives": [
+  "Học và thực hành: Present perfect: since/for, already/yet; present perfect vs past simple.",
+  "Luyện phát âm: Word stress in longer words + sentence stress.",
+  "Đọc và hiểu đoạn Kinh Thánh Matthew 5-7."
+ ],
+ "vocabulary": [
+  {
+   "word": "Blessed",
+   "pos": "adj",
+   "ipa": "blest",
+   "vi": "Được phước",
+   "ex": "Blessed are the poor in spirit."
+  },
+  {
+   "word": "Meek",
+   "pos": "adj",
+   "ipa": "miːk",
+   "vi": "Hiền lành, nhu mì",
+   "ex": "The meek will inherit the earth."
+  },
+  {
+   "word": "Merciful",
+   "pos": "adj",
+   "ipa": "ˈmɜː.sɪ.fəl",
+   "vi": "Hay thương xót",
+   "ex": "Blessed are the merciful, for they will receive mercy."
+  },
+  {
+   "word": "Persecuted",
+   "pos": "adj",
+   "ipa": "ˈpɜː.sɪ.kjuː.tɪd",
+   "vi": "Bị bắt bớ",
+   "ex": "Blessed are those who are persecuted for righteousness."
+  },
+  {
+   "word": "Righteousness",
+   "pos": "n",
+   "ipa": "ˈraɪ.tʃəs.nəs",
+   "vi": "Sự công chính",
+   "ex": "Blessed are those who hunger for righteousness."
+  },
+  {
+   "word": "Kingdom",
+   "pos": "n",
+   "ipa": "ˈkɪŋ.dəm",
+   "vi": "Nước, Vương quốc",
+   "ex": "Theirs is the kingdom of heaven."
+  },
+  {
+   "word": "Salt",
+   "pos": "n",
+   "ipa": "sɔːlt",
+   "vi": "Muối",
+   "ex": "You are the salt of the earth."
+  },
+  {
+   "word": "Light",
+   "pos": "n",
+   "ipa": "laɪt",
+   "vi": "Ánh sáng",
+   "ex": "You are the light of the world."
+  },
+  {
+   "word": "Treasure",
+   "pos": "n",
+   "ipa": "ˈtreʒ.ər",
+   "vi": "Kho báu",
+   "ex": "Store up treasures in heaven."
+  },
+  {
+   "word": "Hypocrite",
+   "pos": "n",
+   "ipa": "ˈhɪp.ə.krɪt",
+   "vi": "Kẻ giả hình",
+   "ex": "Do not be like the hypocrites."
+  },
+  {
+   "word": "Forgive",
+   "pos": "v",
+   "ipa": "fərˈɡɪv",
+   "vi": "Tha thứ",
+   "ex": "Forgive us our debts, as we forgive our debtors."
+  },
+  {
+   "word": "Temptation",
+   "pos": "n",
+   "ipa": "tempˈteɪ.ʃən",
+   "vi": "Sự cám dỗ",
+   "ex": "Lead us not into temptation."
+  },
+  {
+   "word": "Mourn",
+   "pos": "v",
+   "ipa": "mɔːrn",
+   "vi": "Than khóc, đau buồn",
+   "ex": "Blessed are those who mourn, for they will be comforted."
+  },
+  {
+   "word": "Comfort",
+   "pos": "v",
+   "ipa": "ˈkʌm.fərt",
+   "vi": "An ủi",
+   "ex": "God comforts those who mourn."
+  },
+  {
+   "word": "Inherit",
+   "pos": "v",
+   "ipa": "ɪnˈher.ɪt",
+   "vi": "Thừa hưởng",
+   "ex": "The meek will inherit the earth."
+  },
+  {
+   "word": "Hunger",
+   "pos": "v",
+   "ipa": "ˈhʌŋ.ɡər",
+   "vi": "Đói khát, khao khát",
+   "ex": "Those who hunger for righteousness will be filled."
+  },
+  {
+   "word": "Shine",
+   "pos": "v",
+   "ipa": "ʃaɪn",
+   "vi": "Chiếu sáng",
+   "ex": "Let your light shine before others."
+  },
+  {
+   "word": "Glory",
+   "pos": "n",
+   "ipa": "ˈɡlɔː.ri",
+   "vi": "Vinh quang",
+   "ex": "Give glory to your Father in heaven."
+  },
+  {
+   "word": "Reward",
+   "pos": "n",
+   "ipa": "rɪˈwɔːrd",
+   "vi": "Phần thưởng",
+   "ex": "Great is your reward in heaven."
+  },
+  {
+   "word": "Disciple",
+   "pos": "n",
+   "ipa": "dɪˈsaɪ.pəl",
+   "vi": "Môn đồ",
+   "ex": "His disciples came to Him on the mountain."
+  },
+  {
+   "word": "Sermon",
+   "pos": "n",
+   "ipa": "ˈsɜː.mən",
+   "vi": "Bài giảng",
+   "ex": "The Sermon on the Mount is in Matthew 5-7."
+  },
+  {
+   "word": "Debt",
+   "pos": "n",
+   "ipa": "det",
+   "vi": "Nợ (tội lỗi)",
+   "ex": "Forgive us our debts, as we forgive our debtors."
+  }
+ ],
+ "grammar": [
+  {
+   "title": "Present perfect: since/for, already/yet; present perfect vs past simple",
+   "explain": "Phần Grammar Blueprint đầy đủ (giải thích chi tiết và ví dụ) nằm trong file PDF bài học.",
+   "examples": []
+  }
+ ],
+ "listening": {
+  "audio": "/tai-lieu/b1/audio/b1-lesson-01-listening.mp3",
+  "duration_secs": 149,
+  "words": 372,
+  "script": "/tai-lieu/b1/scripts/b1-lesson-01-listening-script.txt"
+ },
+ "reading_passage": "",
+ "reading_comprehension": [
+  {
+   "q": "1. According to Matthew 5:3-10, who receives the kingdom of heaven?",
+   "a": "The poor in spirit."
+  },
+  {
+   "q": "2. Why does Jesus call His followers 'the salt of the earth' and 'the light of the world'?",
+   "a": "Because, like salt and light, Christians should make a real difference in the world: salt preserves and gives flavor, light shows the way and cannot be hidden."
+  },
+  {
+   "q": "3. What does Jesus teach about prayer in Matthew 6:9-13?",
+   "a": "He teaches His disciples to pray to 'Our Father in heaven', to honor God's name, to ask for His kingdom and will, for daily bread, for forgiveness, and for deliverance from temptation and evil."
+  },
+  {
+   "q": "4. According to Matthew 6:19-21, where should we store our treasures, and why?",
+   "a": "In heaven, because earthly treasures are destroyed by moth and rust and stolen by thieves, but heavenly treasures last forever; and where our treasure is, there our heart will be also."
+  }
+ ],
+ "listening_questions": [],
+ "exercises": [
+  {
+   "title": "Exercise 1: Word Stress — Mark the Stressed Syllable",
+   "instruction": "Underline the stressed syllable in each word. Remember: in longer words, only ONE syllable carries the main stress. Say each word aloud after you mark it.",
+   "items": 8
+  },
+  {
+   "title": "Exercise 2: Present Perfect — since or for",
+   "instruction": "Complete each sentence with since or for. Remember: since + a point in time (2019, Monday, I was a child); for + a length of time (three years, two weeks, a long time).",
+   "items": 6
+  },
+  {
+   "title": "Exercise 3: Present Perfect vs Past Simple",
+   "instruction": "Choose the correct form. Present perfect = a finished time is NOT given, the result matters now. Past simple = a finished time IS given (yesterday, in 2019, last week).",
+   "items": 6
+  },
+  {
+   "title": "Exercise 4: Vocabulary Matching",
+   "instruction": "Match each word with its correct definition.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 5: Listening Comprehension",
+   "instruction": "Listen to the audio (b1-lesson-01-listening.mp3) twice. Then answer the questions.",
+   "items": 5
+  },
+  {
+   "title": "Exercise 6: Ministry Translation Lab (Vietnamese to English)",
+   "instruction": "Translate into natural English. Use the present perfect and this lesson's vocabulary.",
+   "items": 3
+  }
+ ],
+ "speaking_task": "",
+ "writing_task": "",
+ "homework": {
+  "written": [
+   "Write 5 sentences about your own life using the present perfect: 2 with since, 2 with for, 1 with already or yet. Example: I have believed in Jesus since 2018.",
+   "Write 3 sentences using 3 different vocabulary words from Section 3 (blessed, meek, merciful, treasure, forgive, light).",
+   "Write the Beatitudes (Matthew 5:3-6) in English from memory, then check your work against the Bible."
+  ],
+  "listening": "Listen to the audio again. Write down, in English, the three promises Jesus gives in the Beatitudes section. Then answer: What does the narrator say 'blessed' means?",
+  "memory_verse": "Let your light shine before others, so that they may see your good works and give glory to your Father who is in heaven. - Matthew 5:16 (ESV)",
+  "memory_verse_vi": ""
+ },
+ "_source": {
+  "json": "teaching/b1/content/b1-lesson-01.json",
+  "json_sha256": "6f1a9d5ce754440d5d814e0022c3ba655f6455efafe5a3e60e432c08aef4d731",
+  "pdf": "teaching/b1/output/b1-lesson-01-sermon-on-the-mount.pdf",
+  "pdf_sha256": "5221fe9dd2fca3f11cdc2fc20a4af811096ef730f31cc8ff32345b8888695307",
+  "mp3": "teaching/b1/audio/b1-lesson-01-listening.mp3",
+  "mp3_sha256": "f727e6e21ec8795fbf422228ca3d12e2e5b58790250e09a00d60882862361fe6"
+ }
+}

@@ -1,0 +1,277 @@
+{
+ "slug": "b1-lesson-03-prophets-isaiah",
+ "level": "b1",
+ "lesson_no": 3,
+ "title": "Bài 3: Các Tiên Tri: Ê-sai",
+ "title_en": "The Prophets: Isaiah",
+ "subtitle": "The Prophets: Isaiah — Isaiah 53; Isaiah 55 · Ngữ pháp: Passive voice (present/past simple passive; passive with by)",
+ "scripture": "Isaiah 53; Isaiah 55",
+ "grammar_topic": "Passive voice (present/past simple passive; passive with by)",
+ "pronunciation": "Weak forms: of, to, and, have in connected speech",
+ "objectives": [
+  "Học và thực hành: Passive voice (present/past simple passive; passive with by).",
+  "Luyện phát âm: Weak forms: of, to, and, have in connected speech.",
+  "Đọc và hiểu đoạn Kinh Thánh Isaiah 53; Isaiah 55."
+ ],
+ "vocabulary": [
+  {
+   "word": "prophet",
+   "pos": "n",
+   "ipa": "ˈprɒf.ɪt",
+   "vi": "Tiên tri",
+   "ex": "Isaiah was a prophet who spoke God's word to Israel."
+  },
+  {
+   "word": "prophecy",
+   "pos": "n",
+   "ipa": "ˈprɒf.ə.si",
+   "vi": "Lời tiên tri",
+   "ex": "Isaiah's prophecy about the Servant came true in Jesus."
+  },
+  {
+   "word": "servant",
+   "pos": "n",
+   "ipa": "ˈsɜː.vənt",
+   "vi": "Đầy tớ, tôi tớ",
+   "ex": "The Lord calls Jesus His Servant in Isaiah 53."
+  },
+  {
+   "word": "wounded",
+   "pos": "adj",
+   "ipa": "ˈwuːn.dɪd",
+   "vi": "Bị thương, bị đâm",
+   "ex": "He was wounded for our transgressions."
+  },
+  {
+   "word": "transgression",
+   "pos": "n",
+   "ipa": "trænzˈɡreʃ.ən",
+   "vi": "Sự vi phạm, sự phạm tội",
+   "ex": "Our transgressions separated us from God."
+  },
+  {
+   "word": "crushed",
+   "pos": "adj",
+   "ipa": "krʌʃt",
+   "vi": "Bị nghiền nát, bị đè bẹp",
+   "ex": "He was crushed for our iniquities."
+  },
+  {
+   "word": "iniquity",
+   "pos": "n",
+   "ipa": "ɪˈnɪk.wə.ti",
+   "vi": "Sự gian ác, tội lỗi",
+   "ex": "The Lord laid on Him the iniquity of us all."
+  },
+  {
+   "word": "pierced",
+   "pos": "adj",
+   "ipa": "pɪəst",
+   "vi": "Bị đâm thủng",
+   "ex": "He was pierced for our transgressions."
+  },
+  {
+   "word": "despised",
+   "pos": "adj",
+   "ipa": "dɪˈspaɪzd",
+   "vi": "Bị khinh bỉ, bị khinh thường",
+   "ex": "He was despised and rejected by men."
+  },
+  {
+   "word": "rejected",
+   "pos": "adj",
+   "ipa": "rɪˈdʒek.tɪd",
+   "vi": "Bị chối bỏ, bị từ bỏ",
+   "ex": "Many people rejected the Servant, but God accepted Him."
+  },
+  {
+   "word": "suffering",
+   "pos": "n",
+   "ipa": "ˈsʌf.ər.ɪŋ",
+   "vi": "Sự đau khổ",
+   "ex": "The Servant knew suffering and grief."
+  },
+  {
+   "word": "grief",
+   "pos": "n",
+   "ipa": "ɡriːf",
+   "vi": "Nỗi buồn, sự đau buồn",
+   "ex": "He carried our sorrows and our grief."
+  },
+  {
+   "word": "sorrow",
+   "pos": "n",
+   "ipa": "ˈsɒr.əʊ",
+   "vi": "Nỗi buồn",
+   "ex": "He was a man of sorrows, acquainted with grief."
+  },
+  {
+   "word": "burden",
+   "pos": "n",
+   "ipa": "ˈbɜː.dən",
+   "vi": "Gánh nặng",
+   "ex": "Jesus carried the burden of our sins."
+  },
+  {
+   "word": "invite",
+   "pos": "v",
+   "ipa": "ɪnˈvaɪt",
+   "vi": "Mời",
+   "ex": "God invites everyone: Come, all you who are thirsty."
+  },
+  {
+   "word": "thirsty",
+   "pos": "adj",
+   "ipa": "ˈθɜː.sti",
+   "vi": "Khát",
+   "ex": "Come, all you who are thirsty, come to the waters."
+  },
+  {
+   "word": "seek",
+   "pos": "v",
+   "ipa": "siːk",
+   "vi": "Tìm kiếm",
+   "ex": "Seek the Lord while He may be found."
+  },
+  {
+   "word": "forsake",
+   "pos": "v",
+   "ipa": "fɔːˈseɪk",
+   "vi": "Từ bỏ, lìa bỏ",
+   "ex": "Let the wicked forsake his way."
+  },
+  {
+   "word": "mercy",
+   "pos": "n",
+   "ipa": "ˈmɜː.si",
+   "vi": "Lòng thương xót",
+   "ex": "God will have mercy on all who return to Him."
+  },
+  {
+   "word": "abundant",
+   "pos": "adj",
+   "ipa": "əˈbʌn.dənt",
+   "vi": "Dồi dào, dư dật",
+   "ex": "He will abundantly pardon."
+  },
+  {
+   "word": "pardon",
+   "pos": "v",
+   "ipa": "ˈpɑː.dən",
+   "vi": "Tha thứ, ân xá",
+   "ex": "God will abundantly pardon those who turn to Him."
+  },
+  {
+   "word": "restore",
+   "pos": "v",
+   "ipa": "rɪˈstɔːr",
+   "vi": "Khôi phục, phục hồi",
+   "ex": "God restores all who come to Him in faith."
+  }
+ ],
+ "grammar": [
+  {
+   "title": "Passive voice (present/past simple passive; passive with by)",
+   "explain": "Phần Grammar Blueprint đầy đủ (giải thích chi tiết và ví dụ) nằm trong file PDF bài học.",
+   "examples": []
+  }
+ ],
+ "listening": {
+  "audio": "/tai-lieu/b1/audio/b1-lesson-03-listening.mp3",
+  "duration_secs": 140,
+  "words": 349,
+  "script": "/tai-lieu/b1/scripts/b1-lesson-03-listening-script.txt"
+ },
+ "reading_passage": "",
+ "reading_comprehension": [
+  {
+   "q": "1. When did Isaiah live, and who was he?",
+   "a": "About 700 years before Jesus; a prophet who spoke God's word to Israel."
+  },
+  {
+   "q": "2. What did the Servant suffer, according to Isaiah 53:5?",
+   "a": "He was wounded for our transgressions and crushed for our iniquities."
+  },
+  {
+   "q": "3. What does 'by His wounds we are healed' mean?",
+   "a": "Because Jesus suffered in our place, we can be forgiven and have peace with God."
+  },
+  {
+   "q": "4. How is God's invitation in Isaiah 55 different from buying something in a shop?",
+   "a": "It is completely free — no money, no cost; forgiveness is given by grace."
+  }
+ ],
+ "listening_questions": [
+  {
+   "q": "1. How many years before Jesus was Isaiah a prophet?",
+   "a": "About 700 years before Jesus was born."
+  },
+  {
+   "q": "2. True or False: Isaiah 53 was written after Jesus came.",
+   "a": "False — it was written long before Jesus came."
+  },
+  {
+   "q": "3. According to Isaiah 53, why was the Servant wounded and crushed?",
+   "a": "For our transgressions and our iniquities — He took our place."
+  },
+  {
+   "q": "4. According to Isaiah 55, what does God invite thirsty people to do, and what does it cost?",
+   "a": "To come to the waters (come to God); it is free — without money and without cost."
+  },
+  {
+   "q": "5. What does Isaiah 55 say we should do, and what will God do in return?",
+   "a": "Seek the Lord, call on Him, forsake our wicked ways and return to Him; He will have mercy and freely pardon."
+  }
+ ],
+ "exercises": [
+  {
+   "title": "Exercise 1: Weak Forms — Strong or Weak?",
+   "instruction": "In natural speech the words of, to, and, have are usually WEAK (short, with /ə/). Underline the weak word in each sentence and write its weak pronunciation.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 2: Make the Passive",
+   "instruction": "Complete each sentence with the correct passive form: is / are / was / were + past participle.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 3: Active to Passive",
+   "instruction": "Rewrite each sentence in the passive. Keep the same tense.",
+   "items": 5
+  },
+  {
+   "title": "Exercise 4: Vocabulary Matching",
+   "instruction": "Match each word with its correct definition.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 5: Reading — True or False?",
+   "instruction": "Read the passage in Section 5 again. Mark T (true) or F (false). Correct the false sentences.",
+   "items": 5
+  },
+  {
+   "title": "Exercise 6: Translation Lab (Vietnamese to English)",
+   "instruction": "Translate into natural English. Use the passive voice where the Vietnamese sentence focuses on the person who receives the action.",
+   "items": 3
+  }
+ ],
+ "speaking_task": "Roleplay in pairs (3 minutes): Student A invites Student B to church using Isaiah 55:1 ('Come, all you who are thirsty...'). Student B asks two questions. Use at least 3 passive sentences (e.g. 'You are invited...', 'Forgiveness is given freely...', 'We are welcomed by God...') and 4 vocabulary words from Section 3.",
+ "writing_task": "Write an invitation message (80-100 words) to a friend who is far from God, based on Isaiah 55:1-7. Use at least 3 passive sentences and 4 vocabulary words from Section 3. Begin: 'Dear friend, I want to share some wonderful news with you...'",
+ "homework": {
+  "written": [
+   "A. Rewrite these 5 active sentences in the passive: 1) God called Isaiah to be a prophet. 2) The soldiers pierced Jesus on the cross. 3) People rejected the Servant. 4) God offers living water to the thirsty. 5) The Lord forgives all who return to Him.",
+   "B. Write 6 sentences about Isaiah 53 using the passive voice (use: wounded, crushed, despised, rejected, pierced, laid)."
+  ],
+  "listening": "Listen to the audio again. Fill in the missing words: 'He was ______ for our transgressions. He was ______ for our iniquities. The punishment that brought us ______ was on him, and by his ______ we are healed.' Then answer: What did the Friend decide to do this week?",
+  "memory_verse": "He was pierced for our transgressions; He was crushed for our iniquities; upon Him was the chastisement that brought us peace, and with His wounds we are healed. — Isaiah 53:5 (ESV). Also learn Isaiah 55:1: Come, everyone who thirsts, come to the waters.",
+  "memory_verse_vi": ""
+ },
+ "_source": {
+  "json": "teaching/b1/content/b1-lesson-03.json",
+  "json_sha256": "c29d223e1158c9fcb5037c6f260572af2fc3b50a8e1b0f72a6f28c87a36fd02b",
+  "pdf": "teaching/b1/output/b1-lesson-03-prophets-isaiah.pdf",
+  "pdf_sha256": "518878688f44125af15bf2833fc49d461b5001f9bc13f2f61b3eb2fe5f45f661",
+  "mp3": "teaching/b1/audio/b1-lesson-03-listening.mp3",
+  "mp3_sha256": "85a15b03dc1b10683aa3f20a16b318d787117ae31e3f6dce6ad7961007ba03ff"
+ }
+}

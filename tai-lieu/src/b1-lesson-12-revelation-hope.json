@@ -1,0 +1,299 @@
+{
+ "slug": "b1-lesson-12-revelation-hope",
+ "level": "b1",
+ "lesson_no": 12,
+ "title": "Bài 12: Khải Huyền và Hy Vọng Sống Động — Ôn Tập Tổng Kết",
+ "title_en": "Revelation & Living Hope",
+ "subtitle": "Revelation & Living Hope — Revelation 21-22 (the new heaven and the new earth) and 1 Peter 1:3-9 (a living hope through the resurrection of Jesus Christ). · Ngữ pháp: Capstone review: present simple/continuous, past simple/continuous/perfect, present perfect, future will/going to, future perfect (intro), conditionals 1-3 recap, passive recap.",
+ "scripture": "Revelation 21-22 (the new heaven and the new earth) and 1 Peter 1:3-9 (a living hope through the resurrection of Jesus Christ).",
+ "grammar_topic": "Capstone review: present simple/continuous, past simple/continuous/perfect, present perfect, future will/going to, future perfect (intro), conditionals 1-3 recap, passive recap.",
+ "pronunciation": "Capstone review of connected speech and intonation: linking (wipe_away, river_of life), weak forms (of, to, and, have), elision (next day, last time), question vs statement intonation, all with fresh examples from Revelation 21-22 and 1 Peter 1.",
+ "objectives": [
+  "Học và thực hành: Capstone review: present simple/continuous, past simple/continuous/perfect, present perfect, future will/going to, future perfect (intro), conditionals 1-3 recap, passive recap..",
+  "Luyện phát âm: Capstone review of connected speech and intonation: linking (wipe_away, river_of life), weak forms (of, to, and, have), elision (next day, last time), question vs statement intonation, all with fresh examples from Revelation 21-22 and 1 Peter 1..",
+  "Đọc và hiểu đoạn Kinh Thánh Revelation 21-22 (the new heaven and the new earth) and 1 Peter 1:3-9 (a living hope through the resurrection of Jesus Christ).."
+ ],
+ "vocabulary": [
+  {
+   "word": "revelation",
+   "pos": "n",
+   "ipa": "ˌrevəˈleɪʃn",
+   "vi": "sự mặc khải",
+   "ex": "The book of Revelation shows us God's plan for the future."
+  },
+  {
+   "word": "living hope",
+   "pos": "n phr",
+   "ipa": "ˈlɪvɪŋ həʊp",
+   "vi": "hy vọng sống động",
+   "ex": "We have a living hope because Jesus rose from the dead."
+  },
+  {
+   "word": "inheritance",
+   "pos": "n",
+   "ipa": "ɪnˈherɪtəns",
+   "vi": "cơ nghiệp",
+   "ex": "God has kept an inheritance for us in heaven."
+  },
+  {
+   "word": "imperishable",
+   "pos": "adj",
+   "ipa": "ɪmˈperɪʃəbl",
+   "vi": "không hư nát",
+   "ex": "Our inheritance is imperishable; it will never decay."
+  },
+  {
+   "word": "undefiled",
+   "pos": "adj",
+   "ipa": "ʌndɪˈfaɪld",
+   "vi": "không ô uế",
+   "ex": "Our inheritance is undefiled; nothing evil can touch it."
+  },
+  {
+   "word": "unfading",
+   "pos": "adj",
+   "ipa": "ʌnˈfeɪdɪŋ",
+   "vi": "không phai tàn",
+   "ex": "The crown of glory that never fades is unfading."
+  },
+  {
+   "word": "new heaven",
+   "pos": "n phr",
+   "ipa": "njuː ˈhevn",
+   "vi": "trời mới",
+   "ex": "God will make a new heaven and a new earth."
+  },
+  {
+   "word": "new earth",
+   "pos": "n phr",
+   "ipa": "njuː ɜːθ",
+   "vi": "đất mới",
+   "ex": "In the new earth, righteousness will dwell."
+  },
+  {
+   "word": "wipe away",
+   "pos": "phr v",
+   "ipa": "waɪp əˈweɪ",
+   "vi": "lau sạch",
+   "ex": "God will wipe away every tear from our eyes."
+  },
+  {
+   "word": "tears",
+   "pos": "n pl",
+   "ipa": "tɪəz",
+   "vi": "nước mắt",
+   "ex": "There will be no more tears in the new creation."
+  },
+  {
+   "word": "throne",
+   "pos": "n",
+   "ipa": "θrəʊn",
+   "vi": "ngai",
+   "ex": "God's throne will be in the holy city."
+  },
+  {
+   "word": "river of life",
+   "pos": "n phr",
+   "ipa": "ˈrɪvər əv laɪf",
+   "vi": "sông sự sống",
+   "ex": "The river of life flows from the throne of God."
+  },
+  {
+   "word": "tree of life",
+   "pos": "n phr",
+   "ipa": "triː əv laɪf",
+   "vi": "cây sự sống",
+   "ex": "The tree of life bears fruit every month."
+  },
+  {
+   "word": "holy city",
+   "pos": "n phr",
+   "ipa": "ˈhəʊli ˈsɪti",
+   "vi": "thành thánh",
+   "ex": "The holy city, the new Jerusalem, comes down from heaven."
+  },
+  {
+   "word": "dwelling",
+   "pos": "n",
+   "ipa": "ˈdwelɪŋ",
+   "vi": "nơi ở; chỗ ngự",
+   "ex": "God's dwelling will be with His people."
+  },
+  {
+   "word": "bride",
+   "pos": "n",
+   "ipa": "braɪd",
+   "vi": "cô dâu",
+   "ex": "The church is the bride of Christ."
+  },
+  {
+   "word": "glory",
+   "pos": "n",
+   "ipa": "ˈɡlɔːri",
+   "vi": "vinh quang",
+   "ex": "The city has no need of the sun, for the glory of God gives it light."
+  },
+  {
+   "word": "Alpha",
+   "pos": "n",
+   "ipa": "ˈælfə",
+   "vi": "An-pha",
+   "ex": "Jesus says, 'I am the Alpha and the Omega.'"
+  },
+  {
+   "word": "Omega",
+   "pos": "n",
+   "ipa": "əˈmeɡə",
+   "vi": "Ô-mê-ga",
+   "ex": "'I am the Alpha and the Omega, the beginning and the end.'"
+  },
+  {
+   "word": "resurrection",
+   "pos": "n",
+   "ipa": "ˌrezəˈrekʃn",
+   "vi": "sự sống lại",
+   "ex": "Our living hope comes through the resurrection of Jesus Christ."
+  },
+  {
+   "word": "trial",
+   "pos": "n",
+   "ipa": "ˈtraɪəl",
+   "vi": "sự thử thách",
+   "ex": "Trials test our faith, and our faith is more precious than gold."
+  },
+  {
+   "word": "rejoice",
+   "pos": "v",
+   "ipa": "rɪˈdʒɔɪs",
+   "vi": "vui mừng",
+   "ex": "Even in trials, we rejoice in our living hope."
+  },
+  {
+   "word": "guarded",
+   "pos": "adj",
+   "ipa": "ˈɡɑːdɪd",
+   "vi": "được giữ gìn",
+   "ex": "By God's power we are guarded through faith for salvation."
+  },
+  {
+   "word": "salvation",
+   "pos": "n",
+   "ipa": "sælˈveɪʃn",
+   "vi": "sự cứu rỗi",
+   "ex": "Our salvation will be revealed in the last time."
+  }
+ ],
+ "grammar": [
+  {
+   "title": "Capstone review: present simple/continuous, past simple/continuous/perfect, present perfect, future will/going to, future perfect (intro), conditionals 1-3 recap, passive recap.",
+   "explain": "Phần Grammar Blueprint đầy đủ (giải thích chi tiết và ví dụ) nằm trong file PDF bài học.",
+   "examples": []
+  }
+ ],
+ "listening": {
+  "audio": "/tai-lieu/b1/audio/b1-lesson-12-listening.mp3",
+  "duration_secs": 155,
+  "words": 412,
+  "script": "/tai-lieu/b1/scripts/b1-lesson-12-listening-script.txt"
+ },
+ "reading_passage": "A Living Hope for a New World. Nearly two thousand years ago, the apostle John was living in exile on the small island of Patmos. But one day, God gave him a wonderful vision. John saw a new heaven and a new earth, because the first heaven and the first earth had passed away. He saw the holy city, the new Jerusalem, coming down from heaven, prepared as a bride. Then he heard a loud voice from the throne: 'Behold, the dwelling place of God is with man. He will dwell with them, and they will be his people. He will wipe away every tear from their eyes, and death shall be no more.' Before John's vision, the apostle Peter had written about the same hope. Peter said that God has caused us to be born again to a living hope through the resurrection of Jesus Christ from the dead. Because Jesus has risen, our hope is alive. We have an inheritance that is imperishable, undefiled, and unfading, kept in heaven for us. By God's power, we are being guarded through faith for a salvation that will be revealed in the last time. Peter was honest: for a little while we may be grieved by various trials. Trials test our faith, and our faith is more precious than gold. But one day, the testing will end. In the new city, the river of the water of life will flow from the throne of God, and the tree of life will bear fruit every month. Night will be no more, and the Lord God will be our light. We will reign with him forever and ever. That is why we can rejoice today, even in trials. The story is not over yet, but we know how it ends: God will make all things new.",
+ "reading_comprehension": [
+  {
+   "q": "1. Where was John living when God gave him the vision?",
+   "a": "On the small island of Patmos, in exile."
+  },
+  {
+   "q": "2. What did John see coming down from heaven?",
+   "a": "The holy city, the new Jerusalem, prepared as a bride for her husband."
+  },
+  {
+   "q": "3. Why is our hope called a 'living hope'?",
+   "a": "Because Jesus has risen from the dead; our hope is alive because He is alive."
+  },
+  {
+   "q": "4. What three words does Peter use to describe our inheritance?",
+   "a": "Imperishable, undefiled, and unfading."
+  },
+  {
+   "q": "5. What will there be no more of in the new city?",
+   "a": "Death, mourning, crying, and pain will be no more; night will be no more, and the Lord God will be our light."
+  }
+ ],
+ "listening_questions": [
+  {
+   "q": "1. Where was John when he saw his vision of the future?",
+   "a": "On the island of Patmos."
+  },
+  {
+   "q": "2. What will God wipe away from our eyes in the new creation?",
+   "a": "Every tear."
+  },
+  {
+   "q": "3. Why is our hope a 'living hope', according to Peter?",
+   "a": "Because Jesus rose from the dead (through the resurrection of Jesus Christ)."
+  },
+  {
+   "q": "4. What three words describe our inheritance in heaven?",
+   "a": "Imperishable, undefiled, and unfading."
+  },
+  {
+   "q": "5. What does the Friend say she has been going through this year?",
+   "a": "A difficult trial; her faith feels weak / has been tested."
+  },
+  {
+   "q": "6. What is the Friend going to do now?",
+   "a": "Hold on to that hope and rejoice, because she knows how the story ends."
+  }
+ ],
+ "exercises": [
+  {
+   "title": "Exercise 1: Capstone Tenses — Choose the Correct Form",
+   "instruction": "Choose the correct verb form. Each sentence tests a different tense from the course. (Example: John saw a new heaven in his vision — past simple, a finished event.)",
+   "items": 8
+  },
+  {
+   "title": "Exercise 2: Future Forms — will / going to / Future Perfect",
+   "instruction": "Complete each sentence with the correct future form of the verb in brackets. (will + verb / be going to + verb / will have + past participle.)",
+   "items": 6
+  },
+  {
+   "title": "Exercise 3: Conditionals 1-3 Recap",
+   "instruction": "Complete each sentence with the correct form of the verb in brackets. First decide: is it Conditional 1 (real future), 2 (imagined present), or 3 (imagined past)?",
+   "items": 6
+  },
+  {
+   "title": "Exercise 4: Passive Voice Recap",
+   "instruction": "Complete each sentence with the correct passive form of the verb in brackets. (be + past participle.)",
+   "items": 6
+  },
+  {
+   "title": "Exercise 5: Vocabulary Matching",
+   "instruction": "Match each word with its correct definition.",
+   "items": 10
+  },
+  {
+   "title": "Exercise 6: Translation Lab (Vietnamese to English)",
+   "instruction": "Translate into natural English. Use the capstone grammar: future forms, present perfect, and conditionals.",
+   "items": 4
+  }
+ ],
+ "speaking_task": "In pairs, tell your partner about your living hope (2 minutes each). Use at least one present perfect sentence ('God has...'), one future sentence ('One day, I will...' or 'I am going to...'), and one conditional ('If I trust God, ...'). Your partner listens and asks one follow-up question. Then swap roles.",
+ "writing_task": "Write a paragraph of 120-150 words titled 'My Living Hope'. Use at least one present perfect sentence, one future form (will or going to), one future perfect sentence ('By the time Jesus returns, ...'), and one conditional. Describe what God has done for you, what you are looking forward to, and how your hope changes your life today.",
+ "homework": {
+  "written": [
+   "A. Complete these 5 sentences with the correct tense of the verb in brackets: 1) John ______ (see) a new heaven in his vision. 2) Jesus ______ (rise) from the dead, so our hope is alive. 3) By the time Jesus returns, God ______ (wipe) away every tear. 4) While Peter ______ (write) his letter, the church was suffering. 5) If we ______ (trust) God, He will guard us.",
+   "B. Write 8-10 sentences titled 'My Living Hope'. Use at least one present perfect sentence, one future sentence (will or going to), one future perfect sentence, and one conditional. Begin: 'God has...'"
+  ],
+  "listening": "Listen to the audio again. Fill in the missing words: 'John saw a new ______ and a new ______. God will ______ away every tear from our eyes. Our hope is ______ because Jesus has ______ from the dead. Our inheritance is ______, undefiled, and unfading.' Then answer: What does the Friend say she is going to do?",
+  "memory_verse": "He will wipe away every tear from their eyes, and death shall be no more, neither shall there be mourning, nor crying, nor pain anymore, for the former things have passed away. — Revelation 21:4 (ESV)",
+  "memory_verse_vi": ""
+ },
+ "_source": {
+  "json": "teaching/b1/content/b1-lesson-12.json",
+  "json_sha256": "e6cf222474c05b9d713f5a3ebe0ab8b0f5dc08aebc5a30765e00f8c22aded97e",
+  "pdf": "teaching/b1/output/b1-lesson-12-revelation-hope.pdf",
+  "pdf_sha256": "c0ba2fe31b2ea25e63e155cb3d2206b7efbe9ff6eb65ab98170e279b4b90dae0",
+  "mp3": "teaching/b1/audio/b1-lesson-12-listening.mp3",
+  "mp3_sha256": "3bd423b44e437026fbd561b00f0474ed4d5d0ec099ebb5e9ef85e7d32185776f"
+ }
+}

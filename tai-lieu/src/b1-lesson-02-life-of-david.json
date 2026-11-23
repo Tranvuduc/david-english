@@ -1,0 +1,291 @@
+{
+ "slug": "b1-lesson-02-life-of-david",
+ "level": "b1",
+ "lesson_no": 2,
+ "title": "Bài 2: Cuộc Đời Đa-vít",
+ "title_en": "The Life of David",
+ "subtitle": "The Life of David — 1 Samuel 16-17; Psalm 51 · Ngữ pháp: Past perfect (had + past participle); past perfect vs past simple in narrative",
+ "scripture": "1 Samuel 16-17; Psalm 51",
+ "grammar_topic": "Past perfect (had + past participle); past perfect vs past simple in narrative",
+ "pronunciation": "Connected speech: linking /r/ and /w/",
+ "objectives": [
+  "Học và thực hành: Past perfect (had + past participle); past perfect vs past simple in narrative.",
+  "Luyện phát âm: Connected speech: linking /r/ and /w/.",
+  "Đọc và hiểu đoạn Kinh Thánh 1 Samuel 16-17; Psalm 51."
+ ],
+ "vocabulary": [
+  {
+   "word": "Shepherd",
+   "pos": "n",
+   "ipa": "ˈʃep.əd",
+   "vi": "Người chăn chiên",
+   "ex": "David was a shepherd before he became king."
+  },
+  {
+   "word": "Anoint",
+   "pos": "v",
+   "ipa": "əˈnɔɪnt",
+   "vi": "Xức dầu (để chọn làm vua)",
+   "ex": "Samuel anointed David as the new king of Israel."
+  },
+  {
+   "word": "Sling",
+   "pos": "n",
+   "ipa": "slɪŋ",
+   "vi": "Cái ná (dây ném đá)",
+   "ex": "David fought Goliath with only a sling and five stones."
+  },
+  {
+   "word": "Giant",
+   "pos": "n",
+   "ipa": "ˈdʒaɪ.ənt",
+   "vi": "Người khổng lồ",
+   "ex": "Goliath was a giant, almost three metres tall."
+  },
+  {
+   "word": "Armour",
+   "pos": "n",
+   "ipa": "ˈɑː.mər",
+   "vi": "Áo giáp",
+   "ex": "David did not wear Saul's heavy armour."
+  },
+  {
+   "word": "Battle",
+   "pos": "n",
+   "ipa": "ˈbæt.əl",
+   "vi": "Trận chiến",
+   "ex": "The battle belonged to the Lord."
+  },
+  {
+   "word": "Courage",
+   "pos": "n",
+   "ipa": "ˈkʌr.ɪdʒ",
+   "vi": "Lòng can đảm",
+   "ex": "David showed great courage before Goliath."
+  },
+  {
+   "word": "Humble",
+   "pos": "adj",
+   "ipa": "ˈhʌm.bəl",
+   "vi": "Khiêm nhường",
+   "ex": "God chose a humble shepherd boy to be king."
+  },
+  {
+   "word": "Repent",
+   "pos": "v",
+   "ipa": "rɪˈpent",
+   "vi": "Ăn năn",
+   "ex": "David repented of his sin and prayed to God."
+  },
+  {
+   "word": "Mercy",
+   "pos": "n",
+   "ipa": "ˈmɜː.si",
+   "vi": "Lòng thương xót",
+   "ex": "God is full of mercy and forgives all who repent."
+  },
+  {
+   "word": "Clean heart",
+   "pos": "n.phr",
+   "ipa": "kliːn hɑːt",
+   "vi": "Tấm lòng trong sạch",
+   "ex": "Create in me a clean heart, O God."
+  },
+  {
+   "word": "Psalm",
+   "pos": "n",
+   "ipa": "sɑːm",
+   "vi": "Thi thiên",
+   "ex": "Psalm 51 is David's prayer of repentance."
+  },
+  {
+   "word": "Betray",
+   "pos": "v",
+   "ipa": "bɪˈtreɪ",
+   "vi": "Phản bội",
+   "ex": "David betrayed Uriah by taking his wife."
+  },
+  {
+   "word": "Forgive",
+   "pos": "v",
+   "ipa": "fəˈɡɪv",
+   "vi": "Tha thứ",
+   "ex": "God forgives those who confess their sins."
+  },
+  {
+   "word": "Sin",
+   "pos": "n",
+   "ipa": "sɪn",
+   "vi": "Tội lỗi",
+   "ex": "David knew that his sin had hurt God and others."
+  },
+  {
+   "word": "Faith",
+   "pos": "n",
+   "ipa": "feɪθ",
+   "vi": "Đức tin",
+   "ex": "David fought Goliath by faith in the Lord."
+  },
+  {
+   "word": "Victory",
+   "pos": "n",
+   "ipa": "ˈvɪk.tər.i",
+   "vi": "Chiến thắng",
+   "ex": "God gave David a great victory over Goliath."
+  },
+  {
+   "word": "Kingdom",
+   "pos": "n",
+   "ipa": "ˈkɪŋ.dəm",
+   "vi": "Vương quốc",
+   "ex": "David became the king of God's kingdom, Israel."
+  },
+  {
+   "word": "Prophet",
+   "pos": "n",
+   "ipa": "ˈprɒf.ɪt",
+   "vi": "Tiên tri",
+   "ex": "The prophet Samuel anointed David."
+  },
+  {
+   "word": "Flock",
+   "pos": "n",
+   "ipa": "flɒk",
+   "vi": "Bầy chiên",
+   "ex": "David protected his father's flock from lions and bears."
+  },
+  {
+   "word": "Trust",
+   "pos": "v",
+   "ipa": "trʌst",
+   "vi": "Tin cậy",
+   "ex": "David trusted God more than his own strength."
+  },
+  {
+   "word": "Honour",
+   "pos": "v",
+   "ipa": "ˈɒn.ər",
+   "vi": "Tôn trọng, tôn vinh",
+   "ex": "David honoured the Lord in all his victories."
+  }
+ ],
+ "grammar": [
+  {
+   "title": "Past perfect (had + past participle); past perfect vs past simple in narrative",
+   "explain": "Phần Grammar Blueprint đầy đủ (giải thích chi tiết và ví dụ) nằm trong file PDF bài học.",
+   "examples": []
+  }
+ ],
+ "listening": {
+  "audio": "/tai-lieu/b1/audio/b1-lesson-02-listening.mp3",
+  "duration_secs": 138,
+  "words": 342,
+  "script": "/tai-lieu/b1/scripts/b1-lesson-02-listening-script.txt"
+ },
+ "reading_passage": "",
+ "reading_comprehension": [],
+ "listening_questions": [
+  {
+   "q": "1. True or False: David was the oldest of Jesse's sons.",
+   "a": "False. David was the youngest of eight sons."
+  },
+  {
+   "q": "2. True or False: Samuel had already looked at David's seven older brothers before God chose David.",
+   "a": "True."
+  },
+  {
+   "q": "3. How long had Goliath shouted his challenge before David fought him?",
+   "a": "For forty days."
+  },
+  {
+   "q": "4. What did David use to defeat Goliath?",
+   "a": "A sling and one smooth stone."
+  },
+  {
+   "q": "5. What did David pray in Psalm 51?",
+   "a": "\"Create in me a clean heart, O God, and renew a right spirit within me.\""
+  }
+ ],
+ "exercises": [
+  {
+   "title": "Exercise 1: Past Perfect or Past Simple?",
+   "instruction": "Choose the correct verb form. Remember: the past perfect (had + past participle) describes the EARLIER of two past actions.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 2: Complete the Story — Past Perfect and Past Simple",
+   "instruction": "Put each verb in brackets into the past perfect (had + past participle) or the past simple.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 3: Vocabulary Matching",
+   "instruction": "Match each word with its correct definition.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 4: Connected Speech — Linking /r/ and /w/",
+   "instruction": "In connected speech, a word ending in /r/ or /w/ links smoothly to the next word beginning with a vowel. Read each phrase aloud as ONE smooth sound, without a pause. Then underline the linking sound.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 5: Ministry Translation Lab (Vietnamese to English)",
+   "instruction": "Translate into natural English. Use the past perfect where the Vietnamese shows one past action happened before another.",
+   "items": 3
+  },
+  {
+   "title": "Exercise 6: Guided Ministry Writing (80-100 words)",
+   "instruction": "Retell the story of David and Goliath in your own words (80-100 words). Use the past perfect at least THREE times, and use at least 4 target words (shepherd, giant, sling, courage, faith, victory).",
+   "items": 1
+  }
+ ],
+ "speaking_task": "",
+ "writing_task": "",
+ "homework": {
+  "written": [
+   {
+    "a": "had already saved",
+    "q": "1. By the time David fought Goliath, he __________ (already / save) his sheep from a lion and a bear."
+   },
+   {
+    "a": "anointed; had presented",
+    "q": "2. Samuel __________ (anoint) David after Jesse __________ (present) his seven older sons."
+   },
+   {
+    "a": "did not wear; had never tried",
+    "q": "3. David __________ (not wear) Saul's armour because he __________ (never / try) it in battle before."
+   },
+   {
+    "a": "\"Before David became king, he had looked after his father's sheep for many years.\"",
+    "q": "4. Translate: Trước khi Đa-vít trở thành vua, ông đã chăn chiên cho cha mình nhiều năm."
+   },
+   {
+    "a": "\"David repented because he knew that only God could give him a clean heart.\"",
+    "q": "5. Translate: Đa-vít đã ăn năn vì ông biết rằng chỉ Đức Chúa Trời mới có thể ban cho ông một tấm lòng trong sạch."
+   }
+  ],
+  "listening": [
+   {
+    "a": "Because God looks at the heart, not at outward appearance (1 Sam 16:7); David had a humble, faithful heart.",
+    "q": "1. Why did God choose David, the youngest son, and not one of his older brothers?"
+   },
+   {
+    "a": "A lion and a bear.",
+    "q": "2. What two animals had David already saved his sheep from before he faced Goliath?"
+   },
+   {
+    "a": "Not because David never sinned, but because he repented and trusted in God's mercy.",
+    "q": "3. In the dialogue, what does the Friend learn about why David was called 'a man after God's own heart'?"
+   }
+  ],
+  "memory_verse": "Create in me a clean heart, O God, and renew a right spirit within me. — Psalm 51:10 (ESV)",
+  "memory_verse_vi": "Đức Chúa Trời ôi, xin dựng nên trong con một lòng trong sạch, và làm mới lại trong con một thần linh ngay thẳng. — Thi Thiên 51:10"
+ },
+ "_source": {
+  "json": "teaching/b1/content/b1-lesson-02.json",
+  "json_sha256": "dda2ba5a97fb7bd488d884c13e9fc931f3ec88d0a472bfcf7050633e703a1805",
+  "pdf": "teaching/b1/output/b1-lesson-02-life-of-david.pdf",
+  "pdf_sha256": "94ad4ebd881c48f1f6c9b52e411fe6fb129004ec549fc6ce33896a3ca40e2ece",
+  "mp3": "teaching/b1/audio/b1-lesson-02-listening.mp3",
+  "mp3_sha256": "6964e2ed196c73640624cd060c5e54e1834f37443bd266e28fc6d5dc478e9d81"
+ }
+}

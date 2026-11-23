@@ -1,0 +1,300 @@
+{
+ "slug": "b1-lesson-11-mission-nations",
+ "level": "b1",
+ "lesson_no": 11,
+ "title": "Bài 11: Sứ Mạng Đến Với Muôn Dân",
+ "title_en": "Mission to the Nations",
+ "subtitle": "Mission to the Nations — Matthew 28:16-20 (the Great Commission); Acts 1:8 (witnesses to the ends of the earth); Jonah 3-4 (God's heart for Nineveh) · Ngữ pháp: Wish + past (present wishes: I wish I could speak better English; I wish the church had more workers); third conditional intro (If + past perfect, would have + past participle: If Jonah had stayed in Nineveh, he would have preached at once)",
+ "scripture": "Matthew 28:16-20 (the Great Commission); Acts 1:8 (witnesses to the ends of the earth); Jonah 3-4 (God's heart for Nineveh)",
+ "grammar_topic": "Wish + past (present wishes: I wish I could speak better English; I wish the church had more workers); third conditional intro (If + past perfect, would have + past participle: If Jonah had stayed in Nineveh, he would have preached at once)",
+ "pronunciation": "Contrastive sentence stress: stressing the word that changes the meaning (I love YOU vs I LOVE you vs I love you TOO); stress in mission statements (ALL nations, my WITNESSES, GO and make disciples)",
+ "objectives": [
+  "Học và thực hành: Wish + past (present wishes: I wish I could speak better English; I wish the church had more workers); third conditional intro (If + past perfect, would have + past participle: If Jonah had stayed in Nineveh, he would have preached at once).",
+  "Luyện phát âm: Contrastive sentence stress: stressing the word that changes the meaning (I love YOU vs I LOVE you vs I love you TOO); stress in mission statements (ALL nations, my WITNESSES, GO and make disciples).",
+  "Đọc và hiểu đoạn Kinh Thánh Matthew 28:16-20 (the Great Commission); Acts 1:8 (witnesses to the ends of the earth); Jonah 3-4 (God's heart for Nineveh)."
+ ],
+ "vocabulary": [
+  {
+   "word": "mission",
+   "pos": "n",
+   "ipa": "ˈmɪʃ.ən",
+   "vi": "Sứ mạng, công tác truyền giáo",
+   "ex": "God gave the church a mission to the nations."
+  },
+  {
+   "word": "nations",
+   "pos": "n",
+   "ipa": "ˈneɪ.ʃənz",
+   "vi": "Các dân tộc, muôn dân",
+   "ex": "Go and make disciples of all nations."
+  },
+  {
+   "word": "disciple",
+   "pos": "n",
+   "ipa": "dɪˈsaɪ.pəl",
+   "vi": "Môn đồ",
+   "ex": "A disciple follows Jesus and learns from Him."
+  },
+  {
+   "word": "baptize",
+   "pos": "v",
+   "ipa": "bæpˈtaɪz",
+   "vi": "Làm phép báp-têm, chịu phép báp-têm",
+   "ex": "They were baptized in the name of the Father, the Son, and the Holy Spirit."
+  },
+  {
+   "word": "witness",
+   "pos": "n",
+   "ipa": "ˈwɪt.nəs",
+   "vi": "Nhân chứng, người làm chứng",
+   "ex": "You will be my witnesses to the ends of the earth."
+  },
+  {
+   "word": "ends of the earth",
+   "pos": "n.phr",
+   "ipa": "endz əv ði ɜːθ",
+   "vi": "Tận cùng trái đất",
+   "ex": "The gospel must reach the ends of the earth."
+  },
+  {
+   "word": "send",
+   "pos": "v",
+   "ipa": "send",
+   "vi": "Sai đi, gửi đi",
+   "ex": "God sent Jonah to Nineveh to preach repentance."
+  },
+  {
+   "word": "go",
+   "pos": "v",
+   "ipa": "ɡəʊ",
+   "vi": "Đi",
+   "ex": "Go, therefore, and make disciples of all nations."
+  },
+  {
+   "word": "obey",
+   "pos": "v",
+   "ipa": "əˈbeɪ",
+   "vi": "Vâng lời, tuân theo",
+   "ex": "Teach them to obey everything I have commanded you."
+  },
+  {
+   "word": "reluctant",
+   "pos": "adj",
+   "ipa": "rɪˈlʌk.tənt",
+   "vi": "Miễn cưỡng, không muốn",
+   "ex": "Jonah was reluctant to go to Nineveh."
+  },
+  {
+   "word": "flee",
+   "pos": "v",
+   "ipa": "fliː",
+   "vi": "Trốn chạy, chạy trốn",
+   "ex": "Jonah tried to flee from the presence of the Lord."
+  },
+  {
+   "word": "repent",
+   "pos": "v",
+   "ipa": "rɪˈpent",
+   "vi": "Ăn năn, hối cải",
+   "ex": "The people of Nineveh repented, and God showed them mercy."
+  },
+  {
+   "word": "mercy",
+   "pos": "n",
+   "ipa": "ˈmɜː.si",
+   "vi": "Lòng thương xót",
+   "ex": "God is gracious and merciful, slow to anger."
+  },
+  {
+   "word": "Gentile",
+   "pos": "n",
+   "ipa": "ˈdʒen.taɪl",
+   "vi": "Dân ngoại (người không phải Do Thái)",
+   "ex": "Nineveh was a great city of Gentiles."
+  },
+  {
+   "word": "authority",
+   "pos": "n",
+   "ipa": "ɔːˈθɒr.ə.ti",
+   "vi": "Thẩm quyền, quyền năng",
+   "ex": "All authority in heaven and on earth has been given to me."
+  },
+  {
+   "word": "teach",
+   "pos": "v",
+   "ipa": "tiːtʃ",
+   "vi": "Dạy dỗ",
+   "ex": "Teach them to observe all that I have commanded you."
+  },
+  {
+   "word": "command",
+   "pos": "n/v",
+   "ipa": "kəˈmɑːnd",
+   "vi": "Mệnh lệnh, truyền lệnh",
+   "ex": "Go and make disciples — that is the command of Jesus."
+  },
+  {
+   "word": "preach",
+   "pos": "v",
+   "ipa": "priːtʃ",
+   "vi": "Giảng, rao giảng",
+   "ex": "Jonah went to Nineveh to preach repentance."
+  },
+  {
+   "word": "harvest",
+   "pos": "n",
+   "ipa": "ˈhɑː.vɪst",
+   "vi": "Mùa gặt, vụ mùa",
+   "ex": "The harvest is plentiful, but the workers are few."
+  },
+  {
+   "word": "workers",
+   "pos": "n",
+   "ipa": "ˈwɜː.kəz",
+   "vi": "Người làm công, thợ gặt",
+   "ex": "Pray that the Lord will send workers into His harvest."
+  },
+  {
+   "word": "proclaim",
+   "pos": "v",
+   "ipa": "prəˈkleɪm",
+   "vi": "Rao truyền, công bố",
+   "ex": "We must proclaim the good news to all peoples."
+  },
+  {
+   "word": "salvation",
+   "pos": "n",
+   "ipa": "sælˈveɪ.ʃən",
+   "vi": "Sự cứu rỗi",
+   "ex": "Salvation has come to the Gentiles also."
+  },
+  {
+   "word": "all peoples",
+   "pos": "n.phr",
+   "ipa": "ɔːl ˈpiː.pəlz",
+   "vi": "Mọi dân tộc, muôn dân",
+   "ex": "God so loved the world that He gave His only Son."
+  },
+  {
+   "word": "neighbour",
+   "pos": "n",
+   "ipa": "ˈneɪ.bər",
+   "vi": "Người lân cận, hàng xóm",
+   "ex": "Love your neighbour as yourself."
+  }
+ ],
+ "grammar": [
+  {
+   "title": "Wish + past (present wishes: I wish I could speak better English; I wish the church had more workers); third conditional intro (If + past perfect, would have + past participle: If Jonah had stayed in Nineveh, he would have preached at once)",
+   "explain": "Phần Grammar Blueprint đầy đủ (giải thích chi tiết và ví dụ) nằm trong file PDF bài học.",
+   "examples": []
+  }
+ ],
+ "listening": {
+  "audio": "/tai-lieu/b1/audio/b1-lesson-11-listening.mp3",
+  "duration_secs": 150,
+  "words": 394,
+  "script": "/tai-lieu/b1/scripts/b1-lesson-11-listening-script.txt"
+ },
+ "reading_passage": "After Jesus rose from the dead, He met His disciples on a mountain in Galilee. He said, 'All authority in heaven and on earth has been given to me. Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, and teaching them to obey everything I have commanded you. And behold, I am with you always, to the end of the age.' This is the Great Commission. Jesus also said, 'You will receive power when the Holy Spirit has come upon you, and you will be my witnesses in Jerusalem and in all Judea and Samaria, and to the ends of the earth.' A witness tells others what he has seen and heard. We are His witnesses, first in our own city, then to the nations. The Old Testament already shows God's heart for the nations. God sent the prophet Jonah to Nineveh, a great city of Gentiles, to preach repentance. But Jonah was reluctant. He did not want God to show mercy to Nineveh, so he fled to Tarshish, in the opposite direction. God sent a great fish. After three days, the fish brought Jonah back to dry land, and he went to Nineveh. The people repented, and God showed them mercy. Jonah was angry, but God asked him, 'Should I not pity Nineveh, that great city, in which there are more than 120,000 people?' God's heart is for all nations. God can use even a reluctant witness. Today the harvest is plentiful, but the workers are few. We can begin where we are: tell our neighbours about Jesus, pray for the nations, and go wherever God sends us. Jesus is with us always, to the end of the age.",
+ "reading_comprehension": [
+  {
+   "q": "1. Why can Jesus send His disciples to all nations?",
+   "a": "Because Jesus said, 'All authority in heaven and on earth has been given to me,' and on that authority He sends His disciples to all nations."
+  },
+  {
+   "q": "2. What are the disciples told to do in Matthew 28:19-20?",
+   "a": "To make disciples of all nations, baptizing them and teaching them to obey everything Jesus commanded."
+  },
+  {
+   "q": "3. According to Acts 1:8, what will happen when the Holy Spirit comes upon the disciples?",
+   "a": "The Holy Spirit gives them power, and they will be His witnesses in Jerusalem, Judea, Samaria, and to the ends of the earth."
+  },
+  {
+   "q": "4. Why did Jonah flee to Tarshish instead of obeying God?",
+   "a": "He was reluctant. He did not want God to show mercy to the people of Nineveh, so he fled to Tarshish."
+  },
+  {
+   "q": "5. What happened when Jonah finally preached in Nineveh?",
+   "a": "The people repented, and God showed them mercy and did not destroy the city."
+  }
+ ],
+ "listening_questions": [
+  {
+   "q": "1. What did Jesus command His disciples to do on the mountain in Galilee?",
+   "a": "Go and make disciples of all nations, baptizing them and teaching them to obey everything Jesus commanded."
+  },
+  {
+   "q": "2. What does the Friend wish she could do better?",
+   "a": "She wishes she could speak English better."
+  },
+  {
+   "q": "3. Where would the disciples be witnesses, according to Acts 1:8?",
+   "a": "In Jerusalem, in all Judea and Samaria, and to the ends of the earth."
+  },
+  {
+   "q": "4. Why did Jonah flee to Tarshish instead of going to Nineveh?",
+   "a": "He was reluctant and did not want to go, so he fled to Tarshish, in the opposite direction."
+  },
+  {
+   "q": "5. What would NOT have happened if Jonah had obeyed God at first?",
+   "a": "If Jonah had obeyed God at first, he would not have spent three days in the belly of the great fish."
+  },
+  {
+   "q": "6. What did God ask Jonah about Nineveh, and what does it show about God's heart?",
+   "a": "God asked, 'Should I not pity Nineveh, that great city, in which there are more than 120,000 people?' God's heart is for all nations."
+  }
+ ],
+ "exercises": [
+  {
+   "title": "Exercise 1: Contrastive Stress — Which Word Changes the Meaning?",
+   "instruction": "In contrastive stress, we stress the word that changes the meaning. Read each sentence and underline (or say aloud) the word in CAPITAL letters. Then explain, in your own words, what the stress changes.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 2: Wish + Past — Present Wishes",
+   "instruction": "Complete each wish with the correct form: wish + past simple (for a present wish), wish + could + verb, or wish + would + verb (for a wish about the future). Use the verb in brackets.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 3: Third Conditional — If + Past Perfect, Would Have + Past Participle",
+   "instruction": "Complete each third conditional sentence: If + past perfect, would have + past participle. Use the verbs in brackets. Remember: the third conditional talks about an unreal past — something that did NOT happen.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 4: Vocabulary Matching",
+   "instruction": "Match each word with its correct definition.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 5: Reading — True or False?",
+   "instruction": "Read the passage in Section 5 again. Mark T (true) or F (false). Correct the false sentences.",
+   "items": 5
+  },
+  {
+   "title": "Exercise 6: Translation Lab (Vietnamese to English)",
+   "instruction": "Translate into natural English. Use wish + past in sentence 2 and the third conditional in sentence 3.",
+   "items": 3
+  }
+ ],
+ "speaking_task": "Roleplay in pairs (3 minutes): Student A is a friend who wishes they could go to another nation as a witness, using wish + past ('I wish I could speak better English', 'I wish our church had more workers'). Student B asks two questions ('Where is God sending you?', 'What would you do if you went?'). Then swap roles and talk about Jonah, using one third conditional ('If Jonah had obeyed at first, he would not have...'). Use at least 4 wish sentences or third conditionals, 5 vocabulary words from Section 3, and contrastive stress on the key word in at least 3 sentences (I love YOU / I LOVE you / ALL nations / my WITNESSES).",
+ "writing_task": "Write a short paragraph (80-100 words) about where God is sending you as a witness. Begin: 'God is sending me to...' Use at least 2 wish + past sentences, 1 third conditional, and 5 vocabulary words from Section 3.",
+ "homework": {
+  "written": [
+   "A. Write 5 sentences with wish + past (or wish + could) about mission and your own life. Begin: 'I wish I could...', 'I wish our church had...', 'I wish I knew...'.",
+   "B. Write 4 third conditional sentences about Jonah or the disciples. Begin: 'If Jonah had...', 'If the disciples had...', 'If the people of Nineveh had not...'.",
+   "C. Write a short paragraph (80-100 words) about where God is sending you as a witness. Begin: 'God is sending me to...' Use at least 2 wish sentences, 1 third conditional, and 5 vocabulary words from Section 3."
+  ],
+  "listening": "Listen to the audio again. Fill in the missing words: 'Jesus said, \"Go therefore and make ______ of all nations.\" The disciples would be His ______ to the ends of the ______. Jonah was reluctant, so he fled to ______. If Jonah had obeyed God at first, he would not have spent three days in the belly of the great ______.' Then answer: What does the Friend wish she could do better, and what will she do first in her own city?",
+  "memory_verse": "Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, teaching them to observe all that I have commanded you. And behold, I am with you always, to the end of the age. — Matthew 28:19–20 (ESV)",
+  "memory_verse_vi": ""
+ },
+ "_source": {
+  "json": "teaching/b1/content/b1-lesson-11.json",
+  "json_sha256": "149e6d5d443d685030ade628e2c58e1584f38b244b92b8460f692a46e4ef3aee",
+  "pdf": "teaching/b1/output/b1-lesson-11-mission-nations.pdf",
+  "pdf_sha256": "20a33f62b569dbbc080c585022a7fa06d95b7a7e4422704df78e39904ae4959e",
+  "mp3": "teaching/b1/audio/b1-lesson-11-listening.mp3",
+  "mp3_sha256": "fc1af034afbaac0c8be742b84f0289a9278a30756be966fdd8332411f33fb432"
+ }
+}

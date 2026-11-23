@@ -1,0 +1,299 @@
+{
+ "slug": "b1-lesson-06-parables-kingdom",
+ "level": "b1",
+ "lesson_no": 6,
+ "title": "Bài 6: Các Dụ Ngôn Về Nước Thiên Đàng",
+ "title_en": "Parables of the Kingdom",
+ "subtitle": "Parables of the Kingdom — Matthew 13 (sower, mustard seed, treasure, pearl); Matthew 25 (ten virgins, talents) · Ngữ pháp: Reported speech: statements (say/tell + that-clause, tense backshift), questions (ask + if/whether/wh-word), commands (tell/ask + to-infinitive)",
+ "scripture": "Matthew 13 (sower, mustard seed, treasure, pearl); Matthew 25 (ten virgins, talents)",
+ "grammar_topic": "Reported speech: statements (say/tell + that-clause, tense backshift), questions (ask + if/whether/wh-word), commands (tell/ask + to-infinitive)",
+ "pronunciation": "Connected speech — elision: the /t/ and /d/ that disappear between consonants (next day, first time, must be, kind of)",
+ "objectives": [
+  "Học và thực hành: Reported speech: statements (say/tell + that-clause, tense backshift), questions (ask + if/whether/wh-word), commands (tell/ask + to-infinitive).",
+  "Luyện phát âm: Connected speech — elision: the /t/ and /d/ that disappear between consonants (next day, first time, must be, kind of).",
+  "Đọc và hiểu đoạn Kinh Thánh Matthew 13 (sower, mustard seed, treasure, pearl); Matthew 25 (ten virgins, talents)."
+ ],
+ "vocabulary": [
+  {
+   "word": "parable",
+   "pos": "n",
+   "ipa": "ˈpær.ə.bəl",
+   "vi": "Dụ ngôn",
+   "ex": "Jesus taught the people with parables."
+  },
+  {
+   "word": "sow",
+   "pos": "v",
+   "ipa": "səʊ",
+   "vi": "Gieo hạt",
+   "ex": "The farmer went out to sow his seed."
+  },
+  {
+   "word": "seed",
+   "pos": "n",
+   "ipa": "siːd",
+   "vi": "Hạt giống",
+   "ex": "Some seed fell on good soil."
+  },
+  {
+   "word": "soil",
+   "pos": "n",
+   "ipa": "sɔɪl",
+   "vi": "Đất, thổ nhưỡng",
+   "ex": "Good soil gives a rich harvest."
+  },
+  {
+   "word": "harvest",
+   "pos": "n",
+   "ipa": "ˈhɑː.vɪst",
+   "vi": "Mùa gặt",
+   "ex": "The harvest is plentiful, but the workers are few."
+  },
+  {
+   "word": "mustard",
+   "pos": "n",
+   "ipa": "ˈmʌs.təd",
+   "vi": "Cây mù tạc",
+   "ex": "The kingdom of heaven is like a grain of mustard seed."
+  },
+  {
+   "word": "mustard seed",
+   "pos": "n.phr",
+   "ipa": "ˈmʌs.təd siːd",
+   "vi": "Hạt cải",
+   "ex": "It is the smallest of all seeds."
+  },
+  {
+   "word": "treasure",
+   "pos": "n",
+   "ipa": "ˈtreʒ.ər",
+   "vi": "Kho báu",
+   "ex": "The kingdom of heaven is like treasure hidden in a field."
+  },
+  {
+   "word": "pearl",
+   "pos": "n",
+   "ipa": "pɜːl",
+   "vi": "Ngọc trai",
+   "ex": "The merchant found one pearl of great value."
+  },
+  {
+   "word": "talent",
+   "pos": "n",
+   "ipa": "ˈtæl.ənt",
+   "vi": "Ta-lâng (đơn vị tiền xưa)",
+   "ex": "The master gave one servant five talents."
+  },
+  {
+   "word": "servant",
+   "pos": "n",
+   "ipa": "ˈsɜː.vənt",
+   "vi": "Đầy tớ, tôi tớ",
+   "ex": "Well done, good and faithful servant."
+  },
+  {
+   "word": "lamp",
+   "pos": "n",
+   "ipa": "læmp",
+   "vi": "Đèn",
+   "ex": "The wise virgins took oil in their lamps."
+  },
+  {
+   "word": "bridegroom",
+   "pos": "n",
+   "ipa": "ˈbraɪd.ɡruːm",
+   "vi": "Chàng rể",
+   "ex": "The virgins waited for the bridegroom."
+  },
+  {
+   "word": "steward",
+   "pos": "n",
+   "ipa": "ˈstjuː.əd",
+   "vi": "Quản gia",
+   "ex": "A good steward uses his master's gifts well."
+  },
+  {
+   "word": "reward",
+   "pos": "n",
+   "ipa": "rɪˈwɔːd",
+   "vi": "Phần thưởng",
+   "ex": "The faithful servant received his reward."
+  },
+  {
+   "word": "kingdom",
+   "pos": "n",
+   "ipa": "ˈkɪŋ.dəm",
+   "vi": "Nước, Vương quốc",
+   "ex": "The kingdom of heaven is like a mustard seed."
+  },
+  {
+   "word": "hidden",
+   "pos": "adj",
+   "ipa": "ˈhɪd.ən",
+   "vi": "Được giấu kín",
+   "ex": "Treasure hidden in a field."
+  },
+  {
+   "word": "field",
+   "pos": "n",
+   "ipa": "fiːld",
+   "vi": "Cánh đồng, ruộng",
+   "ex": "A man found treasure hidden in a field."
+  },
+  {
+   "word": "merchant",
+   "pos": "n",
+   "ipa": "ˈmɜː.tʃənt",
+   "vi": "Thương gia, người buôn bán",
+   "ex": "The merchant sold all he had to buy the pearl."
+  },
+  {
+   "word": "wise",
+   "pos": "adj",
+   "ipa": "waɪz",
+   "vi": "Khôn ngoan",
+   "ex": "Five of the virgins were wise."
+  },
+  {
+   "word": "foolish",
+   "pos": "adj",
+   "ipa": "ˈfuː.lɪʃ",
+   "vi": "Dại dột, khờ dại",
+   "ex": "Five of the virgins were foolish."
+  },
+  {
+   "word": "faithful",
+   "pos": "adj",
+   "ipa": "ˈfeɪθ.fəl",
+   "vi": "Trung tín",
+   "ex": "Well done, good and faithful servant."
+  },
+  {
+   "word": "oil",
+   "pos": "n",
+   "ipa": "ɔɪl",
+   "vi": "Dầu",
+   "ex": "The wise virgins took oil for their lamps."
+  },
+  {
+   "word": "grow",
+   "pos": "v",
+   "ipa": "ɡrəʊ",
+   "vi": "Lớn lên, mọc lên",
+   "ex": "The mustard seed grew into a great tree."
+  }
+ ],
+ "grammar": [
+  {
+   "title": "Reported speech: statements (say/tell + that-clause, tense backshift), questions (ask + if/whether/wh-word), commands (tell/ask + to-infinitive)",
+   "explain": "Phần Grammar Blueprint đầy đủ (giải thích chi tiết và ví dụ) nằm trong file PDF bài học.",
+   "examples": []
+  }
+ ],
+ "listening": {
+  "audio": "/tai-lieu/b1/audio/b1-lesson-06-listening.mp3",
+  "duration_secs": 142,
+  "words": 383,
+  "script": "/tai-lieu/b1/scripts/b1-lesson-06-listening-script.txt"
+ },
+ "reading_passage": "Jesus loved to teach with parables — short, simple stories that carry a deep truth about the kingdom of heaven. He told His disciples that the kingdom is like a sower who went out to sow his seed. Some seed fell along the path, and the birds ate it. Some fell on rocky ground, where it grew quickly but had no root, so the sun burned it. Some fell among thorns, and the thorns choked it. But some seed fell on good soil, and it gave a rich harvest — a hundred, sixty, or thirty times as much as was sown. The seed is the word of God, and the soil is the heart that hears it. Then Jesus said that the kingdom is like a grain of mustard seed. It is the smallest of all seeds, yet when it grows, it becomes the largest of all garden plants, and the birds come and rest in its branches. The kingdom starts small, but it grows very great. He also said that the kingdom is like treasure hidden in a field. When a man found it, he sold all that he had and bought that field. It is also like a merchant who found one pearl of great value, and sold everything to buy it. The kingdom is worth everything we have. In Matthew 25, Jesus told two more parables about being ready. Ten virgins waited for the bridegroom, but only five were wise and took oil for their lamps. And a master gave his servants talents and asked them to use his money well. The faithful servants were rewarded, and the master said, 'Well done, good and faithful servant.' The parables ask us a question: what kind of soil are we, and are we ready for the King?",
+ "reading_comprehension": [
+  {
+   "q": "1. Why did Jesus teach in parables?",
+   "a": "He teaches with short stories (parables) that show what the kingdom of heaven is like, so that ordinary people can understand deep truths."
+  },
+  {
+   "q": "2. What does the mustard seed teach us about the kingdom of heaven?",
+   "a": "It grows from the smallest seed into the largest garden plant — the kingdom starts small but grows very great."
+  },
+  {
+   "q": "3. What did the man who found the treasure and the merchant who found the pearl have in common?",
+   "a": "Both the man and the merchant sold everything they had, because the kingdom is worth more than anything else."
+  },
+  {
+   "q": "4. What is the difference between the wise and the foolish virgins?",
+   "a": "Five were wise and took oil for their lamps; five were foolish and took no oil, so they were not ready when the bridegroom came."
+  },
+  {
+   "q": "5. What did the master do when he returned in the parable of the talents?",
+   "a": "He rewarded the faithful servants, who had used his gifts well, and said, 'Well done, good and faithful servant.'"
+  }
+ ],
+ "listening_questions": [
+  {
+   "q": "1. How did Jesus often teach the people?",
+   "a": "With parables — short stories that show what the kingdom of heaven is like."
+  },
+  {
+   "q": "2. In the parable of the sower, which seed gave a harvest?",
+   "a": "Some seed fell on good soil and gave a harvest — a hundred, sixty, or thirty times as much."
+  },
+  {
+   "q": "3. What did Jesus say the seed and the soil mean?",
+   "a": "The seed is the word of God, and the soil is the heart of the person who hears it."
+  },
+  {
+   "q": "4. What did Jesus say the kingdom of heaven is like?",
+   "a": "Like a grain of mustard seed — the smallest seed, but it grows into the largest garden plant."
+  },
+  {
+   "q": "5. What two things did Jesus say the kingdom is like, and what did the men do?",
+   "a": "Like treasure hidden in a field, and like a merchant who found one pearl of great value — both sold everything to have it."
+  },
+  {
+   "q": "6. What did the master in the parable of the talents say and ask?",
+   "a": "He said that he would return, and he asked his servants to use his money well. The faithful servants doubled what they had been given."
+  }
+ ],
+ "exercises": [
+  {
+   "title": "Exercise 1: Elision — The Disappearing /t/ and /d/",
+   "instruction": "In fast, natural speech, /t/ and /d/ often disappear between two consonants. Write how each phrase really sounds, and say which sound is dropped.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 2: Reported Statements — Say and Tell",
+   "instruction": "Change each sentence into reported speech. Use 'said that...' and shift the tense back one step (present simple to past simple, will to would, can to could).",
+   "items": 5
+  },
+  {
+   "title": "Exercise 3: Reported Questions and Commands",
+   "instruction": "Change each question or command into reported speech. For questions use 'asked' + if/whether or the question word (no question mark, no do/does). For commands use 'told/asked + person + to + verb'.",
+   "items": 5
+  },
+  {
+   "title": "Exercise 4: Vocabulary Matching",
+   "instruction": "Match each word with its correct definition.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 5: Reading — True or False?",
+   "instruction": "Read the passage in Section 5 again. Mark T (true) or F (false). Correct the false sentences.",
+   "items": 5
+  },
+  {
+   "title": "Exercise 6: Translation Lab (Vietnamese to English)",
+   "instruction": "Translate into natural English. Use reported speech (said that / asked if / told ... to ...).",
+   "items": 3
+  }
+ ],
+ "speaking_task": "Roleplay in pairs (3 minutes): Student A tells Student B about one parable from Matthew 13 or 25, using reported speech ('Jesus said that...', 'The master told his servants to...', 'The disciple asked...'). Student B asks two questions ('What did Jesus say about...?'). Use at least 4 reported-speech sentences and 5 vocabulary words from Section 3. Practise elision: say 'next day', 'first time', 'must be', 'kind of' the natural way, with the /t/ or /d/ dropped.",
+ "writing_task": "Write a short retelling (80-100 words) of one parable from Matthew 13 or 25, in reported speech. Begin: 'Jesus told his disciples a parable. He said that...' Use at least 4 reported-speech sentences (said that / told ... to ... / asked ...) and 5 vocabulary words from Section 3.",
+ "homework": {
+  "written": [
+   "A. Change these 5 direct sentences into reported speech: 1) Jesus: 'The kingdom of heaven is like a mustard seed.' 2) The master: 'I will come back soon.' 3) Hoa: 'I can explain the parable of the talents.' 4) The teacher: 'Watch and be ready.' 5) Lan: 'Are you ready for the bridegroom?'",
+   "B. Write 6 sentences retelling the parable of the talents in reported speech (use: said that, told, asked, would, could). Begin: 'The master called his servants and said that...'"
+  ],
+  "listening": "Listen to the audio again. Fill in the missing words: 'Some seed fell on ______ soil, and it gave a ______ , some a hundred times as much, some sixty, some thirty. Jesus said that the ______ is the word of God, and the ______ is the heart of the person who hears it.' Then answer: What did the Friend decide to do this week?",
+  "memory_verse": "The kingdom of heaven is like treasure hidden in a field, which a man found and covered up. Then in his joy he goes and sells all that he has and buys that field. — Matthew 13:44 (ESV)",
+  "memory_verse_vi": ""
+ },
+ "_source": {
+  "json": "teaching/b1/content/b1-lesson-06.json",
+  "json_sha256": "1daeb9de29c13dfe07305b1c963deae83cb37beebdb71e89a5df25c9ff377bd4",
+  "pdf": "teaching/b1/output/b1-lesson-06-parables-kingdom.pdf",
+  "pdf_sha256": "c8d36e4da069313a30dbb2f7522f65ba6448b39bd24bfcda916152e60947724e",
+  "mp3": "teaching/b1/audio/b1-lesson-06-listening.mp3",
+  "mp3_sha256": "24ae2aafab5dc22ecd255c9043e02ec65cecf0f09666e9cfd93b4d324b13e921"
+ }
+}

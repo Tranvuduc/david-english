@@ -1,0 +1,277 @@
+{
+ "slug": "b1-lesson-05-romans-justification",
+ "level": "b1",
+ "lesson_no": 5,
+ "title": "Bài 5: Rô-ma: Được Xưng Công Chính Bởi Đức Tin",
+ "title_en": "Romans: Justification by Faith",
+ "subtitle": "Romans: Justification by Faith — Romans 3:21-26; 4:1-8; 5:1-5, 8 · Ngữ pháp: Second conditional (If + past simple, would + base verb); wishes and hypotheticals",
+ "scripture": "Romans 3:21-26; 4:1-8; 5:1-5, 8",
+ "grammar_topic": "Second conditional (If + past simple, would + base verb); wishes and hypotheticals",
+ "pronunciation": "/θ/ vs /ð/ in context (faith, think, through, truth vs father, this, that, with)",
+ "objectives": [
+  "Học và thực hành: Second conditional (If + past simple, would + base verb); wishes and hypotheticals.",
+  "Luyện phát âm: /θ/ vs /ð/ in context (faith, think, through, truth vs father, this, that, with).",
+  "Đọc và hiểu đoạn Kinh Thánh Romans 3:21-26; 4:1-8; 5:1-5, 8."
+ ],
+ "vocabulary": [
+  {
+   "word": "justify",
+   "pos": "v",
+   "ipa": "ˈdʒʌs.tɪ.faɪ",
+   "vi": "Xưng công chính",
+   "ex": "God justifies the ungodly who believe in Jesus."
+  },
+  {
+   "word": "justification",
+   "pos": "n",
+   "ipa": "ˌdʒʌs.tɪ.fɪˈkeɪ.ʃən",
+   "vi": "Sự xưng công chính",
+   "ex": "Justification is by faith alone, not by works."
+  },
+  {
+   "word": "faith",
+   "pos": "n",
+   "ipa": "feɪθ",
+   "vi": "Đức tin",
+   "ex": "We are saved by grace through faith."
+  },
+  {
+   "word": "grace",
+   "pos": "n",
+   "ipa": "ɡreɪs",
+   "vi": "Ân điển",
+   "ex": "We are justified by His grace as a gift."
+  },
+  {
+   "word": "righteousness",
+   "pos": "n",
+   "ipa": "ˈraɪ.tʃəs.nəs",
+   "vi": "Sự công chính",
+   "ex": "The righteousness of God is revealed through faith."
+  },
+  {
+   "word": "righteous",
+   "pos": "adj",
+   "ipa": "ˈraɪ.tʃəs",
+   "vi": "Công chính",
+   "ex": "No one is righteous by keeping the law."
+  },
+  {
+   "word": "sin",
+   "pos": "n",
+   "ipa": "sɪn",
+   "vi": "Tội lỗi",
+   "ex": "All have sinned and fall short of the glory of God."
+  },
+  {
+   "word": "law",
+   "pos": "n",
+   "ipa": "lɔː",
+   "vi": "Luật pháp",
+   "ex": "No one is justified by works of the law."
+  },
+  {
+   "word": "works",
+   "pos": "n.pl",
+   "ipa": "wɜːks",
+   "vi": "Việc làm, công đức",
+   "ex": "We are not saved by works, but by faith."
+  },
+  {
+   "word": "boast",
+   "pos": "v",
+   "ipa": "bəʊst",
+   "vi": "Khoe khoang",
+   "ex": "If we were saved by works, we could boast."
+  },
+  {
+   "word": "peace",
+   "pos": "n",
+   "ipa": "piːs",
+   "vi": "Sự bình an",
+   "ex": "Since we are justified by faith, we have peace with God."
+  },
+  {
+   "word": "hope",
+   "pos": "n",
+   "ipa": "həʊp",
+   "vi": "Hi vọng",
+   "ex": "We rejoice in hope of the glory of God."
+  },
+  {
+   "word": "reconcile",
+   "pos": "v",
+   "ipa": "ˈrek.ən.saɪl",
+   "vi": "Hòa giải, làm hòa",
+   "ex": "God has reconciled us to Himself through Christ."
+  },
+  {
+   "word": "atonement",
+   "pos": "n",
+   "ipa": "əˈtəʊn.mənt",
+   "vi": "Sự chuộc tội",
+   "ex": "Christ made atonement for our sins on the cross."
+  },
+  {
+   "word": "propitiation",
+   "pos": "n",
+   "ipa": "prəˌpɪʃ.iˈeɪ.ʃən",
+   "vi": "Của lễ chuộc tội",
+   "ex": "God put forward Jesus as a propitiation by His blood."
+  },
+  {
+   "word": "credited",
+   "pos": "adj",
+   "ipa": "ˈkred.ɪ.tɪd",
+   "vi": "Được kể là, được tính là",
+   "ex": "Abraham believed God, and it was credited to him as righteousness."
+  },
+  {
+   "word": "Abraham",
+   "pos": "n",
+   "ipa": "ˈeɪ.brə.hæm",
+   "vi": "Áp-ra-ham",
+   "ex": "Abraham is the father of all who believe."
+  },
+  {
+   "word": "ungodly",
+   "pos": "adj",
+   "ipa": "ʌnˈɡɒd.li",
+   "vi": "Không tin kính, vô đạo",
+   "ex": "Christ died for the ungodly."
+  },
+  {
+   "word": "redemption",
+   "pos": "n",
+   "ipa": "rɪˈdemp.ʃən",
+   "vi": "Sự cứu chuộc",
+   "ex": "We are justified by His grace through the redemption in Christ Jesus."
+  },
+  {
+   "word": "forgiveness",
+   "pos": "n",
+   "ipa": "fəˈɡɪv.nəs",
+   "vi": "Sự tha thứ",
+   "ex": "Blessed are those whose sins are forgiven."
+  },
+  {
+   "word": "access",
+   "pos": "n",
+   "ipa": "ˈæk.ses",
+   "vi": "Sự đến gần, quyền tiếp cận",
+   "ex": "Through Christ we have access by faith into grace."
+  },
+  {
+   "word": "shame",
+   "pos": "n",
+   "ipa": "ʃeɪm",
+   "vi": "Sự hổ thẹn",
+   "ex": "Hope does not put us to shame."
+  }
+ ],
+ "grammar": [
+  {
+   "title": "Second conditional (If + past simple, would + base verb); wishes and hypotheticals",
+   "explain": "Phần Grammar Blueprint đầy đủ (giải thích chi tiết và ví dụ) nằm trong file PDF bài học.",
+   "examples": []
+  }
+ ],
+ "listening": {
+  "audio": "/tai-lieu/b1/audio/b1-lesson-05-listening.mp3",
+  "duration_secs": 142,
+  "words": 352,
+  "script": "/tai-lieu/b1/scripts/b1-lesson-05-listening-script.txt"
+ },
+ "reading_passage": "",
+ "reading_comprehension": [
+  {
+   "q": "1. According to the passage, why can no one earn God's favour by keeping the law?",
+   "a": "No one can be justified by works, because all have sinned and no one keeps the law perfectly."
+  },
+  {
+   "q": "2. How was Abraham justified, and why does the timing matter?",
+   "a": "He believed God's promise, and God counted his faith as righteousness — about 400 years before the law was given."
+  },
+  {
+   "q": "3. What does it mean to be justified?",
+   "a": "To be declared righteous by God, as if we had never sinned; it is a free gift of grace through faith in Christ."
+  },
+  {
+   "q": "4. What four blessings does Romans 5 say belong to those who are justified by faith?",
+   "a": "Peace with God, access into grace, hope of God's glory, and hope that does not put us to shame — even in suffering."
+  }
+ ],
+ "listening_questions": [
+  {
+   "q": "1. According to Romans 3, why can no one be justified by works of the law?",
+   "a": "Because all have sinned and fall short of the glory of God; no one can keep the law perfectly."
+  },
+  {
+   "q": "2. What does 'justified' mean?",
+   "a": "To be declared righteous by God, as if you had never sinned — a gift of grace, not a wage for good works."
+  },
+  {
+   "q": "3. How was Abraham justified, and when did he live in relation to the law?",
+   "a": "By faith — he believed God, and it was credited to him as righteousness. He lived about 400 years before the law was given."
+  },
+  {
+   "q": "4. According to Romans 5:1-2, what do we have since we have been justified by faith?",
+   "a": "We have peace with God through our Lord Jesus Christ, and access by faith into this grace."
+  },
+  {
+   "q": "5. What would happen if we were justified by works?",
+   "a": "Grace would not be grace, and boasting would be possible. If we trusted in our own works, we would never know if we had done enough."
+  }
+ ],
+ "exercises": [
+  {
+   "title": "Exercise 1: Pronunciation — /θ/ or /ð/?",
+   "instruction": "Say each sentence aloud. Write /θ/ (voiceless — no vibration, as in faith, think, through, truth) or /ð/ (voiced — throat vibrates, as in father, this, that, with) for the key word in each sentence (the word with th). Put your fingers on your throat to feel the vibration.",
+   "items": 8
+  },
+  {
+   "title": "Exercise 2: Second Conditional — Form",
+   "instruction": "Complete each sentence with the correct second conditional form: If + past simple, would + base verb. Remember: use 'were' (not 'was') after 'if' for all persons in formal English.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 3: Second Conditional — Match the Halves",
+   "instruction": "Match each If-clause (1-6) with the correct result clause (A-F).",
+   "items": 7
+  },
+  {
+   "title": "Exercise 4: Vocabulary Matching",
+   "instruction": "Match each word with its correct definition.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 5: Reading — True or False?",
+   "instruction": "Read the passage in Section 5 again. Mark T (true) or F (false). Correct the false sentences.",
+   "items": 5
+  },
+  {
+   "title": "Exercise 6: Translation Lab (Vietnamese to English)",
+   "instruction": "Translate into natural English. Use the second conditional in sentence 1.",
+   "items": 3
+  }
+ ],
+ "speaking_task": "Roleplay in pairs (3 minutes): Student A is a friend who thinks we must earn God's favour by good works. Student B explains justification by faith using Romans 3-5. Use at least 3 second conditional sentences (e.g. 'If we were justified by works, grace would not be grace.') and 4 vocabulary words from Section 3. Swap roles and repeat.",
+ "writing_task": "Write a short letter (80-100 words) to a friend who is afraid that God will not accept them because of their sins. Explain justification by faith from Romans 3-5. Use at least 3 second conditional sentences and 4 vocabulary words from Section 3. Begin: 'Dear friend, I want you to know that God loves you...'",
+ "homework": {
+  "written": [
+   "A. Write 5 second conditional sentences about justification, using these beginnings: 1) If we were justified by works, ... 2) If Abraham had trusted in his own works, ... 3) If Christ had not died for us, ... 4) If I trusted in my own goodness, ... 5) If you believed God's promise today, ...",
+   "B. Write a short paragraph (80-100 words) explaining justification by faith to a friend. Use at least 3 second conditional sentences and 4 vocabulary words from Section 3. Begin: 'Dear friend, let me tell you the best news I have ever heard...'"
+  ],
+  "listening": "Listen to the audio again. Fill in the missing words: 'If we were justified by _______, grace would not be _______. Abraham believed God, and it was _______ to him as righteousness. Since we have been justified by _______, we have _______ with God.' Then answer: According to the dialogue, why does the Friend now have peace?",
+  "memory_verse": "Therefore, since we have been justified by faith, we have peace with God through our Lord Jesus Christ. — Romans 5:1 (ESV). Also learn Romans 4:3: Abraham believed God, and it was counted to him as righteousness.",
+  "memory_verse_vi": ""
+ },
+ "_source": {
+  "json": "teaching/b1/content/b1-lesson-05.json",
+  "json_sha256": "a01f76445dd82b1b603d317f6ff223195ec648404af6b6c7cd6a83b40265e35e",
+  "pdf": "teaching/b1/output/b1-lesson-05-romans-justification.pdf",
+  "pdf_sha256": "8581bd41a36101aa7bd76d467a249201d7a6a2edd40c81721bda2d61097c30c5",
+  "mp3": "teaching/b1/audio/b1-lesson-05-listening.mp3",
+  "mp3_sha256": "da17edb3ecfc8128cd1fa0dc4e53d01e7509d23e84149c9dbe90130ba9b44ae5"
+ }
+}

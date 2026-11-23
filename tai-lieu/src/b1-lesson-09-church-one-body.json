@@ -1,0 +1,299 @@
+{
+ "slug": "b1-lesson-09-church-one-body",
+ "level": "b1",
+ "lesson_no": 9,
+ "title": "Bài 9: Hội Thánh: Một Thân Thể",
+ "title_en": "The Church: One Body",
+ "subtitle": "The Church: One Body — 1 Corinthians 12 (many members, one body; gifts of the Spirit); Ephesians 4:1-16 (unity, gifts, building up the body) · Ngữ pháp: Gerunds and infinitives: verb + -ing (enjoy, love, stop + -ing) vs verb + to-infinitive (want, decide, hope, called us to love); verbs with meaning change: stop, remember",
+ "scripture": "1 Corinthians 12 (many members, one body; gifts of the Spirit); Ephesians 4:1-16 (unity, gifts, building up the body)",
+ "grammar_topic": "Gerunds and infinitives: verb + -ing (enjoy, love, stop + -ing) vs verb + to-infinitive (want, decide, hope, called us to love); verbs with meaning change: stop, remember",
+ "pronunciation": "Stress in compound nouns: stress falls on the first word (CHURCH building, SUNday school, TEAMwork, BIBLE study, PRAYER meeting); contrast with adjective + noun phrases (a NEW church, a BIG team)",
+ "objectives": [
+  "Học và thực hành: Gerunds and infinitives: verb + -ing (enjoy, love, stop + -ing) vs verb + to-infinitive (want, decide, hope, called us to love); verbs with meaning change: stop, remember.",
+  "Luyện phát âm: Stress in compound nouns: stress falls on the first word (CHURCH building, SUNday school, TEAMwork, BIBLE study, PRAYER meeting); contrast with adjective + noun phrases (a NEW church, a BIG team).",
+  "Đọc và hiểu đoạn Kinh Thánh 1 Corinthians 12 (many members, one body; gifts of the Spirit); Ephesians 4:1-16 (unity, gifts, building up the body)."
+ ],
+ "vocabulary": [
+  {
+   "word": "body",
+   "pos": "n",
+   "ipa": "ˈbɒd.i",
+   "vi": "Thân thể",
+   "ex": "The church is the body of Christ."
+  },
+  {
+   "word": "member",
+   "pos": "n",
+   "ipa": "ˈmem.bər",
+   "vi": "Chi thể, thành viên",
+   "ex": "Every member of the body is important."
+  },
+  {
+   "word": "gift",
+   "pos": "n",
+   "ipa": "ɡɪft",
+   "vi": "Ân tứ, món quà",
+   "ex": "God has given each of us a gift."
+  },
+  {
+   "word": "unity",
+   "pos": "n",
+   "ipa": "ˈjuː.nə.ti",
+   "vi": "Sự hiệp một",
+   "ex": "We must keep the unity of the Spirit."
+  },
+  {
+   "word": "diversity",
+   "pos": "n",
+   "ipa": "daɪˈvɜː.sə.ti",
+   "vi": "Sự đa dạng",
+   "ex": "There is great diversity in the gifts of the Spirit."
+  },
+  {
+   "word": "apostle",
+   "pos": "n",
+   "ipa": "əˈpɒs.əl",
+   "vi": "Sứ đồ",
+   "ex": "Paul was an apostle of Jesus Christ."
+  },
+  {
+   "word": "prophet",
+   "pos": "n",
+   "ipa": "ˈprɒf.ɪt",
+   "vi": "Tiên tri",
+   "ex": "The prophet spoke the word of the Lord."
+  },
+  {
+   "word": "teacher",
+   "pos": "n",
+   "ipa": "ˈtiː.tʃər",
+   "vi": "Giáo viên, người dạy dỗ",
+   "ex": "God gave some to be teachers in the church."
+  },
+  {
+   "word": "serve",
+   "pos": "v",
+   "ipa": "sɜːv",
+   "vi": "Phục vụ, hầu việc",
+   "ex": "We enjoy serving together in the church."
+  },
+  {
+   "word": "encourage",
+   "pos": "v",
+   "ipa": "ɪnˈkʌr.ɪdʒ",
+   "vi": "Khích lệ, động viên",
+   "ex": "Let us encourage one another every day."
+  },
+  {
+   "word": "build up",
+   "pos": "v.phr",
+   "ipa": "bɪld ʌp",
+   "vi": "Gây dựng, xây dựng",
+   "ex": "Our words should build up the church."
+  },
+  {
+   "word": "maturity",
+   "pos": "n",
+   "ipa": "məˈtjʊə.rə.ti",
+   "vi": "Sự trưởng thành",
+   "ex": "Christ gave gifts so that we grow up into maturity."
+  },
+  {
+   "word": "bond",
+   "pos": "n",
+   "ipa": "bɒnd",
+   "vi": "Dây liên kết, mối dây",
+   "ex": "Keep the unity of the Spirit in the bond of peace."
+  },
+  {
+   "word": "peace",
+   "pos": "n",
+   "ipa": "piːs",
+   "vi": "Sự bình an",
+   "ex": "The bond of peace holds the church together."
+  },
+  {
+   "word": "equipping",
+   "pos": "n",
+   "ipa": "ɪˈkwɪp.ɪŋ",
+   "vi": "Sự trang bị",
+   "ex": "The gifts are for the equipping of the saints."
+  },
+  {
+   "word": "body of Christ",
+   "pos": "n.phr",
+   "ipa": "ˈbɒd.i əv kraɪst",
+   "vi": "Thân thể của Đấng Christ",
+   "ex": "Now you are the body of Christ."
+  },
+  {
+   "word": "head",
+   "pos": "n",
+   "ipa": "hed",
+   "vi": "Đầu",
+   "ex": "Christ is the head of the church."
+  },
+  {
+   "word": "headship",
+   "pos": "n",
+   "ipa": "ˈhed.ʃɪp",
+   "vi": "Quyền làm đầu, sự lãnh đạo",
+   "ex": "Christ's headship means He rules His church."
+  },
+  {
+   "word": "teamwork",
+   "pos": "n",
+   "ipa": "ˈtiːm.wɜːk",
+   "vi": "Tinh thần đồng đội",
+   "ex": "Teamwork helps the whole church to grow."
+  },
+  {
+   "word": "Sunday school",
+   "pos": "n.phr",
+   "ipa": "ˈsʌn.deɪ skuːl",
+   "vi": "Trường Chúa Nhật",
+   "ex": "I teach in the Sunday school every week."
+  },
+  {
+   "word": "suffer",
+   "pos": "v",
+   "ipa": "ˈsʌf.ər",
+   "vi": "Chịu khổ, đau đớn",
+   "ex": "If one member suffers, all suffer together."
+  },
+  {
+   "word": "honour",
+   "pos": "v",
+   "ipa": "ˈɒn.ər",
+   "vi": "Tôn trọng, tôn vinh",
+   "ex": "We honour every member of the body."
+  },
+  {
+   "word": "grow up",
+   "pos": "v.phr",
+   "ipa": "ɡrəʊ ʌp",
+   "vi": "Lớn lên, trưởng thành",
+   "ex": "We grow up into Christ in every way."
+  },
+  {
+   "word": "one another",
+   "pos": "pron.phr",
+   "ipa": "wʌn əˈnʌð.ər",
+   "vi": "Lẫn nhau, nhau",
+   "ex": "God called us to love one another."
+  }
+ ],
+ "grammar": [
+  {
+   "title": "Gerunds and infinitives: verb + -ing (enjoy, love, stop + -ing) vs verb + to-infinitive (want, decide, hope, called us to love); verbs with meaning change: stop, remember",
+   "explain": "Phần Grammar Blueprint đầy đủ (giải thích chi tiết và ví dụ) nằm trong file PDF bài học.",
+   "examples": []
+  }
+ ],
+ "listening": {
+  "audio": "/tai-lieu/b1/audio/b1-lesson-09-listening.mp3",
+  "duration_secs": 138,
+  "words": 394,
+  "script": "/tai-lieu/b1/scripts/b1-lesson-09-listening-script.txt"
+ },
+ "reading_passage": "The church is not a building. The church is a body — the body of Christ. In 1 Corinthians 12, Paul says that just as a human body has many members, so it is with Christ. The eye cannot say to the hand, \"I have no need of you.\" The head cannot say to the feet, \"I have no need of you.\" Every member is needed, and every member is important. God has given different gifts to different people. Some are apostles, some are prophets, some are teachers. Some have the gift of serving, and some have the gift of encouraging others. No gift is small, and no member is unimportant. If one member suffers, all suffer together. If one member is honoured, all rejoice together. In Ephesians 4, Paul writes that Christ gave these gifts to His people to build up the body, until we all reach unity in the faith and grow up into maturity. We must learn to speak the truth in love, so that the whole body grows. When each member does its part, the body builds itself up in love. There is one body and one Spirit, one Lord, one faith, one baptism, and one God and Father of all. That is the unity we must keep. We enjoy serving together, and we want to grow together. God called us to love one another, to encourage one another, and to build one another up. That is what it means to be the church — one body, many members, working together in love.",
+ "reading_comprehension": [
+  {
+   "q": "1. Why does Paul compare the church to a body?",
+   "a": "Because, like a body, the church has many different members, and every member is needed and important."
+  },
+  {
+   "q": "2. According to 1 Corinthians 12, what happens when one member suffers?",
+   "a": "All the members suffer together with it."
+  },
+  {
+   "q": "3. According to Ephesians 4, why did Christ give gifts to His people?",
+   "a": "To equip the saints and to build up the body of Christ, until we all reach unity in the faith and grow up into maturity."
+  },
+  {
+   "q": "4. What does it mean to \"speak the truth in love\" (Ephesians 4:15)?",
+   "a": "It means we tell each other the truth in a loving way, so that the whole body grows up into Christ."
+  },
+  {
+   "q": "5. How many bodies, Spirits, Lords, and faiths does Paul name in Ephesians 4:4-6?",
+   "a": "One of each: one body, one Spirit, one Lord, one faith, one baptism, one God and Father of all."
+  }
+ ],
+ "listening_questions": [
+  {
+   "q": "1. What does the Bible say the church is like?",
+   "a": "Like a body — the body of Christ, with many members."
+  },
+  {
+   "q": "2. What gift does the Friend have, and why does she think it is not important?",
+   "a": "She sings in the choir, but she thinks her gift is not important because other people preach and teach."
+  },
+  {
+   "q": "3. What gifts does the Narrator name from 1 Corinthians 12?",
+   "a": "Apostles, prophets, teachers, serving, and encouraging others."
+  },
+  {
+   "q": "4. According to Ephesians 4, what must the church do to grow up into maturity?",
+   "a": "Use its gifts to build up the body, keep unity in the faith, and speak the truth in love."
+  },
+  {
+   "q": "5. What did the Friend decide to do this year?",
+   "a": "To help with the Sunday school, and to serve with joy."
+  },
+  {
+   "q": "6. What does the Friend want to do for her friends every morning?",
+   "a": "She wants to pray for them and to speak words that build them up."
+  }
+ ],
+ "exercises": [
+  {
+   "title": "Exercise 1: Compound Noun Stress — Which Word Is Stressed?",
+   "instruction": "In a compound noun, the stress falls on the FIRST word. Underline the stressed word in each compound noun, then read it aloud. (Example: CHURCH building, not church BUILDing.)",
+   "items": 6
+  },
+  {
+   "title": "Exercise 2: Gerunds and Infinitives — Verb + -ing or Verb + to?",
+   "instruction": "Complete each sentence with the gerund (-ing) or the infinitive (to + verb) form of the verb in brackets. Remember: enjoy, love, hate, stop, finish, practise + -ing; want, decide, hope, plan, need, learn + to + verb.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 3: Stop and Remember — Two Meanings",
+   "instruction": "Choose the correct form. Remember: stop + -ing = quit doing it; stop + to + verb = stop in order to do something else. Remember + -ing = remember a past action; remember + to + verb = remember to do something in the future.",
+   "items": 5
+  },
+  {
+   "title": "Exercise 4: Vocabulary Matching",
+   "instruction": "Match each word with its correct definition.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 5: Reading — True or False?",
+   "instruction": "Read the passage in Section 5 again. Mark T (true) or F (false). Correct the false sentences.",
+   "items": 5
+  },
+  {
+   "title": "Exercise 6: Translation Lab (Vietnamese to English)",
+   "instruction": "Translate into natural English. Use gerunds and infinitives correctly (enjoy + -ing, want/decide + to + verb).",
+   "items": 3
+  }
+ ],
+ "speaking_task": "Roleplay in pairs (3 minutes): Student A tells Student B about one gift God has given them (singing, teaching, serving, encouraging), using gerunds and infinitives ('I enjoy serving...', 'I want to help...', 'God called me to...'). Student B asks two questions ('What do you enjoy doing in the church?', 'What did you decide to do this year?'). Use at least 4 gerunds or infinitives, 5 vocabulary words from Section 3, and 3 compound nouns with the stress on the first word (CHURCH building, SUNday school, TEAMwork).",
+ "writing_task": "Write a short paragraph (80-100 words) about your place in the body of Christ. Begin: 'I am a member of the body of Christ. I enjoy...' Use at least 4 gerunds or infinitives (enjoy + -ing, want + to, decided + to, remember + to/-ing) and 5 vocabulary words from Section 3.",
+ "homework": {
+  "written": [
+   "A. Complete these 5 sentences with the gerund (-ing) or the infinitive (to + verb): 1) I enjoy ______ (sing) in the choir. 2) We want ______ (build) up the body of Christ. 3) She decided ______ (teach) in the Sunday school. 4) They stopped ______ (argue) and started ______ (listen) to one another. 5) Remember ______ (encourage) your friends this week.",
+   "B. Write 6 sentences about your church, using at least 3 gerunds and 3 infinitives. Begin: 'In our church, we enjoy...'"
+  ],
+  "listening": "Listen to the audio again. Fill in the missing words: 'The Bible says that the church is like a ______. The foot cannot say to the hand, \"I do not ______ you.\" God has given different ______ to different people. Christ gave gifts to build up the ______, until we all reach ______ in the faith.' Then answer: What does the Friend want to do for the children in Sunday school?",
+  "memory_verse": "Now you are the body of Christ and individually members of it. — 1 Corinthians 12:27 (ESV)",
+  "memory_verse_vi": ""
+ },
+ "_source": {
+  "json": "teaching/b1/content/b1-lesson-09.json",
+  "json_sha256": "d03c9ff91403302249ce5f066d9e93d74ca90f7d1377d0c0d122b4f793151134",
+  "pdf": "teaching/b1/output/b1-lesson-09-church-one-body.pdf",
+  "pdf_sha256": "63a6e432e19cc3c8407a3b5165524a9e3d6863b5b4e032daee514adf60264ce8",
+  "mp3": "teaching/b1/audio/b1-lesson-09-listening.mp3",
+  "mp3_sha256": "adc06ca7d4e50e8cb36da9183ec7bc73a3162a01022f0ef3b7f02a812e9d2cd0"
+ }
+}

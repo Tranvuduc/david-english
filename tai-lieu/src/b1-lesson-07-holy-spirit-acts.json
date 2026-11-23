@@ -1,0 +1,299 @@
+{
+ "slug": "b1-lesson-07-holy-spirit-acts",
+ "level": "b1",
+ "lesson_no": 7,
+ "title": "Bài 7: Đức Thánh Linh Trong Sách Công Vụ Các Sứ Đồ",
+ "title_en": "The Holy Spirit in Acts",
+ "subtitle": "The Holy Spirit in Acts — Acts 2 (Pentecost) and Acts 4:23-31 (the believers pray, the place is shaken) · Ngữ pháp: Phrasal verbs: come upon, fill with, speak out, stand up, pour out, break out; separable vs inseparable, with the object pronoun rule",
+ "scripture": "Acts 2 (Pentecost) and Acts 4:23-31 (the believers pray, the place is shaken)",
+ "grammar_topic": "Phrasal verbs: come upon, fill with, speak out, stand up, pour out, break out; separable vs inseparable, with the object pronoun rule",
+ "pronunciation": "Word stress — -tion / -sion endings: stress the syllable before -tion / -sion (Pentecost, conviction, mission, decision, salvation, confusion)",
+ "objectives": [
+  "Học và thực hành: Phrasal verbs: come upon, fill with, speak out, stand up, pour out, break out; separable vs inseparable, with the object pronoun rule.",
+  "Luyện phát âm: Word stress — -tion / -sion endings: stress the syllable before -tion / -sion (Pentecost, conviction, mission, decision, salvation, confusion).",
+  "Đọc và hiểu đoạn Kinh Thánh Acts 2 (Pentecost) and Acts 4:23-31 (the believers pray, the place is shaken)."
+ ],
+ "vocabulary": [
+  {
+   "word": "Pentecost",
+   "pos": "n",
+   "ipa": "ˈpen.tɪ.kɒst",
+   "vi": "Lễ Ngũ Tuần",
+   "ex": "The Holy Spirit came on the day of Pentecost."
+  },
+  {
+   "word": "tongues",
+   "pos": "n",
+   "ipa": "tʌŋz",
+   "vi": "Các thứ tiếng (tiếng lạ)",
+   "ex": "They began to speak in other tongues."
+  },
+  {
+   "word": "boldness",
+   "pos": "n",
+   "ipa": "ˈbəʊld.nəs",
+   "vi": "Sự dạn dĩ, can đảm",
+   "ex": "Give us boldness to speak your word."
+  },
+  {
+   "word": "witness",
+   "pos": "n",
+   "ipa": "ˈwɪt.nəs",
+   "vi": "Nhân chứng; người làm chứng",
+   "ex": "You will be my witnesses in Jerusalem."
+  },
+  {
+   "word": "power",
+   "pos": "n",
+   "ipa": "ˈpaʊ.ər",
+   "vi": "Quyền năng",
+   "ex": "You will receive power when the Holy Spirit comes upon you."
+  },
+  {
+   "word": "filled",
+   "pos": "adj",
+   "ipa": "fɪld",
+   "vi": "Được đầy dẫy",
+   "ex": "They were all filled with the Holy Spirit."
+  },
+  {
+   "word": "pour out",
+   "pos": "phr.v",
+   "ipa": "pɔːr aʊt",
+   "vi": "Đổ xuống, tuôn đổ",
+   "ex": "God will pour out His Spirit on all people."
+  },
+  {
+   "word": "shaken",
+   "pos": "adj",
+   "ipa": "ˈʃeɪ.kən",
+   "vi": "Bị rung chuyển",
+   "ex": "The place where they were gathered was shaken."
+  },
+  {
+   "word": "prayer",
+   "pos": "n",
+   "ipa": "preər",
+   "vi": "Sự cầu nguyện",
+   "ex": "The believers gathered together for prayer."
+  },
+  {
+   "word": "proclaim",
+   "pos": "v",
+   "ipa": "prəˈkleɪm",
+   "vi": "Rao giảng, công bố",
+   "ex": "Peter stood up and proclaimed the good news."
+  },
+  {
+   "word": "amazed",
+   "pos": "adj",
+   "ipa": "əˈmeɪzd",
+   "vi": "Kinh ngạc, ngạc nhiên",
+   "ex": "The crowd was amazed at what they heard."
+  },
+  {
+   "word": "baptized",
+   "pos": "adj",
+   "ipa": "bæpˈtaɪzd",
+   "vi": "Được báp-têm",
+   "ex": "About three thousand people were baptized that day."
+  },
+  {
+   "word": "promise",
+   "pos": "n",
+   "ipa": "ˈprɒm.ɪs",
+   "vi": "Lời hứa",
+   "ex": "The promise is for you and for your children."
+  },
+  {
+   "word": "gift",
+   "pos": "n",
+   "ipa": "ɡɪft",
+   "vi": "Ân tứ, món quà",
+   "ex": "You will receive the gift of the Holy Spirit."
+  },
+  {
+   "word": "conviction",
+   "pos": "n",
+   "ipa": "kənˈvɪk.ʃən",
+   "vi": "Sự cáo trách (trong lòng)",
+   "ex": "Peter's words brought conviction to the crowd."
+  },
+  {
+   "word": "mission",
+   "pos": "n",
+   "ipa": "ˈmɪʃ.ən",
+   "vi": "Sứ mạng",
+   "ex": "The church began its mission to the whole world."
+  },
+  {
+   "word": "decision",
+   "pos": "n",
+   "ipa": "dɪˈsɪʒ.ən",
+   "vi": "Quyết định",
+   "ex": "They made the decision to follow Jesus."
+  },
+  {
+   "word": "salvation",
+   "pos": "n",
+   "ipa": "sælˈveɪ.ʃən",
+   "vi": "Sự cứu rỗi",
+   "ex": "Repent, and you will receive salvation."
+  },
+  {
+   "word": "confusion",
+   "pos": "n",
+   "ipa": "kənˈfjuː.ʒən",
+   "vi": "Sự bối rối, hoang mang",
+   "ex": "Some people were in confusion when they heard the noise."
+  },
+  {
+   "word": "wind",
+   "pos": "n",
+   "ipa": "wɪnd",
+   "vi": "Gió",
+   "ex": "A sound like a mighty rushing wind filled the house."
+  },
+  {
+   "word": "flame",
+   "pos": "n",
+   "ipa": "fleɪm",
+   "vi": "Ngọn lửa",
+   "ex": "Tongues of fire rested on each one of them."
+  },
+  {
+   "word": "repent",
+   "pos": "v",
+   "ipa": "rɪˈpent",
+   "vi": "Ăn năn",
+   "ex": "Repent and be baptized in the name of Jesus."
+  },
+  {
+   "word": "gather",
+   "pos": "v",
+   "ipa": "ˈɡæð.ər",
+   "vi": "Nhóm lại, tụ họp",
+   "ex": "The believers gathered together to pray."
+  },
+  {
+   "word": "speak out",
+   "pos": "phr.v",
+   "ipa": "spiːk aʊt",
+   "vi": "Nói ra cách dạn dĩ",
+   "ex": "Do not be afraid to speak out about Jesus."
+  }
+ ],
+ "grammar": [
+  {
+   "title": "Phrasal verbs: come upon, fill with, speak out, stand up, pour out, break out; separable vs inseparable, with the object pronoun rule",
+   "explain": "Phần Grammar Blueprint đầy đủ (giải thích chi tiết và ví dụ) nằm trong file PDF bài học.",
+   "examples": []
+  }
+ ],
+ "listening": {
+  "audio": "/tai-lieu/b1/audio/b1-lesson-07-listening.mp3",
+  "duration_secs": 160,
+  "words": 413,
+  "script": "/tai-lieu/b1/scripts/b1-lesson-07-listening-script.txt"
+ },
+ "reading_passage": "Fifty days after Jesus rose from the dead, the day of Pentecost arrived. The believers were all together in one place in Jerusalem, waiting and praying as Jesus had told them to do. Suddenly, a sound like a mighty rushing wind came from heaven and filled the whole house where they were sitting. Tongues of fire appeared and rested on each one of them. The Holy Spirit came upon them, and they were all filled with power. They began to speak in other languages, as the Spirit gave them words to speak. People from many nations were amazed, because each one heard the believers speaking in his own language. Some people were confused, but Peter stood up with the eleven apostles and spoke out boldly. He proclaimed that Jesus, whom the people had crucified, is both Lord and Christ. His words brought conviction to the crowd. They asked, \"What shall we do?\" Peter said, \"Repent and be baptized, every one of you, in the name of Jesus Christ, and you will receive the gift of the Holy Spirit.\" About three thousand people were baptized that day, and the church in Jerusalem was born. Soon after this, Peter and John were arrested and threatened, and the leaders told them not to speak about Jesus anymore. But the believers did not hide. They gathered together and prayed: \"Lord, give your servants boldness to speak your word.\" As they prayed, the place where they were gathered was shaken. They were filled with the Holy Spirit again, and they continued to speak the word of God with boldness. The same Spirit who came at Pentecost still fills God's people today, and He still gives them power to be His witnesses.",
+ "reading_comprehension": [
+  {
+   "q": "1. What happened when the Holy Spirit came on the day of Pentecost?",
+   "a": "The Holy Spirit came upon the believers, and they were filled with power and began to speak in other languages."
+  },
+  {
+   "q": "2. What did Peter do when he stood up before the crowd?",
+   "a": "He stood up and proclaimed that Jesus is Lord and Christ, and he called the crowd to repent and be baptized."
+  },
+  {
+   "q": "3. What was the result of Peter's sermon?",
+   "a": "About three thousand people received his word and were baptized that day."
+  },
+  {
+   "q": "4. What did the believers do in Acts 4 after Peter and John were threatened?",
+   "a": "They prayed together, asking God for boldness to speak His word, and the place where they were gathered was shaken."
+  },
+  {
+   "q": "5. What happened after the believers prayed?",
+   "a": "They were filled with the Holy Spirit again and continued to speak the word of God with boldness."
+  }
+ ],
+ "listening_questions": [
+  {
+   "q": "1. What happened on the day of Pentecost?",
+   "a": "With a sound like a mighty rushing wind, and with tongues of fire that rested on each believer. They were all filled with the Holy Spirit and began to speak in other tongues."
+  },
+  {
+   "q": "2. What did Peter do on the day of Pentecost?",
+   "a": "He stood up and proclaimed that Jesus, whom the people had crucified, is both Lord and Christ — and he called the people to repent and be baptized."
+  },
+  {
+   "q": "3. How many people were baptized on the day of Pentecost?",
+   "a": "About three thousand people were baptized that day."
+  },
+  {
+   "q": "4. What happened when the believers prayed together in Acts 4?",
+   "a": "The place where they were gathered together was shaken, and they were all filled with the Holy Spirit again."
+  },
+  {
+   "q": "5. What did the believers ask God for in their prayer?",
+   "a": "They asked God to give them boldness to speak His word, while He stretched out His hand to heal and to do signs and wonders."
+  },
+  {
+   "q": "6. What did the Friend decide to do this week?",
+   "a": "He decided to pray with a friend this week and speak out boldly about Jesus."
+  }
+ ],
+ "exercises": [
+  {
+   "title": "Exercise 1: Word Stress — -tion / -sion",
+   "instruction": "Say each word aloud. Underline (or write in capitals) the stressed syllable. Remember: in -tion / -sion words, the stress falls on the syllable just before -tion / -sion.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 2: Separable or Inseparable? — The Pronoun Rule",
+   "instruction": "Choose the correct sentence (a or b). Think about the object pronoun rule: with a separable phrasal verb, a pronoun object goes BETWEEN the verb and the particle; with an inseparable phrasal verb, nothing goes between them.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 3: Phrasal Verbs in Acts",
+   "instruction": "Complete each sentence with the correct phrasal verb from the box. Use the correct form (past tense where needed). Box: come upon — fill with — stand up — pour out — speak out — break out",
+   "items": 6
+  },
+  {
+   "title": "Exercise 4: Vocabulary Matching",
+   "instruction": "Match each word with its correct definition.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 5: Reading — True or False?",
+   "instruction": "Read the passage in Section 5 again. Mark T (true) or F (false). Correct the false sentences.",
+   "items": 5
+  },
+  {
+   "title": "Exercise 6: Translation Lab (Vietnamese to English)",
+   "instruction": "Translate into natural English. Use the phrasal verbs from this lesson (come upon, fill with, stand up, speak out, pour out).",
+   "items": 3
+  }
+ ],
+ "speaking_task": "Roleplay in pairs (3 minutes): Student A tells Student B what happened on the day of Pentecost, using at least 4 phrasal verbs from this lesson (come upon, fill with, stand up, speak out, pour out, break out). Student B asks two questions ('What did Peter do when he stood up?', 'What happened when the believers prayed?'). Use at least 5 vocabulary words from Section 3 and at least 3 words with -tion / -sion endings, with the stress on the right syllable (conVICtion, MISsion, salVAtion).",
+ "writing_task": "Write a short retelling (80-100 words) of Pentecost (Acts 2) or of the prayer in Acts 4. Begin: 'On the day of Pentecost, the believers were all together...' Use at least 4 phrasal verbs from this lesson (come upon, fill with, stand up, speak out, pour out, break out) and 5 vocabulary words from Section 3.",
+ "homework": {
+  "written": [
+   "A. Rewrite each sentence using a phrasal verb from this lesson (come upon, fill with, stand up, speak out, pour out, break out). Use a pronoun object where one is given: 1) The Holy Spirit descended on the believers. 2) God gave them courage and power in full measure. 3) Peter rose to his feet and preached. 4) God gave His Spirit freely to all people. 5) Do not be afraid to tell people about Jesus boldly.",
+   "B. Write 6 sentences retelling Pentecost (Acts 2) in your own words. Use at least 4 phrasal verbs from this lesson and 5 vocabulary words from Section 3. Begin: 'On the day of Pentecost, the believers were all together...'"
+  ],
+  "listening": "Listen to the audio again. Fill in the missing words: 'Suddenly a sound like a mighty rushing ______ came from heaven, and tongues of ______ appeared and rested on each one of them. They were all ______ with the Holy Spirit, and they began to speak in other ______.' Then answer: What did the Friend decide to do this week?",
+  "memory_verse": "And they were all filled with the Holy Spirit and continued to speak the word of God with boldness. — Acts 4:31 (ESV)",
+  "memory_verse_vi": ""
+ },
+ "_source": {
+  "json": "teaching/b1/content/b1-lesson-07.json",
+  "json_sha256": "edc76fed63b96f7f5bb9afc4f6a1aee65e9974656fb779538c94ca2060165ff9",
+  "pdf": "teaching/b1/output/b1-lesson-07-holy-spirit-acts.pdf",
+  "pdf_sha256": "45f281108a0ab7bc612f9be433cee3b1884503d22bba161bf7f001d54086bcff",
+  "mp3": "teaching/b1/audio/b1-lesson-07-listening.mp3",
+  "mp3_sha256": "a38c99120623607e83b6c9c87fdd3192f2179aa406f69dc7eb6c14cb4f451370"
+ }
+}
