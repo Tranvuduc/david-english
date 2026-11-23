@@ -4,7 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tra từ bằng AI | David English</title>
-<meta name="description" content="David English — Học tiếng Anh miễn phí cho người Việt, giải thích bằng tiếng Việt.">
+<meta name="description" content="Tra từ tiếng Anh bằng AI: giải nghĩa bằng tiếng Việt, kèm ví dụ, cách phát âm và từ đồng nghĩa.">
+<meta property="og:title" content="Tra từ bằng AI | David English">
+<meta property="og:description" content="Tra từ tiếng Anh bằng AI: giải nghĩa bằng tiếng Việt, kèm ví dụ, cách phát âm và từ đồng nghĩa.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#123a6d">
+<link rel="icon" href="/favicon.svg">
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="stylesheet" href="/chat/de-chat.css">
 </head>
@@ -14,7 +19,7 @@
     <a class="brand" href="/">DAVID <span>ENGLISH</span></a>
     <p class="tagline">Học tiếng Anh miễn phí — giải thích bằng tiếng Việt</p>
     <details class="nav-toggle">
-      <summary>☰ Menu</summary>
+      <summary>☰ Danh mục</summary>
       <nav class="site-nav" aria-label="Điều hướng chính">
 <a href="/">Trang chủ</a>
 <a href="/bai-xep-lop.html">Bài xếp lớp</a>
@@ -25,7 +30,8 @@
 <a href="/cong-viec.html">Tiếng Anh công việc</a>
 <a href="/du-hoc.html">Du học</a>
 <a href="/tai-nguyen.html">Tài nguyên miễn phí</a>
-<a href="/tro-chuyen-ai.html" class="active">Trò chuyện AI</a>
+<a href="/sach/">Sách học</a>
+<a href="/tro-chuyen-ai.html">Trò chuyện AI</a>
       </nav>
     </details>
     <nav class="site-nav desktop" aria-label="Điều hướng chính">
@@ -38,22 +44,25 @@
 <a href="/cong-viec.html">Tiếng Anh công việc</a>
 <a href="/du-hoc.html">Du học</a>
 <a href="/tai-nguyen.html">Tài nguyên miễn phí</a>
-<a href="/tro-chuyen-ai.html" class="active">Trò chuyện AI</a>
+<a href="/sach/">Sách học</a>
+<a href="/tro-chuyen-ai.html">Trò chuyện AI</a>
     </nav>
   </div>
 </header>
 <main class="wrap">
-  <h1>Tra từ bằng AI</h1>
+<div class="page-head"><p class="page-eyebrow">Công cụ AI</p><h1>Tra từ bằng AI</h1><p class="lead">Gõ một từ hoặc cụm từ tiếng Anh — AI giải nghĩa bằng tiếng Việt, kèm ví dụ, cách phát âm và từ đồng nghĩa.</p></div>
 
-<p class="lead">Gõ một từ hoặc cụm từ tiếng Anh — AI giải nghĩa bằng tiếng Việt, kèm ví dụ, cách phát âm và từ đồng nghĩa.</p>
+
 <p><span class="badge">AI, chưa duyệt</span> Nghĩa do AI đưa ra, chưa được giáo viên duyệt.</p>
+<section class="section">
 <form id="vocabForm">
   <label for="vocabWord">Từ hoặc cụm từ tiếng Anh:</label>
   <input id="vocabWord" type="text" maxlength="100" placeholder="VD: perseverance" autocomplete="off">
   <button type="submit" class="btn">Tra từ</button>
 </form>
 <div id="vocabResult" class="result" hidden></div>
-<p class="muted">Công cụ này gọi cùng API chat AI của trang. Khi chưa có khóa API, công cụ báo “đang được chuẩn bị”.</p>
+</section>
+<p class="muted">Nếu công cụ chưa sẵn sàng, trang sẽ báo “đang được chuẩn bị” — bạn thử lại sau.</p>
 <script>
 (function () {
   var form = document.getElementById('vocabForm');
@@ -62,7 +71,12 @@
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var w = input.value.trim();
-    if (!w) return;
+    if (!w) {
+      out.hidden = false;
+      out.innerHTML = '<p>Vui lòng nhập một từ hoặc cụm từ tiếng Anh trước đã nhé.</p>';
+      input.focus();
+      return;
+    }
     out.hidden = false;
     out.innerHTML = '<p>Đang tra…</p>';
     fetch('/api/chat', {
@@ -89,7 +103,7 @@
   <div class="wrap">
     <p><strong>David English</strong> — Học tiếng Anh miễn phí cho người Việt.</p>
     <p>Mọi câu trả lời của AI đều ghi rõ “AI, chưa duyệt” — chưa được giáo viên duyệt.</p>
-    <p><a href="/">Trang chủ</a> · <a href="/tro-chuyen-ai.html">Trò chuyện AI</a> · <a href="/bai-xep-lop.html">Bài xếp lớp</a> · <a href="/tai-nguyen.html">Tài nguyên miễn phí</a></p>
+    <p><a href="/">Trang chủ</a> · <a href="/tro-chuyen-ai.html">Trò chuyện AI</a> · <a href="/bai-xep-lop.html">Bài xếp lớp</a> · <a href="/tai-nguyen.html">Tài nguyên miễn phí</a> · <a href="/cong-cu/tu-vung.html">Tra từ</a> · <a href="/cong-cu/viet.html">Chữa bài viết</a></p>
     <p class="muted">Trang đang xây dựng — khung sườn v1, nội dung sẽ thêm sau.</p>
   </div>
 </footer>

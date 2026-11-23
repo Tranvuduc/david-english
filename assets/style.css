@@ -1,50 +1,108 @@
-/* David English — style.css (khung sườn v1, mobile-first, không tracker, không font ngoài) */
+/* ==========================================================================
+   David English — style.css (thiết kế v2, mobile-first)
+   Không tracker, không font ngoài, không ảnh ngoài — mọi hiệu ứng bằng CSS
+   thuần + SVG data-URI. Font hiển thị dùng stack serif hệ thống (Georgia…)
+   nên dấu tiếng Việt hiển thị đúng trên mọi máy.
+   ========================================================================== */
 :root {
+  /* --- Neo thương hiệu (giữ nguyên từ v1) --- */
   --navy: #123a6d;
   --navy-dark: #0c2a50;
-  --accent: #e8a020;
-  --accent-dark: #b97d0d;
+  /* --- Mở rộng quanh navy --- */
+  --navy-deep: #081f3a;          /* đầu gradient hero, tối nhất */
+  --sky: #eaf1f8;                /* dải nền xen kẽ (section-alt) */
+  --sky-line: #d3deea;           /* viền dải sky */
+  /* --- Vàng (giữ nguyên) --- */
+  --accent: #e8a020;             /* vàng điểm nhấn — chỉ dùng làm nền/nét, KHÔNG làm chữ */
+  --accent-dark: #b97d0d;        /* chỉ dùng trang trí (viền, gạch) — chữ trên nền sáng chỉ 3.50:1 */
+  --gold-deep: #7a5200;          /* vàng đậm — chữ/nút/icon vàng trên nền sáng (6.92:1 trên trắng) */
+  --gold-soft: #fdf3d7;          /* nền tint vàng */
+  --gold-line: #ecd28a;          /* viền tint vàng */
+  /* --- Xanh lá mòng (màu phụ 1) --- */
+  --teal: #0e7c6b;
+  --teal-dark: #0a5c50;          /* chữ teal trên nền sáng (7.90:1 trên trắng) */
+  --teal-soft: #e3f2ef;
+  /* --- Các tông phụ cho thẻ theo loại --- */
+  --green: #177245;
+  --green-soft: #e6f3ec;
+  --plum: #6d4a8f;
+  --plum-soft: #efe9f5;
+  --coral: #b3382e;
+  --coral-soft: #fbeae7;
+  --indigo: #444a8a;
+  --indigo-soft: #e9eaf4;
+  --steel: #2f6da3;
+  --steel-soft: #e7f0f8;
+  --maroon: #7c2128;
+  --maroon-soft: #f9e9ea;
+  /* --- Chữ / nền / viền --- */
   --ink: #1d2733;
-  --muted: #5b6b7d;
+  --muted: #5b6b7d;              /* 5.01:1 trên nền kem, 5.46:1 trên trắng */
+  --slate: #3d4f63;              /* chữ badge "Sắp có" */
+  --slate-soft: #e8edf2;
   --bg: #f7f5ef;
   --card: #ffffff;
   --line: #dfe3e8;
   --ok: #1a7f4b;
+  /* --- Font --- */
+  --font-display: Georgia, 'Palatino Linotype', 'Book Antiqua', 'Times New Roman', serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* --- Bóng --- */
+  --shadow-card: 0 1px 2px rgba(12, 42, 80, 0.07), 0 4px 16px rgba(12, 42, 80, 0.08);
+  --shadow-card-hover: 0 2px 4px rgba(12, 42, 80, 0.08), 0 12px 28px rgba(12, 42, 80, 0.16);
+  --radius: 14px;
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-body);
   color: var(--ink);
   background: var(--bg);
   line-height: 1.6;
   font-size: 17px;
 }
+::selection { background: var(--accent); color: var(--ink); }
 .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px; }
 a { color: var(--navy); }
-a:hover { color: var(--accent-dark); }
+a:hover { color: var(--navy-dark); text-decoration: underline; }
 
-/* Header + nav */
-.site-header { background: var(--navy); color: #fff; padding: 14px 0 0; }
+/* Chỉ báo focus rõ ràng cho bàn phím (WCAG 2.4.7) — giữ nguyên v1. */
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* ==========================================================================
+   Header + nav
+   ========================================================================== */
+.site-header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+  color: #fff;
+  padding: 14px 0 0;
+  border-bottom: 3px solid var(--accent);
+}
 .site-header .wrap { padding-bottom: 0; }
-.brand { font-size: 26px; font-weight: 800; letter-spacing: 0.04em; color: #fff; text-decoration: none; }
+.brand {
+  font-family: var(--font-display);
+  font-size: 28px; font-weight: 700; letter-spacing: 0.03em;
+  color: #fff; text-decoration: none;
+}
+.brand:hover { color: #fff; }
 .brand span { color: var(--accent); }
 .tagline { margin: 2px 0 10px; color: #c9d6e6; font-size: 15px; }
 .site-nav { display: flex; flex-wrap: wrap; gap: 4px 2px; padding-bottom: 10px; }
 .site-nav a {
-  color: #fff; text-decoration: none; padding: 6px 10px; border-radius: 6px;
-  font-size: 15px; white-space: nowrap;
+  color: #fff; text-decoration: none; padding: 10px 12px; border-radius: 8px;
+  font-size: 15px; white-space: nowrap; line-height: 1.6; /* 24 + 20 = 44px: đủ tap target */
 }
-.site-nav a:hover, .site-nav a.active { background: rgba(255, 255, 255, 0.16); }
-.site-nav a.active { font-weight: 700; }
+.site-nav a:hover { background: rgba(255, 255, 255, 0.16); color: #fff; }
+.site-nav a.active { background: var(--accent); color: var(--ink); font-weight: 700; }
 .nav-toggle { display: none; }
 @media (max-width: 720px) {
   .nav-toggle { display: block; }
   .nav-toggle summary {
-    cursor: pointer; padding: 8px 10px; border-radius: 6px;
+    cursor: pointer; padding: 10px 12px; border-radius: 8px;
     background: rgba(255, 255, 255, 0.12); color: #fff; font-weight: 600;
     list-style: none; width: max-content; margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
   }
   .nav-toggle summary::-webkit-details-marker { display: none; }
   .site-nav.desktop { display: none; }
@@ -52,45 +110,239 @@ a:hover { color: var(--accent-dark); }
   .nav-toggle .site-nav a { display: block; }
 }
 
-/* Nội dung */
+/* ==========================================================================
+   Hero — dải full-bleed navy (trực tiếp trong main.wrap hoặc body).
+   margin/padding dùng calc(50% - 50vw) nên vẫn đúng khi builder đặt hero
+   trong .wrap; nếu đặt ngoài .wrap thì margin = 0, padding = 16px.
+   ========================================================================== */
+.hero {
+  margin-inline: calc(50% - 50vw);
+  padding: 44px max(20px, calc(50vw - 50%)) 48px;
+  color: #fff;
+  background-color: var(--navy-dark);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72'%3E%3Ccircle cx='6' cy='6' r='1.5' fill='%23ffffff' fill-opacity='0.09'/%3E%3Ccircle cx='42' cy='42' r='1.5' fill='%23ffffff' fill-opacity='0.09'/%3E%3C/svg%3E"),
+    radial-gradient(900px 320px at 88% -10%, rgba(232, 160, 32, 0.30), transparent 60%),
+    radial-gradient(560px 300px at 0% 115%, rgba(14, 124, 107, 0.38), transparent 55%),
+    linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 62%, var(--navy-deep) 100%);
+}
+.hero-eyebrow {
+  display: block;
+  font-size: 13px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent);
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 7.2vw, 3.25rem);
+  line-height: 1.12;
+  margin: 10px 0 12px;
+  color: #fff;
+}
+.hero-title strong { color: var(--accent); font-weight: 700; }
+.hero-lead {
+  font-size: 18px; line-height: 1.6;
+  color: #dbe6f2; /* 8.97:1 trên navy, 11.36:1 trên navy-dark */
+  max-width: 56ch;
+  margin: 0 0 22px;
+}
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+/* ==========================================================================
+   Page head — đầu trang con, gọn (không phải hero).
+   ========================================================================== */
+.page-head { padding: 20px 0 18px; border-bottom: 1px solid var(--line); margin-bottom: 20px; }
+.page-head h1 { margin: 4px 0 8px; }
+.page-eyebrow {
+  display: block;
+  font-size: 13px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gold-deep); /* 6.92:1 trên nền kem */
+}
+.page-head .lead { margin-bottom: 0; }
+
+/* ==========================================================================
+   Nội dung + thang chữ
+   ========================================================================== */
 main { padding: 20px 0 40px; }
-h1 { font-size: 30px; line-height: 1.25; margin: 8px 0 12px; color: var(--navy-dark); }
-h2 { font-size: 22px; color: var(--navy-dark); margin: 24px 0 8px; }
+h1, h2, h3, .section-head h2 {
+  font-family: var(--font-display);
+  color: var(--navy-dark);
+  line-height: 1.25;
+}
+h1 { font-size: 30px; margin: 8px 0 12px; }
+h2 { font-size: 22px; margin: 24px 0 8px; }
+h3 { font-size: 19px; margin: 20px 0 6px; }
+@media (min-width: 720px) {
+  h1 { font-size: 36px; }
+  h2 { font-size: 26px; }
+  .hero-lead { font-size: 20px; }
+}
 .lead { font-size: 19px; }
 .muted { color: var(--muted); font-size: 15px; }
+
+/* --- Section: dải nội dung, xen kẽ nền --- */
+.section { padding: 28px 0; }
+.section-alt {
+  margin-inline: calc(50% - 50vw);
+  padding: 32px max(20px, calc(50vw - 50%));
+  background: linear-gradient(180deg, var(--sky), #e3edf6);
+  border-block: 1px solid var(--sky-line);
+}
+.section-head { margin: 0 0 18px; }
+.section-head h2 { margin: 0 0 6px; font-size: 26px; }
+.section-sub { color: var(--muted); font-size: 16px; margin: 0; max-width: 62ch; }
+
+/* ==========================================================================
+   Badge
+   ========================================================================== */
 .badge {
-  display: inline-block; background: var(--accent); color: #1d2733;
+  display: inline-block; background: var(--accent); color: var(--ink);
   font-weight: 700; font-size: 14px; padding: 2px 10px; border-radius: 999px;
 }
-.cards { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 16px 0; }
-@media (min-width: 640px) { .cards { grid-template-columns: 1fr 1fr; } }
-.card {
-  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
-  padding: 16px 18px;
+.badge-soon {
+  display: inline-block;
+  background: var(--slate-soft); color: var(--slate);
+  border: 1px dashed #b9c4d0;
+  font-weight: 600; font-size: 13px; padding: 3px 10px; border-radius: 999px;
 }
-.card h2 { margin: 0 0 6px; font-size: 19px; }
-.card p { margin: 0; }
 
-/* Form */
+/* ==========================================================================
+   Cards — chiều sâu: bóng, vạch màu trên cùng, hover nâng lên.
+   Mỗi loại thẻ đặt --card-accent (vạch + icon) và --card-soft (nền chip icon).
+   ========================================================================== */
+.cards { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 16px 0; }
+@media (min-width: 640px) { .cards { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); } }
+.card {
+  --card-accent: var(--navy);
+  --card-soft: var(--sky);
+  --card-ink: var(--card-accent);
+  position: relative;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.card::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: var(--card-accent);
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card-hover); }
+.card h2, .card h3 { margin: 0 0 6px; font-size: 20px; }
+.card h2 a, .card h3 a { color: var(--navy-dark); text-decoration: none; }
+.card h2 a:hover, .card h3 a:hover { color: var(--navy); text-decoration: underline; }
+.card p { margin: 0 0 8px; }
+.card p:last-child { margin-bottom: 0; }
+.card-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 48px; height: 48px; border-radius: 12px;
+  background: var(--card-soft); color: var(--card-ink);
+  margin-bottom: 12px;
+}
+.card-icon svg { width: 24px; height: 24px; }
+.card-badge {
+  display: inline-flex; align-items: center; min-height: 28px;
+  padding: 3px 10px; border-radius: 999px;
+  background: var(--gold-soft); color: var(--gold-deep);
+  border: 1px solid var(--gold-line);
+  font-size: 13px; font-weight: 700;
+}
+/* Loại thẻ — màu vạch + chip icon riêng (chữ/icon trắng hoặc trên tint đều ≥ 4.5:1). */
+.card-level   { --card-accent: var(--navy);      --card-soft: var(--sky); }
+.card-skill   { --card-accent: var(--teal);      --card-soft: var(--teal-soft); --card-ink: var(--teal-dark); }
+.card-exam    { --card-accent: var(--gold-deep); --card-soft: var(--gold-soft); }
+.card-tool    { --card-accent: var(--plum);      --card-soft: var(--plum-soft); }
+.card-book    { --card-accent: var(--green);     --card-soft: var(--green-soft); }
+.card-kids    { --card-accent: var(--coral);     --card-soft: var(--coral-soft); }
+.card-work    { --card-accent: var(--indigo);    --card-soft: var(--indigo-soft); }
+.card-abroad  { --card-accent: var(--steel);     --card-soft: var(--steel-soft); }
+.card-resource{ --card-accent: var(--teal-dark); --card-soft: var(--teal-soft); }
+.card-place   { --card-accent: var(--maroon);    --card-soft: var(--maroon-soft); }
+
+/* ==========================================================================
+   Level chips — mỗi cấp một màu, chữ trắng (đều ≥ 5.10:1).
+   ========================================================================== */
+.level-chip {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 44px; min-height: 44px; padding: 8px 14px;
+  border-radius: 999px; color: #fff;
+  font-weight: 800; font-size: 15px; letter-spacing: 0.02em;
+  text-decoration: none;
+}
+a.level-chip:hover { color: #fff; text-decoration: none; filter: brightness(1.08); }
+.lv-a1 { background: #177245; }
+.lv-a2 { background: #0e7c6b; }
+.lv-b1 { background: #123a6d; }
+.lv-b2 { background: #444a8a; }
+.lv-c1 { background: #7a5200; }
+.lv-c2 { background: #7c2128; }
+
+/* ==========================================================================
+   Nút — tối thiểu 44px chiều cao.
+   ========================================================================== */
+.btn, .btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 12px 22px;
+  border-radius: 10px; border: 2px solid transparent;
+  background: var(--navy); color: #fff;
+  font-family: inherit; font-size: 16px; font-weight: 700; line-height: 1.4;
+  text-decoration: none; cursor: pointer; margin-top: 8px;
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn:hover, .btn-primary:hover { background: var(--navy-dark); color: #fff; text-decoration: none; transform: translateY(-1px); }
+.btn-ghost {
+  background: transparent; color: var(--navy);
+  border-color: var(--navy);
+}
+.btn-ghost:hover { background: rgba(18, 58, 109, 0.07); color: var(--navy-dark); }
+/* Nút trong hero: CTA chính vàng trên nền navy, ghost viền trắng. */
+.hero .btn-primary { background: var(--accent); color: var(--ink); border-color: transparent; }
+.hero .btn-primary:hover { background: #f0b13e; color: var(--ink); }
+.hero .btn-ghost { border-color: rgba(255, 255, 255, 0.75); color: #fff; }
+.hero .btn-ghost:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+
+/* ==========================================================================
+   Form
+   ========================================================================== */
 label { display: block; font-weight: 600; margin: 12px 0 6px; }
 input[type="text"], textarea {
   width: 100%; padding: 10px 12px; font-size: 16px; font-family: inherit;
   border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink);
 }
+input[type="text"]:focus, textarea:focus { border-color: var(--navy); }
 fieldset { border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin: 14px 0; background: #fff; }
 legend { font-weight: 700; padding: 0 6px; }
 fieldset label { font-weight: 400; margin: 8px 0; }
-.btn {
-  background: var(--navy); color: #fff; border: 0; border-radius: 8px;
-  padding: 12px 22px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 8px;
-}
-.btn:hover { background: var(--navy-dark); }
 .result {
   background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--accent);
   border-radius: 8px; padding: 14px 16px; margin: 16px 0;
+  box-shadow: var(--shadow-card);
 }
 
-/* Footer */
-.site-footer { background: var(--navy-dark); color: #c9d6e6; padding: 24px 0 32px; font-size: 15px; }
+/* ==========================================================================
+   Footer — giữ chữ muted #c9d6e6 trên #0c2a50 = 9.74:1.
+   ========================================================================== */
+.site-footer {
+  background: var(--navy-dark); color: #c9d6e6;
+  padding: 24px 0 32px; font-size: 15px;
+  border-top: 3px solid var(--accent);
+}
+.site-footer .muted { color: #c9d6e6; }
 .site-footer a { color: #fff; }
+.site-footer a:hover { color: var(--accent); text-decoration: underline; } /* vàng trên navy-dark: 6.48:1 */
 .site-footer strong { color: #fff; }
+.site-footer p { margin: 6px 0; }
+/* Nút "Hỏi AI" cố định (56px + cách đáy 18px) che liên kết footer trên mobile — chừa chỗ ở cuối footer. */
+@media (max-width: 720px) {
+  .site-footer { padding-bottom: 96px; }
+}
+
+/* ==========================================================================
+   Giảm chuyển động — tắt mọi animation/transition.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

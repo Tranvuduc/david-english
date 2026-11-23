@@ -269,6 +269,15 @@
     input.addEventListener('keydown', function (e) {
       if (e.key === 'Enter') send();
     });
+
+    // ?q=... : điền sẵn câu hỏi vào ô nhập (đã giải mã, cắt ở MAX_LEN),
+    // không tự gửi — người dùng bấm Gửi khi sẵn sàng.
+    var prefill = null;
+    try { prefill = new URLSearchParams(window.location.search).get('q'); } catch (e) { prefill = null; }
+    if (prefill) {
+      input.value = prefill.slice(0, MAX_LEN);
+      if (isPage) input.focus();
+    }
   }
 
   if (document.readyState === 'loading') {

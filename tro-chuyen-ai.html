@@ -4,7 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Trò chuyện AI | David English</title>
-<meta name="description" content="David English — Học tiếng Anh miễn phí cho người Việt, giải thích bằng tiếng Việt.">
+<meta name="description" content="Trò chuyện với AI về tiếng Anh: ngữ pháp, từ vựng, phát âm, luyện thi và lộ trình học — trả lời bằng tiếng Việt.">
+<meta property="og:title" content="Trò chuyện AI | David English">
+<meta property="og:description" content="Trò chuyện với AI về tiếng Anh: ngữ pháp, từ vựng, phát âm, luyện thi và lộ trình học — trả lời bằng tiếng Việt.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#123a6d">
+<link rel="icon" href="/favicon.svg">
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="stylesheet" href="/chat/de-chat.css">
 </head>
@@ -14,7 +19,7 @@
     <a class="brand" href="/">DAVID <span>ENGLISH</span></a>
     <p class="tagline">Học tiếng Anh miễn phí — giải thích bằng tiếng Việt</p>
     <details class="nav-toggle">
-      <summary>☰ Menu</summary>
+      <summary>☰ Danh mục</summary>
       <nav class="site-nav" aria-label="Điều hướng chính">
 <a href="/">Trang chủ</a>
 <a href="/bai-xep-lop.html">Bài xếp lớp</a>
@@ -25,7 +30,8 @@
 <a href="/cong-viec.html">Tiếng Anh công việc</a>
 <a href="/du-hoc.html">Du học</a>
 <a href="/tai-nguyen.html">Tài nguyên miễn phí</a>
-<a href="/tro-chuyen-ai.html" class="active">Trò chuyện AI</a>
+<a href="/sach/">Sách học</a>
+<a href="/tro-chuyen-ai.html" class="active" aria-current="page">Trò chuyện AI</a>
       </nav>
     </details>
     <nav class="site-nav desktop" aria-label="Điều hướng chính">
@@ -38,16 +44,32 @@
 <a href="/cong-viec.html">Tiếng Anh công việc</a>
 <a href="/du-hoc.html">Du học</a>
 <a href="/tai-nguyen.html">Tài nguyên miễn phí</a>
-<a href="/tro-chuyen-ai.html" class="active">Trò chuyện AI</a>
+<a href="/sach/">Sách học</a>
+<a href="/tro-chuyen-ai.html" class="active" aria-current="page">Trò chuyện AI</a>
     </nav>
   </div>
 </header>
 <main class="wrap">
-  <h1>Trò chuyện AI</h1>
+<div class="page-head"><p class="page-eyebrow">Công cụ AI</p><h1>Trò chuyện AI</h1><p class="lead">Hỏi bất cứ gì về tiếng Anh — ngữ pháp, từ vựng, phát âm, luyện thi, lộ trình học. AI trả lời bằng tiếng Việt.</p></div>
 
-<p class="lead">Hỏi bất cứ gì về tiếng Anh — ngữ pháp, từ vựng, phát âm, luyện thi, lộ trình học. AI trả lời bằng tiếng Việt.</p>
+
 <p><span class="badge">AI, chưa duyệt</span> Mọi câu trả lời do AI soạn, chưa được giáo viên duyệt — hãy đối chiếu với sách và giáo viên của bạn.</p>
-<div id="deChatPage"></div>
+<section class="section">
+<div id="deChatPage"><noscript><p>Trò chuyện AI cần bật JavaScript để hiển thị. Bạn vẫn có thể xem các mục khác của trang, hoặc bật JavaScript rồi tải lại trang.</p></noscript></div>
+</section>
+<script>
+(function () {
+  var q = new URLSearchParams(window.location.search).get('q');
+  if (!q) return;
+  var tries = 0;
+  var timer = setInterval(function () {
+    tries++;
+    var input = document.querySelector('#deChatPage .de-chat-foot input');
+    if (input) { input.value = q; input.focus(); clearInterval(timer); }
+    else if (tries > 10) { clearInterval(timer); }
+  }, 200);
+})();
+</script>
 <p class="muted">Chat dùng cùng hệ thống với khung chat góc màn hình. Nếu tính năng chưa sẵn sàng, trang sẽ báo “đang được chuẩn bị”.</p>
 
 </main>
@@ -55,7 +77,7 @@
   <div class="wrap">
     <p><strong>David English</strong> — Học tiếng Anh miễn phí cho người Việt.</p>
     <p>Mọi câu trả lời của AI đều ghi rõ “AI, chưa duyệt” — chưa được giáo viên duyệt.</p>
-    <p><a href="/">Trang chủ</a> · <a href="/tro-chuyen-ai.html">Trò chuyện AI</a> · <a href="/bai-xep-lop.html">Bài xếp lớp</a> · <a href="/tai-nguyen.html">Tài nguyên miễn phí</a></p>
+    <p><a href="/">Trang chủ</a> · <a href="/tro-chuyen-ai.html">Trò chuyện AI</a> · <a href="/bai-xep-lop.html">Bài xếp lớp</a> · <a href="/tai-nguyen.html">Tài nguyên miễn phí</a> · <a href="/cong-cu/tu-vung.html">Tra từ</a> · <a href="/cong-cu/viet.html">Chữa bài viết</a></p>
     <p class="muted">Trang đang xây dựng — khung sườn v1, nội dung sẽ thêm sau.</p>
   </div>
 </footer>
