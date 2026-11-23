@@ -1,6 +1,14 @@
-<!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><style>.de-back{margin:0;text-align:left;background:#123a6d;color:#fff;padding:0 16px}.de-back a{display:inline-flex;align-items:center;min-height:44px;color:#fff;font:600 15px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;text-decoration:none}.de-back a:hover{color:#e8a020;text-decoration:underline}.de-back a:focus-visible{outline:3px solid #e8a020;outline-offset:2px}</style><header class="de-back"><a href="/">← David English</a></header>
-<title>Speaking Booth</title>
+<!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Speaking Booth</title>
 <meta name="description" content="Typed speaking practice for IELTS, TOEIC, PTE and everyday English, with AI feedback on your answers.">
+<meta property="og:title" content="Speaking Booth">
+<meta property="og:description" content="Typed speaking practice for IELTS, TOEIC, PTE and everyday English, with AI feedback on your answers.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://davidenglish.vercel.app/tro-choi/speaking-booth.html">
+<meta property="og:image" content="https://davidenglish.vercel.app/assets/og-default.png">
+<link rel="canonical" href="https://davidenglish.vercel.app/tro-choi/speaking-booth.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg">
+</head><body><style>.de-back{margin:0;text-align:left;background:#123a6d;color:#fff;padding:0 16px}.de-back a{display:inline-flex;align-items:center;min-height:44px;color:#fff;font:600 15px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;text-decoration:none}.de-back a:hover{color:#e8a020;text-decoration:underline}.de-back a:focus-visible{outline:3px solid #e8a020;outline-offset:2px}</style><header class="de-back"><a href="/">← David English</a></header>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
@@ -175,15 +183,26 @@ var GENERAL=[
  "Describe your neighbourhood to someone who has never been there."
 ];
 
-/* ================= capability ================= */
-var sampleApi=null;
-(function initSample(){
-  try{
-    if(window.claude&&window.claude.use){
-      window.claude.use("sample").then(function(s){sampleApi=s;}).catch(function(){sampleApi=null;});
-    }
-  }catch(e){}
-})();
+/* ================= AI feedback via the site's own /api/chat =================
+   The old Claude sample API never works on the live site, so feedback now
+   goes through /api/chat (Groq primary, Gemini fallback). Every AI answer
+   is labelled "AI, chưa duyệt". 429 = out of free turns today, 503 = the
+   chat feature is not ready yet. The API takes at most 500 characters per
+   question, so the prompt below is kept short and the answer is excerpted. */
+function askChatAI(question){
+  return fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({question:String(question).slice(0,500),history:[],mode:"chat"})})
+    .then(function(r){return r.json().then(function(d){return {status:r.status,d:d};});})
+    .then(function(res){
+      var d=res.d||{};
+      if(res.status===200&&d.answer)return {ok:true,answer:d.answer};
+      if(res.status===429)return {ok:false,msg:d.message||"Hôm nay đã hết lượt trả lời miễn phí, mời bạn quay lại sau 0:00 giờ."};
+      if(res.status===503)return {ok:false,msg:d.message||"Tính năng chat AI đang được chuẩn bị, mời bạn quay lại sau."};
+      return {ok:false,msg:(d&&d.message)||"Có lỗi xảy ra, mời thử lại sau."};
+    })
+    .catch(function(){return {ok:false,msg:"Không kết nối được, thử lại sau."};});
+}
+function aiTextHtml(t){return esc(t).replace(/\n/g,"<br>");}
 
 /* ================= modes ================= */
 var MODES=[
@@ -308,34 +327,24 @@ function getFeedback(responseText){
     return;
   }
   app.innerHTML='<div class="panel"><div class="kicker"><span class="dot live"></span>'+esc(p.kicker)+'</div><p class="hint" id="thinking">Thinking about your answer…</p></div>';
-  if(!sampleApi){
-    app.innerHTML='<div class="panel"><div class="kicker">'+esc(p.kicker)+'</div><p class="err">Feedback needs Claude access for this artifact, which isn’t available right now. Your answer:</p><p class="model">'+esc(responseText)+'</p><div class="row"><button class="btn ghost" id="again">New prompt</button></div></div>';
-    document.getElementById("again").onclick=newPrompt;
-    return;
-  }
-  var task="Task: "+p.title+(p.bullets?" ("+p.bullets.join("; ")+")":"")+(p.passage?" Talk to retell: "+p.passage:"")+(p._answer?" Model short answer: "+p._answer:"");
-  var sys="You are a supportive but honest speaking examiner for "+p.kicker.split(" · ")[0]+". "+task+
-    " The candidate's spoken answer (typed as they said it, so treat it as speech, not an essay) is below. "+
-    "Score it on "+p.scale+". Reply with JSON ONLY, no markdown, in exactly this shape: "+
-    '{"score":"<the score as a short string, matching the scale given>","strengths":["...","..."],"improve":["...","..."],"modelAnswer":"<a short 2-4 sentence spoken-style model answer to this exact task>"}'+
-    " Keep each strength/improve item under 15 words, plain and specific to this answer, no generic filler.\\n\\nCandidate's answer: "+responseText;
-  sampleApi.json(sys,{modelTier:"default"}).then(function(res){
-    var f=res;
-    var html='<div class="panel">'+
-      '<div class="kicker">'+esc(p.kicker)+' · feedback</div>'+
-      '<div class="fb-score"><span class="num">'+esc(String(f.score||"?"))+'</span><span class="lbl">'+esc(p.scale)+'</span></div>'+
-      (f.strengths&&f.strengths.length?'<div class="fb-sec good"><h3>What worked</h3><ul>'+f.strengths.map(function(s){return '<li>'+esc(s)+'</li>';}).join("")+'</ul></div>':'')+
-      (f.improve&&f.improve.length?'<div class="fb-sec bad"><h3>Work on</h3><ul>'+f.improve.map(function(s){return '<li>'+esc(s)+'</li>';}).join("")+'</ul></div>':'')+
-      (f.modelAnswer?'<div class="fb-sec"><h3>A model answer</h3><div class="model">'+esc(f.modelAnswer)+'</div></div>':'')+
-      '<div class="row"><button class="btn amber" id="again">Next prompt</button></div>'+
-    '</div>';
+  var task="Task: "+p.title.slice(0,60)+(p.bullets?" ("+p.bullets.join("; ").slice(0,60)+")":"")+(p.passage?" Talk to retell: "+p.passage.slice(0,60):"")+(p._answer?" Model short answer: "+p._answer:"");
+  var q="You are a speaking examiner. "+task+
+    " Score this spoken answer (typed as said) on: "+p.scale+
+    ". Give 2 strengths, 2 things to improve, a short model answer (2-3 sentences). Be short and specific."+
+    "\n\nAnswer (excerpt): "+responseText.slice(0,100);
+  askChatAI(q).then(function(res){
+    var html;
+    if(res.ok){
+      html='<div class="panel">'+
+        '<div class="kicker">'+esc(p.kicker)+' · feedback</div>'+
+        '<div class="fb-sec"><p>'+aiTextHtml(res.answer)+'</p></div>'+
+        '<p class="hint">AI feedback on an excerpt of your answer — AI, chưa duyệt.</p>'+
+        '<div class="row"><button class="btn amber" id="again">Next prompt</button></div>'+
+      '</div>';
+    }else{
+      html='<div class="panel"><div class="kicker">'+esc(p.kicker)+'</div><p class="err">'+esc(res.msg)+'</p><p class="model">'+esc(responseText)+'</p><div class="row"><button class="btn ghost" id="again">New prompt</button></div></div>';
+    }
     app.innerHTML=html;
-    document.getElementById("again").onclick=newPrompt;
-  }).catch(function(err){
-    var msg=(err&&err.code==="not_granted")?"Feedback wasn't allowed for this session.":
-            (err&&err.code==="rate_limited")?"Too many requests right now — wait a moment and try again.":
-            "Couldn't get feedback this time.";
-    app.innerHTML='<div class="panel"><div class="kicker">'+esc(p.kicker)+'</div><p class="err">'+esc(msg)+'</p><p class="model">'+esc(responseText)+'</p><div class="row"><button class="btn ghost" id="again">New prompt</button></div></div>';
     document.getElementById("again").onclick=newPrompt;
   });
 }

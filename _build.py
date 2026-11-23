@@ -42,6 +42,27 @@ ICON_SVG = {
                      '<path d="M14 10a4.5 4.5 0 0 0-6.4 0l-2.8 2.8a4.5 4.5 0 0 0 6.4 6.4l1.4-1.4"/>'),
     "place": _svg('<path d="M12 21s-6.5-5.6-6.5-10.5a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21z"/>'
                   '<circle cx="12" cy="10.5" r="2.3"/>'),
+    "chat": _svg('<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>'),
+    "dice": _svg('<rect x="4" y="4" width="16" height="16" rx="3"/>'
+                 '<circle cx="9" cy="9" r="1" fill="currentColor" stroke="none"/>'
+                 '<circle cx="15" cy="9" r="1" fill="currentColor" stroke="none"/>'
+                 '<circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/>'
+                 '<circle cx="9" cy="15" r="1" fill="currentColor" stroke="none"/>'
+                 '<circle cx="15" cy="15" r="1" fill="currentColor" stroke="none"/>'),
+    "listen": _svg('<path d="M4 14v-2a8 8 0 0 1 16 0v2"/>'
+                   '<rect x="3" y="14" width="4" height="6" rx="1.5"/>'
+                   '<rect x="17" y="14" width="4" height="6" rx="1.5"/>'),
+    "mic": _svg('<rect x="9" y="3" width="6" height="11" rx="3"/>'
+                '<path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/>'),
+    "write": _svg('<path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19l-4 1z"/>'
+                  '<path d="M14.5 6.5l3 3"/>'),
+    "flag": _svg('<path d="M5 21V4"/><path d="M5 4h13l-2.5 4L18 12H5"/>'),
+    "cap": _svg('<path d="M2.5 9.5L12 5l9.5 4.5L12 14 2.5 9.5z"/>'
+                '<path d="M6.5 11.5V16c0 1.5 2.5 3 5.5 3s5.5-1.5 5.5-3v-4.5"/>'
+                '<path d="M21.5 9.5V15"/>'),
+    "trophy": _svg('<path d="M8 4h8v5a4 4 0 0 1-8 0V4z"/>'
+                   '<path d="M8 5H4.5a3 3 0 0 0 3 4"/><path d="M16 5h3.5a3 3 0 0 1-3 4"/>'
+                   '<path d="M12 13v4"/><path d="M8.5 20h7"/><path d="M10 17h4"/>'),
 }
 
 
@@ -107,10 +128,21 @@ def derive_desc(body_html):
     return _short(text)
 
 
+def _pretty_url(path):
+    """Dạng URL đẹp dùng cho canonical / og:url / sitemap: bỏ hậu tố
+    '/index.html' (giữ '/' cho trang chủ, giữ nguyên .html còn lại)."""
+    if path == "/":
+        return "/"
+    if path.endswith("/index.html"):
+        return path[: -len("index.html")]
+    return path
+
+
 def page(path, title, h1, body_html, active="/", desc=None, eyebrow=None, hero=None, noindex=False):
     d = desc or derive_desc(body_html)
     desc_esc = htmlmod.escape(d, quote=True)
     title_esc = htmlmod.escape(title, quote=True)
+    pretty = _pretty_url(path)
     robots_meta = ('<meta name="robots" content="noindex, follow">\n'
                    if noindex else "")
     if hero is not None:
@@ -153,8 +185,10 @@ def page(path, title, h1, body_html, active="/", desc=None, eyebrow=None, hero=N
 {robots_meta}<meta property="og:title" content="{title_esc} | David English">
 <meta property="og:description" content="{desc_esc}">
 <meta property="og:type" content="website">
-<meta property="og:url" content="{SITE_URL}{'' if path == '/' else path}">
+<meta property="og:url" content="{SITE_URL}{pretty}">
 <meta property="og:image" content="{SITE_URL}/assets/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="{SITE_URL}{pretty}">
 <meta name="theme-color" content="#123a6d">
 <link rel="icon" href="/favicon.svg">
 <link rel="stylesheet" href="{STYLE}">
@@ -200,7 +234,8 @@ def page(path, title, h1, body_html, active="/", desc=None, eyebrow=None, hero=N
     return full
 
 
-def soon(title, lines, extra="", parent=None, prev=None, next=None, ai_question=None, chip=None):
+def soon(title, lines, extra="", parent=None, prev=None, next=None, ai_question=None, chip=None,
+         lead=None, do_now=None):
     lis = "".join(f"<li>{l}</li>" for l in lines)
     ai_href = "/tro-chuyen-ai.html"
     if ai_question:
@@ -217,12 +252,20 @@ def soon(title, lines, extra="", parent=None, prev=None, next=None, ai_question=
         sib.append(f'<a href="{next[1]}">{next[0]} →</a>')
     sib_html = f"<p>{' · '.join(sib)}</p>\n" if sib else ""
     chip_html = f'<p><span class="level-chip lv-{chip}">{chip.upper()}</span></p>\n' if chip else ""
+    lead_html = f'<p class="lead">{lead}</p>\n' if lead else ""
+    do_now_html = ""
+    if do_now:
+        pairs = do_now if isinstance(do_now, list) else [do_now]
+        do_now_html = ('<p><strong>Làm ngay trong lúc chờ:</strong> '
+                       + " · ".join(f'<a href="{h}">{t}</a>' for t, h in pairs)
+                       + "</p>\n")
     return f"""
 <section class="section">
 <p><span class="badge badge-soon">Sắp có</span></p>
-{chip_html}<p>{title}</p>
+{chip_html}{lead_html}<p>{title}</p>
 <ul>{lis}</ul>
 {extra}
+{do_now_html}<p class="muted">Dự kiến ra mắt trong những tuần tới — nội dung đang được biên soạn.</p>
 {sib_html}<p>{" · ".join(links)}</p>
 </section>
 """
@@ -241,32 +284,32 @@ add("/", "Trang chủ", "Học tiếng Anh miễn phí, từ đầu tới giỏi
 <p>Trang đang được xây dựng dần: bài học A1–A2, trò chơi và sách học đã có — các mục còn lại sẽ thêm sau.</p>
 <section class="section">
 <div class="cards">
-  <article class="card card-tool">{card_icon("tool")}<h2><a href="/bai-xep-lop.html">Bài xếp lớp</a></h2><p>Bản demo với 3 câu mẫu — thử giao diện xếp lớp rồi gợi ý lộ trình học phù hợp.</p></article>
+  <article class="card card-tool">{card_icon("place")}<h2><a href="/bai-xep-lop.html">Bài xếp lớp</a></h2><p>Bản demo với 3 câu mẫu — thử giao diện xếp lớp rồi gợi ý lộ trình học phù hợp.</p></article>
   <article class="card card-level">{card_icon("level")}<h2><a href="/trinh-do/">Theo trình độ (A1–C2)</a></h2><p>Đã có bài học A1 và A2 — từ vựng, ngữ pháp, bài tập và PDF miễn phí. Các cấp B1–C2 sẽ có sau.</p></article>
-  <article class="card card-skill">{card_icon("skill")}<h2><a href="/ky-nang/">Theo kỹ năng</a></h2><p><span class="badge badge-soon">Sắp có</span></p><p>Nghe, nói, đọc, viết — sẽ luyện từng kỹ năng riêng, có giải thích tiếng Việt.</p></article>
-  <article class="card card-exam">{card_icon("exam")}<h2><a href="/luyen-thi/">Luyện thi</a></h2><p><span class="badge badge-soon">Sắp có</span></p><p>IELTS · TOEIC · PTE · TOEFL · VSTEP — sẽ có đề thi thử và mẹo làm bài từng phần.</p></article>
-  <article class="card card-kids">{card_icon("kids")}<h2><a href="/tre-em.html">Trẻ em</a></h2><p><span class="badge badge-soon">Sắp có</span></p><p>Tiếng Anh cho trẻ em: sẽ có từ vựng theo chủ đề, bài hát, trò chơi, truyện ngắn.</p></article>
-  <article class="card card-work">{card_icon("work")}<h2><a href="/cong-viec.html">Tiếng Anh công việc</a></h2><p><span class="badge badge-soon">Sắp có</span></p><p>Tiếng Anh cho từng ngành nghề sẽ có: kinh doanh, y tế, công nghệ, du lịch, và hơn nữa.</p></article>
-  <article class="card card-abroad">{card_icon("abroad")}<h2><a href="/du-hoc.html">Du học</a></h2><p><span class="badge badge-soon">Sắp có</span></p><p>Chuẩn bị tiếng Anh đi du học sẽ có: học bổng, hồ sơ, phỏng vấn, đời sống ở nước ngoài.</p></article>
+  <article class="card card-skill">{card_icon("skill")}<p><span class="badge badge-soon">Sắp có</span></p><h2><a href="/ky-nang/">Theo kỹ năng</a></h2><p>Nghe, nói, đọc, viết — sẽ luyện từng kỹ năng riêng, có giải thích tiếng Việt.</p></article>
+  <article class="card card-exam">{card_icon("exam")}<p><span class="badge badge-soon">Sắp có</span></p><h2><a href="/luyen-thi/">Luyện thi</a></h2><p>IELTS · TOEIC · PTE · TOEFL · VSTEP — sẽ có đề thi thử và mẹo làm bài từng phần.</p></article>
+  <article class="card card-kids">{card_icon("kids")}<p><span class="badge badge-soon">Sắp có</span></p><h2><a href="/tre-em.html">Trẻ em</a></h2><p>Tiếng Anh cho trẻ em: sẽ có từ vựng theo chủ đề, bài hát, trò chơi, truyện ngắn.</p></article>
+  <article class="card card-work">{card_icon("work")}<p><span class="badge badge-soon">Sắp có</span></p><h2><a href="/cong-viec.html">Tiếng Anh công việc</a></h2><p>Tiếng Anh cho từng ngành nghề sẽ có: kinh doanh, y tế, công nghệ, du lịch, và hơn nữa.</p></article>
+  <article class="card card-abroad">{card_icon("abroad")}<p><span class="badge badge-soon">Sắp có</span></p><h2><a href="/du-hoc.html">Du học</a></h2><p>Chuẩn bị tiếng Anh đi du học sẽ có: học bổng, hồ sơ, phỏng vấn, đời sống ở nước ngoài.</p></article>
   <article class="card card-resource">{card_icon("resource")}<h2><a href="/tai-nguyen.html">Tài nguyên miễn phí</a></h2><p>Link tới tài nguyên học tiếng Anh miễn phí chất lượng cao trên mạng (British Council, BBC, Cambridge…).</p></article>
   <article class="card card-book">{card_icon("book")}<h2><a href="/sach/">Sách học</a></h2><p>Hướng dẫn tự học với các sách tiếng Anh phổ biến: Global Success, American English File, Barron's TOEIC, Mindset for IELTS.</p></article>
-  <article class="card card-tool">{card_icon("tool")}<h2><a href="/tro-choi/">Trò chơi &amp; Công cụ</a></h2><p>Học tiếng Anh bằng trò chơi: luyện TOEIC, PTE, IELTS, kiểm tra trình độ, trò chơi theo lớp 4–10 và công cụ cho giáo viên.</p></article>
+  <article class="card card-tool">{card_icon("dice")}<h2><a href="/tro-choi/">Trò chơi &amp; Công cụ</a></h2><p>Học tiếng Anh bằng trò chơi: luyện TOEIC, PTE, IELTS, kiểm tra trình độ, trò chơi theo lớp 4, 9, 10 và công cụ cho giáo viên.</p></article>
 </div>
 </section>
 <section class="section section-alt">
 <div class="section-head"><h2>Công cụ AI</h2></div>
 <div class="cards">
-  <article class="card card-tool">{card_icon("tool")}<h2><a href="/tro-chuyen-ai.html">Trò chuyện AI</a></h2><p>Hỏi bất cứ gì về tiếng Anh — ngữ pháp, từ vựng, phát âm, luyện thi. Trả lời bằng tiếng Việt.</p></article>
+  <article class="card card-tool">{card_icon("chat")}<h2><a href="/tro-chuyen-ai.html">Trò chuyện AI</a></h2><p>Hỏi bất cứ gì về tiếng Anh — ngữ pháp, từ vựng, phát âm, luyện thi. Trả lời bằng tiếng Việt.</p></article>
   <article class="card card-tool">{card_icon("tool")}<h2><a href="/cong-cu/tu-vung.html">Tra từ bằng AI</a></h2><p>Gõ một từ tiếng Anh, AI giải nghĩa bằng tiếng Việt, kèm ví dụ và cách phát âm.</p></article>
   <article class="card card-tool">{card_icon("tool")}<h2><a href="/cong-cu/viet.html">Chữa bài viết bằng AI</a></h2><p>Dán đoạn văn tiếng Anh của bạn, AI sửa lỗi và gợi ý cách viết hay hơn.</p></article>
 </div>
 </section>
 <p class="muted">Mọi câu trả lời của AI đều ghi rõ “AI, chưa duyệt”.</p>
-""", desc="David English đang xây dựng thư viện học tiếng Anh miễn phí cho người Việt, giải thích bằng tiếng Việt — mọi trình độ, mọi kỳ thi.",
+""", desc="David English đang xây dựng thư viện học tiếng Anh miễn phí cho người Việt, giải thích bằng tiếng Việt — đã có bài học A1–A2, trò chơi và sách học; các mục còn lại đang được xây dựng dần.",
     hero={
         "eyebrow": TAGLINE,
         "title_html": "Học tiếng Anh <strong>miễn phí</strong>, từ đầu tới giỏi",
-        "lead": "David English đang xây dựng thư viện học tiếng Anh miễn phí cho người Việt — không cần đăng ký, giải thích bằng tiếng Việt, từ trẻ em tới người lớn, mọi trình độ, mọi ngành nghề, mọi kỳ thi.",
+        "lead": "David English đang xây dựng thư viện học tiếng Anh miễn phí cho người Việt — không cần đăng ký, giải thích bằng tiếng Việt. Đã có bài học A1–A2, trò chơi và sách học; các mục còn lại đang được xây dựng dần.",
         "cta_primary": ("Bài xếp lớp", "/bai-xep-lop.html"),
         "cta_secondary": ("Theo trình độ", "/trinh-do/"),
     })
@@ -378,7 +421,7 @@ def lesson_body(d, prev_lesson, next_lesson):
     grammar_html = ""
     for g in d.get("grammar", []):
         exs = "".join(f"<li><em>{_esc(e)}</em></li>" for e in g.get("examples", []))
-        grammar_html += (f"<h2>{_esc(g['title'])}</h2>\n"
+        grammar_html += (f"<h3>{_esc(g['title'])}</h3>\n"
                          f"<p>{_esc(g['explain'])}</p>\n<ul>{exs}</ul>\n")
     dlg = d.get("dialogue")
     dlg_html = ""
@@ -441,6 +484,10 @@ for _i, _d in enumerate(LESSONS):
         desc=_d.get("subtitle", ""))
 
 
+LEVEL_ICONS = {"a1": "flag", "a2": "book", "b1": "chat",
+               "b2": "abroad", "c1": "cap", "c2": "trophy"}
+
+
 def level_cards():
     out = []
     for slug, name, desc in LEVELS:
@@ -451,7 +498,7 @@ def level_cards():
             badge = '<p><span class="badge badge-soon">Sắp có</span></p>'
             note = ""
         out.append(
-            f'<article class="card card-level">{card_icon("level")}'
+            f'<article class="card card-level">{card_icon(LEVEL_ICONS[slug])}'
             f'<span class="level-chip lv-{slug}">{slug.upper()}</span>'
             f'<h2><a href="/trinh-do/{slug}.html">{name}</a></h2>'
             f'{badge}<p>{desc}{note}</p></article>')
@@ -490,14 +537,17 @@ def level_hub_body(slug, name, desc):
 <p class="muted">Kingdom English A2 là bộ sách bài tập tiếng Anh theo chủ đề Kinh Thánh, trình độ A2 — mỗi unit có từ vựng, bài đọc, ngữ pháp và bài tập.</p>
 </section>"""
     nxt = {"a1": ("A2", "/trinh-do/a2.html"), "a2": ("B1", "/trinh-do/b1.html")}[slug]
+    # Trang A2 có thêm mục sách bài tập (section-alt) ngay sau mục PDF —
+    # để PDF dùng section thường, tránh hai section-alt kề nhau tạo vệt đôi.
+    pdf_cls = "section" if extra else "section section-alt"
     return f"""
 <p class="lead">{desc}</p>
-{AI_NOTE}
 <section class="section">
 <div class="section-head"><h2>Bài học</h2></div>
+{AI_NOTE}
 <ul>{items}</ul>
 </section>
-<section class="section section-alt">
+<section class="{pdf_cls}">
 <div class="section-head"><h2>Tài liệu PDF miễn phí</h2></div>
 <ul>{pdfs}</ul>
 </section>
@@ -534,6 +584,12 @@ for i, (slug, name, desc) in enumerate(LEVELS):
         continue
     last = ("Lộ trình duy trì và nâng cao trình độ C2." if slug == "c2"
             else f"Lộ trình lên cấp độ tiếp theo từ {slug.upper()}.")
+    do_now_trinh_do = {
+        "b1": ("Ôn lại bài học A2", "/trinh-do/a2.html"),
+        "b2": ("Hướng dẫn học với sách American English File (tới C1)", "/sach/american-english-file.html"),
+        "c1": ("Hướng dẫn học với sách Mindset for IELTS (tới band 7.5)", "/sach/mindset-for-ielts.html"),
+        "c2": ("Kiểm tra trình độ hiện tại của bạn", "/tro-choi/english-level-check.html"),
+    }[slug]
     add(f"/trinh-do/{slug}.html", name, name,
         soon("Trang này sẽ có:",
              [f"Mô tả năng lực của trình độ {slug.upper()} theo khung CEFR.",
@@ -543,7 +599,7 @@ for i, (slug, name, desc) in enumerate(LEVELS):
              parent=("Tất cả trình độ", "/trinh-do/"),
              prev=prev, next=next_,
              ai_question=f"Cho tôi lộ trình học tiếng Anh trình độ {slug.upper()}.",
-             chip=slug),
+             chip=slug, lead=desc, do_now=do_now_trinh_do),
         active="/trinh-do/", eyebrow="Theo trình độ", desc=desc, noindex=True)
 
 # ---------------- Theo kỹ năng ----------------
@@ -553,13 +609,14 @@ SKILLS = [
     ("doc", "Đọc", "Luyện đọc hiểu: đọc truyện ngắn, báo, tài liệu — kèm từ vựng và câu hỏi kiểm tra."),
     ("viet", "Viết", "Luyện viết: viết câu, đoạn văn, email, luận — có AI chữa bài và gợi ý cách viết hay hơn."),
 ]
+SKILL_ICONS = {"nghe": "listen", "noi": "mic", "doc": "book", "viet": "write"}
 add("/ky-nang/index.html", "Theo kỹ năng", "Luyện từng kỹ năng",
     """
 <p class="lead">Bốn kỹ năng nghe — nói — đọc — viết, sẽ luyện riêng từng kỹ năng với bài tập và giải thích bằng tiếng Việt.</p>
 <section class="section">
 <div class="cards">
 """ + "".join(
-        f'<article class="card card-skill">{card_icon("skill")}<h2><a href="/ky-nang/{slug}.html">{name}</a></h2><p><span class="badge badge-soon">Sắp có</span></p><p>{desc}</p></article>'
+        f'<article class="card card-skill">{card_icon(SKILL_ICONS[slug])}<h2><a href="/ky-nang/{slug}.html">{name}</a></h2><p><span class="badge badge-soon">Sắp có</span></p><p>{desc}</p></article>'
         for slug, name, desc in SKILLS
     ) + """
 </div>
@@ -569,6 +626,12 @@ add("/ky-nang/index.html", "Theo kỹ năng", "Luyện từng kỹ năng",
 for i, (slug, name, desc) in enumerate(SKILLS):
     prev = (SKILLS[i - 1][1], f"/ky-nang/{SKILLS[i - 1][0]}.html") if i > 0 else None
     next_ = (SKILLS[i + 1][1], f"/ky-nang/{SKILLS[i + 1][0]}.html") if i < len(SKILLS) - 1 else None
+    do_now_skill = {
+        "nghe": ("Luyện nghe qua trò chơi TOEIC Arcade", "/tro-choi/toeic-arcade.html"),
+        "noi": ("Luyện nói cùng AI — Trò chuyện AI", "/tro-chuyen-ai.html"),
+        "doc": ("Đọc sách tiếng Anh miễn phí trên Open Shelf", "/tro-choi/open-shelf.html"),
+        "viet": ("Dùng công cụ chữa bài viết bằng AI", "/cong-cu/viet.html"),
+    }[slug]
     add(f"/ky-nang/{slug}.html", name, f"Luyện {name.lower()}",
         soon("Trang này sẽ có:",
              [desc,
@@ -576,7 +639,8 @@ for i, (slug, name, desc) in enumerate(SKILLS):
               "Mẹo luyện tập hằng ngày và lỗi thường gặp của người Việt."],
              parent=("Tất cả kỹ năng", "/ky-nang/"),
              prev=prev, next=next_,
-             ai_question=f"Làm sao để luyện {name.lower()} tiếng Anh hiệu quả?"),
+             ai_question=f"Làm sao để luyện {name.lower()} tiếng Anh hiệu quả?",
+             lead=desc, do_now=do_now_skill),
         active="/ky-nang/", eyebrow="Theo kỹ năng", desc=desc, noindex=True)
 
 # ---------------- Luyện thi ----------------
@@ -604,10 +668,20 @@ add("/luyen-thi/index.html", "Luyện thi", "Luyện thi tiếng Anh",
     ) + """
 </div>
 </section>
+<p>Đã có hướng dẫn học với sách cho hai kỳ thi: <a href="/sach/barrons-toeic.html">học TOEIC với sách Barron's</a> · <a href="/sach/mindset-for-ielts.html">học IELTS với sách Mindset for IELTS</a>.</p>
 """, active="/luyen-thi/", eyebrow="Luyện thi", desc="Luyện thi IELTS, TOEIC, PTE, TOEFL và VSTEP: đề thi thử tự biên soạn, mẹo làm bài từng phần, giải thích bằng tiếng Việt.")
 for i, (slug, name, desc) in enumerate(TESTS):
     prev = (TESTS[i - 1][1], f"/luyen-thi/{TESTS[i - 1][0]}.html") if i > 0 else None
     next_ = (TESTS[i + 1][1], f"/luyen-thi/{TESTS[i + 1][0]}.html") if i < len(TESTS) - 1 else None
+    do_now_test = {
+        "ielts": ("Luyện IELTS ngay với trò chơi Band Climb", "/tro-choi/band-climb.html"),
+        "toeic": ("Luyện TOEIC ngay với TOEIC Arcade", "/tro-choi/toeic-arcade.html"),
+        "pte": ("Chơi thử PTE Arcade ngay", "/tro-choi/pte-arcade.html"),
+        "toefl": ("Xem mục Du học — thi TOEFL để đi du học", "/du-hoc.html"),
+        "vstep": [("Ôn lại kiến thức trình độ B1", "/trinh-do/b1.html"),
+                  ("B2", "/trinh-do/b2.html"),
+                  ("C1", "/trinh-do/c1.html")],
+    }[slug]
     add(f"/luyen-thi/{slug}.html", name, f"Luyện thi {name}",
         soon("Trang này sẽ có:",
              [desc,
@@ -617,7 +691,8 @@ for i, (slug, name, desc) in enumerate(TESTS):
              extra=LUYEN_THI_GUIDE_EXTRA.get(slug, ""),
              parent=("Tất cả kỳ thi", "/luyen-thi/"),
              prev=prev, next=next_,
-             ai_question=f"Lộ trình luyện thi {name} như thế nào?"),
+             ai_question=f"Lộ trình luyện thi {name} như thế nào?",
+             lead=desc, do_now=do_now_test),
         active="/luyen-thi/", eyebrow="Luyện thi", desc=desc, noindex=True)
 
 # ---------------- Các mục còn lại ----------------
@@ -627,16 +702,20 @@ add("/tre-em.html", "Trẻ em", "Tiếng Anh cho trẻ em",
           "Bài hát, truyện ngắn và trò chơi học tiếng Anh.",
           "Bài học ngắn, hình ảnh lớn, phù hợp cho trẻ từ mầm non tới tiểu học.",
           "Hướng dẫn cho phụ huynh cùng học với con."],
-         ai_question="Cho tôi lộ trình dạy tiếng Anh cho trẻ em."),
+         ai_question="Cho tôi lộ trình dạy tiếng Anh cho trẻ em.",
+         lead="Tiếng Anh cho trẻ em: từ vựng theo chủ đề, bài hát, truyện ngắn và trò chơi — bài học ngắn, hình ảnh lớn.",
+         do_now=("Chơi Grade 4 Quest — từ vựng, ngữ pháp theo sách lớp 4", "/tro-choi/grade-4-quest.html")),
     active="/tre-em.html", eyebrow="Trẻ em", noindex=True,
     desc="Tiếng Anh cho trẻ em: từ vựng theo chủ đề, bài hát, truyện ngắn và trò chơi — bài học ngắn, hình ảnh lớn. Sắp có.")
 
 add("/cong-viec.html", "Tiếng Anh công việc", "Tiếng Anh cho công việc",
     soon("Trang này sẽ có:",
-         ["Tiếng Anh theo từng ngành nghề: kinh doanh, y tế, công nghệ thông tin, du lịch, nhà hàng — khách sạn…",
+         ["Tiếng Anh theo từng ngành nghề: kinh doanh, y tế, công nghệ thông tin, du lịch, nhà hàng – khách sạn…",
           "Mẫu email, họp, thuyết trình, phỏng vấn xin việc bằng tiếng Anh.",
           "Từ vựng chuyên ngành kèm giải thích tiếng Việt."],
-         ai_question="Tôi muốn học tiếng Anh cho công việc, bắt đầu từ đâu?"),
+         ai_question="Tôi muốn học tiếng Anh cho công việc, bắt đầu từ đâu?",
+         lead="Tiếng Anh cho công việc theo từng ngành nghề: mẫu email, họp, thuyết trình và phỏng vấn xin việc bằng tiếng Anh.",
+         do_now=("Chơi Workplace English Arcade — tiếng Anh công việc trình độ B2", "/tro-choi/workplace-english-arcade.html")),
     active="/cong-viec.html", eyebrow="Tiếng Anh công việc", noindex=True,
     desc="Tiếng Anh cho công việc theo từng ngành nghề: mẫu email, họp, thuyết trình và phỏng vấn xin việc bằng tiếng Anh. Sắp có.")
 
@@ -645,7 +724,9 @@ add("/du-hoc.html", "Du học", "Chuẩn bị tiếng Anh đi du học",
          ["Tiếng Anh cần cho du học: thi IELTS/TOEFL/PTE, viết luận xin học bổng, phỏng vấn visa.",
           "Học bổng toàn phần: Chevening, Fulbright, Australia Awards, DAAD, GKS, MEXT, Erasmus Mundus.",
           "Đời sống ở nước ngoài: nhà ở, ngân hàng, giao tiếp hằng ngày."],
-         ai_question="Tôi muốn đi du học, cần chuẩn bị tiếng Anh như thế nào?"),
+         ai_question="Tôi muốn đi du học, cần chuẩn bị tiếng Anh như thế nào?",
+         lead="Chuẩn bị tiếng Anh đi du học: thi IELTS/TOEFL/PTE, học bổng toàn phần, phỏng vấn visa và đời sống ở nước ngoài.",
+         do_now=("Hướng dẫn học với sách Mindset for IELTS", "/sach/mindset-for-ielts.html")),
     active="/du-hoc.html", eyebrow="Du học", noindex=True,
     desc="Chuẩn bị tiếng Anh đi du học: thi IELTS/TOEFL/PTE, học bổng toàn phần, phỏng vấn visa và đời sống ở nước ngoài. Sắp có.")
 
@@ -676,27 +757,34 @@ add("/tai-nguyen.html", "Tài nguyên miễn phí", "Tài nguyên học tiếng 
     desc="Tài nguyên học tiếng Anh miễn phí: British Council LearnEnglish, BBC Learning English, Cambridge, USA Learns, VOA Learning English.")
 
 # ---------------- Trò chuyện AI (trang riêng) ----------------
+_TRO_CHUYEN_AI_EXAMPLES = [
+    "Phân biệt “a” và “the” như thế nào?",
+    "Học từ vựng thế nào cho nhớ lâu?",
+    "IELTS Speaking Part 1 thường hỏi gì?",
+    "Cho tôi lộ trình học tiếng Anh trình độ A1.",
+]
+_TRO_CHUYEN_AI_CHIPS = " ".join(
+    f'<a class="de-chat-chip" style="display:inline-block;text-decoration:none" href="/tro-chuyen-ai.html?q={quote(q, safe="")}">{q}</a>'
+    for q in _TRO_CHUYEN_AI_EXAMPLES)
 add("/tro-chuyen-ai.html", "Trò chuyện AI", "Trò chuyện AI",
-    """
+    f"""
 <p class="lead">Hỏi bất cứ gì về tiếng Anh — ngữ pháp, từ vựng, phát âm, luyện thi, lộ trình học. AI trả lời bằng tiếng Việt.</p>
 <p><span class="badge">AI, chưa duyệt</span> Mọi câu trả lời do AI soạn, chưa được giáo viên duyệt — hãy đối chiếu với sách và giáo viên của bạn.</p>
 <section class="section">
+<div class="section-head"><h2>AI có thể giúp gì</h2></div>
+<ul>
+<li>Giải thích ngữ pháp bằng tiếng Việt, kèm ví dụ song ngữ.</li>
+<li>Giải nghĩa từ vựng, phân biệt từ gần nghĩa, gợi ý cách dùng đúng.</li>
+<li>Gợi ý lộ trình học theo trình độ (A1–C2) và mục tiêu của bạn.</li>
+<li>Mẹo làm bài thi IELTS, TOEIC, PTE — và chữa bài viết ngắn của bạn.</li>
+</ul>
+<p><strong>Thử một câu hỏi mẫu — bấm để gửi ngay:</strong></p>
+<p class="de-chat-suggest">{_TRO_CHUYEN_AI_CHIPS}</p>
+</section>
+<section class="section">
 <div id="deChatPage"><noscript><p>Trò chuyện AI cần bật JavaScript để hiển thị. Bạn vẫn có thể xem các mục khác của trang, hoặc bật JavaScript rồi tải lại trang.</p></noscript></div>
 </section>
-<script>
-(function () {
-  var q = new URLSearchParams(window.location.search).get('q');
-  if (!q) return;
-  var tries = 0;
-  var timer = setInterval(function () {
-    tries++;
-    var input = document.querySelector('#deChatPage .de-chat-foot input');
-    if (input) { input.value = q; input.focus(); clearInterval(timer); }
-    else if (tries > 10) { clearInterval(timer); }
-  }, 200);
-})();
-</script>
-<p class="muted">Chat dùng cùng hệ thống với khung chat góc màn hình. Nếu tính năng chưa sẵn sàng, trang sẽ báo “đang được chuẩn bị”.</p>
+<p class="muted">Chat dùng cùng hệ thống với khung chat góc màn hình. Nếu tính năng chưa sẵn sàng (chưa có key hoặc đã hết lượt miễn phí trong ngày), khung chat sẽ báo rõ — bạn vẫn có thể dùng các mục khác của trang trong lúc chờ.</p>
 """, active="/tro-chuyen-ai.html", eyebrow="Công cụ AI",
     desc="Trò chuyện với AI về tiếng Anh: ngữ pháp, từ vựng, phát âm, luyện thi và lộ trình học — trả lời bằng tiếng Việt.")
 
@@ -960,9 +1048,9 @@ add("/sach/barrons-toeic.html", "Hướng dẫn học với sách Barron's TOEIC
 <p>Kế hoạch 8 tuần dưới đây giả định bạn học 5 buổi/tuần, mỗi buổi 60–90 phút, và đã có nền tảng trung cấp. Nếu bạn còn nhiều thời gian hơn, hãy kéo dài giai đoạn 1; nếu sắp thi, hãy rút giai đoạn 1 còn 1 tuần và dành nhiều thời gian cho giai đoạn 3.</p>
 <p><strong>Tuần 1 — Làm quen và đo trình độ.</strong> Đọc phần tổng quan về bài thi trong cuốn tổng hợp. Làm 1 đề thi thử trong cuốn Practice Exams hoặc Premium trong điều kiện đúng giờ (2 giờ, không dừng) để biết điểm xuất phát và phần nào yếu nhất. Ghi lại điểm từng phần (Nghe/Đọc) và 3 dạng bài mất điểm nhiều nhất. Học 5 bài từ vựng đầu tiên trong cuốn 600 từ.</p>
 <p><strong>Tuần 2–3 — Ôn kỹ năng Nghe.</strong> Mỗi tuần học 3 buổi Nghe và 2 buổi từ vựng. Buổi Nghe: ôn một dạng bài (Part 1, rồi Part 2, Part 3, Part 4), làm bài tập trong cuốn tổng hợp, nghe lại và chữa kỹ. Buổi từ vựng: mỗi buổi 1 bài (12 từ) trong cuốn 600 từ, ôn lại bài cũ trước khi học bài mới. Cuối tuần 3, làm 1 đề Nghe riêng (100 câu, bấm giờ 45 phút) nếu sách cho phép tách phần, hoặc làm 1 đề đầy đủ.</p>
-<p><strong>Tuần 4–5 — Ôn kỹ năng Đọc.</strong> Mỗi tuần 3 buổi Đọc và 2 buổi từ vựng. Buổi Đọc: ôn Part 5 (ngữ pháp và từ vựng trong câu), Part 6 (điền đoạn văn), Part 7 (đọc hiểu). Luyện thói quen đọc câu hỏi trước, gạch ý chính của đoạn văn, và đặt giới hạn thời gian cho mỗi nhóm câu. Tiếp tục mỗi buổi 1 bài từ vựng; tới cuối tuần 5 bạn đã học khoảng 25 bài (300 từ).</p>
-<p><strong>Tuần 6 — Luyện đề lần 1 và sửa lỗi hệ thống.</strong> Làm 2 đề thi thử đầy đủ, mỗi đề vào một ngày khác nhau, đúng giờ thi thật. Sau mỗi đề, dành một buổi chỉ để chữa: phân loại mọi câu sai theo dạng bài và nguyên nhân (thiếu từ, nghe sót, hết giờ, đọc sai ý). Cập nhật sổ lỗi và quay lại ôn đúng dạng bài yếu nhất trong cuốn tổng hợp.</p>
-<p><strong>Tuần 7 — Luyện đề lần 2 và tăng tốc.</strong> Làm 2 đề thi thử nữa. Lần này đặt mục tiêu cụ thể cho từng phần: ví dụ, phần Đọc phải xong Part 5 và Part 6 trong khoảng thời gian bạn tự đặt ra để còn đủ giờ cho Part 7; phần Nghe không dừng lại suy nghĩ ở câu đã qua. Học nốt các bài từ vựng còn lại theo nhịp 1 bài/ngày, ưu tiên chủ đề của dạng bài bạn hay sai.</p>
+<p><strong>Tuần 4–5 — Ôn kỹ năng Đọc.</strong> Mỗi tuần 3 buổi Đọc và 2 buổi từ vựng. Buổi Đọc: ôn Part 5 (ngữ pháp và từ vựng trong câu), Part 6 (điền đoạn văn), Part 7 (đọc hiểu). Luyện thói quen đọc câu hỏi trước, gạch ý chính của đoạn văn, và đặt giới hạn thời gian cho mỗi nhóm câu. Tiếp tục mỗi buổi 1 bài từ vựng; tới cuối tuần 5 bạn đã học khoảng 13 bài (156 từ).</p>
+<p><strong>Tuần 6 — Luyện đề lần 1 và sửa lỗi hệ thống.</strong> Làm 2 đề thi thử đầy đủ, mỗi đề vào một ngày khác nhau, đúng giờ thi thật. Sau mỗi đề, dành một buổi chỉ để chữa: phân loại mọi câu sai theo dạng bài và nguyên nhân (thiếu từ, nghe sót, hết giờ, đọc sai ý). Cập nhật sổ lỗi và quay lại ôn đúng dạng bài yếu nhất trong cuốn tổng hợp. Bắt đầu nhịp học từ vựng tăng tốc để kịp hoàn thành 50 bài: mỗi ngày học nhanh 3 bài (36 từ, khoảng 45 phút, chỉ học nghĩa + 1 câu ví dụ mỗi từ) ngoài các buổi làm đề — tới cuối tuần 6 bạn đã học 34/50 bài.</p>
+<p><strong>Tuần 7 — Luyện đề lần 2 và tăng tốc.</strong> Làm 2 đề thi thử nữa. Lần này đặt mục tiêu cụ thể cho từng phần: ví dụ, phần Đọc phải xong Part 5 và Part 6 trong khoảng thời gian bạn tự đặt ra để còn đủ giờ cho Part 7; phần Nghe không dừng lại suy nghĩ ở câu đã qua. Giữ nhịp học nhanh 3 bài từ vựng mỗi ngày: 16 bài còn lại sau tuần 6 xong trong khoảng 6 ngày, tới cuối tuần này bạn hoàn thành đủ 50 bài (600 từ). Ưu tiên chủ đề của dạng bài bạn hay sai.</p>
 <p><strong>Tuần 8 — Tổng ôn và thi thử cuối.</strong> Đầu tuần: ôn sổ lỗi và toàn bộ từ đã đánh dấu &quot;hay quên&quot;. Giữa tuần: làm 1 đề thi thử cuối cùng trong điều kiện thi thật, rồi chữa nhẹ — không học kiến thức mới vào 2 ngày cuối. Ngày trước thi: chỉ ôn từ vựng và xem lại sổ lỗi, ngủ đủ giấc. Không làm đề mới vào ngày trước thi.</p>
 <h2>Mẹo học hiệu quả</h2>
 <ul><li><strong>Nghe mỗi ngày, dù chỉ 15 phút.</strong> Ngoài giờ học trong sách, nghe tin tức hoặc hội thoại tiếng Anh về chủ đề công việc. Mục tiêu là tai quen với tốc độ nói và nhiều giọng khác nhau (sách dùng cả giọng Bắc Mỹ, Anh và Úc cho phần nghe).</li><li><strong>Học từ theo chủ đề, không học từ rời rạc.</strong> 600 từ trong sách được xếp theo chủ đề công việc; khi ôn, hãy nhớ cả nhóm từ cùng chủ đề (ví dụ: hợp đồng đi với ký kết, điều khoản, gia hạn) thay vì học từng từ riêng lẻ.</li><li><strong>Đặt giới hạn thời gian cho Part 7.</strong> Đây là phần dài nhất của bài Đọc (54 câu). Nhiều người mất điểm không phải vì không hiểu bài mà vì hết giờ. Khi luyện, hãy tập đọc lướt để tìm ý chính trước, rồi mới đọc kỹ chỗ cần trả lời.</li><li><strong>Không bỏ trống câu nào.</strong> Bài thi không trừ điểm câu sai, nên khi thi thật hãy trả lời mọi câu, kể cả câu không chắc — chọn đáp án có khả năng đúng nhất rồi đi tiếp, đừng dừng lại quá lâu ở một câu.</li><li><strong>Nghe một lần khi luyện đề.</strong> Bài nghe thi thật chỉ phát một lần. Nếu khi luyện bạn nghe đi nghe lại nhiều lần mới trả lời, điểm luyện sẽ cao hơn điểm thi thật. Hãy nghe một lần để làm bài, rồi mới nghe lại để chữa.</li><li><strong>Ghi chú bằng tiếng Việt của chính bạn.</strong> Khi chữa bài, viết lại quy tắc hoặc nghĩa từ bằng lời của bạn, ngắn gọn trong 1 dòng. Ghi chú bạn tự viết sẽ nhớ lâu hơn chép nguyên giải thích trong sách.</li><li><strong>Ôn từ theo khoảng cách.</strong> Từ học hôm nay ôn lại ngày mai, rồi sau 3 ngày, rồi sau 1 tuần. Từ nào nhớ được sau 1 tuần mới tính là thuộc.</li></ul>
@@ -1063,7 +1151,7 @@ TRO_CHOI = [
     ("band-climb", "Band Climb", "level",
      "Luyện IELTS theo band hiện tại của bạn: ngữ pháp, nghe, đọc — bấm giờ như thi thật."),
     ("speaking-booth", "Speaking Booth", "skill",
-     "Luyện nói: gõ lại những gì bạn nói theo gợi ý IELTS, TOEIC, PTE và nhận phản hồi AI."),
+     "Luyện nói: gõ lại những gì bạn nói theo gợi ý IELTS, TOEIC, PTE."),
     ("starter-quest", "Starter Quest", "kids",
      "Trò chơi từ vựng và ngữ pháp cho người mới bắt đầu: chào hỏi, số đếm, gia đình, động từ hằng ngày."),
     ("intermediate-quest", "Intermediate Quest", "level",
@@ -1090,7 +1178,7 @@ TRO_CHOI = [
 add("/tro-choi/index.html", "Trò chơi & Công cụ", "Trò chơi & Công cụ",
     """
 <p class="lead">Học tiếng Anh bằng trò chơi và công cụ tương tác — miễn phí, chơi ngay trên trình duyệt, tiến độ được lưu trên máy của bạn.</p>
-<p class="muted">Một số trò chơi có tính năng phản hồi AI — tính năng này chỉ hoạt động khi mở trong ứng dụng Claude; mọi trò chơi vẫn chơi đầy đủ không cần AI.</p>
+<p class="muted">Mọi trò chơi đều chơi đầy đủ ngay trên trình duyệt, không cần đăng nhập — tiến độ được lưu trên máy của bạn.</p>
 <section class="section">
 <div class="cards">
 """ + "".join(
@@ -1101,7 +1189,7 @@ add("/tro-choi/index.html", "Trò chơi & Công cụ", "Trò chơi & Công cụ"
 </section>
 <p>Chưa biết mình ở đâu? <a href="/tro-choi/english-level-check.html">Làm bài kiểm tra trình độ →</a> · <a href="/tro-choi/level-map.html">Xem bản đồ công cụ theo trình độ →</a></p>
 """, active="/tro-choi/", eyebrow="Trò chơi & Công cụ",
-    desc="Trò chơi và công cụ học tiếng Anh miễn phí: luyện TOEIC, PTE, IELTS, kiểm tra trình độ, trò chơi theo lớp 4–10 và công cụ cho giáo viên.")
+    desc="Trò chơi và công cụ học tiếng Anh miễn phí: luyện TOEIC, PTE, IELTS, kiểm tra trình độ, trò chơi theo lớp 4, 9, 10 và công cụ cho giáo viên.")
 
 if __name__ == "__main__":
     for path, title, h1, body, active, desc, eyebrow, hero, noindex in PAGES:
@@ -1116,7 +1204,7 @@ if __name__ == "__main__":
     lines = ['<?xml version="1.0" encoding="UTF-8"?>',
              '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for u in indexed:
-        lines.append(f"  <url><loc>{SITE_URL}{u}</loc></url>")
+        lines.append(f"  <url><loc>{SITE_URL}{_pretty_url(u)}</loc></url>")
     lines.append("</urlset>")
     with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")

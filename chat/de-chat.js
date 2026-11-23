@@ -270,13 +270,15 @@
       if (e.key === 'Enter') send();
     });
 
-    // ?q=... : điền sẵn câu hỏi vào ô nhập (đã giải mã, cắt ở MAX_LEN),
-    // không tự gửi — người dùng bấm Gửi khi sẵn sàng.
+    // ?q=... : điền sẵn câu hỏi vào ô nhập (đã giải mã, cắt ở MAX_LEN).
+    // Trên trang chat riêng thì tự gửi luôn một lần duy nhất; ở chế độ
+    // widget thì chỉ điền sẵn — người dùng bấm Gửi khi sẵn sàng.
     var prefill = null;
     try { prefill = new URLSearchParams(window.location.search).get('q'); } catch (e) { prefill = null; }
     if (prefill) {
-      input.value = prefill.slice(0, MAX_LEN);
-      if (isPage) input.focus();
+      prefill = prefill.slice(0, MAX_LEN);
+      input.value = prefill;
+      if (isPage) send(prefill);
     }
   }
 

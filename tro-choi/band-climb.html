@@ -1,6 +1,14 @@
-<!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><style>.de-back{margin:0;text-align:left;background:#123a6d;color:#fff;padding:0 16px}.de-back a{display:inline-flex;align-items:center;min-height:44px;color:#fff;font:600 15px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;text-decoration:none}.de-back a:hover{color:#e8a020;text-decoration:underline}.de-back a:focus-visible{outline:3px solid #e8a020;outline-offset:2px}</style><header class="de-back"><a href="/">← David English</a></header>
-<title>Band Climb</title>
+<!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Band Climb</title>
 <meta name="description" content="IELTS review games and full mock test simulator">
+<meta property="og:title" content="Band Climb">
+<meta property="og:description" content="IELTS review games and full mock test simulator">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://davidenglish.vercel.app/tro-choi/band-climb.html">
+<meta property="og:image" content="https://davidenglish.vercel.app/assets/og-default.png">
+<link rel="canonical" href="https://davidenglish.vercel.app/tro-choi/band-climb.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg">
+</head><body><style>.de-back{margin:0;text-align:left;background:#123a6d;color:#fff;padding:0 16px}.de-back a{display:inline-flex;align-items:center;min-height:44px;color:#fff;font:600 15px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;text-decoration:none}.de-back a:hover{color:#e8a020;text-decoration:underline}.de-back a:focus-visible{outline:3px solid #e8a020;outline-offset:2px}</style><header class="de-back"><a href="/">← David English</a></header>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fredoka:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
@@ -1125,9 +1133,22 @@ function overallBand(arr){const avg=arr.reduce((a,b)=>a+b,0)/arr.length;const fl
 const norm=s=>String(s||"").toLowerCase().replace(/[’']/g,"'").replace(/[.,;:!?]+$/,"").replace(/\s+/g," ").trim();
 const wordsIn=s=>norm(s)?norm(s).split(" ").length:0;
 const fmtT=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")};
-let SAMPLE=null;(async()=>{try{SAMPLE=window.claude?await window.claude.use("sample"):null}catch(e){SAMPLE=null}})();
-async function sampleImagesOK(){try{return SAMPLE?!!(await SAMPLE.limits()).images:false}catch(e){return false}}
-const aiErr=c=>({not_granted:"AI marking was not allowed in this view.",sampling_disabled:"AI marking is not available for this account.",rate_limited:"Too many requests. Wait a minute, then try again.",session_expired:"Please sign in to Claude again.",refused:"The examiner could not mark this text. Check it is an IELTS answer in English.",invalid_json:"The feedback came back in the wrong format. Tap again to retry.",prompt_too_large:"The answer is too long to mark in one go."}[c]||"The examiner is unavailable right now. Try again later.");
+/* AI marking via the site's own /api/chat (Groq primary, Gemini fallback).
+   The old Claude sample API never works on the live site. Every AI answer is
+   labelled "AI, chưa duyệt". 429 = out of free turns today, 503 = not ready.
+   The API takes at most 500 characters per question, so prompts are short
+   and answers are excerpted. Photo marking of handwritten pages is not
+   possible through this text-only API, so that button was removed. */
+async function askChatAI(question,signal){
+  try{
+    const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({question:String(question).slice(0,500),history:[],mode:"chat"}),signal});
+    const d=await r.json().catch(()=>({}));
+    if(r.status===200&&d.answer)return {ok:true,answer:d.answer};
+    if(r.status===429)return {ok:false,msg:d.message||"Hôm nay đã hết lượt trả lời miễn phí, mời bạn quay lại sau 0:00 giờ."};
+    if(r.status===503)return {ok:false,msg:d.message||"Tính năng chat AI đang được chuẩn bị, mời bạn quay lại sau."};
+    return {ok:false,msg:(d&&d.message)||"Có lỗi xảy ra, mời thử lại sau."};
+  }catch(e){return {ok:false,msg:"Không kết nối được, thử lại sau.",cancelled:e&&e.name==="AbortError"};}
+}
 
 function examTimer(mins,el,onEnd,warn=[10,5]){let left=mins*60;const t=setInterval(()=>{left--;el.textContent=fmtT(left);if(warn.some(w=>left===w*60)){el.classList.add("flash");toast(`${Math.round(left/60)} minutes left`);beep("tick");setTimeout(()=>el.classList.remove("flash"),6000)}if(left<=0){clearInterval(t);onEnd()}},1000);curTimers.push(t);el.textContent=fmtT(left);return{get left(){return left},stop(){clearInterval(t)}}}
 
@@ -1243,7 +1264,7 @@ function writingPick(){
   const t1=[1,2,3,4].map(u=>({u,task:1})),t2=[5,6,7,8].map(u=>({u,task:2}));
   const card=x=>{const txt=(WTASKS[x.u].task.match(/<i>(.*?)<\/i>/)||["",""])[1];const d=(()=>{try{return localStorage.getItem("bc-draft-"+x.u)}catch(e){return null}})();return `<button class="card" style="--a:${x.task===1?"#DB2777":"#9333EA"};--b:${x.task===1?"#F97316":"#EC4899"}" data-w="${x.u}"><span class="tag">Task ${x.task} · Unit ${x.u} · ${x.task===1?"20":"40"} min</span><h3>${x.task===1?["","Bar chart","Line graph","Process","Maps"][x.u]:["","","","","","Opinion","Problem–solution","Discussion","Adv. vs disadv."][x.u]}</h3><p>${esc(txt.slice(0,90))}…</p><span class="stars">${d?"✏️ Draft saved":""}</span></button>`};
   app.innerHTML=`<div class="gtop"><button class="back" id="bk">← Test Room</button><h2>Writing test</h2></div>
-  <div class="box-note"><b>Like the computer test:</b> no spellcheck, a live word count, and a strict timer. When you finish you get an instant structure check${SAMPLE?" and can ask the <b>AI examiner</b> to mark your answer against the four official criteria":""}.</div>
+  <div class="box-note"><b>Like the computer test:</b> no spellcheck, a live word count, and a strict timer. When you finish you get an instant structure check and can ask the <b>AI examiner</b> to mark your answer against the four official criteria.</div>
   <h3 class="sk2">Task 1 · at least 150 words</h3><div class="picker">${t1.map(card).join("")}</div>
   <h3 class="sk2">Task 2 · at least 250 words</h3><div class="picker">${t2.map(card).join("")}</div>
   <h3 class="sk2">Full Writing paper · 60 minutes</h3><div class="picker"><button class="card" style="--a:#6D28D9;--b:#DB2777" data-full="1"><span class="tag">Exam stamina</span><h3>Task 1 + Task 2</h3><p>A random Task 1 and Task 2 together. Manage your own time: about 20 + 40 minutes.</p></button></div>`;
@@ -1293,15 +1314,13 @@ function writingReview(us,texts,used){
   app.innerHTML=`<div class="gtop"><button class="back" id="bk">← Writing tests</button><h2>Your writing</h2></div><p class="lead">Time used: ${fmtT(used)}.</p>
   ${us.map((u,i)=>{const chk=checkEssay(u,texts[i]);const good=chk.filter(c=>c.ok).length;return `<div class="panel wrev"><p class="lbl">Task ${u<=4?1:2} · Unit ${u}</p><h3>Instant structure check · ${good}/${chk.length}</h3>
     <div class="checklist">${chk.map(c=>`<div class="${c.ok?"cok":"cwarn"}"><b>${c.ok?"✓":"⚠"} ${esc(c.t)}</b><span>${esc(c.d)}</span></div>`).join("")}</div>
-    <div class="ai" id="ai${i}">${SAMPLE?`<div class="aihead"><b>AI examiner</b><span>Marks your answer on the 4 official criteria and corrects your mistakes. Uses your own Claude account.</span></div><div class="aibtns"><button class="btn" data-ai="${i}">Mark my ${u<=4?"report":"essay"}</button><label class="btn ghost photo" hidden id="ph${i}">📷 Mark a handwritten page<input type="file" accept="image/*" hidden data-ph="${i}"></label></div><div class="aiout" id="aio${i}"></div>`:`<div class="aihead"><b>Get it marked</b><span>AI marking isn't available in this view. Ask your teacher to mark it against the band descriptors below.</span></div>`}</div>
+    <div class="ai" id="ai${i}">${`<div class="aihead"><b>AI examiner</b><span>Marks your answer on the 4 official criteria and corrects your mistakes. AI, chưa duyệt.</span></div><div class="aibtns"><button class="btn" data-ai="${i}">Mark my ${u<=4?"report":"essay"}</button></div><div class="aiout" id="aio${i}"></div>`}</div>
     <details class="desc"><summary>Band 6 vs band 7: what examiners look for</summary>${DESCRIPTORS(u<=4?1:2)}</details>
     <details><summary>Compare with the model answer</summary><div class="modelbox">${WTASKS[u].model}</div></details>
     <details><summary>Your answer</summary><div class="yours">${esc(texts[i]||"(empty)").replace(/\n/g,"<br>")}</div></details></div>`}).join("")}
   <div class="actions"><button class="btn hl" id="new">Write another</button></div>`;
   $("#bk").onclick=writingPick;$("#new").onclick=writingPick;
-  sampleImagesOK().then(ok=>{if(ok)app.querySelectorAll(".photo").forEach(l=>l.hidden=false)});
   app.querySelectorAll("[data-ai]").forEach(b=>b.onclick=()=>aiMark(us[+b.dataset.ai],texts[+b.dataset.ai],$("#aio"+b.dataset.ai),b));
-  app.querySelectorAll("[data-ph]").forEach(inp=>inp.onchange=()=>{if(inp.files[0])aiMark(us[+inp.dataset.ph],"",$("#aio"+inp.dataset.ph),inp.parentElement,inp.files[0])});
   setTimeout(flushPopups,500);
 }
 function DESCRIPTORS(task){return `<table class="rtab"><tr><th>Criterion</th><th>Band 6</th><th>Band 7</th></tr>
@@ -1310,39 +1329,18 @@ function DESCRIPTORS(task){return `<table class="rtab"><tr><th>Criterion</th><th
 <tr><td>Lexical Resource</td><td>Adequate vocabulary; meaning is clear despite a limited range; some spelling errors.</td><td>Enough range for flexibility and precision; some less common words; few spelling errors.</td></tr>
 <tr><td>Grammatical Range &amp; Accuracy</td><td>A mix of simple and complex sentences; errors occur but rarely stop communication.</td><td>A variety of complex structures; frequent error-free sentences; good control.</td></tr></table><p class="note2">Summarised from the public IELTS Writing band descriptors (updated May 2023).</p>`}
 let aiCtl=null;
-async function aiMark(u,text,out,btn,img){
-  if(!SAMPLE){out.textContent="AI marking isn't available here.";return}
+async function aiMark(u,text,out,btn){
   const task=u<=4?1:2;const q=(WTASKS[u].task.match(/<i>(.*?)<\/i>/)||["",""])[1];
-  if(!img&&(text.match(/\w+/g)||[]).length<40){out.innerHTML=`<p class="aiwarn">Write at least 40 words before asking for marking.</p>`;return}
-  const crit=task===1?"Task Achievement, Coherence and Cohesion, Lexical Resource, Grammatical Range and Accuracy":"Task Response, Coherence and Cohesion, Lexical Resource, Grammatical Range and Accuracy";
-  const prompt=`You are a strict, experienced IELTS Academic Writing examiner. Mark this Task ${task} response using the public IELTS Writing band descriptors (updated May 2023): ${crit}. Give each criterion a whole or half band. Be realistic, not generous: typical learners at this level score 5.0–6.5. Apply the rules: under ${task===1?150:250} words is penalised in ${task===1?"Task Achievement":"Task Response"}; ${task===1?"no clear overview limits Task Achievement to band 5; opinions are irrelevant in Task 1":"an unclear position or undeveloped ideas limit Task Response"}; memorised or off-topic language is penalised; text copied from the question does not count.
-The learner is Vietnamese, aiming for band 6.5. Write all comments in simple English (B1 level).
-
-QUESTION: ${q}
-${task===1?"WHAT THE VISUAL SHOWS: "+WDATA[u]+"\n":""}${img?"THE RESPONSE is handwritten in the attached photo. First transcribe it exactly (keep the learner's mistakes), then mark the transcription.":"RESPONSE ("+(text.match(/[A-Za-z0-9'’-]+/g)||[]).length+" words):\n"+text.slice(0,9000)}
-
-Reply with only a JSON object in this shape:
-{"transcript": ${img?'"the exact text from the photo"':'""'},
- "criteria":[{"name":"...","band":6.0,"why":"one or two sentences quoting the response","improve":"one concrete action"}],
- "overall":6.0,
- "strengths":["short point","short point"],
- "corrections":[{"original":"exact words from the response","better":"corrected version","reason":"short rule"}],
- "upgraded":"one paragraph from the response rewritten at band 7, keeping the learner's ideas",
- "next_step":"the single most useful thing to practise next"}
-Give exactly 4 criteria in the order listed and up to 6 corrections of real errors.`;
-  aiCtl=new AbortController();btn.disabled=true;out.innerHTML=`<p class="thinking">The examiner is reading your answer… this can take up to a minute. <button class="btn ghost" id="stopai">Stop</button></p>`;$("#stopai").onclick=()=>aiCtl.abort();
-  try{const r=await SAMPLE.json(prompt,{signal:aiCtl.signal,modelTier:"default",images:img||undefined});
-    const cr=Array.isArray(r.criteria)?r.criteria:[];const bands=cr.map(c=>Number(c.band)).filter(x=>!isNaN(x));const ov=bands.length===4?overallBand(bands):Number(r.overall)||0;
-    out.innerHTML=`${r.transcript?`<details><summary>What the examiner read from your photo</summary><div class="yours">${esc(r.transcript).replace(/\n/g,"<br>")}</div></details>`:""}
-     <div class="aiband">Estimated Task ${task} band <b>${ov.toFixed(1)}</b></div>
-     <div class="crit">${cr.map(c=>`<div><span class="cb">${Number(c.band).toFixed(1)}</span><b>${esc(c.name)}</b><p>${esc(c.why)}</p><p class="imp">➜ ${esc(c.improve)}</p></div>`).join("")}</div>
-     ${Array.isArray(r.strengths)&&r.strengths.length?`<p class="lbl">What you did well</p><ul>${r.strengths.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>`:""}
-     ${Array.isArray(r.corrections)&&r.corrections.length?`<p class="lbl">Corrections</p><div class="corr">${r.corrections.map(c=>`<div><s>${esc(c.original)}</s><b>${esc(c.better)}</b><span>${esc(c.reason)}</span></div>`).join("")}</div>`:""}
-     ${r.upgraded?`<p class="lbl">One paragraph at band 7</p><div class="modelbox">${esc(r.upgraded)}</div>`:""}
-     ${r.next_step?`<p class="nextstep">🎯 Next: ${esc(r.next_step)}</p>`:""}
-     <p class="note2">AI marking is an estimate and can differ from a real examiner by half a band or more.</p>`;
-    addXP(15);S.cnt.aimarks=(S.cnt.aimarks||0)+1;S.best["test-writing"]=`Task ${task}: ${ov.toFixed(1)}`;save();logMock(`Writing T${task} (AI)`,{w:ov});
-  }catch(e){out.innerHTML=e.code==="cancelled"?"":`<p class="aiwarn">${esc(aiErr(e.code))}</p>`;if(["not_granted","sampling_disabled","capability_disabled","not_declared"].includes(e.code))btn.hidden=true}
+  if((text.match(/\w+/g)||[]).length<40){out.innerHTML=`<p class="aiwarn">Write at least 40 words before asking for marking.</p>`;return}
+  const prompt=`You are a strict IELTS Writing examiner. Mark this Task ${task} answer (Vietnamese learner, target band 6.5) on Task, Coherence, Lexical, Grammar. Under ${task===1?150:250} words is penalised. Simple English.\n\nQ: ${q.slice(0,50)}\nAnswer (excerpt, ${(text.match(/[A-Za-z0-9'’-]+/g)||[]).length} words):\n${text.slice(0,100)}\n\nGive a band per criterion, 2 strengths, up to 4 corrections (wrong -> right), one paragraph rewritten at band 7.`;
+  aiCtl=new AbortController();btn.disabled=true;out.innerHTML=`<p class="thinking">The examiner is reading your answer… <button class="btn ghost" id="stopai">Stop</button></p>`;$("#stopai").onclick=()=>aiCtl.abort();
+  try{
+    const res=await askChatAI(prompt,aiCtl.signal);
+    if(res.cancelled){out.innerHTML="";return}
+    if(!res.ok){out.innerHTML=`<p class="aiwarn">${esc(res.msg)}</p>`;return}
+    out.innerHTML=`<div class="aiband">AI examiner feedback</div><div class="yours">${esc(res.answer).replace(/\n/g,"<br>")}</div><p class="note2">AI marking is an estimate and can differ from a real examiner by half a band or more. The AI read an excerpt of your answer — AI, chưa duyệt.</p>`;
+    addXP(15);S.cnt.aimarks=(S.cnt.aimarks||0)+1;save();
+  }catch(e){out.innerHTML=`<p class="aiwarn">Có lỗi xảy ra, mời thử lại sau.</p>`}
   finally{btn.disabled=false}
 }
 
@@ -1375,14 +1373,13 @@ function speakingMock(){
     <table class="rtab srub"><tr><th>Criterion</th><th>5</th><th>6</th><th>7</th></tr>
     ${[["Fluency & Coherence","Long pauses; repeats; simple linking","Keeps going; some hesitation; linking a bit mechanical","Speaks at length easily; few pauses; flexible linking"],["Lexical Resource","Enough words for familiar topics only","Talks about all topics; paraphrases when stuck","Some less common words and idioms; precise"],["Grammar","Mostly simple sentences; frequent errors","Mix of simple and complex; errors don't block meaning","Complex sentences often error-free"],["Pronunciation","Often hard to understand","Generally clear; some sounds unclear","Easy to follow; good stress and intonation"]].map((r,k)=>`<tr><td>${r[0]}</td>${[5,6,7].map((b,j)=>`<td><label class="rub"><input type="radio" name="s${k}" value="${b}" ${b===6?"checked":""}><span>${r[j+1]}</span></label></td>`).join("")}</tr>`).join("")}</table>
     <div class="actions"><button class="btn hl" id="calc">Estimate my band</button></div><div id="sres"></div>
-    ${SAMPLE?`<div class="ai"><div class="aihead"><b>AI feedback on your words</b><span>Type or paste what you said in one answer (your phone's voice typing works well). The AI checks vocabulary, grammar and organisation. It cannot hear your pronunciation.</span></div><textarea id="tr" placeholder="Paste your Part 2 or Part 3 answer here"></textarea><div class="aibtns"><button class="btn" id="aisp">Get feedback</button></div><div class="aiout" id="aso"></div></div>`:""}</div>`;
+    ${`<div class="ai"><div class="aihead"><b>AI feedback on your words</b><span>Type or paste what you said in one answer (your phone's voice typing works well). The AI checks vocabulary, grammar and organisation. It cannot hear your pronunciation.</span></div><textarea id="tr" placeholder="Paste your Part 2 or Part 3 answer here"></textarea><div class="aibtns"><button class="btn" id="aisp">Get feedback</button></div><div class="aiout" id="aso"></div></div>`}</div>`;
     $("#bk").onclick=testMenu;$("#calc").onclick=()=>{const b=[0,1,2,3].map(k=>+app.querySelector(`input[name="s${k}"]:checked`).value);const ov=overallBand(b);$("#sres").innerHTML=`<div class="aiband">Self-estimated Speaking band <b>${ov.toFixed(1)}</b></div><p class="note2">Self-scores are usually half a band higher than real results. For an accurate score, practise with a teacher.</p>`;logMock("Speaking (self)",{s:ov})};
     if($("#aisp"))$("#aisp").onclick=async()=>{const t=$("#tr").value.trim();const o=$("#aso");if((t.match(/\w+/g)||[]).length<30){o.innerHTML=`<p class="aiwarn">Paste at least 30 words.</p>`;return}
-      o.innerHTML=`<p class="thinking">Listening… thinking…</p>`;try{const r=await SAMPLE.json(`You are an IELTS Speaking examiner. Below is a transcript of a learner's answer (Vietnamese learner, target band 6.5). You cannot hear pronunciation, so assess only Fluency and Coherence (organisation, linking, length), Lexical Resource and Grammatical Range and Accuracy from the words. Be realistic. Use simple English.
-Topic: ${card[1]}
-Transcript: ${t.slice(0,5000)}
-Reply with only JSON: {"criteria":[{"name":"Fluency and Coherence","band":6,"comment":"..."},{"name":"Lexical Resource","band":6,"comment":"..."},{"name":"Grammatical Range and Accuracy","band":6,"comment":"..."}],"better_phrases":[{"said":"...","try":"..."}],"tip":"one practical tip"}`,{modelTier:"default"});
-        o.innerHTML=`<div class="crit">${(r.criteria||[]).map(c=>`<div><span class="cb">${Number(c.band).toFixed(1)}</span><b>${esc(c.name)}</b><p>${esc(c.comment)}</p></div>`).join("")}</div>${(r.better_phrases||[]).length?`<p class="lbl">Say it better</p><div class="corr">${r.better_phrases.map(c=>`<div><s>${esc(c.said)}</s><b>${esc(c.try)}</b></div>`).join("")}</div>`:""}${r.tip?`<p class="nextstep">🎯 ${esc(r.tip)}</p>`:""}`;addXP(10)}catch(e){o.innerHTML=`<p class="aiwarn">${esc(aiErr(e.code))}</p>`}};
+      o.innerHTML=`<p class="thinking">Listening… thinking…</p>`;
+      const res=await askChatAI(`You are an IELTS Speaking examiner. A Vietnamese learner (target 6.5) gave this answer. You cannot hear pronunciation: assess only Fluency and Coherence, Lexical Resource, Grammar from the words. Simple English.\nTopic: ${card[1].slice(0,60)}\nTranscript (excerpt): ${t.slice(0,100)}\nGive a band per criterion, 2 better phrases (said -> try), one practical tip.`);
+      if(res.ok){o.innerHTML=`<div class="yours">${esc(res.answer).replace(/\n/g,"<br>")}</div><p class="note2">AI feedback — AI, chưa duyệt. It cannot hear your pronunciation.</p>`;addXP(10)}
+      else{o.innerHTML=`<p class="aiwarn">${esc(res.msg)}</p>`}};
     setTimeout(flushPopups,500)}
 }
 

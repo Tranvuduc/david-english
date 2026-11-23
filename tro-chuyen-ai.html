@@ -10,6 +10,8 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://davidenglish.vercel.app/tro-chuyen-ai.html">
 <meta property="og:image" content="https://davidenglish.vercel.app/assets/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://davidenglish.vercel.app/tro-chuyen-ai.html">
 <meta name="theme-color" content="#123a6d">
 <link rel="icon" href="/favicon.svg">
 <link rel="stylesheet" href="/assets/style.css">
@@ -59,22 +61,20 @@
 
 <p><span class="badge">AI, chưa duyệt</span> Mọi câu trả lời do AI soạn, chưa được giáo viên duyệt — hãy đối chiếu với sách và giáo viên của bạn.</p>
 <section class="section">
+<div class="section-head"><h2>AI có thể giúp gì</h2></div>
+<ul>
+<li>Giải thích ngữ pháp bằng tiếng Việt, kèm ví dụ song ngữ.</li>
+<li>Giải nghĩa từ vựng, phân biệt từ gần nghĩa, gợi ý cách dùng đúng.</li>
+<li>Gợi ý lộ trình học theo trình độ (A1–C2) và mục tiêu của bạn.</li>
+<li>Mẹo làm bài thi IELTS, TOEIC, PTE — và chữa bài viết ngắn của bạn.</li>
+</ul>
+<p><strong>Thử một câu hỏi mẫu — bấm để gửi ngay:</strong></p>
+<p class="de-chat-suggest"><a class="de-chat-chip" style="display:inline-block;text-decoration:none" href="/tro-chuyen-ai.html?q=Ph%C3%A2n%20bi%E1%BB%87t%20%E2%80%9Ca%E2%80%9D%20v%C3%A0%20%E2%80%9Cthe%E2%80%9D%20nh%C6%B0%20th%E1%BA%BF%20n%C3%A0o%3F">Phân biệt “a” và “the” như thế nào?</a> <a class="de-chat-chip" style="display:inline-block;text-decoration:none" href="/tro-chuyen-ai.html?q=H%E1%BB%8Dc%20t%E1%BB%AB%20v%E1%BB%B1ng%20th%E1%BA%BF%20n%C3%A0o%20cho%20nh%E1%BB%9B%20l%C3%A2u%3F">Học từ vựng thế nào cho nhớ lâu?</a> <a class="de-chat-chip" style="display:inline-block;text-decoration:none" href="/tro-chuyen-ai.html?q=IELTS%20Speaking%20Part%201%20th%C6%B0%E1%BB%9Dng%20h%E1%BB%8Fi%20g%C3%AC%3F">IELTS Speaking Part 1 thường hỏi gì?</a> <a class="de-chat-chip" style="display:inline-block;text-decoration:none" href="/tro-chuyen-ai.html?q=Cho%20t%C3%B4i%20l%E1%BB%99%20tr%C3%ACnh%20h%E1%BB%8Dc%20ti%E1%BA%BFng%20Anh%20tr%C3%ACnh%20%C4%91%E1%BB%99%20A1.">Cho tôi lộ trình học tiếng Anh trình độ A1.</a></p>
+</section>
+<section class="section">
 <div id="deChatPage"><noscript><p>Trò chuyện AI cần bật JavaScript để hiển thị. Bạn vẫn có thể xem các mục khác của trang, hoặc bật JavaScript rồi tải lại trang.</p></noscript></div>
 </section>
-<script>
-(function () {
-  var q = new URLSearchParams(window.location.search).get('q');
-  if (!q) return;
-  var tries = 0;
-  var timer = setInterval(function () {
-    tries++;
-    var input = document.querySelector('#deChatPage .de-chat-foot input');
-    if (input) { input.value = q; input.focus(); clearInterval(timer); }
-    else if (tries > 10) { clearInterval(timer); }
-  }, 200);
-})();
-</script>
-<p class="muted">Chat dùng cùng hệ thống với khung chat góc màn hình. Nếu tính năng chưa sẵn sàng, trang sẽ báo “đang được chuẩn bị”.</p>
+<p class="muted">Chat dùng cùng hệ thống với khung chat góc màn hình. Nếu tính năng chưa sẵn sàng (chưa có key hoặc đã hết lượt miễn phí trong ngày), khung chat sẽ báo rõ — bạn vẫn có thể dùng các mục khác của trang trong lúc chờ.</p>
 
 </main>
 <footer class="site-footer">

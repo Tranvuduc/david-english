@@ -1,5 +1,14 @@
-<!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><style>.de-back{margin:0;text-align:left;background:#123a6d;color:#fff;padding:0 16px}.de-back a{display:inline-flex;align-items:center;min-height:44px;color:#fff;font:600 15px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;text-decoration:none}.de-back a:hover{color:#e8a020;text-decoration:underline}.de-back a:focus-visible{outline:3px solid #e8a020;outline-offset:2px}</style><header class="de-back"><a href="/">← David English</a></header>
-<title>AI Workbench</title><meta name="description" content="Học cách dùng AI (ChatGPT, Claude, Gemini…) để học và dạy tiếng Anh: 9 bài học ngắn, thư viện prompt mẫu.">
+<!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>AI Workbench</title>
+<meta name="description" content="Học cách dùng AI (ChatGPT, Claude, Gemini…) để học và dạy tiếng Anh: 9 bài học ngắn, thư viện prompt mẫu.">
+<meta property="og:title" content="AI Workbench">
+<meta property="og:description" content="Học cách dùng AI (ChatGPT, Claude, Gemini…) để học và dạy tiếng Anh: 9 bài học ngắn, thư viện prompt mẫu.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://davidenglish.vercel.app/tro-choi/ai-workbench.html">
+<meta property="og:image" content="https://davidenglish.vercel.app/assets/og-default.png">
+<link rel="canonical" href="https://davidenglish.vercel.app/tro-choi/ai-workbench.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg">
+</head><body><style>.de-back{margin:0;text-align:left;background:#123a6d;color:#fff;padding:0 16px}.de-back a{display:inline-flex;align-items:center;min-height:44px;color:#fff;font:600 15px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;text-decoration:none}.de-back a:hover{color:#e8a020;text-decoration:underline}.de-back a:focus-visible{outline:3px solid #e8a020;outline-offset:2px}</style><header class="de-back"><a href="/">← David English</a></header>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -205,6 +214,7 @@
   .msg{ max-width:82%; padding:11px 14px; border-radius:14px; font-size:.9rem; line-height:1.55; }
   .msg.user{ align-self:flex-end; background:var(--accent); color:#fff; border-bottom-right-radius:4px; }
   .msg.ai{ align-self:flex-start; background:var(--surface-2); border-bottom-left-radius:4px; white-space:pre-wrap; }
+  .ai-tag{ font-size:.72rem; color:var(--text-muted); margin:2px 0 8px; align-self:flex-start; }
   .chat-input-row{ display:flex; gap:8px; margin-top:14px; }
   .chat-input-row textarea{
     flex:1; resize:none; border:1px solid var(--border); border-radius:var(--radius-md); padding:11px 13px;
@@ -1295,9 +1305,27 @@ function toggleStep(id, i){
   render();
 }
 
-/* ============================= ASK AI ============================= */
-
-const CHAT_CONTEXT = "You are a friendly, practical AI-literacy coach inside an app called AI Workbench. The user creates English-language (ESL/EFL) teaching materials and Vietnamese-language Reformed theology content. Give specific, concrete answers about which AI tool to use and how, with short example prompts when useful. Keep answers concise (under 180 words) unless asked for more.";
+/* ============================= ASK AI =============================
+   Ask AI now goes through the site's own /api/chat (Groq primary,
+   Gemini fallback) — the old Claude sample API never works on the live
+   site. Every AI answer is labelled "AI, chưa duyệt". 429 = out of free
+   turns today, 503 = the chat feature is not ready yet. The API takes at
+   most 500 characters per question, so the question is kept short; an
+   attached .txt is only ever sent as a short excerpt, and the reply says
+   so. */
+function askChatAI(question){
+  return fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({question:String(question).slice(0,500),history:[],mode:"chat"})})
+    .then(function(r){return r.json().then(function(d){return {status:r.status,d:d};});})
+    .then(function(res){
+      var d=res.d||{};
+      if(res.status===200&&d.answer)return {ok:true,answer:d.answer};
+      if(res.status===429)return {ok:false,msg:d.message||"Hôm nay đã hết lượt trả lời miễn phí, mời bạn quay lại sau 0:00 giờ."};
+      if(res.status===503)return {ok:false,msg:d.message||"Tính năng chat AI đang được chuẩn bị, mời bạn quay lại sau."};
+      return {ok:false,msg:(d&&d.message)||"Có lỗi xảy ra, mời thử lại sau."};
+    })
+    .catch(function(){return {ok:false,msg:"Không kết nối được, thử lại sau."};});
+}
 let chatHistory = [];
 let uploadedContext = null;
 let asking = false;
@@ -1310,7 +1338,7 @@ const SUGGESTIONS = [
 ];
 
 function renderAsk(){
-  const log = chatHistory.map(m=>`<div class="msg ${m.role==='user'?'user':'ai'}">${escapeHtml(m.content)}</div>`).join('');
+  const log = chatHistory.map(m=>`<div class="msg ${m.role==='user'?'user':'ai'}">${escapeHtml(m.content)}</div>`+(m.role==='assistant'?'<div class="ai-tag">AI, chưa duyệt</div>':'')).join('');
   const suggestChips = chatHistory.length===0 ? SUGGESTIONS.map(s=>`<button class="suggest-chip" onclick="sendChat(${JSON.stringify(s)})">${s}</button>`).join(' ') : '';
   return `<div class="section-title"><h2>Ask AI</h2></div>
   <div class="card">
@@ -1356,41 +1384,22 @@ async function sendChat(text){
   render();
   scrollChatBottom();
 
-  try{
-    if(!window.claude || !window.claude.use){ throw {code:'not_granted'}; }
-    const sample = await window.claude.use('sample');
-    if(!sample){ throw {code:'not_granted'}; }
-
-    let ctx = CHAT_CONTEXT;
-    if(uploadedContext){ ctx += "\n\nThe user has attached a document called '"+uploadedContext.name+"'. Its content:\n"+uploadedContext.text; }
-
-    const turns = [{role:'user', content:ctx}, {role:'assistant', content:"Understood — I'm ready to help with AI tools for your ESL and theology work."}];
-    chatHistory.slice(0,-1).forEach(m=> turns.push(m));
-
-    const res = await sample(turns, {
-      modelTier:'default',
-      cache:false,
-      onText: ({text})=>{
-        chatHistory[chatHistory.length-1] = {role:'assistant', content:text};
-        renderChatOnly();
-      }
-    });
-    chatHistory[chatHistory.length-1] = {role:'assistant', content:res.text};
-  }catch(err){
-    const code = err && err.code;
-    let msg = "I can't reach the AI chat right now.";
-    if(code==='not_granted') msg = "Ask AI isn't available in this view.";
-    else if(code==='rate_limited') msg = 'Too many questions at once — give it a moment and try again.';
-    else if(code==='cancelled') msg = 'Cancelled.';
-    chatHistory[chatHistory.length-1] = {role:'assistant', content: msg};
+  /* The API takes at most 500 characters per question, so the question is
+     built short: a one-line coach framing, the user's question, and — only
+     when the question itself is short — a short excerpt of an attached .txt.
+     The full document is never sent; the reply says so when an excerpt was used. */
+  let usedExcerpt = false;
+  let q = 'You are a friendly AI-literacy coach for ESL teachers and Reformed theology writers. ';
+  if(uploadedContext && text.length < 300){
+    q += "Attached doc '"+uploadedContext.name+"' excerpt: "+uploadedContext.text.slice(0,100)+" … ";
+    usedExcerpt = true;
   }
+  q += 'Q: ' + text;
+  const res = await askChatAI(q);
+  chatHistory[chatHistory.length-1] = {role:'assistant', content: res.ok ? res.answer + (usedExcerpt ? '\n\n(Note: the AI only saw the first ~100 characters of your attached document.)' : '') : res.msg};
   asking = false;
   render();
   scrollChatBottom();
-}
-function renderChatOnly(){
-  const el = document.getElementById('chatLog');
-  if(el){ el.innerHTML = chatHistory.map(m=>`<div class="msg ${m.role==='user'?'user':'ai'}">${escapeHtml(m.content)}</div>`).join(''); scrollChatBottom(); }
 }
 function scrollChatBottom(){ const el=document.getElementById('chatLog'); if(el) el.scrollTop = el.scrollHeight; }
 
@@ -1409,7 +1418,7 @@ function libraryResultsHtml(){
 }
 function renderLibrary(){
   return `<div class="section-title"><h2>Prompt Library</h2>
-    <div class="btn-row"><button class="btn ghost sm" onclick="downloadCheatSheet()">Tool cheat sheet (.txt)</button><button class="btn ghost sm" onclick="downloadLibrary()">All prompts (.txt)</button></div></div>
+    <div class="btn-row"><button class="btn ghost sm" onclick="downloadCheatSheet()">Copy cheat sheet (.txt)</button><button class="btn ghost sm" onclick="downloadLibrary()">Copy all prompts (.txt)</button></div></div>
     <input type="search" placeholder="Search prompts..." value="${libSearchQuery.replace(/"/g,'&quot;')}" oninput="libSearchQuery=this.value; renderLibraryOnly();" style="width:100%; padding:11px 14px; border-radius:999px; border:1px solid var(--border); background:var(--surface); color:var(--text); font-size:.88rem; margin-bottom:18px;">
     <div id="libResults">${libraryResultsHtml()}</div>`;
 }
@@ -1421,21 +1430,12 @@ function copyPrompt(btn){
   const text = decodeURIComponent(btn.getAttribute('data-text'));
   navigator.clipboard.writeText(text).then(()=>toast('Copied to clipboard')).catch(()=>toast('Could not copy — select the text manually.'));
 }
-async function downloadOrShow(filename, text){
-  try{
-    if(window.claude && window.claude.use){
-      const downloads = await window.claude.use('downloads');
-      if(downloads){
-        await downloads.save({filename, data:text});
-        toast('Download started.');
-        return;
-      }
-    }
-    throw new Error('unavailable');
-  }catch(e){
-    navigator.clipboard.writeText(text).then(()=>toast("Downloads aren't available here — copied the content to your clipboard instead."))
-      .catch(()=>toast('Could not download or copy automatically.'));
-  }
+/* Direct file downloads are not available through this site's AI chat, so
+   the cheat sheet and prompt library are copied to the clipboard instead —
+   paste them into a .txt file to save. The buttons say "Copy" for that reason. */
+function downloadOrShow(filename, text){
+  navigator.clipboard.writeText(text).then(()=>toast('Copied to clipboard — paste it into a .txt file to save it. Direct download is not available in this view.'))
+    .catch(()=>toast('Could not copy automatically — select the text manually.'));
 }
 function downloadLibrary(){
   let text = "AI WORKBENCH — PROMPT LIBRARY\n\n";
