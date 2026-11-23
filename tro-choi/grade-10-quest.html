@@ -1,0 +1,1035 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Grade 10 Quest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Patrick+Hand&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+:root{
+  --paper:#FFFDF6; --grid:#E4ECFF; --grid2:#D3DFFF; --margin:#FF9BB3;
+  --ink:#3A2BB8; --ink-soft:#6A5CD8; --text:#221B45; --muted:#6B6590;
+  --red:#F0364E; --hl:#FFD23F; --ok:#12A150; --ok-bg:#DDF8E6; --bad-bg:#FFE1E5;
+  --card:#FFFFFF; --line:#E3DEF7; --shadow:0 3px 0 #E3DEF7, 0 14px 28px -16px rgba(58,43,184,.45);
+  --gc:#3A2BB8;
+  --display:"Baloo 2", "Be Vietnam Pro", system-ui, sans-serif;
+  --body:"Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --hand:"Patrick Hand", "Comic Sans MS", cursive;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:var(--body); color:var(--text); font-size:15px; line-height:1.5;
+  background-color:#F4F1FF;
+  background-image:
+    radial-gradient(circle at 8% 12%, rgba(255,210,63,.55) 0 90px, transparent 91px),
+    radial-gradient(circle at 92% 8%, rgba(255,107,157,.35) 0 120px, transparent 121px),
+    radial-gradient(circle at 96% 70%, rgba(31,182,255,.28) 0 140px, transparent 141px),
+    radial-gradient(circle at 4% 80%, rgba(34,197,94,.25) 0 110px, transparent 111px),
+    radial-gradient(rgba(58,43,184,.13) 1.4px, transparent 1.6px);
+  background-size:100% 100%,100% 100%,100% 100%,100% 100%,22px 22px;
+  background-attachment:fixed;
+  min-height:100vh;
+}
+.wrap{max-width:980px; margin:0 auto; padding-inline:16px; padding-block:18px 60px; position:relative}
+
+button{font:inherit; color:inherit; cursor:pointer}
+button:focus-visible, input:focus-visible{outline:3px solid var(--hl); outline-offset:2px}
+
+/* header */
+.top{display:flex; flex-wrap:wrap; align-items:center; gap:12px 18px; justify-content:space-between}
+.brand h1{font-family:var(--display); font-weight:800; font-size:clamp(26px,5vw,38px); line-height:1.05; margin:0; color:var(--ink); text-wrap:balance}
+.brand h1 mark{background:var(--hl); color:var(--text); padding:0 10px; border-radius:12px; display:inline-block; transform:rotate(-2deg)}
+.brand h1 .wd{display:inline-block; white-space:nowrap}
+.brand h1 .rb i{font-style:normal}
+.brand h1 .rb i:nth-of-type(6n+1){color:#F0364E}.brand h1 .rb i:nth-of-type(6n+2){color:#FF8A00}.brand h1 .rb i:nth-of-type(6n+3){color:#12A150}.brand h1 .rb i:nth-of-type(6n+4){color:#1FB6FF}.brand h1 .rb i:nth-of-type(6n+5){color:#7C5CFF}.brand h1 .rb i:nth-of-type(6n){color:#FF5FA2}
+.brand p{margin:4px 0 0; color:var(--muted); font-size:14px}
+.brandmark{display:inline-flex; align-items:baseline; gap:1px; font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-weight:600; font-size:12px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); margin-top:6px}
+.brandmark b{color:var(--ink); font-weight:600}
+.brandmark i{font-style:normal; color:#B9812C}
+.stats{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+.pill{display:inline-flex; align-items:center; gap:6px; background:var(--card); border:1px solid var(--line); border-radius:999px; padding:5px 12px; font-size:13px; font-weight:600; font-variant-numeric:tabular-nums}
+.pill b{color:var(--ink)}
+.iconbtn{background:var(--card); border:1px solid var(--line); border-radius:999px; width:36px; height:36px; display:inline-grid; place-items:center}
+.iconbtn svg{width:18px; height:18px; stroke:var(--ink); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+.lvl{height:8px; width:120px; background:var(--grid2); border-radius:9px; overflow:hidden}
+.lvl i{display:block; height:100%; background:var(--ink); border-radius:9px; transition:width .5s}
+
+/* unit chips */
+.unitbar{margin:20px 0 6px; display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; scrollbar-width:thin}
+.chip{flex:none; border:1.5px solid var(--line); background:var(--card); border-radius:10px; padding:6px 12px; font-weight:600; font-size:13px; white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--paper)}
+.unitname{font-family:var(--hand); font-size:20px; color:var(--red); margin:4px 0 14px; min-height:28px}
+
+/* game cards */
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px}
+.gcard{position:relative; overflow:hidden; text-align:left; background:var(--gc); color:#fff; border:none; border-radius:22px; padding:18px 18px 16px; box-shadow:0 6px 0 color-mix(in srgb, var(--gc) 70%, #000), 0 18px 30px -18px var(--gc); display:flex; flex-direction:column; gap:6px; transition:transform .18s cubic-bezier(.3,1.6,.5,1)}
+.gcard::after{content:""; position:absolute; right:-30px; top:-30px; width:120px; height:120px; border-radius:50%; background:rgba(255,255,255,.16)}
+.gcard:hover{transform:translateY(-5px) rotate(-1deg)}
+.gcard:active{transform:translateY(2px)}
+.gcard .ic{width:48px; height:48px; border-radius:14px; display:grid; place-items:center; background:rgba(255,255,255,.95); color:var(--gc); position:relative; z-index:1}
+.gcard .ic svg{width:26px; height:26px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
+.gcard h3{font-family:var(--display); font-size:24px; margin:4px 0 0; line-height:1.05; color:#fff}
+.gcard p{margin:0; color:rgba(255,255,255,.9); font-size:13.5px}
+.gcard .tag{color:rgba(255,255,255,.85)}
+.gcard .best{margin-top:auto; padding-top:8px; font-size:12.5px; color:rgba(255,255,255,.9); display:flex; justify-content:space-between; align-items:center; gap:8px}
+.gcard .best .mk{font-family:var(--display); font-weight:800; font-size:18px; background:#fff; color:var(--gc); border-radius:999px; padding:0 10px; line-height:1.5}
+.gcard .stars{letter-spacing:1px; color:#FFE27A}
+.tag{font-size:11px; letter-spacing:.06em; text-transform:uppercase; font-weight:700; color:var(--ink-soft)}
+
+.section-title{font-family:var(--display); font-size:22px; color:var(--ink); margin:30px 0 10px}
+.progress-table{background:var(--card); border:1.5px solid var(--line); border-radius:14px; padding:12px 14px; overflow-x:auto}
+.progress-table table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:420px}
+.progress-table th,.progress-table td{padding:6px 8px; text-align:left; border-bottom:1px solid var(--line)}
+.progress-table th{font-size:11.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted)}
+.bar{height:8px; background:var(--grid2); border-radius:8px; overflow:hidden; min-width:90px}
+.bar i{display:block; height:100%; background:var(--ok)}
+.num{font-variant-numeric:tabular-nums}
+
+/* stage */
+.stagehead{display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:space-between; margin-bottom:14px}
+.back{background:none; border:none; color:var(--ink); font-weight:700; padding:6px 0; display:inline-flex; gap:6px; align-items:center}
+.stagehead h2{font-family:var(--display); color:var(--ink); font-size:28px; margin:0; line-height:1}
+.hud{display:flex; gap:8px; flex-wrap:wrap}
+.panel{background:var(--card); border:1.5px solid var(--line); border-radius:16px; padding:clamp(16px,3vw,26px); box-shadow:var(--shadow)}
+.progress{height:6px; background:var(--grid2); border-radius:6px; overflow:hidden; margin-bottom:16px}
+.progress i{display:block; height:100%; background:var(--ink); transition:width .3s}
+.qtext{font-size:clamp(17px,2.4vw,20px); font-weight:600; line-height:1.45; margin:0 0 6px}
+.qtext u{text-decoration-thickness:2px; text-underline-offset:3px; text-decoration-color:var(--red)}
+.instr{color:var(--muted); font-size:13.5px; font-style:italic; margin:0 0 10px}
+.opts{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin-top:14px}
+.opt{text-align:left; background:var(--paper); border:2px solid var(--line); border-radius:12px; padding:12px 14px; font-size:16px; display:flex; gap:10px; align-items:center; transition:border-color .12s, background .12s}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt .k{flex:none; width:26px; height:26px; border-radius:7px; background:var(--grid); color:var(--ink); display:grid; place-items:center; font-weight:700; font-size:13px}
+.opt.right{border-color:var(--ok); background:var(--ok-bg)}
+.opt.wrong{border-color:var(--red); background:var(--bad-bg)}
+.opt:disabled{cursor:default}
+.passage{background:var(--paper); border-left:4px solid var(--hl); border-radius:6px; padding:10px 14px; font-size:14.5px; margin-bottom:12px; max-height:180px; overflow:auto}
+.timer{height:10px; background:var(--grid2); border-radius:10px; overflow:hidden; margin:10px 0 0}
+.timer i{display:block; height:100%; background:var(--hl); transition:width .1s linear}
+.feedback{min-height:26px; margin-top:12px; font-weight:600}
+.feedback.ok{color:var(--ok)} .feedback.no{color:var(--red)}
+.hearts{color:var(--red); letter-spacing:2px; font-size:16px}
+.btn{border:none; background:var(--ink); color:var(--paper); border-radius:11px; padding:10px 18px; font-weight:700; font-size:15px; display:inline-flex; align-items:center; gap:8px}
+.btn.ghost{background:transparent; color:var(--ink); border:2px solid var(--ink)}
+.btn.warn{background:var(--red)}
+.btn:disabled{opacity:.45; cursor:not-allowed}
+.row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+.center{text-align:center}
+
+/* flashcards */
+.flash{perspective:1200px; margin:0 auto; max-width:520px}
+.fcard{position:relative; height:280px; transform-style:preserve-3d; transition:transform .5s; cursor:pointer}
+.fcard.flip{transform:rotateY(180deg)}
+.face{position:absolute; inset:0; backface-visibility:hidden; border-radius:18px; border:2px solid var(--line); background:var(--card); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; padding:22px; text-align:center; box-shadow:var(--shadow)}
+.face.back{transform:rotateY(180deg); background:var(--paper)}
+.face .w{font-family:var(--display); font-size:clamp(26px,5vw,36px); font-weight:700; color:var(--ink); line-height:1.1}
+.face .vi{font-size:22px; font-weight:700; color:var(--text)}
+.face .ex{font-style:italic; color:var(--muted); font-size:15px; max-width:40ch}
+.face .pos{font-family:var(--hand); color:var(--red); font-size:20px}
+.face .hint{position:absolute; bottom:12px; font-size:12px; color:var(--muted)}
+
+/* memory */
+.mem{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+@media (max-width:560px){ .mem{grid-template-columns:repeat(3,1fr)} }
+.mcard{aspect-ratio:4/3; max-width:100%; border-radius:12px; border:2px solid var(--line); background:var(--ink); color:var(--paper); display:grid; place-items:center; padding:6px; font-size:14px; font-weight:600; text-align:center; line-height:1.25; transition:transform .25s, background .2s}
+.mcard .inner{visibility:hidden}
+.mcard.open,.mcard.done{background:var(--card); color:var(--text); transform:rotateY(0)}
+.mcard.open .inner,.mcard.done .inner{visibility:visible}
+.mcard.done{border-color:var(--ok); background:var(--ok-bg)}
+.mcard.vi-side .inner{font-weight:500}
+.mcard .back-logo{font-family:var(--display); font-size:24px; opacity:.55}
+.mcard.open .back-logo,.mcard.done .back-logo{display:none}
+
+/* tiles */
+.slots{display:flex; flex-wrap:wrap; gap:8px; min-height:58px; padding:10px; border:2px dashed var(--line); border-radius:12px; background:var(--paper); align-items:center}
+.slots.ok{border-color:var(--ok); background:var(--ok-bg)} .slots.no{border-color:var(--red); background:var(--bad-bg)}
+.bank{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; min-height:48px}
+.tile{background:var(--card); border:2px solid var(--line); border-bottom-width:4px; border-radius:10px; padding:7px 12px; font-weight:600; font-size:16px; transition:transform .1s}
+.tile:hover{transform:translateY(-2px); border-color:var(--ink)}
+.tile.letter{width:42px; height:46px; padding:0; font-family:var(--display); font-size:22px; text-transform:lowercase}
+.gap-space{width:18px}
+.lslot{width:42px; height:46px; border-bottom:3px solid var(--ink); display:grid; place-items:center; font-family:var(--display); font-size:22px; color:var(--ink)}
+.lslot.fixed{border-bottom-color:transparent}
+.lslot.hinted{color:var(--red)}
+
+/* typing */
+.typein{width:100%; max-width:360px; font-size:20px; padding:10px 14px; border:2px solid var(--line); border-radius:12px; background:var(--paper); color:var(--text); font-family:var(--body)}
+.typein.ok{border-color:var(--ok)} .typein.no{border-color:var(--red)}
+
+/* error hunter */
+.err-sent{font-size:clamp(18px,2.6vw,22px); line-height:2.2}
+.seg{border:none; background:none; padding:0 2px; font:inherit; color:var(--ink); text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:5px; border-radius:6px}
+.seg sup{font-size:12px; color:var(--red); font-weight:700; margin-left:1px}
+.seg:hover:not(:disabled){background:var(--hl); color:#1F2433}
+.seg.right{background:var(--ok-bg); color:var(--ok)} .seg.wrong{background:var(--bad-bg); color:var(--red)}
+
+/* falling */
+.arena{position:relative; height:min(62vh,460px); border-radius:16px; border:2px solid var(--line); background:linear-gradient(var(--card),var(--paper)); overflow:hidden; touch-action:manipulation}
+.arena .ground{position:absolute; left:0; right:0; bottom:0; height:6px; background:var(--red); opacity:.6}
+.drop{position:absolute; top:0; transform:translate(-50%,0); background:var(--card); border:2px solid var(--ink); border-radius:999px; padding:6px 14px; font-weight:700; color:var(--ink); white-space:nowrap; font-size:15px; box-shadow:var(--shadow)}
+.drop.hit{background:var(--ok); color:var(--paper); border-color:var(--ok)}
+.drop.miss{background:var(--red); color:var(--paper); border-color:var(--red)}
+.target{font-size:clamp(18px,3vw,22px); font-weight:700; text-align:center; margin-bottom:10px}
+.target small{display:block; font-weight:500; font-size:13px; color:var(--muted)}
+.overlay{position:absolute; inset:0; display:grid; place-items:center; background:color-mix(in srgb, var(--paper) 80%, transparent); text-align:center; padding:16px}
+
+/* results */
+.result{display:grid; grid-template-columns:auto 1fr; gap:22px; align-items:center}
+@media (max-width:560px){ .result{grid-template-columns:1fr; justify-items:center; text-align:center} }
+.stamp{width:150px; height:150px; border-radius:50%; border:4px solid var(--red); display:grid; place-items:center; transform:rotate(-8deg); color:var(--red); font-family:var(--hand); position:relative; animation:stamp .45s cubic-bezier(.2,1.6,.4,1)}
+.stamp .m{font-size:64px; line-height:.9}
+.stamp .c{position:absolute; bottom:18px; font-size:18px}
+@keyframes stamp{from{transform:scale(1.8) rotate(-20deg); opacity:0} to{transform:scale(1) rotate(-8deg); opacity:1}}
+.review{margin-top:18px}
+.review li{margin-bottom:8px}
+.review .yours{color:var(--red); text-decoration:line-through}
+.review .corr{color:var(--ok); font-weight:700}
+kbd{font-family:var(--body); font-size:12px; border:1px solid var(--line); border-bottom-width:2px; border-radius:5px; padding:0 5px; background:var(--card)}
+.small{font-size:13px; color:var(--muted)}
+.toast{position:fixed; left:50%; bottom:calc(20px + env(safe-area-inset-bottom,0px)); transform:translateX(-50%); background:var(--ink); color:var(--paper); padding:10px 18px; border-radius:12px; font-weight:600; z-index:50}
+
+.chip{border:none; background:#fff; color:var(--text); box-shadow:0 3px 0 var(--line)}
+.chip[aria-pressed="true"]{background:var(--uc,#3A2BB8); color:#fff; box-shadow:0 3px 0 color-mix(in srgb, var(--uc,#3A2BB8) 70%, #000)}
+.unitname{font-family:var(--display); font-weight:700; font-size:20px; color:var(--uc,#3A2BB8); margin:6px 0 16px}
+.surprise{border:none; background:linear-gradient(90deg,#FF5FA2,#FF8A00,#FFD23F); color:#221B45; font-family:var(--display); font-weight:800; font-size:17px; border-radius:999px; padding:8px 18px; box-shadow:0 4px 0 #D8457F; display:inline-flex; gap:8px; align-items:center}
+.surprise:hover{transform:translateY(-2px)} .surprise svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.4}
+.homebar{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap}
+.panel{border:none; border-top:8px solid var(--gc); border-radius:22px}
+.stagehead h2{color:var(--gc)}
+.progress i,.timer i{background:linear-gradient(90deg, var(--gc), color-mix(in srgb, var(--gc) 55%, #fff))}
+.btn{background:var(--gc); box-shadow:0 4px 0 color-mix(in srgb, var(--gc) 70%, #000); border-radius:14px}
+.btn:active{transform:translateY(3px); box-shadow:0 1px 0 color-mix(in srgb, var(--gc) 70%, #000)}
+.btn.ghost{background:#fff; color:var(--gc); border:2px solid var(--gc); box-shadow:0 3px 0 color-mix(in srgb, var(--gc) 40%, #fff)}
+.btn.warn{background:var(--red); box-shadow:0 4px 0 #B01F33}
+.opt{background:#fff; border:2.5px solid var(--line); border-radius:16px; box-shadow:0 3px 0 var(--line)}
+.opt:nth-child(1) .k{background:#FF6B6B;color:#fff}.opt:nth-child(2) .k{background:#1FB6FF;color:#fff}.opt:nth-child(3) .k{background:#FFB020;color:#fff}.opt:nth-child(4) .k{background:#22C55E;color:#fff}
+.opt:hover:not(:disabled){border-color:var(--gc); transform:translateY(-2px)}
+.opt.right{animation:bounce .4s} .opt.wrong{animation:shake .35s}
+@keyframes bounce{40%{transform:scale(1.05)}} @keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.tile{border-color:color-mix(in srgb, var(--gc) 35%, #fff); border-bottom-color:color-mix(in srgb, var(--gc) 60%, #fff)}
+.tile:nth-child(5n+1){background:#FFF1F3}.tile:nth-child(5n+2){background:#EAF7FF}.tile:nth-child(5n+3){background:#FFF6DB}.tile:nth-child(5n+4){background:#E9FBEF}.tile:nth-child(5n){background:#F1EDFF}
+.lslot{border-bottom-color:var(--gc); color:var(--gc)}
+.mcard{background:linear-gradient(135deg,#7C5CFF,#FF5FA2); border:none; color:#fff; box-shadow:0 4px 0 #5B3FD6}
+.mcard .back-logo{font-family:var(--display); font-weight:800; opacity:.9}
+.mcard.open,.mcard.done{box-shadow:0 3px 0 var(--line); border:2.5px solid var(--line)}
+.mcard.done{border-color:var(--ok); animation:bounce .4s}
+.face{border:none; box-shadow:0 6px 0 color-mix(in srgb, var(--gc) 45%, #fff), 0 20px 30px -20px var(--gc)}
+.face:not(.back){background:linear-gradient(160deg,#fff 60%, color-mix(in srgb, var(--gc) 14%, #fff))}
+.face.back{background:linear-gradient(160deg,#FFF9E3, #FFE9F0)}
+.face .w{color:var(--gc)}
+.arena{border:none; background:linear-gradient(#BDE8FF, #EAF7FF 60%, #FFF6DB); box-shadow:inset 0 -10px 0 #7ED67E}
+.arena .ground{background:#46B946; height:10px; opacity:1}
+.drop{border:none; color:#fff; box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.drop:nth-of-type(4n+1){background:#FF6B6B}.drop:nth-of-type(4n+2){background:#7C5CFF}.drop:nth-of-type(4n+3){background:#1FB6FF}.drop:nth-of-type(4n){background:#FF8A00}
+.drop.hit{background:var(--ok)!important; transform:translate(-50%,0) scale(1.25); transition:transform .2s}
+.drop.miss{background:#555!important}
+.target{background:#fff; border-radius:16px; padding:10px; box-shadow:0 4px 0 var(--line); color:var(--gc)}
+.seg{color:var(--gc)}
+.pop{position:fixed; pointer-events:none; font-family:var(--display); font-weight:800; font-size:28px; color:var(--ok); text-shadow:0 2px 0 #fff; animation:floatup 1s forwards; z-index:60}
+@keyframes floatup{from{opacity:1; transform:translate(-50%,0) scale(.8)} to{opacity:0; transform:translate(-50%,-70px) scale(1.2)}}
+.combo{display:inline-block; background:linear-gradient(90deg,#FF8A00,#FF5FA2); color:#fff; border-radius:999px; padding:1px 10px; font-family:var(--display); font-weight:800; animation:bounce .4s}
+.bigstars{font-size:34px; letter-spacing:4px; color:#FFC400; text-shadow:0 2px 0 #E0A200}
+.bigstars .off{color:#E3DEF7; text-shadow:none}
+#confetti{position:fixed; inset:0; pointer-events:none; z-index:70}
+.pill{border:none; box-shadow:0 2px 0 var(--line)}
+.lvl i{background:linear-gradient(90deg,#FF5FA2,#FFB020)}
+.progress-table{border:none; box-shadow:var(--shadow); border-radius:18px}
+.bar i{background:linear-gradient(90deg,#22C55E,#1FB6FF)}
+.section-title{color:var(--ink)}
+.stamp{background:#fff}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important; animation:none!important} }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1><span class="rb"><span class="wd"><i>G</i><i>r</i><i>a</i><i>d</i><i>e</i></span> <span class="wd"><i>1</i><i>0</i></span></span> <mark>Quest</mark></h1>
+      <p>Tiếng Anh 10 · 10 units · 222 textbook words · 10 games</p>
+      <span class="brandmark"><b>DAVID</b><i>.English</i></span>
+    </div>
+    <div class="stats">
+      <span class="pill">Lv <b id="lvl">1</b> <span class="lvl"><i id="lvlbar" style="width:0%"></i></span></span>
+      <span class="pill"><b id="xp">0</b> XP</span>
+      <span class="pill"><b id="known">0</b>/222 words</span>
+      <button class="iconbtn" id="sound" aria-label="Sound on/off" title="Sound on/off"></button>
+    </div>
+  </header>
+  <main id="app"></main>
+</div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<script>
+const DATA = {"units": [{"n": 1, "t": "Family Life"}, {"n": 2, "t": "Humans and the Environment"}, {"n": 3, "t": "Music"}, {"n": 4, "t": "For a Better Community"}, {"n": 5, "t": "Inventions"}, {"n": 6, "t": "Gender Equality"}, {"n": 7, "t": "Viet Nam and International Organisations"}, {"n": 8, "t": "New Ways to Learn"}, {"n": 9, "t": "Protecting the Environment"}, {"n": 10, "t": "Ecotourism"}], "vocab": [{"u": 1, "w": "benefit", "p": "n", "vi": "lợi ích", "ex": "Doing housework has many benefits for children."}, {"u": 1, "w": "bond", "p": "n", "vi": "sự gắn bó, kết nối", "ex": "Sharing chores builds a strong family bond."}, {"u": 1, "w": "breadwinner", "p": "n", "vi": "người trụ cột đi làm nuôi gia đình", "ex": "My father is the breadwinner in our family."}, {"u": 1, "w": "character", "p": "n", "vi": "tính cách", "ex": "Doing chores helps children build character."}, {"u": 1, "w": "cheer up", "p": "v", "vi": "cổ vũ, làm cho vui lên", "ex": "My sister always cheers me up when I'm sad."}, {"u": 1, "w": "damage", "p": "v", "vi": "phá hỏng", "ex": "Be careful not to damage the washing machine."}, {"u": 1, "w": "gratitude", "p": "n", "vi": "sự biết ơn", "ex": "We show gratitude to our parents by helping them."}, {"u": 1, "w": "grocery", "p": "n", "vi": "thực phẩm và tạp hoá", "ex": "Mum buys groceries at the market every Sunday."}, {"u": 1, "w": "heavy lifting", "p": "n", "vi": "mang vác nặng", "ex": "My dad does the heavy lifting at home."}, {"u": 1, "w": "homemaker", "p": "n", "vi": "người nội trợ", "ex": "My mother is a homemaker."}, {"u": 1, "w": "laundry", "p": "n", "vi": "quần áo, đồ giặt là", "ex": "I do the laundry at weekends."}, {"u": 1, "w": "manner", "p": "n", "vi": "tác phong, cách ứng xử", "ex": "Good manners are important in a family."}, {"u": 1, "w": "responsibility", "p": "n", "vi": "trách nhiệm", "ex": "Children should share the responsibility for housework."}, {"u": 1, "w": "routine", "p": "n", "vi": "lệ thường, công việc hằng ngày", "ex": "Cooking dinner is part of my daily routine."}, {"u": 1, "w": "rubbish", "p": "n", "vi": "rác rưởi", "ex": "Please put out the rubbish tonight."}, {"u": 1, "w": "spotlessly", "p": "adv", "vi": "sạch bong, không tì vết", "ex": "She keeps the kitchen spotlessly clean."}, {"u": 1, "w": "strengthen", "p": "v", "vi": "củng cố", "ex": "Working together strengthens family bonds."}, {"u": 1, "w": "support", "p": "n, v", "vi": "sự ủng hộ; hỗ trợ", "ex": "My parents always support me."}, {"u": 1, "w": "truthful", "p": "adj", "vi": "trung thực", "ex": "Children should be truthful to their parents."}, {"u": 1, "w": "value", "p": "n", "vi": "giá trị", "ex": "My family taught me good values."}, {"u": 1, "w": "washing-up", "p": "n", "vi": "việc rửa chén bát", "ex": "I do the washing-up after dinner."}, {"u": 2, "w": "adopt", "p": "v", "vi": "theo, chọn theo", "ex": "Many people are adopting a greener lifestyle."}, {"u": 2, "w": "appliance", "p": "n", "vi": "thiết bị, dụng cụ", "ex": "Turn off electrical appliances when you leave."}, {"u": 2, "w": "awareness", "p": "n", "vi": "nhận thức", "ex": "The campaign raises awareness of pollution."}, {"u": 2, "w": "calculate", "p": "v", "vi": "tính toán", "ex": "Let's calculate our carbon footprint."}, {"u": 2, "w": "carbon footprint", "p": "n", "vi": "dấu chân carbon", "ex": "Cycling reduces your carbon footprint."}, {"u": 2, "w": "chemical", "p": "n", "vi": "hoá chất", "ex": "Don't use harmful chemicals in the garden."}, {"u": 2, "w": "eco-friendly", "p": "adj", "vi": "thân thiện với môi trường", "ex": "Cloth bags are eco-friendly."}, {"u": 2, "w": "electrical", "p": "adj", "vi": "thuộc về điện", "ex": "We use many electrical devices at home."}, {"u": 2, "w": "emission", "p": "n", "vi": "sự thải ra", "ex": "Cars produce a lot of emissions."}, {"u": 2, "w": "encourage", "p": "v", "vi": "khuyến khích, động viên", "ex": "Teachers encourage students to recycle."}, {"u": 2, "w": "energy", "p": "n", "vi": "năng lượng", "ex": "Turn off the lights to save energy."}, {"u": 2, "w": "estimate", "p": "v", "vi": "ước tính, ước lượng", "ex": "Scientists estimate that the Earth is getting warmer."}, {"u": 2, "w": "global", "p": "adj", "vi": "toàn cầu", "ex": "Global warming is a serious problem."}, {"u": 2, "w": "human", "p": "n", "vi": "con người", "ex": "Humans are damaging the environment."}, {"u": 2, "w": "issue", "p": "n", "vi": "vấn đề", "ex": "Plastic waste is a big issue."}, {"u": 2, "w": "lifestyle", "p": "n", "vi": "lối sống, cách sống", "ex": "A green lifestyle is good for the planet."}, {"u": 2, "w": "litter", "p": "n", "vi": "rác thải", "ex": "There is a lot of litter on the beach."}, {"u": 2, "w": "material", "p": "n", "vi": "nguyên liệu", "ex": "Paper is a material we can recycle."}, {"u": 2, "w": "organic", "p": "adj", "vi": "hữu cơ", "ex": "We buy organic vegetables."}, {"u": 2, "w": "public transport", "p": "n", "vi": "giao thông công cộng", "ex": "I go to school by public transport."}, {"u": 2, "w": "refillable", "p": "adj", "vi": "có thể làm đầy lại", "ex": "Bring a refillable water bottle."}, {"u": 2, "w": "resource", "p": "n", "vi": "tài nguyên", "ex": "We should save natural resources."}, {"u": 2, "w": "sustainable", "p": "adj", "vi": "bền vững", "ex": "We need a sustainable way of living."}, {"u": 3, "w": "bamboo clapper", "p": "n", "vi": "phách", "ex": "The bamboo clapper is a traditional instrument."}, {"u": 3, "w": "comment", "p": "n", "vi": "lời bình luận", "ex": "Her video got many nice comments."}, {"u": 3, "w": "competition", "p": "n", "vi": "cuộc tranh tài, cuộc thi", "ex": "He won a singing competition."}, {"u": 3, "w": "concert", "p": "n", "vi": "buổi hoà nhạc", "ex": "We went to a rock concert last night."}, {"u": 3, "w": "decoration", "p": "n", "vi": "việc trang trí", "ex": "The decoration on the stage was beautiful."}, {"u": 3, "w": "delay", "p": "v", "vi": "hoãn lại", "ex": "The concert was delayed because of the rain."}, {"u": 3, "w": "eliminate", "p": "v", "vi": "loại ra, loại trừ", "ex": "Two singers were eliminated last week."}, {"u": 3, "w": "judge", "p": "n", "vi": "giám khảo", "ex": "The judges chose the best singer."}, {"u": 3, "w": "live", "p": "adj, adv", "vi": "trực tiếp", "ex": "The show is broadcast live on TV."}, {"u": 3, "w": "location", "p": "n", "vi": "vị trí, địa điểm", "ex": "The location of the festival is the city park."}, {"u": 3, "w": "moon-shaped lute", "p": "n", "vi": "đàn nguyệt", "ex": "My grandfather plays the moon-shaped lute."}, {"u": 3, "w": "musical instrument", "p": "n", "vi": "nhạc cụ", "ex": "Can you play a musical instrument?"}, {"u": 3, "w": "participant", "p": "n", "vi": "người tham dự, thí sinh", "ex": "There are ten participants in the final."}, {"u": 3, "w": "performance", "p": "n", "vi": "buổi biểu diễn", "ex": "Their performance was amazing."}, {"u": 3, "w": "reach", "p": "v", "vi": "đạt được", "ex": "The song reached number one."}, {"u": 3, "w": "single", "p": "n", "vi": "đĩa đơn", "ex": "The band released a new single."}, {"u": 3, "w": "social media", "p": "n", "vi": "mạng xã hội", "ex": "She shares her songs on social media."}, {"u": 3, "w": "talented", "p": "adj", "vi": "tài năng", "ex": "He is a talented young singer."}, {"u": 3, "w": "trumpet", "p": "n", "vi": "kèn trumpet", "ex": "My brother is learning to play the trumpet."}, {"u": 3, "w": "upload", "p": "v", "vi": "tải lên", "ex": "I uploaded my video to the internet."}, {"u": 4, "w": "access", "p": "n", "vi": "sự tiếp cận", "ex": "Children in remote areas have little access to books."}, {"u": 4, "w": "announcement", "p": "n", "vi": "thông báo", "ex": "The teacher made an announcement about the charity event."}, {"u": 4, "w": "boost", "p": "v", "vi": "thúc đẩy, làm tăng thêm", "ex": "Volunteering boosts your confidence."}, {"u": 4, "w": "cheerful", "p": "adj", "vi": "vui vẻ", "ex": "The children at the orphanage were very cheerful."}, {"u": 4, "w": "community", "p": "n", "vi": "cộng đồng", "ex": "We want to help our local community."}, {"u": 4, "w": "community service", "p": "n", "vi": "phục vụ cộng đồng", "ex": "Students do community service at weekends."}, {"u": 4, "w": "confidence", "p": "n", "vi": "sự tự tin", "ex": "Volunteer work gave me more confidence."}, {"u": 4, "w": "confused", "p": "adj", "vi": "bối rối", "ex": "I was confused at first, but the leader helped me."}, {"u": 4, "w": "deliver", "p": "v", "vi": "phân phát, giao (hàng)", "ex": "We delivered food to poor families."}, {"u": 4, "w": "donate", "p": "v", "vi": "cho, hiến tặng", "ex": "We donated books to the library."}, {"u": 4, "w": "donation", "p": "n", "vi": "đồ hiến tặng, sự quyên góp", "ex": "Thank you for your donation."}, {"u": 4, "w": "generous", "p": "adj", "vi": "hào phóng", "ex": "Many generous people gave money."}, {"u": 4, "w": "involved", "p": "adj", "vi": "tham gia", "ex": "I got involved in a volunteer club."}, {"u": 4, "w": "life-saving", "p": "adj", "vi": "cứu nạn, cứu sống", "ex": "She learnt life-saving skills."}, {"u": 4, "w": "non-governmental", "p": "adj", "vi": "phi chính phủ", "ex": "It is a non-governmental organisation."}, {"u": 4, "w": "orphanage", "p": "n", "vi": "trại trẻ mồ côi", "ex": "We visited an orphanage last month."}, {"u": 4, "w": "participate", "p": "v", "vi": "tham gia", "ex": "Everyone can participate in community activities."}, {"u": 4, "w": "practical", "p": "adj", "vi": "thực tế, thiết thực", "ex": "Volunteering gives you practical skills."}, {"u": 4, "w": "raise", "p": "v", "vi": "quyên góp", "ex": "We raised money for flood victims."}, {"u": 4, "w": "remote", "p": "adj", "vi": "hẻo lánh, xa xôi", "ex": "They teach children in remote villages."}, {"u": 4, "w": "various", "p": "adj", "vi": "khác nhau, đa dạng", "ex": "The club does various activities."}, {"u": 4, "w": "volunteer", "p": "n, v", "vi": "tình nguyện viên; làm tình nguyện", "ex": "She volunteers at a hospital."}, {"u": 5, "w": "3D printing", "p": "n", "vi": "in ba chiều", "ex": "3D printing can make toys and even houses."}, {"u": 5, "w": "AI (artificial intelligence)", "p": "n", "vi": "trí tuệ nhân tạo", "ex": "AI helps computers learn."}, {"u": 5, "w": "app", "p": "n", "vi": "ứng dụng (trên điện thoại)", "ex": "I use an app to learn English."}, {"u": 5, "w": "application", "p": "n", "vi": "ứng dụng", "ex": "This application is very useful."}, {"u": 5, "w": "apply", "p": "v", "vi": "áp dụng", "ex": "We can apply AI to education."}, {"u": 5, "w": "button", "p": "n", "vi": "nút bấm", "ex": "Press this button to start."}, {"u": 5, "w": "charge", "p": "v", "vi": "sạc pin", "ex": "I charge my phone every night."}, {"u": 5, "w": "communicate", "p": "v", "vi": "giao tiếp", "ex": "We communicate by email."}, {"u": 5, "w": "computer", "p": "n", "vi": "máy tính", "ex": "I do my homework on the computer."}, {"u": 5, "w": "device", "p": "n", "vi": "thiết bị", "ex": "A smartphone is a useful device."}, {"u": 5, "w": "display", "p": "n", "vi": "màn hình hiển thị", "ex": "The phone has a large display."}, {"u": 5, "w": "driverless", "p": "adj", "vi": "không người lái", "ex": "Driverless cars may be common in the future."}, {"u": 5, "w": "e-reader", "p": "n", "vi": "thiết bị đọc sách điện tử", "ex": "I read books on my e-reader."}, {"u": 5, "w": "experiment", "p": "n", "vi": "thí nghiệm", "ex": "We did an experiment in the lab."}, {"u": 5, "w": "hardware", "p": "n", "vi": "phần cứng", "ex": "The keyboard is a piece of hardware."}, {"u": 5, "w": "install", "p": "v", "vi": "cài đặt (phần mềm)", "ex": "Install this app on your phone."}, {"u": 5, "w": "invention", "p": "n", "vi": "phát minh", "ex": "The telephone is a great invention."}, {"u": 5, "w": "laboratory", "p": "n", "vi": "phòng thí nghiệm", "ex": "Scientists work in a laboratory."}, {"u": 5, "w": "laptop", "p": "n", "vi": "máy tính xách tay", "ex": "My laptop is light and fast."}, {"u": 5, "w": "processor", "p": "n", "vi": "bộ xử lí", "ex": "This computer has a fast processor."}, {"u": 5, "w": "RAM", "p": "n", "vi": "bộ nhớ RAM", "ex": "My laptop has 8 GB of RAM."}, {"u": 5, "w": "smartphone", "p": "n", "vi": "điện thoại thông minh", "ex": "Almost everyone has a smartphone."}, {"u": 5, "w": "software", "p": "n", "vi": "phần mềm", "ex": "You need new software for this computer."}, {"u": 5, "w": "stain", "p": "n", "vi": "vết bẩn", "ex": "This machine can remove stains from clothes."}, {"u": 5, "w": "storage space", "p": "n", "vi": "dung lượng lưu trữ", "ex": "My phone has little storage space."}, {"u": 5, "w": "store", "p": "v", "vi": "lưu trữ", "ex": "You can store photos on this device."}, {"u": 5, "w": "suitable", "p": "adj", "vi": "phù hợp", "ex": "This laptop is suitable for students."}, {"u": 5, "w": "valuable", "p": "adj", "vi": "có giá trị", "ex": "The internet is a valuable invention."}, {"u": 6, "w": "cosmonaut", "p": "n", "vi": "nhà du hành vũ trụ", "ex": "Valentina Tereshkova was the first woman cosmonaut."}, {"u": 6, "w": "domestic violence", "p": "n", "vi": "bạo lực gia đình", "ex": "Domestic violence must be stopped."}, {"u": 6, "w": "equal", "p": "adj", "vi": "bằng nhau, bình đẳng", "ex": "Men and women should have equal rights."}, {"u": 6, "w": "equality", "p": "n", "vi": "sự bình đẳng", "ex": "Gender equality is important."}, {"u": 6, "w": "eyesight", "p": "n", "vi": "thị lực", "ex": "Pilots need good eyesight."}, {"u": 6, "w": "firefighter", "p": "n", "vi": "lính cứu hoả", "ex": "My aunt is a firefighter."}, {"u": 6, "w": "kindergarten", "p": "n", "vi": "trường mẫu giáo", "ex": "More men now teach at kindergartens."}, {"u": 6, "w": "mental", "p": "adj", "vi": "thuộc về tinh thần", "ex": "Mental health is as important as physical health."}, {"u": 6, "w": "officer", "p": "n", "vi": "sĩ quan", "ex": "She is a police officer."}, {"u": 6, "w": "operation", "p": "n", "vi": "cuộc phẫu thuật", "ex": "The surgeon did a difficult operation."}, {"u": 6, "w": "parachute", "p": "v", "vi": "nhảy dù", "ex": "She learnt to parachute when she was young."}, {"u": 6, "w": "parachutist", "p": "n", "vi": "người nhảy dù", "ex": "Tereshkova was a skilled parachutist."}, {"u": 6, "w": "patient", "p": "n", "vi": "bệnh nhân", "ex": "The nurse looks after her patients."}, {"u": 6, "w": "physical", "p": "adj", "vi": "thuộc về thể chất", "ex": "Firefighters need physical strength."}, {"u": 6, "w": "pilot", "p": "n", "vi": "phi công", "ex": "More women are becoming pilots."}, {"u": 6, "w": "secretary", "p": "n", "vi": "thư kí", "ex": "He works as a secretary in a big company."}, {"u": 6, "w": "shop assistant", "p": "n", "vi": "nhân viên bán hàng", "ex": "The shop assistant was very helpful."}, {"u": 6, "w": "skillful", "p": "adj", "vi": "lành nghề, khéo léo", "ex": "She is a skillful surgeon."}, {"u": 6, "w": "Soviet", "p": "n, adj", "vi": "(thuộc) Liên Xô", "ex": "Tereshkova was a Soviet cosmonaut."}, {"u": 6, "w": "surgeon", "p": "n", "vi": "bác sĩ phẫu thuật", "ex": "My aunt is a surgeon."}, {"u": 6, "w": "uneducated", "p": "adj", "vi": "không được học hành", "ex": "No child should be uneducated."}, {"u": 6, "w": "victim", "p": "n", "vi": "nạn nhân", "ex": "We must help victims of violence."}, {"u": 7, "w": "aim", "p": "n, v", "vi": "mục tiêu; nhằm mục đích", "ex": "The UN aims to keep peace in the world."}, {"u": 7, "w": "commit", "p": "v", "vi": "cam kết", "ex": "Viet Nam is committed to world peace."}, {"u": 7, "w": "competitive", "p": "adj", "vi": "cạnh tranh", "ex": "Viet Nam's economy is becoming more competitive."}, {"u": 7, "w": "economic", "p": "adj", "vi": "thuộc về kinh tế", "ex": "ASEAN supports economic growth."}, {"u": 7, "w": "economy", "p": "n", "vi": "nền kinh tế", "ex": "Viet Nam's economy is growing fast."}, {"u": 7, "w": "enter", "p": "v", "vi": "thâm nhập, đi vào", "ex": "Vietnamese goods can enter new markets."}, {"u": 7, "w": "essential", "p": "adj", "vi": "cần thiết, thiết yếu", "ex": "Clean water is essential for health."}, {"u": 7, "w": "expert", "p": "adj", "vi": "thuộc về chuyên môn", "ex": "UNICEF gives expert advice on children's health."}, {"u": 7, "w": "harm", "p": "n", "vi": "sự nguy hại", "ex": "WHO protects people from harm."}, {"u": 7, "w": "invest", "p": "v", "vi": "đầu tư", "ex": "Many companies invest in Viet Nam."}, {"u": 7, "w": "peacekeeping", "p": "adj", "vi": "gìn giữ hoà bình", "ex": "Viet Nam joins UN peacekeeping activities."}, {"u": 7, "w": "poverty", "p": "n", "vi": "tình trạng đói nghèo", "ex": "The UN works to reduce poverty."}, {"u": 7, "w": "promote", "p": "v", "vi": "thúc đẩy, quảng bá", "ex": "ASEAN promotes trade in the region."}, {"u": 7, "w": "quality", "p": "n, adj", "vi": "chất lượng; có chất lượng", "ex": "Every child needs quality education."}, {"u": 7, "w": "regional", "p": "adj", "vi": "thuộc về khu vực", "ex": "ASEAN is a regional organisation."}, {"u": 7, "w": "relation", "p": "n", "vi": "mối quan hệ", "ex": "Viet Nam has good relations with many countries."}, {"u": 7, "w": "respect", "p": "v", "vi": "tôn trọng", "ex": "Member states respect each other."}, {"u": 7, "w": "technical", "p": "adj", "vi": "thuộc về kĩ thuật", "ex": "The WTO gives technical support to members."}, {"u": 7, "w": "trade", "p": "n", "vi": "thương mại", "ex": "The WTO deals with world trade."}, {"u": 7, "w": "vaccinate", "p": "v", "vi": "tiêm vắc-xin", "ex": "UNICEF helps vaccinate children."}, {"u": 7, "w": "welcome", "p": "v", "vi": "đón chào, hoan nghênh", "ex": "Viet Nam welcomes foreign investors."}, {"u": 8, "w": "blended learning", "p": "n", "vi": "học tập kết hợp", "ex": "Our school uses blended learning."}, {"u": 8, "w": "communicate", "p": "v", "vi": "giao tiếp, trao đổi", "ex": "Students communicate with teachers online."}, {"u": 8, "w": "control", "p": "n", "vi": "sự kiểm soát", "ex": "Online learners have more control over their study."}, {"u": 8, "w": "digital", "p": "adj", "vi": "kĩ thuật số", "ex": "We use digital devices in class."}, {"u": 8, "w": "distraction", "p": "n", "vi": "sự xao nhãng", "ex": "Social media can be a distraction."}, {"u": 8, "w": "exchange", "p": "v", "vi": "trao đổi", "ex": "We exchange ideas in groups."}, {"u": 8, "w": "face-to-face", "p": "adj", "vi": "trực tiếp", "ex": "I prefer face-to-face lessons."}, {"u": 8, "w": "flow chart", "p": "n", "vi": "lưu đồ, sơ đồ quy trình", "ex": "Draw a flow chart of the process."}, {"u": 8, "w": "focus", "p": "v", "vi": "tập trung", "ex": "Please focus on your lesson."}, {"u": 8, "w": "high-speed", "p": "adj", "vi": "tốc độ cao", "ex": "We need high-speed internet."}, {"u": 8, "w": "immediately", "p": "adv", "vi": "ngay lập tức", "ex": "Teachers can reply immediately."}, {"u": 8, "w": "install", "p": "v", "vi": "lắp đặt, cài đặt", "ex": "The school installed new computers."}, {"u": 8, "w": "online learning", "p": "n", "vi": "học trực tuyến", "ex": "Online learning is flexible."}, {"u": 8, "w": "original", "p": "adj", "vi": "độc đáo, sáng tạo", "ex": "She always has original ideas."}, {"u": 8, "w": "real-world", "p": "adj", "vi": "thực tế", "ex": "We learn real-world skills."}, {"u": 8, "w": "resource", "p": "n", "vi": "nguồn lực, tài liệu", "ex": "The internet has many learning resources."}, {"u": 8, "w": "schedule", "p": "n", "vi": "lịch trình", "ex": "Make a study schedule."}, {"u": 8, "w": "strategy", "p": "n", "vi": "chiến lược", "ex": "What learning strategies do you use?"}, {"u": 8, "w": "teamwork", "p": "n", "vi": "hoạt động nhóm", "ex": "Teamwork is important in class projects."}, {"u": 8, "w": "voice recorder", "p": "n", "vi": "máy thu âm", "ex": "I use a voice recorder to practise speaking."}, {"u": 9, "w": "balance", "p": "n", "vi": "sự cân bằng", "ex": "We must keep the balance of nature."}, {"u": 9, "w": "biodiversity", "p": "n", "vi": "đa dạng sinh học", "ex": "Viet Nam has rich biodiversity."}, {"u": 9, "w": "climate change", "p": "n", "vi": "sự thay đổi khí hậu", "ex": "Climate change causes extreme weather."}, {"u": 9, "w": "consequence", "p": "n", "vi": "hậu quả", "ex": "Pollution has serious consequences."}, {"u": 9, "w": "deforestation", "p": "n", "vi": "nạn phá rừng", "ex": "Deforestation destroys animal habitats."}, {"u": 9, "w": "ecosystem", "p": "n", "vi": "hệ sinh thái", "ex": "Forests are important ecosystems."}, {"u": 9, "w": "endangered", "p": "adj", "vi": "có nguy cơ tuyệt chủng", "ex": "The saola is an endangered animal."}, {"u": 9, "w": "environmental protection", "p": "n", "vi": "bảo vệ môi trường", "ex": "Environmental protection is everyone's job."}, {"u": 9, "w": "extreme", "p": "adj", "vi": "cực đoan, khắc nghiệt", "ex": "Extreme weather is more common now."}, {"u": 9, "w": "giant", "p": "adj", "vi": "to lớn, khổng lồ", "ex": "Giant pandas live in China."}, {"u": 9, "w": "habitat", "p": "n", "vi": "môi trường sống", "ex": "Forests are the habitat of many animals."}, {"u": 9, "w": "heatwave", "p": "n", "vi": "đợt nắng nóng", "ex": "The heatwave lasted a week."}, {"u": 9, "w": "ice melting", "p": "n", "vi": "sự tan băng", "ex": "Ice melting makes the sea level rise."}, {"u": 9, "w": "issue", "p": "n", "vi": "vấn đề", "ex": "Pollution is a serious issue."}, {"u": 9, "w": "panda", "p": "n", "vi": "gấu trúc", "ex": "The panda eats bamboo."}, {"u": 9, "w": "practical", "p": "adj", "vi": "thực tế, thiết thực", "ex": "We need practical ways to save energy."}, {"u": 9, "w": "respiratory", "p": "adj", "vi": "thuộc về hô hấp", "ex": "Air pollution causes respiratory problems."}, {"u": 9, "w": "tortoise", "p": "n", "vi": "con rùa", "ex": "The tortoise can live for a very long time."}, {"u": 9, "w": "trade", "p": "n", "vi": "sự buôn bán", "ex": "The illegal trade in wildlife must stop."}, {"u": 9, "w": "upset", "p": "v", "vi": "làm rối loạn, xáo trộn", "ex": "Humans upset the balance of nature."}, {"u": 9, "w": "wildlife", "p": "n", "vi": "động vật hoang dã", "ex": "We must protect wildlife."}, {"u": 10, "w": "aware", "p": "adj", "vi": "có nhận thức, ý thức được", "ex": "Tourists should be aware of local customs."}, {"u": 10, "w": "brochure", "p": "n", "vi": "tờ quảng cáo", "ex": "Read the travel brochure first."}, {"u": 10, "w": "craft", "p": "n", "vi": "đồ thủ công", "ex": "We bought local crafts at the market."}, {"u": 10, "w": "crowd", "p": "v", "vi": "đổ về, kéo về", "ex": "Tourists crowd to the beach in summer."}, {"u": 10, "w": "culture", "p": "n", "vi": "văn hoá", "ex": "Ecotourism respects local culture."}, {"u": 10, "w": "damage", "p": "v", "vi": "làm hư hại", "ex": "Don't damage the coral."}, {"u": 10, "w": "ecotourism", "p": "n", "vi": "du lịch sinh thái", "ex": "Ecotourism protects nature."}, {"u": 10, "w": "explore", "p": "v", "vi": "khám phá", "ex": "We explored the caves."}, {"u": 10, "w": "floating market", "p": "n", "vi": "chợ nổi", "ex": "Cai Rang is a famous floating market."}, {"u": 10, "w": "follow", "p": "v", "vi": "đi theo", "ex": "Please follow the tour guide."}, {"u": 10, "w": "host", "p": "n", "vi": "chủ nhà", "ex": "Our host family cooked dinner for us."}, {"u": 10, "w": "hunt", "p": "v", "vi": "săn bắn", "ex": "Don't hunt wild animals."}, {"u": 10, "w": "impact", "p": "n", "vi": "tác động", "ex": "Mass tourism has a bad impact on nature."}, {"u": 10, "w": "local", "p": "adj", "vi": "tại địa phương", "ex": "Buy food from local people."}, {"u": 10, "w": "mass", "p": "adj", "vi": "theo số đông, đại trà", "ex": "Mass tourism can harm the environment."}, {"u": 10, "w": "path", "p": "n", "vi": "lối đi", "ex": "Stay on the path in the forest."}, {"u": 10, "w": "profit", "p": "n", "vi": "lợi nhuận", "ex": "Ecotourism brings profit to local people."}, {"u": 10, "w": "protect", "p": "v", "vi": "bảo vệ", "ex": "We must protect the environment."}, {"u": 10, "w": "responsible", "p": "adj", "vi": "có trách nhiệm", "ex": "Be a responsible tourist."}, {"u": 10, "w": "souvenir", "p": "n", "vi": "quà lưu niệm", "ex": "I bought some souvenirs for my friends."}, {"u": 10, "w": "stalactite", "p": "n", "vi": "nhũ đá (trong hang động)", "ex": "The cave has beautiful stalactites."}, {"u": 10, "w": "trail", "p": "n", "vi": "đường mòn", "ex": "We walked along a forest trail."}, {"u": 10, "w": "waste", "p": "v", "vi": "lãng phí", "ex": "Don't waste water."}, {"u": 10, "w": "weave", "p": "v", "vi": "dệt", "ex": "Local women weave colourful cloth."}], "mc": [{"u": 1, "q": "", "i": "Choose the word whose underlined part is pronounced differently from the others.", "o": ["cl<u>ea</u>n", "br<u>ea</u>d", "h<u>ea</u>vy", "br<u>ea</u>dwinner"], "p": null}, {"u": 1, "q": "", "i": "Choose the word whose underlined part is pronounced differently from the others.", "o": ["<u>ch</u>emistry", "<u>ch</u>ore", "<u>ch</u>ild", "<u>ch</u>eck"], "p": null}, {"u": 1, "q": "My father is the ______ of the family. He earns money for all of us.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["breadwinner", "homemaker", "housework", "grocery"], "p": null}, {"u": 1, "q": "I ______ the laundry every Sunday morning.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["do", "make", "take", "have"], "p": null}, {"u": 1, "q": "Doing housework together helps ______ family bonds.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["strengthen", "strong", "strength", "strongly"], "p": null}, {"u": 1, "q": "Please put ______ the rubbish before you go to school.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["out", "on", "off", "up"], "p": null}, {"u": 1, "q": "My mum ______ dinner now.", "i": "Choose the best answer (A, B, C or D).", "o": ["is cooking", "cooks", "cook", "are cooking"], "p": null}, {"u": 1, "q": "We usually ______ the dishes after dinner.", "i": "Choose the best answer (A, B, C or D).", "o": ["wash", "are washing", "washes", "is washing"], "p": null}, {"u": 1, "q": "Listen! Somebody ______ at the door.", "i": "Choose the best answer (A, B, C or D).", "o": ["is knocking", "knocks", "knock", "knocking"], "p": null}, {"u": 1, "q": "My brother ______ like doing the shopping.", "i": "Choose the best answer (A, B, C or D).", "o": ["doesn't", "don't", "isn't", "aren't"], "p": null}, {"u": 2, "q": "", "i": "Choose the word whose underlined part is pronounced differently from the others.", "o": ["<u>g</u>eneral", "<u>g</u>lobal", "<u>g</u>reen", "<u>g</u>arbage"], "p": null}, {"u": 2, "q": "", "i": "Choose the word whose underlined part is pronounced differently from the others.", "o": ["pl<u>a</u>stic", "w<u>a</u>ste", "pl<u>a</u>ce", "s<u>a</u>ve"], "p": null}, {"u": 2, "q": "We should use ______ bags instead of plastic bags.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["reusable", "harmful", "polluted", "wasteful"], "p": null}, {"u": 2, "q": "Riding a bike helps reduce your ______ footprint.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["carbon", "green", "energy", "plastic"], "p": null}, {"u": 2, "q": "Don't ______ in the park. Put your rubbish in the bin.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["litter", "recycle", "protect", "save"], "p": null}, {"u": 2, "q": "Many families are ______ a green lifestyle.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["adopting", "throwing", "wasting", "polluting"], "p": null}, {"u": 2, "q": "Look at those dark clouds! It ______ rain.", "i": "Choose the best answer (A, B, C or D).", "o": ["is going to", "will", "is", "going to"], "p": null}, {"u": 2, "q": "\"I'm thirsty.\" – \"I ______ get you some water.\"", "i": "Choose the best answer (A, B, C or D).", "o": ["will", "am going to", "going", "am"], "p": null}, {"u": 2, "q": "Plastic bottles ______ at this centre every day.", "i": "Choose the best answer (A, B, C or D).", "o": ["are recycled", "recycle", "recycled", "is recycled"], "p": null}, {"u": 2, "q": "More trees ______ in our school next month.", "i": "Choose the best answer (A, B, C or D).", "o": ["will be planted", "will plant", "are planting", "plant"], "p": null}, {"u": 3, "q": "", "i": "Choose the word whose underlined part is pronounced differently from the others.", "o": ["f<u>o</u>lk", "s<u>o</u>ng", "p<u>o</u>p", "r<u>o</u>ck"], "p": null}, {"u": 3, "q": "", "i": "Choose the word whose main stress is in a different position from the others.", "o": ["perform", "music", "famous", "talent"], "p": null}, {"u": 3, "q": "The ______ clapped loudly after the song.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["audience", "judge", "contestant", "album"], "p": null}, {"u": 3, "q": "The singer is going to ______ a new album next month.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["release", "receive", "remember", "relax"], "p": null}, {"u": 3, "q": "The piano is my favourite musical ______.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["instrument", "genre", "band", "show"], "p": null}, {"u": 3, "q": "There are three ______ in the talent show. They choose the winner.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["judges", "fans", "singers", "idols"], "p": null}, {"u": 3, "q": "I want ______ the guitar.", "i": "Choose the best answer (A, B, C or D).", "o": ["to learn", "learn", "learning", "learned"], "p": null}, {"u": 3, "q": "My parents let me ______ to the concert.", "i": "Choose the best answer (A, B, C or D).", "o": ["go", "to go", "going", "went"], "p": null}, {"u": 3, "q": "She likes pop music, ______ her brother prefers rock.", "i": "Choose the best answer (A, B, C or D).", "o": ["but", "and", "so", "or"], "p": null}, {"u": 3, "q": "It was raining, ______ the concert was cancelled.", "i": "Choose the best answer (A, B, C or D).", "o": ["so", "but", "or", "and"], "p": null}, {"u": 4, "q": "", "i": "Choose the word whose underlined part is pronounced differently from the others.", "o": ["c<u>o</u>mmunity", "d<u>o</u>nate", "h<u>o</u>meless", "l<u>o</u>cal"], "p": null}, {"u": 4, "q": "", "i": "Choose the word whose main stress is in a different position from the others.", "o": ["volunteer", "elderly", "charity", "orphanage"], "p": null}, {"u": 4, "q": "We ______ money to buy books for poor children.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["raised", "rose", "grew", "built"], "p": null}, {"u": 4, "q": "She works as a ______ at the orphanage. She doesn't get paid.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["volunteer", "manager", "customer", "boss"], "p": null}, {"u": 4, "q": "They ______ old clothes to homeless people.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["donated", "borrowed", "sold", "wasted"], "p": null}, {"u": 4, "q": "Children in ______ areas often walk a long way to school.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["remote", "modern", "busy", "crowded"], "p": null}, {"u": 4, "q": "I ______ TV when my mum came home.", "i": "Choose the best answer (A, B, C or D).", "o": ["was watching", "watched", "am watching", "watch"], "p": null}, {"u": 4, "q": "While we were cleaning the beach, it ______ to rain.", "i": "Choose the best answer (A, B, C or D).", "o": ["started", "was starting", "starts", "start"], "p": null}, {"u": 4, "q": "What ______ you doing at 8 p.m. yesterday?", "i": "Choose the best answer (A, B, C or D).", "o": ["were", "did", "was", "are"], "p": null}, {"u": 4, "q": "______ she was walking home, she saw an old man fall.", "i": "Choose the best answer (A, B, C or D).", "o": ["While", "So", "But", "Or"], "p": null}, {"u": 5, "q": "", "i": "Choose the word whose underlined part is pronounced differently from the others.", "o": ["pr<u>i</u>nter", "dev<u>i</u>ce", "dr<u>i</u>ve", "wh<u>i</u>te"], "p": null}, {"u": 5, "q": "", "i": "Choose the word whose main stress is in a different position from the others.", "o": ["invent", "useful", "laptop", "robot"], "p": null}, {"u": 5, "q": "A smartphone is a small ______ that you can carry everywhere.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["device", "inventor", "technology", "engine"], "p": null}, {"u": 5, "q": "Laptops are ______, so you can take them to school easily.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["portable", "heavy", "expensive", "old"], "p": null}, {"u": 5, "q": "Alexander Graham Bell ______ the telephone.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["invented", "discovered", "explored", "found"], "p": null}, {"u": 5, "q": "______ intelligence helps computers think like humans.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["Artificial", "Natural", "Useful", "Modern"], "p": null}, {"u": 5, "q": "I ______ never used a 3D printer.", "i": "Choose the best answer (A, B, C or D).", "o": ["have", "has", "am", "did"], "p": null}, {"u": 5, "q": "She has had her laptop ______ 2023.", "i": "Choose the best answer (A, B, C or D).", "o": ["since", "for", "in", "ago"], "p": null}, {"u": 5, "q": "A calculator is used for ______ numbers.", "i": "Choose the best answer (A, B, C or D).", "o": ["adding", "add", "to add", "added"], "p": null}, {"u": 5, "q": "We use robots ______ heavy work in factories.", "i": "Choose the best answer (A, B, C or D).", "o": ["to do", "do", "doing", "done"], "p": null}, {"u": 6, "q": "", "i": "Choose the word whose underlined part is pronounced differently from the others.", "o": ["p<u>u</u>t", "s<u>u</u>rgeon", "n<u>u</u>rse", "t<u>u</u>rn"], "p": null}, {"u": 6, "q": "", "i": "Choose the word whose main stress is in a different position from the others.", "o": ["career", "equal", "pilot", "surgeon"], "p": null}, {"u": 6, "q": "Boys and girls should have equal ______ to go to school.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["opportunities", "problems", "jobs", "chores"], "p": null}, {"u": 6, "q": "A ______ flies planes.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["pilot", "surgeon", "nurse", "firefighter"], "p": null}, {"u": 6, "q": "Women should not be ______ against at work.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["discriminated", "treated", "encouraged", "allowed"], "p": null}, {"u": 6, "q": "Parents should ______ their daughters to study science.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["encourage", "stop", "prevent", "refuse"], "p": null}, {"u": 6, "q": "Housework should ______ by all family members.", "i": "Choose the best answer (A, B, C or D).", "o": ["be shared", "share", "shared", "sharing"], "p": null}, {"u": 6, "q": "Women ______ given the same pay as men.", "i": "Choose the best answer (A, B, C or D).", "o": ["must be", "must", "must to be", "are must"], "p": null}, {"u": 6, "q": "This problem can ______ if we work together.", "i": "Choose the best answer (A, B, C or D).", "o": ["be solved", "solve", "solved", "solving"], "p": null}, {"u": 6, "q": "Girls ______ allowed to play football at our school.", "i": "Choose the best answer (A, B, C or D).", "o": ["can be", "can", "are can", "can being"], "p": null}, {"u": 7, "q": "", "i": "Choose the word whose underlined part is pronounced differently from the others.", "o": ["w<u>ea</u>lth", "p<u>ea</u>ce", "l<u>ea</u>der", "r<u>ea</u>ch"], "p": null}, {"u": 7, "q": "", "i": "Choose the word whose main stress is in a different position from the others.", "o": ["provide", "member", "poverty", "region"], "p": null}, {"u": 7, "q": "Viet Nam ______ the WTO in 2007.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["joined", "made", "went", "took"], "p": null}, {"u": 7, "q": "UNICEF mainly helps ______ all over the world.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["children", "animals", "companies", "banks"], "p": null}, {"u": 7, "q": "Viet Nam is a ______ of ASEAN.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["member", "leader", "visitor", "worker"], "p": null}, {"u": 7, "q": "The UN works to keep ______ in the world.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["peace", "war", "poverty", "pollution"], "p": null}, {"u": 7, "q": "Viet Nam is ______ than Laos.", "i": "Choose the best answer (A, B, C or D).", "o": ["bigger", "big", "biggest", "more big"], "p": null}, {"u": 7, "q": "The UN is one of the ______ organisations in the world.", "i": "Choose the best answer (A, B, C or D).", "o": ["largest", "large", "larger", "most large"], "p": null}, {"u": 7, "q": "This project is ______ than the last one.", "i": "Choose the best answer (A, B, C or D).", "o": ["more important", "importanter", "most important", "important"], "p": null}, {"u": 7, "q": "Health is ______ than money.", "i": "Choose the best answer (A, B, C or D).", "o": ["better", "good", "best", "more good"], "p": null}, {"u": 8, "q": "", "i": "Choose the word whose underlined part is pronounced differently from the others.", "o": ["<u>e</u>-book", "l<u>e</u>cture", "fl<u>e</u>xible", "l<u>e</u>sson"], "p": null}, {"u": 8, "q": "", "i": "Choose the word whose main stress is in a different position from the others.", "o": ["submit", "lecture", "student", "teacher"], "p": null}, {"u": 8, "q": "In ______ learning, students study both online and in the classroom.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["blended", "self", "face", "digital"], "p": null}, {"u": 8, "q": "Online learning is ______ because you can study at any time.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["flexible", "boring", "difficult", "expensive"], "p": null}, {"u": 8, "q": "Students need to ______ their homework before Friday.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["submit", "access", "interact", "download"], "p": null}, {"u": 8, "q": "An ______ student can study without much help from teachers.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["independent", "lazy", "dependent", "careless"], "p": null}, {"u": 8, "q": "The teacher ______ teaches us English is from Canada.", "i": "Choose the best answer (A, B, C or D).", "o": ["who", "which", "whose", "where"], "p": null}, {"u": 8, "q": "This is the app ______ helps me learn new words.", "i": "Choose the best answer (A, B, C or D).", "o": ["which", "who", "whose", "what"], "p": null}, {"u": 8, "q": "That's the student ______ laptop is broken.", "i": "Choose the best answer (A, B, C or D).", "o": ["whose", "who", "which", "that"], "p": null}, {"u": 8, "q": "My tablet, ______ I bought last year, is very useful.", "i": "Choose the best answer (A, B, C or D).", "o": ["which", "that", "who", "whose"], "p": null}, {"u": 9, "q": "", "i": "Choose the word whose underlined part is pronounced differently from the others.", "o": ["c<u>a</u>rbon", "h<u>a</u>bitat", "d<u>a</u>mage", "pl<u>a</u>net"], "p": null}, {"u": 9, "q": "", "i": "Choose the word whose main stress is in a different position from the others.", "o": ["destroy", "habitat", "species", "wildlife"], "p": null}, {"u": 9, "q": "______ is the cutting down of forests.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["Deforestation", "Pollution", "Habitat", "Wildlife"], "p": null}, {"u": 9, "q": "Tigers are an ______ species. There are not many left.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["endangered", "extinct", "angry", "unknown"], "p": null}, {"u": 9, "q": "Solar power is a kind of ______ energy.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["renewable", "harmful", "dirty", "old"], "p": null}, {"u": 9, "q": "Many animals are losing their ______ because of deforestation.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["habitats", "gases", "solutions", "species"], "p": null}, {"u": 9, "q": "\"I am tired.\" → She said that she ______ tired.", "i": "Choose the best answer (A, B, C or D).", "o": ["was", "is", "were", "be"], "p": null}, {"u": 9, "q": "\"I like animals.\" → He said that he ______ animals.", "i": "Choose the best answer (A, B, C or D).", "o": ["liked", "like", "likes", "is liking"], "p": null}, {"u": 9, "q": "Tom: \"I am worried about global warming.\" → Tom said that ______ was worried about global warming.", "i": "Choose the best answer (A, B, C or D).", "o": ["he", "I", "you", "we"], "p": null}, {"u": 9, "q": "\"We are planting trees now.\" → They said that they were planting trees ______.", "i": "Choose the best answer (A, B, C or D).", "o": ["then", "now", "tomorrow", "today"], "p": null}, {"u": 10, "q": "", "i": "Choose the word whose underlined part is pronounced differently from the others.", "o": ["l<u>a</u>ndscape", "n<u>a</u>ture", "pl<u>a</u>ce", "destin<u>a</u>tion"], "p": null}, {"u": 10, "q": "", "i": "Choose the word whose main stress is in a different position from the others.", "o": ["explore", "culture", "tourist", "nature"], "p": null}, {"u": 10, "q": "______ is a type of tourism that protects nature and helps local people.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["Ecotourism", "Mass tourism", "Business", "Shopping"], "p": null}, {"u": 10, "q": "Ha Long Bay is a popular tourist ______.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["destination", "souvenir", "agency", "impact"], "p": null}, {"u": 10, "q": "Tourists should ______ local culture.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["respect", "destroy", "damage", "ignore"], "p": null}, {"u": 10, "q": "I bought some ______ for my friends at the market.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["souvenirs", "landscapes", "tourists", "habitats"], "p": null}, {"u": 10, "q": "If it ______ tomorrow, we will stay at the hotel.", "i": "Choose the best answer (A, B, C or D).", "o": ["rains", "will rain", "rained", "rain"], "p": null}, {"u": 10, "q": "If I had more money, I ______ travel to Phu Quoc.", "i": "Choose the best answer (A, B, C or D).", "o": ["would", "will", "can", "am"], "p": null}, {"u": 10, "q": "If I ______ you, I would go on an eco-tour.", "i": "Choose the best answer (A, B, C or D).", "o": ["were", "am", "will be", "being"], "p": null}, {"u": 10, "q": "We ______ the national park if the weather is fine.", "i": "Choose the best answer (A, B, C or D).", "o": ["will visit", "visit", "would visit", "visited"], "p": null}, {"u": 0, "q": "", "i": "Choose the word whose underlined part is pronounced differently from the others.", "o": ["gr<u>ou</u>p", "h<u>ou</u>se", "l<u>ou</u>d", "ab<u>ou</u>t"], "p": null}, {"u": 0, "q": "", "i": "Choose the word whose underlined part is pronounced differently from the others.", "o": ["<u>th</u>is", "<u>th</u>ink", "<u>th</u>ree", "<u>th</u>eatre"], "p": null}, {"u": 0, "q": "", "i": "Choose the word whose underlined part is pronounced differently from the others.", "o": ["recycl<u>ed</u>", "donat<u>ed</u>", "invent<u>ed</u>", "visit<u>ed</u>"], "p": null}, {"u": 0, "q": "", "i": "Choose the word whose underlined part is pronounced differently from the others.", "o": ["mak<u>es</u>", "watch<u>es</u>", "wash<u>es</u>", "danc<u>es</u>"], "p": null}, {"u": 0, "q": "", "i": "Choose the word whose underlined part is pronounced differently from the others.", "o": ["w<u>o</u>men", "h<u>o</u>t", "j<u>o</u>b", "st<u>o</u>p"], "p": null}, {"u": 0, "q": "", "i": "Choose the word whose main stress is in a different position from the others.", "o": ["organise", "volunteer", "engineer", "Vietnamese"], "p": null}, {"u": 0, "q": "", "i": "Choose the word whose main stress is in a different position from the others.", "o": ["international", "environment", "community", "technology"], "p": null}, {"u": 0, "q": "", "i": "Choose the word whose main stress is in a different position from the others.", "o": ["culture", "perform", "invent", "destroy"], "p": null}, {"u": 0, "q": "", "i": "Choose the word whose main stress is in a different position from the others.", "o": ["benefit", "equality", "economy", "biology"], "p": null}, {"u": 0, "q": "", "i": "Choose the word whose main stress is in a different position from the others.", "o": ["important", "habitat", "talented", "popular"], "p": null}, {"u": 0, "q": "Mr Hung is a ______. He stays at home and looks after the house and children.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["homemaker", "breadwinner", "surgeon", "pilot"], "p": null}, {"u": 0, "q": "We should turn off the lights to save ______.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["energy", "pollution", "rubbish", "waste"], "p": null}, {"u": 0, "q": "She sang so beautifully that she won the talent ______.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["show", "album", "genre", "audience"], "p": null}, {"u": 0, "q": "The students ______ a lot of money for the flood victims.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["raised", "lifted", "increased", "rose"], "p": null}, {"u": 0, "q": "This machine is small and light. It's very ______.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["portable", "heavy", "fixed", "huge"], "p": null}, {"u": 0, "q": "Boys and girls should have the same ______.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["rights", "problems", "illnesses", "mistakes"], "p": null}, {"u": 0, "q": "WHO works to improve people's ______ around the world.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["health", "trade", "music", "houses"], "p": null}, {"u": 0, "q": "You can ______ the online library from home.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["access", "submit", "interact", "discuss"], "p": null}, {"u": 0, "q": "Many forests are cut down. This is called ______.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["deforestation", "education", "recreation", "invention"], "p": null}, {"u": 0, "q": "When you travel, don't leave any ______ behind.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["litter", "souvenirs", "tickets", "photos"], "p": null}, {"u": 0, "q": "My brother is a big ______ of rock music. He goes to every concert.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["fan", "judge", "composer", "contestant"], "p": null}, {"u": 0, "q": "Ha Noi is a popular ______ for international tourists.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["destination", "habitat", "device", "lecture"], "p": null}, {"u": 0, "q": "Burning coal produces greenhouse ______.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["gases", "energy", "waters", "species"], "p": null}, {"u": 0, "q": "Women should not face ______ at work.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["discrimination", "equality", "opportunity", "respect"], "p": null}, {"u": 0, "q": "In face-to-face classes, students can ______ directly with their teachers.", "i": "Choose the best answer (A, B, C or D) to complete each sentence.", "o": ["interact", "download", "submit", "install"], "p": null}, {"u": 0, "q": "My father ______ to work by bus every day.", "i": "Choose the best answer (A, B, C or D).", "o": ["goes", "is going", "go", "going"], "p": null}, {"u": 0, "q": "Be quiet! The baby ______.", "i": "Choose the best answer (A, B, C or D).", "o": ["is sleeping", "sleeps", "slept", "sleep"], "p": null}, {"u": 0, "q": "\"The phone is ringing.\" – \"I ______ answer it.\"", "i": "Choose the best answer (A, B, C or D).", "o": ["will", "am going to", "am", "going to"], "p": null}, {"u": 0, "q": "We ______ visit our grandparents next weekend. We've already bought the tickets.", "i": "Choose the best answer (A, B, C or D).", "o": ["are going to", "will", "would", "are"], "p": null}, {"u": 0, "q": "Old newspapers ______ into new paper.", "i": "Choose the best answer (A, B, C or D).", "o": ["are made", "make", "are making", "making"], "p": null}, {"u": 0, "q": "My mum made me ______ my room.", "i": "Choose the best answer (A, B, C or D).", "o": ["clean", "to clean", "cleaning", "cleaned"], "p": null}, {"u": 0, "q": "He hopes ______ a famous singer one day.", "i": "Choose the best answer (A, B, C or D).", "o": ["to become", "become", "becoming", "became"], "p": null}, {"u": 0, "q": "I was doing my homework when my friend ______.", "i": "Choose the best answer (A, B, C or D).", "o": ["called", "was calling", "calls", "call"], "p": null}, {"u": 0, "q": "While my dad ______ the car, my mum was cooking.", "i": "Choose the best answer (A, B, C or D).", "o": ["was washing", "washed", "washes", "is washing"], "p": null}, {"u": 0, "q": "They ______ this laptop for five years.", "i": "Choose the best answer (A, B, C or D).", "o": ["have had", "had", "have", "are having"], "p": null}, {"u": 0, "q": "Have you ______ used a robot vacuum cleaner?", "i": "Choose the best answer (A, B, C or D).", "o": ["ever", "yet", "since", "ago"], "p": null}, {"u": 0, "q": "A fridge is used ______ food fresh.", "i": "Choose the best answer (A, B, C or D).", "o": ["to keep", "keeping", "keep", "kept"], "p": null}, {"u": 0, "q": "Everyone ______ treated equally.", "i": "Choose the best answer (A, B, C or D).", "o": ["should be", "should", "should to be", "be should"], "p": null}, {"u": 0, "q": "The school rules must ______ by all students.", "i": "Choose the best answer (A, B, C or D).", "o": ["be followed", "follow", "followed", "following"], "p": null}, {"u": 0, "q": "Viet Nam is one of the ______ countries in Southeast Asia.", "i": "Choose the best answer (A, B, C or D).", "o": ["most beautiful", "more beautiful", "beautifulest", "beautiful"], "p": null}, {"u": 0, "q": "For some students, learning online is ______ than learning in class.", "i": "Choose the best answer (A, B, C or D).", "o": ["easier", "easy", "easiest", "more easy"], "p": null}, {"u": 0, "q": "The girl ______ is talking to Mr Nam is my cousin.", "i": "Choose the best answer (A, B, C or D).", "o": ["who", "which", "whose", "where"], "p": null}, {"u": 0, "q": "Ha Noi, ______ is the capital of Viet Nam, has many old streets.", "i": "Choose the best answer (A, B, C or D).", "o": ["which", "that", "who", "whose"], "p": null}, {"u": 0, "q": "\"I am busy,\" she said. → She said that she ______ busy.", "i": "Choose the best answer (A, B, C or D).", "o": ["was", "is", "be", "were"], "p": null}, {"u": 0, "q": "If we ______ more trees, we will have cleaner air.", "i": "Choose the best answer (A, B, C or D).", "o": ["plant", "will plant", "planted", "planting"], "p": null}, {"u": 0, "q": "A: \"Would you like to join our volunteer club?\"  B: \"______\"", "i": "Choose the best response to complete each exchange.", "o": ["Yes, I'd love to.", "Yes, I would like.", "No, I like it.", "I'm fine, thanks."], "p": null}, {"u": 0, "q": "A: \"Thank you for helping me with the housework.\"  B: \"______\"", "i": "Choose the best response to complete each exchange.", "o": ["You're welcome.", "Yes, please.", "Good idea.", "I'm sorry."], "p": null}, {"u": 0, "q": "A: \"What do you think about online learning?\"  B: \"______\"", "i": "Choose the best response to complete each exchange.", "o": ["I think it's very flexible.", "I'm learning online.", "Yes, I do.", "It's at 8 a.m."], "p": null}, {"u": 0, "q": "A: \"Shall we go on an eco-tour this summer?\"  B: \"______\"", "i": "Choose the best response to complete each exchange.", "o": ["That sounds great!", "No, I don't.", "Yes, I did.", "You're welcome."], "p": null}, {"u": 0, "q": "A: \"How often do you do the washing-up?\"  B: \"______\"", "i": "Choose the best response to complete each exchange.", "o": ["Every evening.", "For two hours.", "At home.", "With my sister."], "p": null}, {"u": 0, "q": "Where did Linh go last summer?", "i": "Read the text and choose the best answer.", "o": ["Son Tra Peninsula", "Cuc Phuong National Park", "Ha Long Bay", "Ha Noi"], "p": "Linh is sixteen years old and lives in Da Nang. Last summer, she joined an eco-tour to Son Tra Peninsula with her classmates. Their guide, Mr Tuan, was a local man who knew a lot about the forest. While they were walking along a mountain path, he showed them a group of red-shanked doucs, a kind of endangered monkey. Linh took many photos, but she did not feed the animals because the guide said it was bad for them. After the trip, Linh and her friends started an online page to share information about the doucs. More than 2,000 people have followed the page so far. Linh says that if more people understand these animals, they will protect them."}, {"u": 0, "q": "Who was Mr Tuan?", "i": "Read the text and choose the best answer.", "o": ["a local tour guide", "Linh's teacher", "Linh's father", "a photographer"], "p": "Linh is sixteen years old and lives in Da Nang. Last summer, she joined an eco-tour to Son Tra Peninsula with her classmates. Their guide, Mr Tuan, was a local man who knew a lot about the forest. While they were walking along a mountain path, he showed them a group of red-shanked doucs, a kind of endangered monkey. Linh took many photos, but she did not feed the animals because the guide said it was bad for them. After the trip, Linh and her friends started an online page to share information about the doucs. More than 2,000 people have followed the page so far. Linh says that if more people understand these animals, they will protect them."}, {"u": 0, "q": "What happened while they were walking along the path?", "i": "Read the text and choose the best answer.", "o": ["They saw some endangered monkeys.", "It started to rain.", "Linh lost her camera.", "They got lost."], "p": "Linh is sixteen years old and lives in Da Nang. Last summer, she joined an eco-tour to Son Tra Peninsula with her classmates. Their guide, Mr Tuan, was a local man who knew a lot about the forest. While they were walking along a mountain path, he showed them a group of red-shanked doucs, a kind of endangered monkey. Linh took many photos, but she did not feed the animals because the guide said it was bad for them. After the trip, Linh and her friends started an online page to share information about the doucs. More than 2,000 people have followed the page so far. Linh says that if more people understand these animals, they will protect them."}, {"u": 0, "q": "Why didn't Linh feed the animals?", "i": "Read the text and choose the best answer.", "o": ["Because it was bad for them.", "Because she had no food.", "Because the animals ran away.", "Because she was afraid."], "p": "Linh is sixteen years old and lives in Da Nang. Last summer, she joined an eco-tour to Son Tra Peninsula with her classmates. Their guide, Mr Tuan, was a local man who knew a lot about the forest. While they were walking along a mountain path, he showed them a group of red-shanked doucs, a kind of endangered monkey. Linh took many photos, but she did not feed the animals because the guide said it was bad for them. After the trip, Linh and her friends started an online page to share information about the doucs. More than 2,000 people have followed the page so far. Linh says that if more people understand these animals, they will protect them."}, {"u": 0, "q": "What did Linh and her friends do after the trip?", "i": "Read the text and choose the best answer.", "o": ["They started an online page about the doucs.", "They went on another trip.", "They sold their photos.", "They wrote a book."], "p": "Linh is sixteen years old and lives in Da Nang. Last summer, she joined an eco-tour to Son Tra Peninsula with her classmates. Their guide, Mr Tuan, was a local man who knew a lot about the forest. While they were walking along a mountain path, he showed them a group of red-shanked doucs, a kind of endangered monkey. Linh took many photos, but she did not feed the animals because the guide said it was bad for them. After the trip, Linh and her friends started an online page to share information about the doucs. More than 2,000 people have followed the page so far. Linh says that if more people understand these animals, they will protect them."}], "type": [{"u": 1, "q": "Children learn to be ______ when they help with the chores. (RESPONSIBILITY)", "a": "responsible"}, {"u": 1, "q": "She shows her ______ to her parents by helping them at home. (GRATEFUL)", "a": "gratitude"}, {"u": 1, "q": "Sharing housework is ______ for all family members. (BENEFIT)", "a": "beneficial"}, {"u": 1, "q": "My dad is a good cook. → My dad cooks ______.", "a": "well", "long": true}, {"u": 2, "q": "Air ______ is a big problem in many cities. (POLLUTE)", "a": "pollution"}, {"u": 2, "q": "We need to raise people's ______ of environmental problems. (AWARE)", "a": "awareness"}, {"u": 2, "q": "Solar energy is good for the ______. (ENVIRONMENTAL)", "a": "environment"}, {"u": 2, "q": "People recycle paper at this centre. → Paper ______", "a": "Paper is recycled at this centre.", "long": true}, {"u": 3, "q": "She is a very ______ singer. (TALENT)", "a": "talented"}, {"u": 3, "q": "Their ______ at the concert was amazing. (PERFORM)", "a": "performance"}, {"u": 3, "q": "Trinh Cong Son was a famous Vietnamese ______. (COMPOSE)", "a": "composer"}, {"u": 3, "q": "I love music. I can't play any instruments. (but)", "a": "I love music, but I can't play any instruments.", "long": true}, {"u": 4, "q": "Volunteering makes young people more ______. (CONFIDENCE)", "a": "confident"}, {"u": 4, "q": "They gave a large ______ to the charity. (DONATE)", "a": "donation"}, {"u": 4, "q": "We helped ______ children in the village. (ADVANTAGE)", "a": "disadvantaged"}, {"u": 4, "q": "I was reading a book. The phone rang. (when)", "a": "I was reading a book when the phone rang.", "long": true}, {"u": 5, "q": "The light bulb is a great ______. (INVENT)", "a": "invention"}, {"u": 5, "q": "Online shopping is very ______. (CONVENIENCE)", "a": "convenient"}, {"u": 5, "q": "Thomas Edison was a famous ______. (INVENT)", "a": "inventor"}, {"u": 5, "q": "People use a kettle to boil water. → A kettle is used for ______.", "a": "boiling water", "long": true}, {"u": 6, "q": "Gender ______ is important in every country. (EQUAL)", "a": "equality"}, {"u": 6, "q": "Men and women should be paid ______. (EQUAL)", "a": "equally"}, {"u": 6, "q": "She is well ______ for the job. (QUALIFY)", "a": "qualified"}, {"u": 6, "q": "We should treat boys and girls equally. → Boys and girls ______", "a": "Boys and girls should be treated equally.", "long": true}, {"u": 6, "q": "They can do this job. → This job ______", "a": "This job can be done (by them).", "long": true}, {"u": 7, "q": "Viet Nam's ______ has grown quickly. (ECONOMIC)", "a": "economy"}, {"u": 7, "q": "International organisations help poor countries ______. (DEVELOPMENT)", "a": "develop"}, {"u": 7, "q": "Many organisations help reduce ______ in poor areas. (POOR)", "a": "poverty"}, {"u": 7, "q": "Laos is smaller than Viet Nam. → Viet Nam is ______", "a": "Viet Nam is bigger/larger than Laos.", "long": true}, {"u": 7, "q": "No organisation in the world is larger than the UN. → The UN is ______", "a": "The UN is the largest organisation in the world.", "long": true}, {"u": 8, "q": "Online learning has many ______. (ADVANTAGE – plural)", "a": "advantages"}, {"u": 8, "q": "The students are very ______ to learn English. (MOTIVATION)", "a": "motivated"}, {"u": 8, "q": "You can ______ the lessons on your phone. (ACCESSIBLE)", "a": "access"}, {"u": 8, "q": "I have a friend. She studies online. (who)", "a": "I have a friend who studies online.", "long": true}, {"u": 8, "q": "This is the book. I told you about it. (which/that)", "a": "This is the book which/that I told you about.", "long": true}, {"u": 9, "q": "Dinosaurs became ______ millions of years ago. (EXTINCTION)", "a": "extinct"}, {"u": 9, "q": "We need to find ______ to protect wildlife. (SOLVE – plural)", "a": "solutions"}, {"u": 9, "q": "Factories are ______ the air and water. (POLLUTION)", "a": "polluting"}, {"u": 9, "q": "\"I love nature,\" said Lan. → Lan said that ______", "a": "Lan said that she loved nature.", "long": true}, {"u": 9, "q": "\"We are cleaning the beach today,\" they said. → They said that ______", "a": "They said that they were cleaning the beach that day.", "long": true}, {"u": 10, "q": "Ecotourism is good for the ______ environment. (NATURE)", "a": "natural"}, {"u": 10, "q": "Tourists should be ______ and not leave rubbish. (RESPONSIBILITY)", "a": "responsible"}, {"u": 10, "q": "We learnt a lot about the ______ traditions of local people. (CULTURE)", "a": "cultural"}, {"u": 10, "q": "I don't have time, so I can't go on the tour. → If I ______", "a": "If I had time, I could go on the tour.", "long": true}, {"u": 0, "q": "My parents taught me to be ______. (RESPONSIBILITY)", "a": "responsible"}, {"u": 0, "q": "Plastic bags are ______ to the environment. (HARM)", "a": "harmful"}, {"u": 0, "q": "The concert was a great ______. (SUCCEED)", "a": "success"}, {"u": 0, "q": "The ______ of the internet changed the world. (INVENT)", "a": "invention"}, {"u": 0, "q": "There is still gender ______ in some jobs. (EQUAL – negative)", "a": "inequality"}, {"u": 0, "q": "The UN supports the ______ of poor countries. (DEVELOP)", "a": "development"}, {"u": 0, "q": "The online lesson was very ______. (INTEREST)", "a": "interesting"}, {"u": 0, "q": "Many animals are in ______ of dying out. (DANGEROUS)", "a": "danger"}, {"u": 0, "q": "Ecotourism must be ______ for the future. (SUSTAIN)", "a": "sustainable"}, {"u": 0, "q": "The tour guide explained everything very ______. (CLEAR)", "a": "clearly"}, {"u": 0, "q": "\"I'm studying for my test now,\" Nam said. → Nam said that ______", "a": "Nam said that he was studying for his test then.", "long": true}, {"u": 0, "q": "They will build a new school in our village. → A new school ______", "a": "A new school will be built in our village.", "long": true}, {"u": 0, "q": "We must protect endangered animals. → Endangered animals ______", "a": "Endangered animals must be protected.", "long": true}, {"u": 0, "q": "I don't live near the beach, so I can't swim every day. → If I ______", "a": "If I lived near the beach, I could swim every day.", "long": true}, {"u": 0, "q": "No student in my class is taller than Minh. → Minh is ______", "a": "Minh is the tallest student in my class.", "long": true}, {"u": 0, "q": "I started learning English five years ago. → I have ______", "a": "I have learnt/learned English for five years.", "long": true}, {"u": 0, "q": "People use a smartphone to take photos. → A smartphone is used for ______", "a": "A smartphone is used for taking photos.", "long": true}, {"u": 0, "q": "That's the girl. Her mother is a pilot. → That's the girl whose ______", "a": "That's the girl whose mother is a pilot.", "long": true}], "err": [{"u": 1, "q": "My sister <u>usually</u><super>A</super> <u>is doing</u><super>B</super> the laundry <u>on</u><super>C</super> <u>Sundays</u><super>D</super>.", "a": "B → does"}, {"u": 1, "q": "Look! The children <u>plays</u><super>A</super> <u>in</u><super>B</super> the garden <u>with</u><super>C</super> <u>their</u><super>D</super> dog.", "a": "A → are playing"}, {"u": 2, "q": "A lot of rubbish <u>is</u><super>A</super> <u>throw</u><super>B</super> <u>into</u><super>C</super> the river <u>every day</u><super>D</super>.", "a": "B → thrown"}, {"u": 2, "q": "We have bought the tickets. We <u>will</u><super>A</super> <u>visit</u><super>B</super> the national park <u>with</u><super>C</super> our class <u>next week</u><super>D</super>.", "a": "A → are going to (a plan)"}, {"u": 3, "q": "The teacher <u>made</u><super>A</super> us <u>to practise</u><super>B</super> the song <u>again</u><super>C</super> <u>and again</u><super>D</super>.", "a": "B → practise"}, {"u": 3, "q": "We <u>decided</u><super>A</super> <u>going</u><super>B</super> to the festival, <u>and</u><super>C</super> we <u>had</u><super>D</super> a great time.", "a": "B → to go"}, {"u": 4, "q": "When I <u>arrived</u><super>A</super>, they <u>painted</u><super>B</super> the walls <u>of</u><super>C</super> the <u>library</u><super>D</super>.", "a": "B → were painting"}, {"u": 4, "q": "We <u>was</u><super>A</super> planting trees <u>when</u><super>B</super> the reporter <u>came</u><super>C</super> <u>to</u><super>D</super> the park.", "a": "A → were"}, {"u": 5, "q": "My father <u>has</u><super>A</super> <u>buy</u><super>B</super> a new smartphone <u>for</u><super>C</super> <u>me</u><super>D</super>.", "a": "B → bought"}, {"u": 5, "q": "I <u>have used</u><super>A</super> this <u>computer</u><super>B</super> <u>since</u><super>C</super> three <u>years</u><super>D</super>.", "a": "C → for"}, {"u": 6, "q": "Children <u>should</u><super>A</super> <u>be</u><super>B</super> <u>teach</u><super>C</super> about gender equality <u>at</u><super>D</super> school.", "a": "C → taught"}, {"u": 6, "q": "Equal pay <u>must</u><super>A</super> <u>give</u><super>B</super> to <u>both</u><super>C</super> men and women <u>in</u><super>D</super> every job.", "a": "B → be given"}, {"u": 7, "q": "China <u>is</u><super>A</super> <u>more large</u><super>B</super> <u>than</u><super>C</super> Viet Nam <u>in</u><super>D</super> size.", "a": "B → larger"}, {"u": 7, "q": "Viet Nam's economy is <u>growing</u><super>A</super> <u>more fast</u><super>B</super> <u>than</u><super>C</super> <u>before</u><super>D</super>.", "a": "B → faster"}, {"u": 8, "q": "The boy <u>which</u><super>A</super> <u>sits</u><super>B</super> next to me <u>is</u><super>C</super> very <u>good</u><super>D</super> at maths.", "a": "A → who"}, {"u": 8, "q": "My laptop, <u>that</u><super>A</super> my dad <u>gave</u><super>B</super> me, <u>is</u><super>C</super> very <u>fast</u><super>D</super>.", "a": "A → which"}, {"u": 9, "q": "Mai <u>said me</u><super>A</super> that she <u>was</u><super>B</super> interested <u>in</u><super>C</super> <u>wildlife</u><super>D</super>.", "a": "A → told me (or: said to me)"}, {"u": 9, "q": "He <u>told</u><super>A</super> us that he <u>will</u><super>B</super> <u>join</u><super>C</super> the green club <u>the next day</u><super>D</super>.", "a": "B → would"}, {"u": 10, "q": "If you <u>will leave</u><super>A</super> rubbish on the <u>beach</u><super>B</super>, it <u>will</u><super>C</super> harm <u>the</u><super>D</super> sea animals.", "a": "A → leave"}, {"u": 10, "q": "If I <u>lived</u><super>A</super> near <u>the</u><super>B</super> sea, I <u>will</u><super>C</super> go swimming <u>every</u><super>D</super> day.", "a": "C → would"}, {"u": 0, "q": "She <u>usually</u><super>A</super> <u>help</u><super>B</super> her mother <u>with</u><super>C</super> the <u>housework</u><super>D</super>.", "a": "B → helps"}, {"u": 0, "q": "Look! The children <u>is</u><super>A</super> <u>playing</u><super>B</super> <u>in</u><super>C</super> the <u>rain</u><super>D</super>.", "a": "A → are"}, {"u": 0, "q": "This bridge <u>was</u><super>A</super> <u>build</u><super>B</super> <u>in</u><super>C</super> <u>2010</u><super>D</super>.", "a": "B → built"}, {"u": 0, "q": "My parents <u>let</u><super>A</super> me <u>to stay</u><super>B</super> up late <u>at</u><super>C</super> <u>weekends</u><super>D</super>.", "a": "B → stay"}, {"u": 0, "q": "I <u>have</u><super>A</super> <u>lived</u><super>B</super> here <u>since</u><super>C</super> ten <u>years</u><super>D</super>.", "a": "C → for"}, {"u": 0, "q": "Ho Chi Minh City <u>is</u><super>A</super> <u>more big</u><super>B</super> <u>than</u><super>C</super> <u>Da Nang</u><super>D</super>.", "a": "B → bigger"}, {"u": 0, "q": "The man <u>which</u><super>A</super> <u>lives</u><super>B</super> next door <u>is</u><super>C</super> a <u>surgeon</u><super>D</super>.", "a": "A → who"}, {"u": 0, "q": "If I <u>am</u><super>A</super> you, I <u>would</u><super>B</super> <u>join</u><super>C</super> the eco-tour <u>this</u><super>D</super> summer.", "a": "A → were"}], "order": [{"u": 1, "a": "Lan does the cooking every day."}, {"u": 2, "a": "We are going to ride our bikes to school."}, {"u": 3, "a": "I would like to join the music club."}, {"u": 4, "a": "She volunteered at a local hospital last summer."}, {"u": 5, "a": "Have you finished your project yet?"}, {"u": 10, "a": "If the weather is good, we will go camping."}, {"u": 0, "a": "My family members share the housework."}, {"u": 0, "a": "We are going to plant trees tomorrow."}, {"u": 0, "a": "She wants to learn to play the violin."}, {"u": 0, "a": "It was raining when I left home."}, {"u": 0, "a": "I have never seen a real robot."}, {"u": 0, "a": "English can be learnt online."}, {"u": 0, "a": "If I were rich, I would travel around the world."}], "tf": [{"u": 1, "p": "Minh lives with his parents and his younger sister. Everyone in his family helps with the housework. His mother does the cooking, and his father does the heavy lifting. Minh washes the dishes and takes out the rubbish. His sister is only six, so she just waters the plants. This week, Minh's mother is visiting her parents in Hue, so his father is doing the cooking.", "q": "Minh's father usually does the cooking.", "a": "F"}, {"u": 1, "p": "Minh lives with his parents and his younger sister. Everyone in his family helps with the housework. His mother does the cooking, and his father does the heavy lifting. Minh washes the dishes and takes out the rubbish. His sister is only six, so she just waters the plants. This week, Minh's mother is visiting her parents in Hue, so his father is doing the cooking.", "q": "Minh takes out the rubbish.", "a": "T"}, {"u": 1, "p": "Minh lives with his parents and his younger sister. Everyone in his family helps with the housework. His mother does the cooking, and his father does the heavy lifting. Minh washes the dishes and takes out the rubbish. His sister is only six, so she just waters the plants. This week, Minh's mother is visiting her parents in Hue, so his father is doing the cooking.", "q": "Minh's sister waters the plants.", "a": "T"}, {"u": 2, "p": "Mai's family is trying to live a green lifestyle. They turn off the lights when they leave a room. They use cloth bags when they go shopping. Mai and her brother cycle to school every day. Next month, they are going to plant a small vegetable garden, so they will not need to buy so many vegetables in plastic packaging.", "q": "Mai's family uses plastic bags for shopping.", "a": "F"}, {"u": 2, "p": "Mai's family is trying to live a green lifestyle. They turn off the lights when they leave a room. They use cloth bags when they go shopping. Mai and her brother cycle to school every day. Next month, they are going to plant a small vegetable garden, so they will not need to buy so many vegetables in plastic packaging.", "q": "Mai goes to school by bike.", "a": "T"}, {"u": 2, "p": "Mai's family is trying to live a green lifestyle. They turn off the lights when they leave a room. They use cloth bags when they go shopping. Mai and her brother cycle to school every day. Next month, they are going to plant a small vegetable garden, so they will not need to buy so many vegetables in plastic packaging.", "q": "The family already has a vegetable garden.", "a": "F"}, {"u": 3, "p": "Hoa is a big fan of music. She listens to pop and folk music every day. She plays the guitar, and she is learning to play the piano. Last year, she took part in a school talent show. She didn't win, but the audience loved her performance. Now she hopes to become a singer-songwriter.", "q": "Hoa can play the guitar.", "a": "T"}, {"u": 3, "p": "Hoa is a big fan of music. She listens to pop and folk music every day. She plays the guitar, and she is learning to play the piano. Last year, she took part in a school talent show. She didn't win, but the audience loved her performance. Now she hopes to become a singer-songwriter.", "q": "Hoa won the school talent show.", "a": "F"}, {"u": 3, "p": "Hoa is a big fan of music. She listens to pop and folk music every day. She plays the guitar, and she is learning to play the piano. Last year, she took part in a school talent show. She didn't win, but the audience loved her performance. Now she hopes to become a singer-songwriter.", "q": "Hoa wants to write songs.", "a": "T"}, {"u": 4, "p": "Last summer, Nam joined a volunteer group in his city. Every Saturday, the group visited an orphanage and taught the children English. One day, while they were playing games with the children, a reporter from a local newspaper arrived and took photos. Nam said the experience made him more confident and taught him to care about others.", "q": "Nam taught children at an orphanage.", "a": "T"}, {"u": 4, "p": "Last summer, Nam joined a volunteer group in his city. Every Saturday, the group visited an orphanage and taught the children English. One day, while they were playing games with the children, a reporter from a local newspaper arrived and took photos. Nam said the experience made him more confident and taught him to care about others.", "q": "The group visited the orphanage every Sunday.", "a": "F"}, {"u": 4, "p": "Last summer, Nam joined a volunteer group in his city. Every Saturday, the group visited an orphanage and taught the children English. One day, while they were playing games with the children, a reporter from a local newspaper arrived and took photos. Nam said the experience made him more confident and taught him to care about others.", "q": "Nam became more confident.", "a": "T"}, {"u": 5, "p": "The smartphone is one of the most useful inventions of our time. People use it for calling, texting, taking photos and finding information. Students can use it to study online. However, some people spend too much time on their phones, and they don't talk to their families much. We should use smartphones wisely.", "q": "People can use smartphones to take photos.", "a": "T"}, {"u": 5, "p": "The smartphone is one of the most useful inventions of our time. People use it for calling, texting, taking photos and finding information. Students can use it to study online. However, some people spend too much time on their phones, and they don't talk to their families much. We should use smartphones wisely.", "q": "Smartphones cannot help students study.", "a": "F"}, {"u": 5, "p": "The smartphone is one of the most useful inventions of our time. People use it for calling, texting, taking photos and finding information. Students can use it to study online. However, some people spend too much time on their phones, and they don't talk to their families much. We should use smartphones wisely.", "q": "The writer thinks we should use smartphones wisely.", "a": "T"}, {"u": 6, "p": "In the past, many people thought that some jobs were only for men. Today, things are changing. Many women work as pilots, engineers and surgeons, and many men work as nurses or stay at home to look after their children. However, in some places, women are still paid less than men for the same work. This should be changed.", "q": "In the past, people thought some jobs were only for men.", "a": "T"}, {"u": 6, "p": "In the past, many people thought that some jobs were only for men. Today, things are changing. Many women work as pilots, engineers and surgeons, and many men work as nurses or stay at home to look after their children. However, in some places, women are still paid less than men for the same work. This should be changed.", "q": "Today, no men work as nurses.", "a": "F"}, {"u": 6, "p": "In the past, many people thought that some jobs were only for men. Today, things are changing. Many women work as pilots, engineers and surgeons, and many men work as nurses or stay at home to look after their children. However, in some places, women are still paid less than men for the same work. This should be changed.", "q": "Women are paid the same as men everywhere.", "a": "F"}, {"u": 7, "p": "ASEAN stands for the Association of Southeast Asian Nations. It was set up in 1967. Viet Nam joined ASEAN in 1995. ASEAN aims to help its members grow their economies, keep peace in the region and share their cultures. Today, ASEAN is one of the most important organisations in Asia.", "q": "ASEAN was set up in 1995.", "a": "F"}, {"u": 7, "p": "ASEAN stands for the Association of Southeast Asian Nations. It was set up in 1967. Viet Nam joined ASEAN in 1995. ASEAN aims to help its members grow their economies, keep peace in the region and share their cultures. Today, ASEAN is one of the most important organisations in Asia.", "q": "ASEAN helps keep peace in the region.", "a": "T"}, {"u": 7, "p": "ASEAN stands for the Association of Southeast Asian Nations. It was set up in 1967. Viet Nam joined ASEAN in 1995. ASEAN aims to help its members grow their economies, keep peace in the region and share their cultures. Today, ASEAN is one of the most important organisations in Asia.", "q": "Viet Nam is a member of ASEAN.", "a": "T"}, {"u": 8, "p": "Blended learning mixes online lessons and face-to-face classes. At Lan's school, students watch video lectures at home. Then they come to class to discuss the lessons with their teachers and friends. Lan likes this way of learning because she can watch the videos again and again. However, she says students must be independent and manage their time well.", "q": "At Lan's school, students watch video lectures in class.", "a": "F"}, {"u": 8, "p": "Blended learning mixes online lessons and face-to-face classes. At Lan's school, students watch video lectures at home. Then they come to class to discuss the lessons with their teachers and friends. Lan likes this way of learning because she can watch the videos again and again. However, she says students must be independent and manage their time well.", "q": "Lan can watch the videos many times.", "a": "T"}, {"u": 8, "p": "Blended learning mixes online lessons and face-to-face classes. At Lan's school, students watch video lectures at home. Then they come to class to discuss the lessons with their teachers and friends. Lan likes this way of learning because she can watch the videos again and again. However, she says students must be independent and manage their time well.", "q": "Lan thinks students must manage their time well.", "a": "T"}, {"u": 9, "p": "Viet Nam has many endangered animals, such as the saola and the red-shanked douc. Their habitats are being destroyed because people cut down forests. Some animals are also hunted for food or medicine. To protect them, the government has created national parks, and many young people are joining clubs to raise awareness about wildlife.", "q": "The saola is an endangered animal in Viet Nam.", "a": "T"}, {"u": 9, "p": "Viet Nam has many endangered animals, such as the saola and the red-shanked douc. Their habitats are being destroyed because people cut down forests. Some animals are also hunted for food or medicine. To protect them, the government has created national parks, and many young people are joining clubs to raise awareness about wildlife.", "q": "Cutting down forests destroys animal habitats.", "a": "T"}, {"u": 9, "p": "Viet Nam has many endangered animals, such as the saola and the red-shanked douc. Their habitats are being destroyed because people cut down forests. Some animals are also hunted for food or medicine. To protect them, the government has created national parks, and many young people are joining clubs to raise awareness about wildlife.", "q": "Young people are not interested in protecting wildlife.", "a": "F"}, {"u": 10, "p": "Cuc Phuong National Park is one of the best places for ecotourism in Viet Nam. Visitors can walk through the forest, see rare plants and animals, and visit a centre that rescues endangered primates. Local people work as tour guides and sell homemade food. Visitors are asked not to feed the animals or leave rubbish in the park.", "q": "Visitors can see rare animals in Cuc Phuong.", "a": "T"}, {"u": 10, "p": "Cuc Phuong National Park is one of the best places for ecotourism in Viet Nam. Visitors can walk through the forest, see rare plants and animals, and visit a centre that rescues endangered primates. Local people work as tour guides and sell homemade food. Visitors are asked not to feed the animals or leave rubbish in the park.", "q": "Local people cannot work in the park.", "a": "F"}, {"u": 10, "p": "Cuc Phuong National Park is one of the best places for ecotourism in Viet Nam. Visitors can walk through the forest, see rare plants and animals, and visit a centre that rescues endangered primates. Local people work as tour guides and sell homemade food. Visitors are asked not to feed the animals or leave rubbish in the park.", "q": "Visitors are allowed to feed the animals.", "a": "F"}], "gex": [{"u": 1, "s": "My mother usually does the cooking."}, {"u": 1, "s": "Water boils at 100°C."}, {"u": 1, "s": "Look! Dad is washing the car."}, {"u": 1, "s": "Mum is away, so I am doing the cooking this week."}, {"u": 1, "s": "I like cooking. (NOT I am liking cooking.)"}, {"u": 2, "s": "\"It's hot.\" – \"I'll open the window.\""}, {"u": 2, "s": "I think people will use more solar energy."}, {"u": 2, "s": "We are going to plant trees next Sunday."}, {"u": 2, "s": "Look at those clouds! It is going to rain."}, {"u": 2, "s": "Paper is recycled here."}, {"u": 2, "s": "These trees were planted last year."}, {"u": 2, "s": "A new park will be built soon."}, {"u": 3, "s": "I love music, but I can't sing."}, {"u": 3, "s": "It rained, so the concert was cancelled."}, {"u": 3, "s": "She decided to join the music club."}, {"u": 3, "s": "I would like to learn the piano."}, {"u": 3, "s": "My parents let me go to the concert."}, {"u": 3, "s": "Our teacher made us practise again."}, {"u": 4, "s": "We visited the orphanage last Sunday."}, {"u": 4, "s": "At 8 p.m. yesterday, I was doing my homework."}, {"u": 4, "s": "I was reading when the phone rang."}, {"u": 4, "s": "While we were cleaning the beach, it started to rain."}, {"u": 4, "s": "While Mum was cooking, Dad was washing the car."}, {"u": 5, "s": "I have never used a 3D printer."}, {"u": 5, "s": "She has had this laptop since 2023."}, {"u": 5, "s": "Have you finished your project yet?"}, {"u": 5, "s": "A calculator is used for doing sums."}, {"u": 5, "s": "A kettle is used to boil water."}, {"u": 5, "s": "We use robots to do heavy work."}, {"u": 6, "s": "Housework should be shared by all family members."}, {"u": 6, "s": "Women must be given equal pay."}, {"u": 6, "s": "This problem can be solved."}, {"u": 7, "s": "Viet Nam is bigger than Laos."}, {"u": 7, "s": "Health is more important than money."}, {"u": 7, "s": "The UN is one of the largest organisations in the world."}, {"u": 7, "s": "This is the best project of the year."}, {"u": 8, "s": "The teacher who teaches us English is from Canada."}, {"u": 8, "s": "This is the app which helps me learn words."}, {"u": 8, "s": "That's the student whose laptop is broken."}, {"u": 8, "s": "The book that I bought is useful. (defining)"}, {"u": 8, "s": "My tablet, which I bought last year, is very useful. (non-defining)"}, {"u": 9, "s": "\"I love nature,\" Lan said. → Lan said (that) she loved nature."}, {"u": 9, "s": "\"We are cleaning the beach today,\" they said. → They said they were cleaning the beach that day."}, {"u": 10, "s": "If it rains tomorrow, we will stay at the hotel."}, {"u": 10, "s": "If you leave rubbish, it will harm animals."}, {"u": 10, "s": "If I had more money, I would travel to Phu Quoc."}, {"u": 10, "s": "If I were you, I would go on an eco-tour."}], "pron": [{"instr": "Choose the word whose -ed ending is pronounced differently.", "w": ["worked", "watched", "played", "washed"], "a": 2}, {"instr": "Choose the word whose -ed ending is pronounced differently.", "w": ["cleaned", "opened", "stopped", "listened"], "a": 2}, {"instr": "Choose the word whose -ed ending is pronounced differently.", "w": ["wanted", "needed", "looked", "started"], "a": 2}, {"instr": "Choose the word whose -ed ending is pronounced differently.", "w": ["helped", "talked", "cooked", "arrived"], "a": 3}, {"instr": "Choose the word whose -ed ending is pronounced differently.", "w": ["decided", "visited", "enjoyed", "painted"], "a": 2}, {"instr": "Choose the word whose -ed ending is pronounced differently.", "w": ["loved", "lived", "liked", "cleaned"], "a": 2}, {"instr": "Choose the word whose -ed ending is pronounced differently.", "w": ["finished", "laughed", "passed", "changed"], "a": 3}, {"instr": "Choose the word whose -ed ending is pronounced differently.", "w": ["studied", "carried", "stopped", "married"], "a": 2}, {"instr": "Choose the word whose -s/-es ending is pronounced differently.", "w": ["books", "cats", "dogs", "maps"], "a": 2}, {"instr": "Choose the word whose -s/-es ending is pronounced differently.", "w": ["buses", "boxes", "cars", "watches"], "a": 2}, {"instr": "Choose the word whose -s/-es ending is pronounced differently.", "w": ["plays", "opens", "stops", "runs"], "a": 2}, {"instr": "Choose the word whose -s/-es ending is pronounced differently.", "w": ["classes", "changes", "bridges", "books"], "a": 3}, {"instr": "Choose the word whose -s/-es ending is pronounced differently.", "w": ["laughs", "works", "lives", "stops"], "a": 2}, {"instr": "Choose the word whose -s/-es ending is pronounced differently.", "w": ["wishes", "watches", "dogs", "boxes"], "a": 2}, {"instr": "Choose the word with a different stress pattern.", "w": ["happy", "open", "water", "before"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["table", "yellow", "window", "begin"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["lucky", "better", "comfort", "agree"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["normal", "travel", "student", "suggest"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["moment", "garden", "picture", "complete"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["about", "begin", "reply", "open"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["decide", "forget", "prefer", "water"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["arrive", "believe", "collect", "lucky"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["family", "holiday", "exercise", "important"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["difficult", "dangerous", "popular", "computer"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["hospital", "animal", "wonderful", "November"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["important", "together", "remember", "difficult"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["computer", "November", "tomorrow", "holiday"], "a": 3}]};
+const $ = s => document.querySelector(s);
+const app = $("#app");
+const LS = {
+  get(k, d){ try{ const v = localStorage.getItem("gs10:"+k); return v===null? d : JSON.parse(v);}catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem("gs10:"+k, JSON.stringify(v)); }catch(e){} }
+};
+const state = {
+  unit: LS.get("unit", 0),
+  xp: LS.get("xp", 0),
+  best: LS.get("best", {}),
+  known: new Set(LS.get("known", [])),
+  unitStats: LS.get("unitStats", {}),   // unit -> {c, t}
+  sound: LS.get("sound", true),
+};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const shuffle = a => { a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const sample = (a, n) => shuffle(a).slice(0, n);
+const strip = h => h.replace(/<[^>]+>/g, "");
+const headword = w => w.split(" / ")[0].replace(/\s*\([^)]*\)/g, "").trim();
+
+/* ---------- sound ---------- */
+let actx = null;
+function tone(freqs, dur=0.12, type="triangle", gap=0.09){
+  if(!state.sound) return;
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    freqs.forEach((f,i)=>{
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = type; o.frequency.value = f;
+      const t = actx.currentTime + i*gap;
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.18, t+0.01); g.gain.exponentialRampToValueAtTime(0.0001, t+dur);
+      o.connect(g).connect(actx.destination); o.start(t); o.stop(t+dur+0.02);
+    });
+  }catch(e){}
+}
+const sfx = {
+  ok(){ tone([660, 880]); }, no(){ tone([220, 170], .18, "sawtooth"); },
+  tap(){ tone([520], .05, "sine"); }, win(){ tone([523,659,784,1046], .18, "triangle", .11); },
+  flip(){ tone([400], .05, "sine"); }
+};
+function speak(text){
+  try{
+    if(!("speechSynthesis" in window)) return toast("Speech is not available in this browser");
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text); u.lang = "en-GB"; u.rate = .9;
+    speechSynthesis.speak(u);
+  }catch(e){ toast("Speech is not available in this browser"); }
+}
+function toast(msg){
+  const t = document.createElement("div"); t.className = "toast"; t.textContent = msg;
+  document.body.appendChild(t); setTimeout(()=>t.remove(), 1800);
+}
+const ICON = {
+  on:'<svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>',
+  off:'<svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>',
+  speak:'<svg viewBox="0 0 24 24" width="18" height="18" style="stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>',
+  back:'<svg viewBox="0 0 24 24" width="18" height="18" style="stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round"><path d="M15 18l-6-6 6-6"/></svg>',
+};
+function renderSoundBtn(){ $("#sound").innerHTML = state.sound ? ICON.on : ICON.off; }
+$("#sound").onclick = () => { state.sound = !state.sound; LS.set("sound", state.sound); renderSoundBtn(); if(state.sound) sfx.tap(); };
+
+const UCOL = ["#3A2BB8","#FF5A5F","#16A34A","#EC4899","#FF9500","#7C5CFF","#E8590C","#0EA5E9","#0D9488","#65A30D","#C026D3"];
+function pop(text, el){
+  try{ const r = el.getBoundingClientRect(); const p = document.createElement("div"); p.className = "pop"; p.textContent = text;
+    p.style.left = (r.left + r.width/2) + "px"; p.style.top = (r.top) + "px"; document.body.appendChild(p); setTimeout(()=>p.remove(), 1000); }catch(e){}
+}
+function starsHTML(m){ const n = m>=9?3 : m>=7?2 : m>=5?1 : 0; return `<span class="bigstars" aria-label="${n} of 3 stars">${[0,1,2].map(i=>`<span class="${i<n?"":"off"}">★</span>`).join("")}</span>`; }
+function confetti(){
+  if(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const cv = document.getElementById("confetti"), ctx = cv.getContext("2d");
+  cv.width = innerWidth; cv.height = innerHeight;
+  const C = ["#FF5A5F","#FFD23F","#16A34A","#0EA5E9","#7C5CFF","#EC4899","#FF9500"];
+  const ps = Array.from({length:160}, () => ({x: innerWidth/2 + (Math.random()-.5)*200, y: innerHeight*0.35, vx:(Math.random()-.5)*14, vy: -Math.random()*14-4, s: 5+Math.random()*7, r: Math.random()*6, vr:(Math.random()-.5)*.4, c: C[Math.random()*C.length|0]}));
+  let f = 0;
+  (function step(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    ps.forEach(p => { p.vy += .35; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.fillRect(-p.s/2,-p.s/3,p.s,p.s*.66); ctx.restore(); });
+    if(++f < 150) requestAnimationFrame(step); else ctx.clearRect(0,0,cv.width,cv.height);
+  })();
+}
+
+/* ---------- pools ---------- */
+function byUnit(arr, allowMixed=true){
+  if(state.unit === 0) return arr;
+  return arr.filter(x => x.u === state.unit);
+}
+function unitTitle(n){ const u = DATA.units.find(x=>x.n===n); return u? u.t : "Mixed review"; }
+const orderPool = () => {
+  const out = [];
+  byUnit(DATA.order).forEach(o => out.push({u:o.u, s:o.a, hint:"Put the words in order."}));
+  byUnit(DATA.type).filter(t => t.long && !/[\/()]/.test(t.a)).forEach(t => out.push({u:t.u, s:t.a, hint:strip(t.q)}));
+  byUnit(DATA.vocab).forEach(v => { const w = v.ex.split(" ").length; if(w>=4 && w<=11) out.push({u:v.u, s:v.ex, hint:"Example for: "+v.w}); });
+  byUnit(DATA.gex).filter(g => !/[→"(]/.test(g.s) && g.s.split(" ").length<=12).forEach(g => out.push({u:g.u, s:g.s, hint:"Grammar example"}));
+  return out;
+};
+const quizPool = () => {
+  const mc = byUnit(DATA.mc).map(m => ({kind:"mc", u:m.u, q:m.q, instr:m.i, opts:m.o, passage:m.p}));
+  const tf = byUnit(DATA.tf).map(t => ({kind:"tf", u:t.u, q:t.q, instr:"True or False?", opts: t.a==="T"? ["True","False"] : ["False","True"], passage:t.p}));
+  return mc.concat(tf);
+};
+
+/* ---------- XP / scores ---------- */
+function addXP(n){ n = Math.max(0, Math.round(n)); state.xp += n; LS.set("xp", state.xp); renderStats(); }
+function renderStats(){
+  const lvl = Math.floor(state.xp/300)+1, pct = (state.xp%300)/3;
+  $("#lvl").textContent = lvl; $("#lvlbar").style.width = pct+"%";
+  $("#xp").textContent = state.xp; $("#known").textContent = state.known.size;
+}
+function recordUnit(u, correct){
+  const k = String(u); const s = state.unitStats[k] || {c:0,t:0};
+  s.t++; if(correct) s.c++; state.unitStats[k] = s; LS.set("unitStats", state.unitStats);
+}
+const markOf = (c, t) => t ? Math.round(c/t*20)/2 : 0;
+const comment = m => m>=9 ? "Xuất sắc!" : m>=8 ? "Giỏi lắm!" : m>=6.5 ? "Khá tốt" : m>=5 ? "Đạt yêu cầu" : "Cố gắng thêm nhé!";
+
+/* ---------- games registry ---------- */
+const GAMES = [
+  {id:"mock", c:"#1E293B", name:"Mock Test", tag:"Full exam practice", desc:"A full 5-part practice test — pronunciation &amp; stress, grammar, error hunt, reading and sentence order — in the same style as the real school exam.", icon:'<svg viewBox="0 0 24 24"><path d="M9 2h6l1 4h4v4l-4 1v9a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-9l-4-1V6h4z"/><path d="M9 12l2 2 4-4"/></svg>', run:gameMock},
+  {id:"pron", c:"#EAB308", name:"Pronunciation &amp; Stress", tag:"Speaking", desc:"Spot the word with a different sound or a different stress pattern.", icon:'<svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>', run:gamePron},
+  {id:"flash", c:"#FF5A5F", name:"Flashcards", tag:"Learn", desc:"20 cards per round. Flip, listen and sort the words you know.", icon:'<svg viewBox="0 0 24 24"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="M7 3h12a2 2 0 0 1 2 2v10"/></svg>', run:gameFlash},
+  {id:"memory", c:"#7C5CFF", name:"Memory Match", tag:"Vocabulary", desc:"Pair each English word with its Vietnamese meaning.", icon:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>', run:gameMemory},
+  {id:"quiz", c:"#FF9500", name:"Quiz Blitz", tag:"Grammar + vocab", desc:"10 timed questions. Keep your hearts for bonus points. Keys 1–4.", icon:'<svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>', run:gameQuiz},
+  {id:"fall", c:"#0EA5E9", name:"Word Rain", tag:"Arcade", desc:"Catch the English word that matches the meaning before it lands.", icon:'<svg viewBox="0 0 24 24"><path d="M8 3v6M16 6v6M12 12v6M5 20h14"/></svg>', run:gameFall},
+  {id:"scramble", c:"#EC4899", name:"Word Scramble", tag:"Spelling", desc:"Rebuild the word from mixed-up letters.", icon:'<svg viewBox="0 0 24 24"><path d="M4 7h4l8 10h4M4 17h4l2.5-3M14 10l2-3h4M18 4l2 3-2 3M18 14l2 3-2 3"/></svg>', run:gameScramble},
+  {id:"form", c:"#16A34A", name:"Word Form", tag:"Word building", desc:"Type the right form: responsible, pollution, equally…", icon:'<svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg>', run:gameForm},
+  {id:"order", c:"#0D9488", name:"Sentence Builder", tag:"Grammar", desc:"Tap the word tiles into the right order.", icon:'<svg viewBox="0 0 24 24"><rect x="2" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/><rect x="16" y="9" width="6" height="6" rx="1"/></svg>', run:gameOrder},
+  {id:"error", c:"#E8590C", name:"Error Hunter", tag:"Accuracy", desc:"Find the underlined part that is wrong.", icon:'<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4M8.5 8.5l5 5M13.5 8.5l-5 5"/></svg>', run:gameError},
+];
+
+/* ---------- home ---------- */
+function home(){
+  cleanup(); app.style.removeProperty("--gc");
+  const chips = [{n:0,t:"All units"}].concat(DATA.units).map(u =>
+    `<button class="chip" data-u="${u.n}" style="--uc:${UCOL[u.n]}" aria-pressed="${state.unit===u.n}">${u.n? "Unit "+u.n : "All units"}</button>`).join("");
+  const cards = GAMES.map(g => {
+    const b = state.best[g.id+"|"+state.unit];
+    return `<button class="gcard" data-g="${g.id}" style="--gc:${g.c}">
+      <span class="ic">${g.icon}</span>
+      <span class="tag">${g.tag}</span>
+      <h3>${g.name}</h3><p>${g.desc}</p>
+      <span class="best"><span>${b!=null? `<span class="stars">${"★".repeat(b>=9?3:b>=7?2:b>=5?1:0)}${"☆".repeat(3-(b>=9?3:b>=7?2:b>=5?1:0))}</span> Best` : "Tap to play!"}</span>${b!=null? `<span class="mk">${b}/10</span>`:""}</span>
+    </button>`;}).join("");
+  const rows = DATA.units.map(u => {
+    const words = DATA.vocab.filter(v=>v.u===u.n); const k = words.filter(v=>state.known.has(v.u+"|"+v.w)).length;
+    const s = state.unitStats[String(u.n)] || {c:0,t:0}; const acc = s.t? Math.round(s.c/s.t*100) : null;
+    return `<tr><td class="num">${u.n}</td><td>${esc(u.t)}</td>
+      <td><div class="row" style="gap:8px"><div class="bar" style="flex:1"><i style="width:${k/words.length*100}%"></i></div><span class="num small">${k}/${words.length}</span></div></td>
+      <td class="num">${s.t? s.t : "–"}</td><td class="num">${acc===null? "–" : acc+"%"}</td></tr>`;}).join("");
+  app.innerHTML = `
+    <nav class="unitbar" aria-label="Choose unit">${chips}</nav>
+    <div class="homebar"><div class="unitname" style="--uc:${UCOL[state.unit]}">${state.unit? "Unit "+state.unit+": "+esc(unitTitle(state.unit)) : "All units · mixed review"}</div><button class="surprise" id="surprise"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8" cy="8" r="1.3"/><circle cx="16" cy="16" r="1.3"/><circle cx="12" cy="12" r="1.3"/></svg>Surprise me!</button></div>
+    <div class="grid">${cards}</div>
+    <h2 class="section-title">My progress</h2>
+    <div class="progress-table"><table>
+      <thead><tr><th>Unit</th><th>Topic</th><th>Words known</th><th>Answers</th><th>Accuracy</th></tr></thead>
+      <tbody>${rows}</tbody></table></div>
+    <p class="small" style="margin-top:10px">Progress is saved in this browser only. <button class="back" id="reset" style="display:inline;color:var(--red)">Reset progress</button></p>`;
+  app.querySelectorAll(".chip").forEach(c => c.onclick = () => { state.unit = +c.dataset.u; LS.set("unit", state.unit); sfx.tap(); home(); });
+  app.querySelectorAll(".gcard").forEach(c => c.onclick = () => { sfx.tap(); open(c.dataset.g); });
+  $("#surprise").onclick = () => { sfx.win(); const g = GAMES[Math.random()*GAMES.length|0]; toast("Let's play " + g.name + "!"); open(g.id); };
+  $("#reset").onclick = () => {
+    const r = $("#reset");
+    if(r.dataset.confirm){ state.xp=0; state.best={}; state.known=new Set(); state.unitStats={};
+      ["xp","best","known","unitStats"].forEach(k=>LS.set(k, k==="known"?[]:(k==="xp"?0:{}))); renderStats(); home(); toast("Progress reset"); }
+    else { r.dataset.confirm = 1; r.textContent = "Tap again to confirm reset"; }
+  };
+}
+
+let current = null, timers = [], keyHandler = null;
+function cleanup(){ timers.forEach(t=>{clearInterval(t); clearTimeout(t); cancelAnimationFrame(t);}); timers=[]; if(keyHandler){ document.removeEventListener("keydown", keyHandler); keyHandler=null; } try{speechSynthesis.cancel();}catch(e){} }
+function onKey(fn){ if(keyHandler) document.removeEventListener("keydown", keyHandler); keyHandler = fn; document.addEventListener("keydown", fn); }
+function open(id){
+  cleanup(); current = GAMES.find(g=>g.id===id); app.style.setProperty("--gc", current.c);
+  app.innerHTML = `<div class="stagehead"><div class="row"><button class="back" id="back">${ICON.back} Games</button><h2>${current.name}</h2></div><div class="hud" id="hud"></div></div><div id="stage"></div>`;
+  $("#back").onclick = () => { sfx.tap(); home(); };
+  window.scrollTo({top:0});
+  current.run($("#stage"), $("#hud"));
+}
+function empty(stage){ stage.innerHTML = `<div class="panel center"><p class="qtext">There is not enough material in this unit for this game.</p><button class="btn" onclick="state.unit=0;LS.set('unit',0);home()">Play with all units</button></div>`; }
+
+function finish(stage, {correct, total, xp, review=[], extra=""}){
+  cleanup();
+  const m = markOf(correct, total);
+  const key = current.id+"|"+state.unit;
+  const prev = state.best[key]; const newBest = prev==null || m > prev;
+  if(newBest){ state.best[key] = m; LS.set("best", state.best); }
+  addXP(xp);
+  xp = Math.max(0, Math.round(xp)); m>=5 ? sfx.win() : sfx.no(); if(m>=6.5) confetti();
+  stage.innerHTML = `<div class="panel">
+    <div class="result">
+      <div class="stamp" aria-label="Mark ${m} out of 10"><span class="m">${m}</span><span class="c">/10</span></div>
+      <div>
+        ${starsHTML(m)}<p style="font-family:var(--display);font-weight:800;font-size:32px;color:var(--gc);margin:0;line-height:1.1">${comment(m)}</p>
+        <p class="qtext" style="margin:4px 0">${current.id==="memory"? "All pairs found" : `${correct} of ${total} correct`} · +${xp} XP</p>
+        <p class="small">${newBest && prev!=null ? "New best mark!" : prev!=null ? "Best mark: "+prev : "First score saved."} ${extra}</p>
+        <div class="row" style="margin-top:12px"><button class="btn" id="again">Play again</button><button class="btn ghost" id="home2">All games</button></div>
+      </div>
+    </div>
+    ${review.length? `<div class="review"><h3 class="tag" style="font-size:12px">Review your mistakes</h3><ol>${review.map(r=>`<li>${r}</li>`).join("")}</ol></div>`:""}
+  </div>`;
+  $("#again").onclick = () => open(current.id);
+  $("#home2").onclick = home;
+}
+
+/* ================= 1. FLASHCARDS ================= */
+function gameFlash(stage, hud){
+  const SESSION = 20;
+  let deck = shuffle(byUnit(DATA.vocab)).slice(0, SESSION);
+  let onlyNew = false, i = 0, flipped = false, knownNow = 0, seen = 0;
+  function render(){
+    if(i >= deck.length){
+      finish(stage, {correct:knownNow, total:seen||1, xp:knownNow*5, extra:"Cards you marked “I know it” count toward your words known."});
+      return;
+    }
+    const v = deck[i]; flipped = false;
+    hud.innerHTML = `<span class="pill">Card <b>${i+1}</b>/${deck.length}</span><span class="pill">Known <b>${knownNow}</b></span>`;
+    stage.innerHTML = `
+      <div class="progress"><i style="width:${i/deck.length*100}%"></i></div>
+      <div class="row" style="justify-content:space-between;margin-bottom:12px">
+        <label class="small row" style="gap:6px"><input type="checkbox" id="onlynew" ${onlyNew?"checked":""}> Only words I don't know yet</label>
+        <span class="small">Unit ${v.u} · <kbd>Space</kbd> flip · <kbd>←</kbd> learning · <kbd>→</kbd> know</span>
+      </div>
+      <div class="flash"><div class="fcard" id="fc" tabindex="0" role="button" aria-label="Flip card">
+        <div class="face"><span class="pos">${esc(v.p)}</span><span class="w">${esc(v.w)}</span>${state.known.has(v.u+"|"+v.w)?'<span class="small" style="color:var(--ok)">Known</span>':""}<span class="hint">Tap to see the meaning</span></div>
+        <div class="face back"><span class="vi">${esc(v.vi)}</span><span class="ex">${esc(v.ex)}</span><span class="hint">Tap to flip back</span></div>
+      </div></div>
+      <div class="row" style="justify-content:center;margin-top:18px">
+        <button class="btn ghost" id="say">${ICON.speak} Listen</button>
+        <button class="btn warn" id="learn">Still learning</button>
+        <button class="btn" id="know">I know it</button>
+      </div>`;
+    const fc = $("#fc");
+    const flip = () => { flipped = !flipped; fc.classList.toggle("flip", flipped); sfx.flip(); };
+    fc.onclick = flip;
+    $("#say").onclick = () => speak(headword(v.w) + ". " + v.ex);
+    $("#learn").onclick = () => { state.known.delete(v.u+"|"+v.w); LS.set("known",[...state.known]); seen++; i++; renderStats(); render(); };
+    $("#know").onclick = () => { state.known.add(v.u+"|"+v.w); LS.set("known",[...state.known]); knownNow++; seen++; i++; sfx.ok(); renderStats(); render(); };
+    $("#onlynew").onchange = e => { onlyNew = e.target.checked; deck = shuffle(byUnit(DATA.vocab).filter(x => !onlyNew || !state.known.has(x.u+"|"+x.w))).slice(0, SESSION); i=0; knownNow=0; seen=0;
+      if(!deck.length){ stage.innerHTML = `<div class="panel center"><p class="qtext">You know every word here. Well done!</p><button class="btn" id="all">Show all cards</button></div>`; $("#all").onclick=()=>{onlyNew=false; deck=shuffle(byUnit(DATA.vocab)).slice(0, SESSION); render();}; return; }
+      render(); };
+  }
+  onKey(e => { if(e.target.tagName==="INPUT") return;
+    if(e.code==="Space"){ e.preventDefault(); $("#fc")&&$("#fc").click(); }
+    if(e.key==="ArrowRight") $("#know")&&$("#know").click();
+    if(e.key==="ArrowLeft") $("#learn")&&$("#learn").click(); });
+  if(!deck.length) return empty(stage);
+  render();
+}
+
+/* ================= 2. MEMORY ================= */
+function gameMemory(stage, hud){
+  const pool = byUnit(DATA.vocab); if(pool.length < 6) return empty(stage);
+  const pick = sample(pool, 6);
+  let cards = [];
+  pick.forEach((v, k) => { cards.push({id:k, side:"en", text:headword(v.w), v}); cards.push({id:k, side:"vi", text:v.vi, v}); });
+  cards = shuffle(cards);
+  let open1 = null, lock = false, moves = 0, matched = 0, secs = 0;
+  stage.innerHTML = `<p class="instr">Flip two cards. Match the English word with its Vietnamese meaning.</p><div class="mem" id="mem"></div>`;
+  const mem = $("#mem");
+  cards.forEach((c, idx) => {
+    const b = document.createElement("button"); b.className = "mcard" + (c.side==="vi"?" vi-side":"");
+    b.innerHTML = `<span class="back-logo">G10</span><span class="inner">${esc(c.text)}</span>`;
+    b.setAttribute("aria-label", "Hidden card"); b.onclick = () => flip(b, c); mem.appendChild(b);
+  });
+  const hudR = () => hud.innerHTML = `<span class="pill">Moves <b>${moves}</b></span><span class="pill">Pairs <b>${matched}</b>/6</span><span class="pill">Time <b>${secs}s</b></span>`;
+  hudR(); timers.push(setInterval(()=>{ secs++; hudR(); }, 1000));
+  function flip(b, c){
+    if(lock || b.classList.contains("open") || b.classList.contains("done")) return;
+    b.classList.add("open"); b.setAttribute("aria-label", c.text); sfx.flip();
+    if(!open1){ open1 = {b, c}; return; }
+    moves++; hudR();
+    if(open1.c.id === c.id && open1.c.side !== c.side){
+      b.classList.add("done"); open1.b.classList.add("done"); matched++; sfx.ok(); pop("Match!", b); open1 = null; hudR();
+      recordUnit(c.v.u, true);
+      if(matched === 6){
+        // 8 moves or fewer = 10/10; each extra move costs half a point; finishing always earns at least 4
+        const correct = Math.max(4, Math.min(10, 10 - Math.max(0, moves - 8) * 0.5));
+        setTimeout(()=>finish(stage, {correct, total:10, xp: 30 + Math.max(0, 60 - moves*2), extra:`All 6 pairs in ${moves} moves and ${secs} seconds. Fewer moves = higher mark.`}), 600);
+      }
+    } else {
+      lock = true; sfx.no(); const a = open1; open1 = null;
+      setTimeout(()=>{ a.b.classList.remove("open"); b.classList.remove("open"); a.b.setAttribute("aria-label","Hidden card"); b.setAttribute("aria-label","Hidden card"); lock = false; }, 850);
+    }
+  }
+}
+
+/* ================= 3. QUIZ BLITZ ================= */
+function gameQuiz(stage, hud){
+  const pool = quizPool(); if(pool.length < 4) return empty(stage);
+  const qs = sample(pool, Math.min(10, pool.length));
+  let i = 0, lives = 3, score = 0, streak = 0, correct = 0, review = [], t0 = 0, answered = false;
+  const LIMIT = 20;
+  function hudR(){ hud.innerHTML = `<span class="pill">Q <b>${Math.min(i+1,qs.length)}</b>/${qs.length}</span><span class="pill">Score <b>${score}</b></span><span class="pill">Streak <b>${streak}</b></span><span class="pill hearts" aria-label="${lives} lives">${"♥".repeat(lives)}${"♡".repeat(3-lives)}</span>`; }
+  function render(){
+    if(i >= qs.length){
+      const bonus = lives*100; score += bonus;
+      finish(stage, {correct, total: qs.length, xp: Math.round(score/10), review, extra: `Score: ${score} points${bonus? ` (includes +${bonus} for ${lives} heart${lives>1?"s":""} left)`:""}.`}); return;
+    }
+    const q = qs[i]; answered = false; hudR();
+    const opts = shuffle(q.opts.map((o, k) => ({o, right: k===0})));
+    const label = q.kind==="tf" ? q.q : (q.q || "");
+    stage.innerHTML = `<div class="panel">
+      <div class="progress"><i style="width:${i/qs.length*100}%"></i></div>
+      <p class="tag">${q.u? "Unit "+q.u : "Final review"}</p>
+      ${q.passage? `<details class="passage" ${q.kind==="tf"?"open":""}><summary class="small" style="cursor:pointer">Reading text</summary>${esc(q.passage)}</details>`:""}
+      <p class="instr">${esc(q.instr)}</p>
+      ${label? `<p class="qtext">${label}</p>`:""}
+      <div class="timer"><i id="tbar" style="width:100%"></i></div>
+      <div class="opts">${opts.map((x,k)=>`<button class="opt" data-k="${k}"><span class="k">${k+1}</span><span>${x.o}</span></button>`).join("")}</div>
+      <div class="feedback" id="fb" aria-live="polite"></div></div>`;
+    const btns = [...stage.querySelectorAll(".opt")];
+    t0 = performance.now();
+    const tick = setInterval(()=>{
+      const left = LIMIT - (performance.now()-t0)/1000;
+      const bar = $("#tbar"); if(bar) bar.style.width = Math.max(0,left/LIMIT*100)+"%";
+      if(left <= 0 && !answered){ clearInterval(tick); choose(-1); }
+    }, 100); timers.push(tick);
+    function choose(k){
+      if(answered) return; answered = true; clearInterval(tick);
+      const ok = k>=0 && opts[k].right;
+      btns.forEach((b, j) => { b.disabled = true; if(opts[j].right) b.classList.add("right"); else if(j===k) b.classList.add("wrong"); });
+      const fb = $("#fb");
+      recordUnit(q.u, ok);
+      const rightText = opts.find(x=>x.right).o;
+      if(ok){
+        streak++; correct++;
+        const left = Math.max(0, LIMIT - (performance.now()-t0)/1000);
+        const pts = Math.round((100 + left*5) * (1 + Math.min(streak-1,4)*0.25));
+        score += pts; fb.className = "feedback ok"; fb.innerHTML = `Correct! +${pts} ${streak>1? `<span class="combo">Combo ×${1+Math.min(streak-1,4)*0.25}</span>`:""}`; sfx.ok(); pop("+"+pts, btns[k]);
+      } else {
+        streak = 0; lives = Math.max(0, lives-1); fb.className = "feedback no";
+        fb.innerHTML = (k<0? "Time's up! " : "Not quite. ") + "Answer: " + rightText; sfx.no();
+        review.push(`${label? label+" " : strip(q.instr)+" "}<span class="corr">${rightText}</span>${k>=0? ` <span class="yours">${opts[k].o}</span>`:""}`);
+      }
+      hudR();
+      const nx = setTimeout(()=>{ i++; render(); }, ok? 900 : 1900); timers.push(nx);
+    }
+    btns.forEach((b, k) => b.onclick = () => choose(k));
+  }
+  onKey(e => { const n = parseInt(e.key); if(n>=1 && n<=4){ const b = stage.querySelectorAll(".opt")[n-1]; if(b && !b.disabled) b.click(); } });
+  render();
+}
+
+/* ================= 4. WORD RAIN ================= */
+function gameFall(stage, hud){
+  const pool = byUnit(DATA.vocab).map(v => ({...v, h: headword(v.w)})).filter(v => v.h.length <= 22);
+  const all = DATA.vocab.map(v => ({...v, h: headword(v.w)})).filter(v => v.h.length <= 22);
+  if(pool.length < 4) return empty(stage);
+  let lives = 3, score = 0, hits = 0, rounds = 0, speed = 55, running = false, drops = [], target = null, last = 0, review = [], raf = 0;
+  stage.innerHTML = `<div class="target" id="tg">Get ready…</div>
+    <div class="arena" id="arena"><div class="ground"></div>
+      <div class="overlay" id="ov"><div><p class="qtext">Words fall from the sky.</p><p class="small">Tap the English word that matches the Vietnamese meaning.<br>Miss the right word or tap a wrong one and you lose a heart.</p><button class="btn" id="go">Start</button></div></div>
+    </div>`;
+  const arena = $("#arena"), tg = $("#tg");
+  const hudR = () => hud.innerHTML = `<span class="pill">Score <b>${score}</b></span><span class="pill">Caught <b>${hits}</b></span><span class="pill hearts">${"♥".repeat(Math.max(0,lives))}${"♡".repeat(3-Math.max(0,lives))}</span>`;
+  hudR();
+  $("#go").onclick = () => { $("#ov").remove(); running = true; next(); last = performance.now(); raf = requestAnimationFrame(loop); timers.push(raf); };
+  function next(){
+    drops.forEach(d => d.el.remove()); drops = [];
+    if(lives <= 0 || rounds >= 15){ end(); return; }
+    rounds++;
+    target = pool[Math.floor(Math.random()*pool.length)];
+    tg.innerHTML = `${esc(target.vi)}<small>Round ${rounds}/15 · ${esc(target.p)}</small>`;
+    const distract = sample(all.filter(v => v.h !== target.h), 3);
+    const words = shuffle([target, ...distract]);
+    const W = arena.clientWidth;
+    const lanes = shuffle([0.14, 0.38, 0.62, 0.86]);
+    words.forEach((w, k) => {
+      const el = document.createElement("button"); el.className = "drop"; el.textContent = w.h;
+      el.style.left = (lanes[k]*100) + "%";
+      const d = {el, y: -40 - k*55 - Math.random()*30, right: w.h === target.h, done:false};
+      el.onclick = () => tapDrop(d);
+      arena.appendChild(el); drops.push(d);
+    });
+  }
+  function tapDrop(d){
+    if(!running || d.done) return;
+    if(d.right){ d.done = true; d.el.classList.add("hit"); pop("+"+(10 + Math.round(speed/10)), d.el); hits++; score += 10 + Math.round(speed/10); sfx.ok(); recordUnit(target.u, true); speed += 6; hudR(); pause(next, 450); }
+    else { d.done = true; d.el.classList.add("miss"); lives--; sfx.no(); recordUnit(target.u, false); review.push(`${esc(target.vi)} → <span class="corr">${esc(target.h)}</span> <span class="yours">${esc(d.el.textContent)}</span>`); hudR(); if(lives<=0) pause(end, 500); }
+  }
+  let paused = false;
+  function pause(fn, ms){ paused = true; const t = setTimeout(()=>{ paused = false; fn(); }, ms); timers.push(t); }
+  function loop(ts){
+    if(!running) return;
+    const dt = Math.min(0.05, (ts-last)/1000); last = ts;
+    if(!paused){
+      const H = arena.clientHeight;
+      drops.forEach(d => {
+        if(d.done) return;
+        d.y += speed*dt; d.el.style.top = d.y + "px";
+        if(d.y > H - 40){
+          d.done = true;
+          if(d.right){ d.el.classList.add("miss"); lives--; sfx.no(); recordUnit(target.u, false); review.push(`${esc(target.vi)} → <span class="corr">${esc(target.h)}</span> (missed)`); hudR(); pause(lives<=0? end : next, 600); }
+          else d.el.style.opacity = .25;
+        }
+      });
+    }
+    raf = requestAnimationFrame(loop); timers.push(raf);
+  }
+  function end(){ running = false; finish(stage, {correct: hits, total: rounds || 1, xp: score/2|0, review, extra:`Score: ${score}.`}); }
+}
+
+/* ================= 5. SCRAMBLE ================= */
+function gameScramble(stage, hud){
+  const pool = byUnit(DATA.vocab).map(v => ({...v, h: headword(v.w)})).filter(v => /^[a-z\- ]+$/i.test(v.h) && v.h !== v.h.toUpperCase() && v.h.replace(/[ \-]/g,"").length <= 14 && v.h.split(" ").length <= 3);
+  if(pool.length < 3) return empty(stage);
+  const items = sample(pool, Math.min(8, pool.length));
+  let i = 0, correct = 0, review = [], hintsUsed = 0;
+  function render(){
+    if(i >= items.length){ finish(stage, {correct, total: items.length, xp: correct*12 - hintsUsed*2, review}); return; }
+    const v = items[i]; const target = v.h.toLowerCase();
+    const letters = [...target].map((ch, k) => ({ch, k})).filter(x => x.ch !== " " && x.ch !== "-");
+    let bank = shuffle(letters); if(letters.length>1 && bank.map(x=>x.ch).join("") === letters.map(x=>x.ch).join("")) bank = bank.reverse();
+    const filled = []; // indexes into letters (answer order)
+    let hinted = 0, done = false;
+    hud.innerHTML = `<span class="pill">Word <b>${i+1}</b>/${items.length}</span><span class="pill">Correct <b>${correct}</b></span>`;
+    const blanked = v.ex.replace(new RegExp(v.h.replace(/[-]/g,"\\-"), "i"), "_____");
+    stage.innerHTML = `<div class="panel">
+      <div class="progress"><i style="width:${i/items.length*100}%"></i></div>
+      <p class="tag">Unit ${v.u} · ${esc(v.p)}</p>
+      <p class="qtext">${esc(v.vi)}</p>
+      <p class="instr">${esc(blanked)}</p>
+      <div class="slots" id="slots"></div>
+      <div class="bank" id="bank"></div>
+      <div class="row" style="margin-top:14px"><button class="btn ghost" id="undo">Undo</button><button class="btn ghost" id="hint">Hint</button><button class="btn ghost" id="say">${ICON.speak} Listen</button><button class="btn warn" id="skip">Skip</button></div>
+      <div class="feedback" id="fb" aria-live="polite"></div></div>`;
+    const slots = $("#slots"), bankEl = $("#bank");
+    function draw(){
+      let html = "", li = 0;
+      for(const ch of target){
+        if(ch === " "){ html += '<span class="gap-space"></span>'; continue; }
+        if(ch === "-"){ html += '<span class="lslot fixed">-</span>'; continue; }
+        const f = filled[li]; html += `<span class="lslot ${li < hinted ? "hinted":""}">${f!=null? letters[f].ch : ""}</span>`; li++;
+      }
+      slots.innerHTML = html;
+      bankEl.innerHTML = bank.map((b, j) => b.used? "" : `<button class="tile letter" data-j="${j}">${b.ch}</button>`).join("");
+      bankEl.querySelectorAll(".tile").forEach(t => t.onclick = () => place(+t.dataset.j));
+    }
+    function place(j){
+      if(done) return; const b = bank[j]; b.used = true; filled.push(letters.findIndex((x)=>x===b)); sfx.tap(); draw();
+      if(filled.length === letters.length) check();
+    }
+    function check(){
+      const got = filled.map(f => letters[f].ch).join(""), want = letters.map(x=>x.ch).join("");
+      const fb = $("#fb"); done = true; recordUnit(v.u, got===want);
+      if(got === want){ slots.classList.add("ok"); fb.className="feedback ok"; fb.textContent = "Correct: " + v.h; correct++; sfx.ok(); pop("Great!", slots); timers.push(setTimeout(()=>{i++; render();}, 1100)); }
+      else { slots.classList.add("no"); fb.className="feedback no"; fb.innerHTML = "Not quite. Try again or skip."; sfx.no();
+        timers.push(setTimeout(()=>{ slots.classList.remove("no"); fb.textContent=""; done=false; while(filled.length>hinted){ const f=filled.pop(); bank.find(b=>b===letters[f]).used=false; } draw(); }, 1100)); }
+    }
+    $("#undo").onclick = () => { if(done || filled.length<=hinted) return; const f = filled.pop(); letters[f].used = false; draw(); };
+    $("#hint").onclick = () => {
+      if(done) return;
+      while(filled.length > hinted){ const f = filled.pop(); letters[f].used = false; }
+      if(hinted >= letters.length-1) return;
+      const need = letters[hinted]; need.used = true; filled.push(hinted); hinted++; hintsUsed++; draw();
+    };
+    $("#say").onclick = () => speak(v.h);
+    $("#skip").onclick = () => { if(done) return; done = true; recordUnit(v.u, false); review.push(`${esc(v.vi)} → <span class="corr">${esc(v.h)}</span>`); const fb=$("#fb"); fb.className="feedback no"; fb.textContent = "Answer: "+v.h; sfx.no(); timers.push(setTimeout(()=>{i++; render();}, 1300)); };
+    draw();
+  }
+  onKey(e => {
+    if(!/^[a-z]$/i.test(e.key)) { if(e.key==="Backspace") $("#undo")&&$("#undo").click(); return; }
+    const t = [...document.querySelectorAll("#bank .tile")].find(b => b.textContent === e.key.toLowerCase()); if(t) t.click();
+  });
+  render();
+}
+
+/* ================= 6. WORD FORM ================= */
+function gameForm(stage, hud){
+  const pool = byUnit(DATA.type).filter(t => !t.long);
+  if(pool.length < 3) return empty(stage);
+  const items = sample(pool, Math.min(8, pool.length));
+  let i = 0, correct = 0, review = [], hints = 0;
+  function render(){
+    if(i >= items.length){ finish(stage, {correct, total: items.length, xp: correct*12 - hints*3, review}); return; }
+    const it = items[i]; const ans = it.a.trim(); let hintN = 0, done = false, tries = 0;
+    hud.innerHTML = `<span class="pill">Item <b>${i+1}</b>/${items.length}</span><span class="pill">Correct <b>${correct}</b></span>`;
+    const q = it.q.replace(/\(([^)]+)\)\s*$/, '<mark style="background:var(--hl);color:#1F2433;border-radius:4px;padding:0 5px">$1</mark>');
+    stage.innerHTML = `<div class="panel">
+      <div class="progress"><i style="width:${i/items.length*100}%"></i></div>
+      <p class="tag">${it.u? "Unit "+it.u : "Final review"}</p>
+      <p class="instr">Write the correct form of the highlighted word.</p>
+      <p class="qtext">${q}</p>
+      <form id="f" class="row" style="margin-top:12px" autocomplete="off">
+        <input class="typein" id="inp" aria-label="Your answer" placeholder="Type here…" spellcheck="false">
+        <button class="btn" type="submit">Check</button>
+        <button class="btn ghost" type="button" id="hint">Hint</button>
+      </form>
+      <div class="feedback" id="fb" aria-live="polite"></div></div>`;
+    const inp = $("#inp"), fb = $("#fb"); inp.focus();
+    $("#hint").onclick = () => { if(done) return; hintN = Math.min(hintN+1, ans.length-1); hints++; inp.value = ans.slice(0, hintN); inp.focus(); fb.className="feedback"; fb.textContent = `Starts with “${ans.slice(0,hintN)}” · ${ans.length} letters`; };
+    $("#f").onsubmit = e => {
+      e.preventDefault(); if(done) return;
+      const v = inp.value.trim().toLowerCase(); if(!v) return;
+      tries++;
+      if(v === ans.toLowerCase()){ done = true; inp.classList.add("ok"); fb.className="feedback ok"; fb.textContent = "Correct!"; if(tries===1) correct++; else correct += .5; recordUnit(it.u, true); sfx.ok(); pop("Correct!", inp); timers.push(setTimeout(()=>{i++; render();}, 900)); }
+      else if(tries < 2){ inp.classList.add("no"); fb.className="feedback no"; fb.textContent = "Not quite. One more try (half point)."; sfx.no(); timers.push(setTimeout(()=>inp.classList.remove("no"), 600)); inp.select(); }
+      else { done = true; inp.classList.add("no"); fb.className="feedback no"; fb.innerHTML = `Answer: <b>${esc(ans)}</b>`; recordUnit(it.u, false); review.push(`${strip(it.q)} → <span class="corr">${esc(ans)}</span> <span class="yours">${esc(inp.value)}</span>`); sfx.no(); timers.push(setTimeout(()=>{i++; render();}, 1800)); }
+    };
+  }
+  render();
+}
+
+/* ================= 7. SENTENCE BUILDER ================= */
+function gameOrder(stage, hud){
+  const pool = orderPool(); if(pool.length < 3) return empty(stage);
+  const items = sample(pool, Math.min(6, pool.length));
+  let i = 0, correct = 0, review = [];
+  function render(){
+    if(i >= items.length){ finish(stage, {correct, total: items.length, xp: correct*15, review}); return; }
+    const it = items[i]; const words = it.s.split(/\s+/);
+    let bank = shuffle(words.map((w,k)=>({w,k}))); if(bank.every((b,k)=>b.k===k) && bank.length>1) bank.reverse();
+    const line = []; let tries = 0, done = false;
+    hud.innerHTML = `<span class="pill">Sentence <b>${i+1}</b>/${items.length}</span><span class="pill">Correct <b>${correct}</b></span>`;
+    stage.innerHTML = `<div class="panel">
+      <div class="progress"><i style="width:${i/items.length*100}%"></i></div>
+      <p class="tag">${it.u? "Unit "+it.u : "Final review"}</p>
+      <p class="instr">${esc(it.hint)}</p>
+      <div class="slots" id="line" aria-label="Your sentence"></div>
+      <div class="bank" id="bank"></div>
+      <div class="row" style="margin-top:14px"><button class="btn" id="check">Check</button><button class="btn ghost" id="clear">Clear</button><button class="btn ghost" id="say">${ICON.speak} Listen</button><button class="btn warn" id="skip">Show answer</button></div>
+      <div class="feedback" id="fb" aria-live="polite"></div></div>`;
+    const lineEl = $("#line"), bankEl = $("#bank"), fb = $("#fb");
+    function draw(){
+      lineEl.innerHTML = line.length? line.map((b,j)=>`<button class="tile" data-j="${j}">${esc(b.w)}</button>`).join("") : '<span class="small">Tap the words below…</span>';
+      bankEl.innerHTML = bank.map((b,j)=> b.used? "" : `<button class="tile" data-j="${j}">${esc(b.w)}</button>`).join("");
+      lineEl.querySelectorAll(".tile").forEach(t => t.onclick = () => { if(done) return; const b = line.splice(+t.dataset.j,1)[0]; b.used=false; sfx.tap(); draw(); });
+      bankEl.querySelectorAll(".tile").forEach(t => t.onclick = () => { if(done) return; const b = bank[+t.dataset.j]; b.used = true; line.push(b); sfx.tap(); draw(); });
+    }
+    draw();
+    $("#clear").onclick = () => { if(done) return; line.splice(0).forEach(b=>b.used=false); draw(); };
+    $("#say").onclick = () => speak(it.s);
+    $("#check").onclick = () => {
+      if(done || line.length < words.length){ if(!done){ fb.className="feedback no"; fb.textContent = "Use all the words first."; } return; }
+      const got = line.map(b=>b.w).join(" ");
+      if(got === it.s){ done = true; lineEl.classList.add("ok"); fb.className="feedback ok"; fb.textContent = "Correct!"; correct += tries? .5 : 1; recordUnit(it.u, true); sfx.ok(); pop("Perfect!", lineEl); timers.push(setTimeout(()=>{i++; render();}, 1000)); }
+      else { tries++; lineEl.classList.add("no"); sfx.no(); fb.className="feedback no"; fb.textContent = tries<2? "Not yet. Move some words and check again (half point)." : "";
+        timers.push(setTimeout(()=>lineEl.classList.remove("no"), 700)); if(tries>=2) reveal(got); }
+    };
+    $("#skip").onclick = () => { if(!done) reveal(line.map(b=>b.w).join(" ")); };
+    function reveal(got){ done = true; recordUnit(it.u, false); fb.className="feedback no"; fb.innerHTML = `Answer: <b>${esc(it.s)}</b>`; review.push(`<span class="corr">${esc(it.s)}</span>${got? ` <span class="yours">${esc(got)}</span>`:""}`); timers.push(setTimeout(()=>{i++; render();}, 2200)); }
+  }
+  render();
+}
+
+/* ================= 8. ERROR HUNTER ================= */
+function gameError(stage, hud){
+  const pool = byUnit(DATA.err); if(pool.length < 2) return empty(stage);
+  const items = sample(pool, Math.min(8, pool.length));
+  let i = 0, correct = 0, review = [];
+  function render(){
+    if(i >= items.length){ finish(stage, {correct, total: items.length, xp: correct*12, review}); return; }
+    const it = items[i]; const letter = it.a.trim()[0]; const fix = it.a.split("→")[1]?.trim() || "";
+    const html = it.q.replace(/<u>(.*?)<\/u><super>([A-D])<\/super>/g, (m, t, l) => `<button class="seg" data-l="${l}">${t}<sup>${l}</sup></button>`);
+    hud.innerHTML = `<span class="pill">Sentence <b>${i+1}</b>/${items.length}</span><span class="pill">Correct <b>${correct}</b></span>`;
+    stage.innerHTML = `<div class="panel">
+      <div class="progress"><i style="width:${i/items.length*100}%"></i></div>
+      <p class="tag">${it.u? "Unit "+it.u : "Final review"}</p>
+      <p class="instr">One underlined part is wrong. Tap it.</p>
+      <p class="err-sent">${html}</p>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <div class="row" id="nx" hidden><button class="btn" id="next">Next</button></div></div>`;
+    const segs = [...stage.querySelectorAll(".seg")];
+    segs.forEach(s => s.onclick = () => {
+      const ok = s.dataset.l === letter; segs.forEach(x => { x.disabled = true; if(x.dataset.l===letter) x.classList.add("right"); });
+      if(!ok) s.classList.add("wrong");
+      const fb = $("#fb"); fb.className = "feedback " + (ok? "ok":"no");
+      fb.innerHTML = (ok? "Well spotted! " : `The mistake is <b>${letter}</b>. `) + `Correction: <b>${esc(fix)}</b>`;
+      recordUnit(it.u, ok); ok ? (correct++, sfx.ok(), pop("Found it!", s)) : sfx.no();
+      if(!ok) review.push(`${strip(it.q.replace(/<super>([A-D])<\/super>/g,"($1)"))} → <span class="corr">${esc(it.a)}</span>`);
+      $("#nx").hidden = false; $("#next").focus();
+    });
+    $("#next").onclick = () => { i++; render(); };
+  }
+  onKey(e => { const k = e.key.toUpperCase(); if("ABCD".includes(k) && k.length===1){ const s = [...stage.querySelectorAll(".seg")].find(x=>x.dataset.l===k); if(s && !s.disabled) s.click(); } if(e.key==="Enter"){ const n=$("#next"); if(n && !$("#nx").hidden){ e.preventDefault(); n.click(); } } });
+  render();
+}
+
+
+/* ================= 9. PRONUNCIATION & STRESS ================= */
+function gamePron(stage, hud){
+  const pool = DATA.pron; if(pool.length < 3) return empty(stage);
+  const items = sample(pool, Math.min(10, pool.length));
+  let i = 0, correct = 0, review = [];
+  function render(){
+    if(i >= items.length){ finish(stage, {correct, total: items.length, xp: correct*10, review}); return; }
+    const it = items[i];
+    hud.innerHTML = `<span class="pill">Item <b>${i+1}</b>/${items.length}</span><span class="pill">Correct <b>${correct}</b></span>`;
+    stage.innerHTML = `<div class="panel">
+      <div class="progress"><i style="width:${i/items.length*100}%"></i></div>
+      <p class="tag">Pronunciation &amp; Stress</p>
+      <p class="instr">${esc(it.instr)}</p>
+      <div class="opts">${it.w.map((w,k)=>`<button class="opt" data-k="${k}"><span class="k">${k+1}</span><span>${esc(w)}</span></button>`).join("")}</div>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <div class="row" id="nx" hidden><button class="btn" id="next">Next</button></div></div>`;
+    const btns = [...stage.querySelectorAll(".opt")];
+    btns.forEach((b,k) => b.onclick = () => {
+      const ok = k===it.a; btns.forEach((x,j) => { x.disabled = true; if(j===it.a) x.classList.add("right"); else if(j===k) x.classList.add("wrong"); });
+      ok ? (correct++, sfx.ok(), pop("Correct!", b)) : sfx.no();
+      const fb = $("#fb"); fb.className = "feedback " + (ok?"ok":"no"); fb.innerHTML = ok? "Correct!" : `The odd one out is <b>${esc(it.w[it.a])}</b>.`;
+      if(!ok) review.push(`${it.w.join(", ")} → <span class="corr">${esc(it.w[it.a])}</span>`);
+      $("#nx").hidden = false; $("#next").onclick = () => {i++; render();}; $("#next").focus();
+    });
+  }
+  onKey(e => { const n = parseInt(e.key); if(n>=1 && n<=4){ const b = stage.querySelectorAll(".opt")[n-1]; if(b && !b.disabled) b.click(); } if(e.key==="Enter"){ const nx=$("#next"); if(nx && !$("#nx").hidden){ e.preventDefault(); nx.click(); } } });
+  render();
+}
+
+/* ================= 10. MOCK TEST ================= */
+function gameMock(stage, hud){
+  if(DATA.pron.length<4 || DATA.mc.length<4 || DATA.err.length<2 || DATA.tf.length<2 || DATA.order===undefined) {}
+  const orderSrc = orderPool();
+  if(DATA.pron.length<4 || DATA.mc.length<4 || DATA.err.length<2 || DATA.tf.length<2 || orderSrc.length<2) return empty(stage);
+
+  const pronItems = sample(DATA.pron, Math.min(5, DATA.pron.length));
+  const mcItems = sample(DATA.mc, Math.min(8, DATA.mc.length));
+  const errItems = sample(DATA.err, Math.min(5, DATA.err.length));
+  const tfByPassage = {};
+  DATA.tf.forEach(t => { (tfByPassage[t.p] = tfByPassage[t.p] || []).push(t); });
+  const groups = Object.entries(tfByPassage);
+  groups.sort((a,b) => b[1].length - a[1].length);
+  const bestLen = groups[0][1].length;
+  const topGroups = groups.filter(g => g[1].length === bestLen);
+  const chosen = topGroups[Math.random()*topGroups.length|0];
+  const passageText = chosen[0];
+  const tfItems = sample(chosen[1], Math.min(5, chosen[1].length));
+  const orderItems = sample(orderSrc, Math.min(5, orderSrc.length));
+
+  const parts = [
+    {label:"Part 1 · Pronunciation &amp; word stress", items: pronItems.map(o => ({kind:"pron", instr:o.instr, w:o.w, a:o.a}))},
+    {label:"Part 2 · Choose the correct answer", items: mcItems.map(m => ({kind:"mc", u:m.u, q:m.q, instr:m.i, opts:m.o, passage:m.p}))},
+    {label:"Part 3 · Find and correct the mistake", items: errItems.map(e => ({kind:"err", u:e.u, q:e.q, a:e.a}))},
+    {label:"Part 4 · Read and decide True or False", items: tfItems.map(t => ({kind:"tf", u:t.u, q:t.q, a:t.a, passage:passageText}))},
+    {label:"Part 5 · Put the words in order", items: orderItems.map(o => ({kind:"order", u:o.u, a:o.s}))},
+  ];
+  const steps = [];
+  parts.forEach((p,pi) => p.items.forEach((it,ii) => steps.push({...it, part:pi, partLabel:p.label, partLen:p.items.length, partPos:ii})));
+
+  let i = 0, correct = 0, review = [];
+
+  function next(){ i++; render(); }
+
+  function render(){
+    if(i >= steps.length){
+      finish(stage, {correct, total: steps.length, xp: correct*10, review, extra: `Full mock exam: ${parts.map(p=>p.label.split("· ")[1]).join(" · ")}.`}); return;
+    }
+    const st = steps[i];
+    hud.innerHTML = `<span class="pill">${st.partLabel}</span><span class="pill">Item <b>${st.partPos+1}</b>/${st.partLen}</span><span class="pill">Score <b>${correct}</b>/${steps.length}</span>`;
+    if(st.kind==="pron") renderPron(st);
+    else if(st.kind==="mc") renderMC(st);
+    else if(st.kind==="err") renderErr(st);
+    else if(st.kind==="tf") renderTF(st);
+    else renderOrder(st);
+  }
+
+  function progressBar(){ return `<div class="progress"><i style="width:${i/steps.length*100}%"></i></div>`; }
+
+  function renderPron(st){
+    stage.innerHTML = `<div class="panel">${progressBar()}
+      <p class="tag">${st.partLabel}</p>
+      <p class="instr">${esc(st.instr)}</p>
+      <div class="opts">${st.w.map((w,k)=>`<button class="opt" data-k="${k}"><span class="k">${k+1}</span><span>${esc(w)}</span></button>`).join("")}</div>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <div class="row" id="nx" hidden><button class="btn" id="next">Next</button></div></div>`;
+    const btns = [...stage.querySelectorAll(".opt")];
+    btns.forEach((b,k) => b.onclick = () => {
+      const ok = k===st.a; btns.forEach((x,j) => { x.disabled = true; if(j===st.a) x.classList.add("right"); else if(j===k) x.classList.add("wrong"); });
+      ok ? (correct++, sfx.ok(), pop("Correct!", b)) : sfx.no();
+      const fb = $("#fb"); fb.className = "feedback " + (ok?"ok":"no"); fb.innerHTML = ok? "Correct!" : `The odd one out is <b>${esc(st.w[st.a])}</b>.`;
+      if(!ok) review.push(`${st.w.join(", ")} → <span class="corr">${esc(st.w[st.a])}</span>`);
+      $("#nx").hidden = false; $("#next").onclick = next; $("#next").focus();
+    });
+  }
+
+  function renderMC(st){
+    const opts = shuffle(st.opts.map((o,k) => ({o, right:k===0})));
+    stage.innerHTML = `<div class="panel">${progressBar()}
+      <p class="tag">${st.partLabel}</p>
+      ${st.passage? `<details class="passage"><summary class="small" style="cursor:pointer">Reading text</summary>${esc(st.passage)}</details>`:""}
+      <p class="instr">${esc(st.instr)}</p>
+      <p class="qtext">${st.q}</p>
+      <div class="opts">${opts.map((x,k)=>`<button class="opt" data-k="${k}"><span class="k">${k+1}</span><span>${x.o}</span></button>`).join("")}</div>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <div class="row" id="nx" hidden><button class="btn" id="next">Next</button></div></div>`;
+    const btns = [...stage.querySelectorAll(".opt")];
+    btns.forEach((b,k) => b.onclick = () => {
+      const ok = opts[k].right; btns.forEach((x,j) => { x.disabled = true; if(opts[j].right) x.classList.add("right"); else if(j===k) x.classList.add("wrong"); });
+      recordUnit(st.u, ok); ok ? (correct++, sfx.ok(), pop("Correct!", b)) : sfx.no();
+      const rightText = opts.find(x=>x.right).o;
+      const fb = $("#fb"); fb.className = "feedback " + (ok?"ok":"no"); fb.innerHTML = ok? "Correct!" : `Answer: <b>${esc(rightText)}</b>`;
+      if(!ok) review.push(`${esc(st.q)} → <span class="corr">${esc(rightText)}</span>`);
+      $("#nx").hidden = false; $("#next").onclick = next; $("#next").focus();
+    });
+  }
+
+  function renderErr(st){
+    const letter = st.a.trim()[0]; const fix = st.a.split("→")[1]?.trim() || "";
+    const html = st.q.replace(/<u>(.*?)<\/u><super>([A-D])<\/super>/g, (m,t,l) => `<button class="seg" data-l="${l}">${t}<sup>${l}</sup></button>`);
+    stage.innerHTML = `<div class="panel">${progressBar()}
+      <p class="tag">${st.partLabel}</p>
+      <p class="instr">One underlined part is wrong. Tap it.</p>
+      <p class="err-sent">${html}</p>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <div class="row" id="nx" hidden><button class="btn" id="next">Next</button></div></div>`;
+    const segs = [...stage.querySelectorAll(".seg")];
+    segs.forEach(s => s.onclick = () => {
+      const ok = s.dataset.l === letter; segs.forEach(x => { x.disabled = true; if(x.dataset.l===letter) x.classList.add("right"); });
+      if(!ok) s.classList.add("wrong");
+      recordUnit(st.u, ok); ok ? (correct++, sfx.ok(), pop("Found it!", s)) : sfx.no();
+      const fb = $("#fb"); fb.className = "feedback " + (ok?"ok":"no"); fb.innerHTML = (ok? "Well spotted! " : `The mistake is <b>${letter}</b>. `) + `Correction: <b>${esc(fix)}</b>`;
+      if(!ok) review.push(`${strip(st.q.replace(/<super>([A-D])<\/super>/g,"($1)"))} → <span class="corr">${esc(st.a)}</span>`);
+      $("#nx").hidden = false; $("#next").onclick = next; $("#next").focus();
+    });
+  }
+
+  function renderTF(st){
+    stage.innerHTML = `<div class="panel">${progressBar()}
+      <p class="tag">${st.partLabel}</p>
+      <details class="passage" open><summary class="small" style="cursor:pointer">Reading text</summary>${esc(st.passage)}</details>
+      <p class="instr">True or False?</p>
+      <p class="qtext">${esc(st.q)}</p>
+      <div class="opts">${["True","False"].map((o,k)=>`<button class="opt" data-k="${k}"><span class="k">${k+1}</span><span>${o}</span></button>`).join("")}</div>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <div class="row" id="nx" hidden><button class="btn" id="next">Next</button></div></div>`;
+    const btns = [...stage.querySelectorAll(".opt")]; const rightIdx = st.a==="T"? 0 : 1;
+    btns.forEach((b,k) => b.onclick = () => {
+      const ok = k===rightIdx; btns.forEach((x,j) => { x.disabled = true; if(j===rightIdx) x.classList.add("right"); else if(j===k) x.classList.add("wrong"); });
+      recordUnit(st.u, ok); ok ? (correct++, sfx.ok(), pop("Correct!", b)) : sfx.no();
+      const fb = $("#fb"); fb.className = "feedback " + (ok?"ok":"no"); fb.innerHTML = ok? "Correct!" : `Answer: <b>${st.a==="T"?"True":"False"}</b>`;
+      if(!ok) review.push(`${esc(st.q)} → <span class="corr">${st.a==="T"?"True":"False"}</span>`);
+      $("#nx").hidden = false; $("#next").onclick = next; $("#next").focus();
+    });
+  }
+
+  function renderOrder(st){
+    const words = st.a.split(/\s+/);
+    let bank = shuffle(words.map((w,k)=>({w,k}))); if(bank.every((b,k)=>b.k===k) && bank.length>1) bank.reverse();
+    const line = []; let tries = 0, done = false;
+    stage.innerHTML = `<div class="panel">${progressBar()}
+      <p class="tag">${st.partLabel}</p>
+      <p class="instr">Put the words in order.</p>
+      <div class="slots" id="line" aria-label="Your sentence"></div>
+      <div class="bank" id="bank"></div>
+      <div class="row" style="margin-top:14px"><button class="btn" id="check">Check</button><button class="btn ghost" id="clear">Clear</button><button class="btn warn" id="skip">Show answer</button></div>
+      <div class="feedback" id="fb" aria-live="polite"></div></div>`;
+    const lineEl = $("#line"), bankEl = $("#bank"), fb = $("#fb");
+    function draw(){
+      lineEl.innerHTML = line.length? line.map((b,j)=>`<button class="tile" data-j="${j}">${esc(b.w)}</button>`).join("") : '<span class="small">Tap the words below…</span>';
+      bankEl.innerHTML = bank.map((b,j)=> b.used? "" : `<button class="tile" data-j="${j}">${esc(b.w)}</button>`).join("");
+      lineEl.querySelectorAll(".tile").forEach(t => t.onclick = () => { if(done) return; const b = line.splice(+t.dataset.j,1)[0]; b.used=false; sfx.tap(); draw(); });
+      bankEl.querySelectorAll(".tile").forEach(t => t.onclick = () => { if(done) return; const b = bank[+t.dataset.j]; b.used = true; line.push(b); sfx.tap(); draw(); });
+    }
+    draw();
+    $("#clear").onclick = () => { if(done) return; line.splice(0).forEach(b=>b.used=false); draw(); };
+    $("#check").onclick = () => {
+      if(done || line.length < words.length){ if(!done){ fb.className="feedback no"; fb.textContent = "Use all the words first."; } return; }
+      const got = line.map(b=>b.w).join(" ");
+      if(got === st.a){ done = true; lineEl.classList.add("ok"); fb.className="feedback ok"; fb.textContent = "Correct!"; correct += tries? .5 : 1; recordUnit(st.u, true); sfx.ok(); pop("Correct!", lineEl); timers.push(setTimeout(next, 900)); }
+      else { tries++; lineEl.classList.add("no"); sfx.no(); fb.className="feedback no"; fb.textContent = tries<2? "Not yet. Try again.":"";
+        timers.push(setTimeout(()=>lineEl.classList.remove("no"), 700)); if(tries>=2) reveal(got); }
+    };
+    $("#skip").onclick = () => { if(!done) reveal(line.map(b=>b.w).join(" ")); };
+    function reveal(got){ done = true; recordUnit(st.u, false); fb.className="feedback no"; fb.innerHTML = `Answer: <b>${esc(st.a)}</b>`; review.push(`<span class="corr">${esc(st.a)}</span>${got? ` <span class="yours">${esc(got)}</span>`:""}`); timers.push(setTimeout(next, 2200)); }
+  }
+
+  onKey(e => { if(e.key==="Enter"){ const nx=$("#next"); if(nx && !$("#nx").hidden){ e.preventDefault(); nx.click(); } } else { const n = parseInt(e.key); if(n>=1 && n<=4){ const b = stage.querySelectorAll(".opt")[n-1]; if(b && !b.disabled) b.click(); } } });
+  render();
+}
+
+renderSoundBtn(); renderStats(); home();
+</script>
+
+</body></html>

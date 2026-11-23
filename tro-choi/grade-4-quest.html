@@ -1,0 +1,1032 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Grade 4 Quest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Patrick+Hand&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+:root{
+  --paper:#FFFDF6; --grid:#E4ECFF; --grid2:#D3DFFF; --margin:#FF9BB3;
+  --ink:#2B6CB0; --ink-soft:#4E93D9; --text:#1A2B3C; --muted:#5A6B7A;
+  --red:#F4574B; --hl:#FFD23F; --ok:#22B573; --ok-bg:#E1F8EC; --bad-bg:#FFE3E0;
+  --card:#FFFFFF; --line:#DCE9F7; --shadow:0 3px 0 #DCE9F7, 0 14px 28px -16px rgba(43,108,176,.38);
+  --gc:#2B6CB0;
+  --display:"Baloo 2", "Be Vietnam Pro", system-ui, sans-serif;
+  --body:"Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --hand:"Patrick Hand", "Comic Sans MS", cursive;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:var(--body); color:var(--text); font-size:15px; line-height:1.5;
+  background-color:#F2F8F5;
+  background-image:
+    radial-gradient(circle at 8% 12%, rgba(255,197,61,.5) 0 90px, transparent 91px),
+    radial-gradient(circle at 92% 8%, rgba(232,84,61,.28) 0 120px, transparent 121px),
+    radial-gradient(circle at 96% 70%, rgba(47,156,140,.32) 0 140px, transparent 141px),
+    radial-gradient(circle at 4% 80%, rgba(29,163,107,.25) 0 110px, transparent 111px),
+    radial-gradient(rgba(15,122,107,.12) 1.4px, transparent 1.6px);
+  background-size:100% 100%,100% 100%,100% 100%,100% 100%,22px 22px;
+  background-attachment:fixed;
+  min-height:100vh;
+}
+.wrap{max-width:980px; margin:0 auto; padding-inline:16px; padding-block:18px 60px; position:relative}
+
+button{font:inherit; color:inherit; cursor:pointer}
+button:focus-visible, input:focus-visible{outline:3px solid var(--hl); outline-offset:2px}
+
+/* header */
+.top{display:flex; flex-wrap:wrap; align-items:center; gap:12px 18px; justify-content:space-between}
+.brand h1{font-family:var(--display); font-weight:800; font-size:clamp(26px,5vw,38px); line-height:1.05; margin:0; color:var(--ink); text-wrap:balance}
+.brand h1 mark{background:var(--hl); color:var(--text); padding:0 10px; border-radius:12px; display:inline-block; transform:rotate(-2deg)}
+.brand h1 .wd{display:inline-block; white-space:nowrap}
+.brand h1 .rb i{font-style:normal}
+.brand h1 .rb i:nth-of-type(6n+1){color:#F0364E}.brand h1 .rb i:nth-of-type(6n+2){color:#FF8A00}.brand h1 .rb i:nth-of-type(6n+3){color:#12A150}.brand h1 .rb i:nth-of-type(6n+4){color:#1FB6FF}.brand h1 .rb i:nth-of-type(6n+5){color:#7C5CFF}.brand h1 .rb i:nth-of-type(6n){color:#FF5FA2}
+.brand p{margin:4px 0 0; color:var(--muted); font-size:14px}
+.stats{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+.pill{display:inline-flex; align-items:center; gap:6px; background:var(--card); border:1px solid var(--line); border-radius:999px; padding:5px 12px; font-size:13px; font-weight:600; font-variant-numeric:tabular-nums}
+.pill b{color:var(--ink)}
+.iconbtn{background:var(--card); border:1px solid var(--line); border-radius:999px; width:36px; height:36px; display:inline-grid; place-items:center}
+.iconbtn svg{width:18px; height:18px; stroke:var(--ink); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+.lvl{height:8px; width:120px; background:var(--grid2); border-radius:9px; overflow:hidden}
+.lvl i{display:block; height:100%; background:var(--ink); border-radius:9px; transition:width .5s}
+
+/* unit chips */
+.unitbar{margin:20px 0 6px; display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; scrollbar-width:thin}
+.chip{flex:none; border:1.5px solid var(--line); background:var(--card); border-radius:10px; padding:6px 12px; font-weight:600; font-size:13px; white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--paper)}
+.unitname{font-family:var(--hand); font-size:20px; color:var(--red); margin:4px 0 14px; min-height:28px}
+
+/* game cards */
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px}
+.gcard{position:relative; overflow:hidden; text-align:left; background:var(--gc); color:#fff; border:none; border-radius:22px; padding:18px 18px 16px; box-shadow:0 6px 0 color-mix(in srgb, var(--gc) 70%, #000), 0 18px 30px -18px var(--gc); display:flex; flex-direction:column; gap:6px; transition:transform .18s cubic-bezier(.3,1.6,.5,1)}
+.gcard::after{content:""; position:absolute; right:-30px; top:-30px; width:120px; height:120px; border-radius:50%; background:rgba(255,255,255,.16)}
+.gcard:hover{transform:translateY(-5px) rotate(-1deg)}
+.gcard:active{transform:translateY(2px)}
+.gcard .ic{width:48px; height:48px; border-radius:14px; display:grid; place-items:center; background:rgba(255,255,255,.95); color:var(--gc); position:relative; z-index:1}
+.gcard .ic svg{width:26px; height:26px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
+.gcard h3{font-family:var(--display); font-size:24px; margin:4px 0 0; line-height:1.05; color:#fff}
+.gcard p{margin:0; color:rgba(255,255,255,.9); font-size:13.5px}
+.gcard .tag{color:rgba(255,255,255,.85)}
+.gcard .best{margin-top:auto; padding-top:8px; font-size:12.5px; color:rgba(255,255,255,.9); display:flex; justify-content:space-between; align-items:center; gap:8px}
+.gcard .best .mk{font-family:var(--display); font-weight:800; font-size:18px; background:#fff; color:var(--gc); border-radius:999px; padding:0 10px; line-height:1.5}
+.gcard .stars{letter-spacing:1px; color:#FFE27A}
+.tag{font-size:11px; letter-spacing:.06em; text-transform:uppercase; font-weight:700; color:var(--ink-soft)}
+
+.section-title{font-family:var(--display); font-size:22px; color:var(--ink); margin:30px 0 10px}
+.progress-table{background:var(--card); border:1.5px solid var(--line); border-radius:14px; padding:12px 14px; overflow-x:auto}
+.progress-table table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:420px}
+.progress-table th,.progress-table td{padding:6px 8px; text-align:left; border-bottom:1px solid var(--line)}
+.progress-table th{font-size:11.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted)}
+.bar{height:8px; background:var(--grid2); border-radius:8px; overflow:hidden; min-width:90px}
+.bar i{display:block; height:100%; background:var(--ok)}
+.num{font-variant-numeric:tabular-nums}
+
+/* stage */
+.stagehead{display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:space-between; margin-bottom:14px}
+.back{background:none; border:none; color:var(--ink); font-weight:700; padding:6px 0; display:inline-flex; gap:6px; align-items:center}
+.stagehead h2{font-family:var(--display); color:var(--ink); font-size:28px; margin:0; line-height:1}
+.hud{display:flex; gap:8px; flex-wrap:wrap}
+.panel{background:var(--card); border:1.5px solid var(--line); border-radius:16px; padding:clamp(16px,3vw,26px); box-shadow:var(--shadow)}
+.progress{height:6px; background:var(--grid2); border-radius:6px; overflow:hidden; margin-bottom:16px}
+.progress i{display:block; height:100%; background:var(--ink); transition:width .3s}
+.qtext{font-size:clamp(17px,2.4vw,20px); font-weight:600; line-height:1.45; margin:0 0 6px}
+.qtext u{text-decoration-thickness:2px; text-underline-offset:3px; text-decoration-color:var(--red)}
+.instr{color:var(--muted); font-size:13.5px; font-style:italic; margin:0 0 10px}
+.opts{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin-top:14px}
+.opt{text-align:left; background:var(--paper); border:2px solid var(--line); border-radius:12px; padding:12px 14px; font-size:16px; display:flex; gap:10px; align-items:center; transition:border-color .12s, background .12s}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt .k{flex:none; width:26px; height:26px; border-radius:7px; background:var(--grid); color:var(--ink); display:grid; place-items:center; font-weight:700; font-size:13px}
+.opt.right{border-color:var(--ok); background:var(--ok-bg)}
+.opt.wrong{border-color:var(--red); background:var(--bad-bg)}
+.opt:disabled{cursor:default}
+.passage{background:var(--paper); border-left:4px solid var(--hl); border-radius:6px; padding:10px 14px; font-size:14.5px; margin-bottom:12px; max-height:180px; overflow:auto}
+.timer{height:10px; background:var(--grid2); border-radius:10px; overflow:hidden; margin:10px 0 0}
+.timer i{display:block; height:100%; background:var(--hl); transition:width .1s linear}
+.feedback{min-height:26px; margin-top:12px; font-weight:600}
+.feedback.ok{color:var(--ok)} .feedback.no{color:var(--red)}
+.hearts{color:var(--red); letter-spacing:2px; font-size:16px}
+.btn{border:none; background:var(--ink); color:var(--paper); border-radius:11px; padding:10px 18px; font-weight:700; font-size:15px; display:inline-flex; align-items:center; gap:8px}
+.btn.ghost{background:transparent; color:var(--ink); border:2px solid var(--ink)}
+.btn.warn{background:var(--red)}
+.btn:disabled{opacity:.45; cursor:not-allowed}
+.row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+.center{text-align:center}
+
+/* flashcards */
+.flash{perspective:1200px; margin:0 auto; max-width:520px}
+.fcard{position:relative; height:280px; transform-style:preserve-3d; transition:transform .5s; cursor:pointer}
+.fcard.flip{transform:rotateY(180deg)}
+.face{position:absolute; inset:0; backface-visibility:hidden; border-radius:18px; border:2px solid var(--line); background:var(--card); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; padding:22px; text-align:center; box-shadow:var(--shadow)}
+.face.back{transform:rotateY(180deg); background:var(--paper)}
+.face .w{font-family:var(--display); font-size:clamp(26px,5vw,36px); font-weight:700; color:var(--ink); line-height:1.1}
+.face .vi{font-size:22px; font-weight:700; color:var(--text)}
+.face .ex{font-style:italic; color:var(--muted); font-size:15px; max-width:40ch}
+.face .pos{font-family:var(--hand); color:var(--red); font-size:20px}
+.face .hint{position:absolute; bottom:12px; font-size:12px; color:var(--muted)}
+
+/* memory */
+.mem{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+@media (max-width:560px){ .mem{grid-template-columns:repeat(3,1fr)} }
+.mcard{aspect-ratio:4/3; max-width:100%; border-radius:12px; border:2px solid var(--line); background:var(--ink); color:var(--paper); display:grid; place-items:center; padding:6px; font-size:14px; font-weight:600; text-align:center; line-height:1.25; transition:transform .25s, background .2s}
+.mcard .inner{visibility:hidden}
+.mcard.open,.mcard.done{background:var(--card); color:var(--text); transform:rotateY(0)}
+.mcard.open .inner,.mcard.done .inner{visibility:visible}
+.mcard.done{border-color:var(--ok); background:var(--ok-bg)}
+.mcard.vi-side .inner{font-weight:500}
+.mcard .back-logo{font-family:var(--display); font-size:24px; opacity:.55}
+.mcard.open .back-logo,.mcard.done .back-logo{display:none}
+
+/* tiles */
+.slots{display:flex; flex-wrap:wrap; gap:8px; min-height:58px; padding:10px; border:2px dashed var(--line); border-radius:12px; background:var(--paper); align-items:center}
+.slots.ok{border-color:var(--ok); background:var(--ok-bg)} .slots.no{border-color:var(--red); background:var(--bad-bg)}
+.bank{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; min-height:48px}
+.tile{background:var(--card); border:2px solid var(--line); border-bottom-width:4px; border-radius:10px; padding:7px 12px; font-weight:600; font-size:16px; transition:transform .1s}
+.tile:hover{transform:translateY(-2px); border-color:var(--ink)}
+.tile.letter{width:42px; height:46px; padding:0; font-family:var(--display); font-size:22px; text-transform:lowercase}
+.gap-space{width:18px}
+.lslot{width:42px; height:46px; border-bottom:3px solid var(--ink); display:grid; place-items:center; font-family:var(--display); font-size:22px; color:var(--ink)}
+.lslot.fixed{border-bottom-color:transparent}
+.lslot.hinted{color:var(--red)}
+
+/* typing */
+.typein{width:100%; max-width:360px; font-size:20px; padding:10px 14px; border:2px solid var(--line); border-radius:12px; background:var(--paper); color:var(--text); font-family:var(--body)}
+.typein.ok{border-color:var(--ok)} .typein.no{border-color:var(--red)}
+
+/* error hunter */
+.err-sent{font-size:clamp(18px,2.6vw,22px); line-height:2.2}
+.seg{border:none; background:none; padding:0 2px; font:inherit; color:var(--ink); text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:5px; border-radius:6px}
+.seg sup{font-size:12px; color:var(--red); font-weight:700; margin-left:1px}
+.seg:hover:not(:disabled){background:var(--hl); color:#1F2433}
+.seg.right{background:var(--ok-bg); color:var(--ok)} .seg.wrong{background:var(--bad-bg); color:var(--red)}
+
+/* falling */
+.arena{position:relative; height:min(62vh,460px); border-radius:16px; border:2px solid var(--line); background:linear-gradient(var(--card),var(--paper)); overflow:hidden; touch-action:manipulation}
+.arena .ground{position:absolute; left:0; right:0; bottom:0; height:6px; background:var(--red); opacity:.6}
+.drop{position:absolute; top:0; transform:translate(-50%,0); background:var(--card); border:2px solid var(--ink); border-radius:999px; padding:6px 14px; font-weight:700; color:var(--ink); white-space:nowrap; font-size:15px; box-shadow:var(--shadow)}
+.drop.hit{background:var(--ok); color:var(--paper); border-color:var(--ok)}
+.drop.miss{background:var(--red); color:var(--paper); border-color:var(--red)}
+.target{font-size:clamp(18px,3vw,22px); font-weight:700; text-align:center; margin-bottom:10px}
+.target small{display:block; font-weight:500; font-size:13px; color:var(--muted)}
+.overlay{position:absolute; inset:0; display:grid; place-items:center; background:color-mix(in srgb, var(--paper) 80%, transparent); text-align:center; padding:16px}
+
+/* results */
+.result{display:grid; grid-template-columns:auto 1fr; gap:22px; align-items:center}
+@media (max-width:560px){ .result{grid-template-columns:1fr; justify-items:center; text-align:center} }
+.stamp{width:150px; height:150px; border-radius:50%; border:4px solid var(--red); display:grid; place-items:center; transform:rotate(-8deg); color:var(--red); font-family:var(--hand); position:relative; animation:stamp .45s cubic-bezier(.2,1.6,.4,1)}
+.stamp .m{font-size:64px; line-height:.9}
+.stamp .c{position:absolute; bottom:18px; font-size:18px}
+@keyframes stamp{from{transform:scale(1.8) rotate(-20deg); opacity:0} to{transform:scale(1) rotate(-8deg); opacity:1}}
+.review{margin-top:18px}
+.review li{margin-bottom:8px}
+.review .yours{color:var(--red); text-decoration:line-through}
+.review .corr{color:var(--ok); font-weight:700}
+kbd{font-family:var(--body); font-size:12px; border:1px solid var(--line); border-bottom-width:2px; border-radius:5px; padding:0 5px; background:var(--card)}
+.small{font-size:13px; color:var(--muted)}
+.toast{position:fixed; left:50%; bottom:calc(20px + env(safe-area-inset-bottom,0px)); transform:translateX(-50%); background:var(--ink); color:var(--paper); padding:10px 18px; border-radius:12px; font-weight:600; z-index:50}
+.brandmark{display:inline-flex; align-items:baseline; gap:1px; font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-weight:600; font-size:12px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted)}
+.brandmark b{color:var(--ink); font-weight:600}
+.brandmark i{font-style:normal; color:#B9812C}
+
+.chip{border:none; background:#fff; color:var(--text); box-shadow:0 3px 0 var(--line)}
+.chip[aria-pressed="true"]{background:var(--uc,#3A2BB8); color:#fff; box-shadow:0 3px 0 color-mix(in srgb, var(--uc,#3A2BB8) 70%, #000)}
+.unitname{font-family:var(--display); font-weight:700; font-size:20px; color:var(--uc,#3A2BB8); margin:6px 0 16px}
+.surprise{border:none; background:linear-gradient(90deg,#FF5FA2,#FF8A00,#FFD23F); color:#221B45; font-family:var(--display); font-weight:800; font-size:17px; border-radius:999px; padding:8px 18px; box-shadow:0 4px 0 #D8457F; display:inline-flex; gap:8px; align-items:center}
+.surprise:hover{transform:translateY(-2px)} .surprise svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.4}
+.homebar{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap}
+.panel{border:none; border-top:8px solid var(--gc); border-radius:22px}
+.stagehead h2{color:var(--gc)}
+.progress i,.timer i{background:linear-gradient(90deg, var(--gc), color-mix(in srgb, var(--gc) 55%, #fff))}
+.btn{background:var(--gc); box-shadow:0 4px 0 color-mix(in srgb, var(--gc) 70%, #000); border-radius:14px}
+.btn:active{transform:translateY(3px); box-shadow:0 1px 0 color-mix(in srgb, var(--gc) 70%, #000)}
+.btn.ghost{background:#fff; color:var(--gc); border:2px solid var(--gc); box-shadow:0 3px 0 color-mix(in srgb, var(--gc) 40%, #fff)}
+.btn.warn{background:var(--red); box-shadow:0 4px 0 #B01F33}
+.opt{background:#fff; border:2.5px solid var(--line); border-radius:16px; box-shadow:0 3px 0 var(--line)}
+.opt:nth-child(1) .k{background:#FF6B6B;color:#fff}.opt:nth-child(2) .k{background:#1FB6FF;color:#fff}.opt:nth-child(3) .k{background:#FFB020;color:#fff}.opt:nth-child(4) .k{background:#22C55E;color:#fff}
+.opt:hover:not(:disabled){border-color:var(--gc); transform:translateY(-2px)}
+.opt.right{animation:bounce .4s} .opt.wrong{animation:shake .35s}
+@keyframes bounce{40%{transform:scale(1.05)}} @keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.tile{border-color:color-mix(in srgb, var(--gc) 35%, #fff); border-bottom-color:color-mix(in srgb, var(--gc) 60%, #fff)}
+.tile:nth-child(5n+1){background:#FFF1F3}.tile:nth-child(5n+2){background:#EAF7FF}.tile:nth-child(5n+3){background:#FFF6DB}.tile:nth-child(5n+4){background:#E9FBEF}.tile:nth-child(5n){background:#F1EDFF}
+.lslot{border-bottom-color:var(--gc); color:var(--gc)}
+.mcard{background:linear-gradient(135deg,#7C5CFF,#FF5FA2); border:none; color:#fff; box-shadow:0 4px 0 #5B3FD6}
+.mcard .back-logo{font-family:var(--display); font-weight:800; opacity:.9}
+.mcard.open,.mcard.done{box-shadow:0 3px 0 var(--line); border:2.5px solid var(--line)}
+.mcard.done{border-color:var(--ok); animation:bounce .4s}
+.face{border:none; box-shadow:0 6px 0 color-mix(in srgb, var(--gc) 45%, #fff), 0 20px 30px -20px var(--gc)}
+.face:not(.back){background:linear-gradient(160deg,#fff 60%, color-mix(in srgb, var(--gc) 14%, #fff))}
+.face.back{background:linear-gradient(160deg,#FFF9E3, #FFE9F0)}
+.face .w{color:var(--gc)}
+.arena{border:none; background:linear-gradient(#BDE8FF, #EAF7FF 60%, #FFF6DB); box-shadow:inset 0 -10px 0 #7ED67E}
+.arena .ground{background:#46B946; height:10px; opacity:1}
+.drop{border:none; color:#fff; box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.drop:nth-of-type(4n+1){background:#FF6B6B}.drop:nth-of-type(4n+2){background:#7C5CFF}.drop:nth-of-type(4n+3){background:#1FB6FF}.drop:nth-of-type(4n){background:#FF8A00}
+.drop.hit{background:var(--ok)!important; transform:translate(-50%,0) scale(1.25); transition:transform .2s}
+.drop.miss{background:#555!important}
+.target{background:#fff; border-radius:16px; padding:10px; box-shadow:0 4px 0 var(--line); color:var(--gc)}
+.seg{color:var(--gc)}
+.pop{position:fixed; pointer-events:none; font-family:var(--display); font-weight:800; font-size:28px; color:var(--ok); text-shadow:0 2px 0 #fff; animation:floatup 1s forwards; z-index:60}
+@keyframes floatup{from{opacity:1; transform:translate(-50%,0) scale(.8)} to{opacity:0; transform:translate(-50%,-70px) scale(1.2)}}
+.combo{display:inline-block; background:linear-gradient(90deg,#FF8A00,#FF5FA2); color:#fff; border-radius:999px; padding:1px 10px; font-family:var(--display); font-weight:800; animation:bounce .4s}
+.bigstars{font-size:34px; letter-spacing:4px; color:#FFC400; text-shadow:0 2px 0 #E0A200}
+.bigstars .off{color:#E3DEF7; text-shadow:none}
+#confetti{position:fixed; inset:0; pointer-events:none; z-index:70}
+.pill{border:none; box-shadow:0 2px 0 var(--line)}
+.lvl i{background:linear-gradient(90deg,#FF5FA2,#FFB020)}
+.progress-table{border:none; box-shadow:var(--shadow); border-radius:18px}
+.bar i{background:linear-gradient(90deg,#22C55E,#1FB6FF)}
+.section-title{color:var(--ink)}
+.stamp{background:#fff}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important; animation:none!important} }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1><span class="rb"><span class="wd"><i>G</i><i>r</i><i>a</i><i>d</i><i>e</i></span> <span class="wd"><i>4</i></span></span> <mark>Quest</mark></h1>
+      <p>Tiếng Anh 4 · 20 units · 162 textbook words · 10 games</p>
+      <span class="brandmark"><b>DAVID</b><i>.English</i></span>
+    </div>
+    <div class="stats">
+      <span class="pill">Lv <b id="lvl">1</b> <span class="lvl"><i id="lvlbar" style="width:0%"></i></span></span>
+      <span class="pill"><b id="xp">0</b> XP</span>
+      <span class="pill"><b id="known">0</b>/162 words</span>
+      <button class="iconbtn" id="sound" aria-label="Sound on/off" title="Sound on/off"></button>
+    </div>
+  </header>
+  <main id="app"></main>
+</div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<script>
+const DATA = {"units": [{"n": 1, "t": "My Friends"}, {"n": 2, "t": "Time and Daily Routines"}, {"n": 3, "t": "My Week"}, {"n": 4, "t": "My Birthday Party"}, {"n": 5, "t": "Things We Can Do"}, {"n": 6, "t": "Our School Facilities"}, {"n": 7, "t": "Our Timetable"}, {"n": 8, "t": "My Favourite Subjects"}, {"n": 9, "t": "Our Sports Day"}, {"n": 10, "t": "Our Summer Holidays"}, {"n": 11, "t": "My Home"}, {"n": 12, "t": "Jobs"}, {"n": 13, "t": "Appearance"}, {"n": 14, "t": "Daily Activities"}, {"n": 15, "t": "My Family's Weekends"}, {"n": 16, "t": "Weather"}, {"n": 17, "t": "In the City"}, {"n": 18, "t": "At the Shopping Centre"}, {"n": 19, "t": "The Animal World"}, {"n": 20, "t": "At Summer Camp"}], "vocab": [{"u": 1, "w": "America", "p": "n", "vi": "nước Mỹ", "ex": "My friend is from America."}, {"u": 1, "w": "Australia", "p": "n", "vi": "nước Úc", "ex": "Is she from Australia?"}, {"u": 1, "w": "Britain", "p": "n", "vi": "nước Anh", "ex": "He is from Britain."}, {"u": 1, "w": "Japan", "p": "n", "vi": "nước Nhật", "ex": "My pen pal is from Japan."}, {"u": 1, "w": "Malaysia", "p": "n", "vi": "nước Ma-lai-xi-a", "ex": "They come from Malaysia."}, {"u": 1, "w": "Singapore", "p": "n", "vi": "nước Xin-ga-po", "ex": "She is from Singapore."}, {"u": 1, "w": "Thailand", "p": "n", "vi": "nước Thái Lan", "ex": "My friend Nok is from Thailand."}, {"u": 1, "w": "Viet Nam", "p": "n", "vi": "nước Việt Nam", "ex": "I am from Viet Nam."}, {"u": 2, "w": "o'clock", "p": "n", "vi": "giờ", "ex": "It's seven o'clock."}, {"u": 2, "w": "fifteen", "p": "num", "vi": "số 15", "ex": "It's eight fifteen."}, {"u": 2, "w": "thirty", "p": "num", "vi": "số 30", "ex": "It's six thirty."}, {"u": 2, "w": "forty-five", "p": "num", "vi": "số 45", "ex": "It's seven forty-five."}, {"u": 2, "w": "get up", "p": "v", "vi": "thức dậy", "ex": "I get up at six o'clock."}, {"u": 2, "w": "go to school", "p": "v phr", "vi": "đi học", "ex": "We go to school at seven."}, {"u": 2, "w": "go to bed", "p": "v phr", "vi": "đi ngủ", "ex": "I go to bed at nine thirty."}, {"u": 2, "w": "have breakfast", "p": "v phr", "vi": "ăn sáng", "ex": "I have breakfast at six thirty."}, {"u": 3, "w": "Monday", "p": "n", "vi": "thứ Hai", "ex": "I have English on Monday."}, {"u": 3, "w": "Tuesday", "p": "n", "vi": "thứ Ba", "ex": "We play football on Tuesday."}, {"u": 3, "w": "Wednesday", "p": "n", "vi": "thứ Tư", "ex": "I have Maths on Wednesday."}, {"u": 3, "w": "Thursday", "p": "n", "vi": "thứ Năm", "ex": "We have Music on Thursday."}, {"u": 3, "w": "Friday", "p": "n", "vi": "thứ Sáu", "ex": "I have Art on Friday."}, {"u": 3, "w": "Saturday", "p": "n", "vi": "thứ Bảy", "ex": "I play football on Saturday."}, {"u": 3, "w": "Sunday", "p": "n", "vi": "Chủ nhật", "ex": "We visit grandma on Sunday."}, {"u": 3, "w": "listen to music", "p": "v phr", "vi": "nghe nhạc", "ex": "I listen to music on Sunday."}, {"u": 3, "w": "study at school", "p": "v phr", "vi": "học ở trường", "ex": "I study at school on weekdays."}, {"u": 4, "w": "January", "p": "n", "vi": "tháng Một", "ex": "My birthday is in January."}, {"u": 4, "w": "February", "p": "n", "vi": "tháng Hai", "ex": "Her birthday is in February."}, {"u": 4, "w": "March", "p": "n", "vi": "tháng Ba", "ex": "His birthday is in March."}, {"u": 4, "w": "April", "p": "n", "vi": "tháng Tư", "ex": "Their party is in April."}, {"u": 4, "w": "May", "p": "n", "vi": "tháng Năm", "ex": "My birthday is in May."}, {"u": 4, "w": "birthday", "p": "n", "vi": "ngày sinh nhật", "ex": "When is your birthday?"}, {"u": 4, "w": "party", "p": "n", "vi": "buổi tiệc", "ex": "We have a party every year."}, {"u": 4, "w": "chips", "p": "n", "vi": "khoai tây rán", "ex": "I want to eat some chips."}, {"u": 4, "w": "grape", "p": "n", "vi": "quả nho", "ex": "I want a grape."}, {"u": 4, "w": "jam", "p": "n", "vi": "mứt", "ex": "I like bread and jam."}, {"u": 4, "w": "juice", "p": "n", "vi": "nước ép", "ex": "I want some juice."}, {"u": 4, "w": "lemonade", "p": "n", "vi": "nước chanh", "ex": "I want some lemonade."}, {"u": 4, "w": "water", "p": "n", "vi": "nước", "ex": "I want some water."}, {"u": 5, "w": "cook", "p": "v", "vi": "nấu ăn", "ex": "I can cook rice."}, {"u": 5, "w": "play the piano", "p": "v phr", "vi": "chơi đàn piano", "ex": "She can play the piano."}, {"u": 5, "w": "play the guitar", "p": "v phr", "vi": "chơi đàn ghi-ta", "ex": "He can play the guitar."}, {"u": 5, "w": "ride a bike", "p": "v phr", "vi": "đạp xe", "ex": "I can ride a bike."}, {"u": 5, "w": "ride a horse", "p": "v phr", "vi": "cưỡi ngựa", "ex": "She can ride a horse."}, {"u": 5, "w": "roller skate", "p": "v", "vi": "trượt pa tanh", "ex": "He can roller skate."}, {"u": 5, "w": "swim", "p": "v", "vi": "bơi", "ex": "I can swim."}, {"u": 5, "w": "but", "p": "conj", "vi": "nhưng", "ex": "I can swim, but I can't ride a horse."}, {"u": 6, "w": "city", "p": "n", "vi": "thành phố", "ex": "My school is in the city."}, {"u": 6, "w": "town", "p": "n", "vi": "thị trấn", "ex": "My school is in a small town."}, {"u": 6, "w": "village", "p": "n", "vi": "ngôi làng", "ex": "My school is in a village."}, {"u": 6, "w": "mountains", "p": "n", "vi": "vùng núi", "ex": "Their school is near the mountains."}, {"u": 6, "w": "computer room", "p": "n", "vi": "phòng máy tính", "ex": "Our school has a computer room."}, {"u": 6, "w": "garden", "p": "n", "vi": "vườn", "ex": "Our school has a garden."}, {"u": 6, "w": "playground", "p": "n", "vi": "sân chơi", "ex": "We play in the playground."}, {"u": 7, "w": "art", "p": "n", "vi": "môn Mĩ thuật", "ex": "I have Art on Monday."}, {"u": 7, "w": "English", "p": "n", "vi": "môn Tiếng Anh", "ex": "I have English today."}, {"u": 7, "w": "history and geography", "p": "n", "vi": "môn Lịch sử và Địa lí", "ex": "We have History and Geography on Tuesday."}, {"u": 7, "w": "maths", "p": "n", "vi": "môn Toán", "ex": "I have Maths on Wednesday."}, {"u": 7, "w": "music", "p": "n", "vi": "môn Âm nhạc", "ex": "We have Music on Thursday."}, {"u": 7, "w": "science", "p": "n", "vi": "môn Khoa học", "ex": "I have Science on Friday."}, {"u": 7, "w": "Vietnamese", "p": "n", "vi": "môn Tiếng Việt", "ex": "I have Vietnamese every day."}, {"u": 8, "w": "IT", "p": "n", "vi": "môn Tin học", "ex": "I like IT very much."}, {"u": 8, "w": "PE", "p": "n", "vi": "môn Thể dục", "ex": "We have PE on Monday."}, {"u": 8, "w": "English teacher", "p": "n", "vi": "giáo viên Tiếng Anh", "ex": "Miss Lan is my English teacher."}, {"u": 8, "w": "maths teacher", "p": "n", "vi": "giáo viên Toán", "ex": "Mr Nam is my maths teacher."}, {"u": 8, "w": "because", "p": "conj", "vi": "bởi vì", "ex": "I like Music because it's fun."}, {"u": 8, "w": "why", "p": "adv", "vi": "tại sao", "ex": "Why do you like PE?"}, {"u": 9, "w": "June", "p": "n", "vi": "tháng Sáu", "ex": "Our sports day is in June."}, {"u": 9, "w": "July", "p": "n", "vi": "tháng Bảy", "ex": "Summer starts in July."}, {"u": 9, "w": "August", "p": "n", "vi": "tháng Tám", "ex": "School ends in August."}, {"u": 9, "w": "September", "p": "n", "vi": "tháng Chín", "ex": "School starts in September."}, {"u": 9, "w": "October", "p": "n", "vi": "tháng Mười", "ex": "My birthday is in October."}, {"u": 9, "w": "November", "p": "n", "vi": "tháng Mười một", "ex": "It's cold in November."}, {"u": 9, "w": "December", "p": "n", "vi": "tháng Mười hai", "ex": "We have a party in December."}, {"u": 9, "w": "sports day", "p": "n", "vi": "ngày hội thể thao", "ex": "I like our sports day."}, {"u": 10, "w": "beach", "p": "n", "vi": "bãi biển", "ex": "We went to the beach."}, {"u": 10, "w": "campsite", "p": "n", "vi": "địa điểm cắm trại", "ex": "We stayed at a campsite."}, {"u": 10, "w": "countryside", "p": "n", "vi": "vùng quê", "ex": "We visited the countryside."}, {"u": 10, "w": "Bangkok", "p": "n", "vi": "Băng Cốc", "ex": "They went to Bangkok."}, {"u": 10, "w": "Sydney", "p": "n", "vi": "Xít-ni", "ex": "We visited Sydney last year."}, {"u": 10, "w": "Tokyo", "p": "n", "vi": "Tô-ki-ô", "ex": "She went to Tokyo."}, {"u": 10, "w": "last", "p": "adj", "vi": "trước, lần trước", "ex": "I went there last summer."}, {"u": 10, "w": "yesterday", "p": "adv", "vi": "hôm qua", "ex": "We went to the beach yesterday."}, {"u": 11, "w": "road", "p": "n", "vi": "con đường", "ex": "I live on a quiet road."}, {"u": 11, "w": "street", "p": "n", "vi": "phố", "ex": "My house is on a busy street."}, {"u": 11, "w": "big", "p": "adj", "vi": "to, lớn", "ex": "My house is big."}, {"u": 11, "w": "busy", "p": "adj", "vi": "bận rộn, nhộn nhịp", "ex": "The street is busy."}, {"u": 11, "w": "live", "p": "v", "vi": "sống", "ex": "I live in a small house."}, {"u": 11, "w": "noisy", "p": "adj", "vi": "ồn ào", "ex": "My street is noisy."}, {"u": 11, "w": "quiet", "p": "adj", "vi": "yên tĩnh", "ex": "My street is quiet."}, {"u": 12, "w": "actor", "p": "n", "vi": "diễn viên", "ex": "He wants to be an actor."}, {"u": 12, "w": "farmer", "p": "n", "vi": "nông dân", "ex": "My uncle is a farmer."}, {"u": 12, "w": "nurse", "p": "n", "vi": "y tá", "ex": "My aunt is a nurse."}, {"u": 12, "w": "office worker", "p": "n", "vi": "nhân viên văn phòng", "ex": "My father is an office worker."}, {"u": 12, "w": "policeman", "p": "n", "vi": "cảnh sát", "ex": "He is a policeman."}, {"u": 12, "w": "factory", "p": "n", "vi": "nhà máy", "ex": "She works in a factory."}, {"u": 12, "w": "farm", "p": "n", "vi": "trang trại", "ex": "He works on a farm."}, {"u": 12, "w": "hospital", "p": "n", "vi": "bệnh viện", "ex": "The nurse works in a hospital."}, {"u": 13, "w": "tall", "p": "adj", "vi": "cao", "ex": "My father is tall."}, {"u": 13, "w": "short", "p": "adj", "vi": "thấp", "ex": "My sister is short."}, {"u": 13, "w": "slim", "p": "adj", "vi": "mảnh mai", "ex": "She is slim."}, {"u": 13, "w": "big", "p": "adj", "vi": "to", "ex": "He has big eyes."}, {"u": 13, "w": "eyes", "p": "n", "vi": "mắt", "ex": "She has big eyes."}, {"u": 13, "w": "face", "p": "n", "vi": "khuôn mặt", "ex": "He has a round face."}, {"u": 13, "w": "hair", "p": "n", "vi": "tóc", "ex": "She has long hair."}, {"u": 13, "w": "long", "p": "adj", "vi": "dài", "ex": "She has long hair."}, {"u": 13, "w": "round", "p": "adj", "vi": "tròn", "ex": "He has a round face."}, {"u": 14, "w": "morning", "p": "n", "vi": "buổi sáng", "ex": "I get up in the morning."}, {"u": 14, "w": "afternoon", "p": "n", "vi": "buổi chiều", "ex": "I do homework in the afternoon."}, {"u": 14, "w": "evening", "p": "n", "vi": "buổi tối", "ex": "I watch TV in the evening."}, {"u": 14, "w": "noon", "p": "n", "vi": "buổi trưa", "ex": "We have lunch at noon."}, {"u": 14, "w": "clean the floor", "p": "v phr", "vi": "lau sàn nhà", "ex": "I clean the floor every day."}, {"u": 14, "w": "help with the cooking", "p": "v phr", "vi": "giúp nấu ăn", "ex": "I help with the cooking."}, {"u": 14, "w": "wash the clothes", "p": "v phr", "vi": "giặt quần áo", "ex": "My mother washes the clothes."}, {"u": 14, "w": "wash the dishes", "p": "v phr", "vi": "rửa bát", "ex": "I wash the dishes after dinner."}, {"u": 15, "w": "cinema", "p": "n", "vi": "rạp chiếu phim", "ex": "We go to the cinema at the weekend."}, {"u": 15, "w": "shopping centre", "p": "n", "vi": "trung tâm mua sắm", "ex": "We go to the shopping centre."}, {"u": 15, "w": "sports centre", "p": "n", "vi": "trung tâm thể thao", "ex": "My father goes to the sports centre."}, {"u": 15, "w": "swimming pool", "p": "n", "vi": "bể bơi", "ex": "We go to the swimming pool."}, {"u": 15, "w": "cook meals", "p": "v phr", "vi": "nấu ăn", "ex": "My mother cooks meals at the weekend."}, {"u": 15, "w": "do yoga", "p": "v phr", "vi": "tập yoga", "ex": "My mother does yoga."}, {"u": 15, "w": "play tennis", "p": "v phr", "vi": "chơi quần vợt", "ex": "My father plays tennis."}, {"u": 15, "w": "watch films", "p": "v phr", "vi": "xem phim", "ex": "We watch films together."}, {"u": 16, "w": "sunny", "p": "adj", "vi": "có nắng", "ex": "It's sunny today."}, {"u": 16, "w": "rainy", "p": "adj", "vi": "có mưa", "ex": "It's rainy today."}, {"u": 16, "w": "cloudy", "p": "adj", "vi": "có mây", "ex": "It's cloudy today."}, {"u": 16, "w": "windy", "p": "adj", "vi": "có gió", "ex": "It's windy today."}, {"u": 16, "w": "bakery", "p": "n", "vi": "hiệu bánh mì", "ex": "There's a bakery near my house."}, {"u": 16, "w": "bookshop", "p": "n", "vi": "hiệu sách", "ex": "I bought a book at the bookshop."}, {"u": 16, "w": "supermarket", "p": "n", "vi": "siêu thị", "ex": "We buy food at the supermarket."}, {"u": 16, "w": "water park", "p": "n", "vi": "công viên nước", "ex": "We go to the water park when it's sunny."}, {"u": 17, "w": "get to", "p": "v", "vi": "đến (địa điểm)", "ex": "How do I get to the park?"}, {"u": 17, "w": "go straight", "p": "v phr", "vi": "đi thẳng", "ex": "Go straight, please."}, {"u": 17, "w": "left", "p": "n", "vi": "bên trái", "ex": "Turn left at the corner."}, {"u": 17, "w": "right", "p": "n", "vi": "bên phải", "ex": "Turn right at the corner."}, {"u": 17, "w": "stop", "p": "v", "vi": "dừng lại", "ex": "Stop at the light."}, {"u": 17, "w": "turn left", "p": "v phr", "vi": "rẽ trái", "ex": "Turn left here."}, {"u": 17, "w": "turn right", "p": "v phr", "vi": "rẽ phải", "ex": "Turn right here."}, {"u": 17, "w": "turn round", "p": "v phr", "vi": "quay lại", "ex": "Turn round and go back."}, {"u": 18, "w": "behind", "p": "prep", "vi": "đằng sau", "ex": "The shop is behind the bank."}, {"u": 18, "w": "between", "p": "prep", "vi": "ở giữa", "ex": "It's between the bakery and the bookshop."}, {"u": 18, "w": "near", "p": "prep", "vi": "ở gần", "ex": "The shop is near my house."}, {"u": 18, "w": "opposite", "p": "prep", "vi": "đối diện", "ex": "It's opposite the supermarket."}, {"u": 18, "w": "gift shop", "p": "n", "vi": "cửa hàng quà tặng", "ex": "I bought a gift at the gift shop."}, {"u": 18, "w": "skirt", "p": "n", "vi": "váy", "ex": "She bought a new skirt."}, {"u": 18, "w": "thousand", "p": "num", "vi": "nghìn", "ex": "It's fifty thousand dong."}, {"u": 18, "w": "T-shirt", "p": "n", "vi": "áo thun", "ex": "I want a blue T-shirt."}, {"u": 19, "w": "lion", "p": "n", "vi": "sư tử", "ex": "The lion can run quickly."}, {"u": 19, "w": "giraffe", "p": "n", "vi": "hươu cao cổ", "ex": "The giraffe is very tall."}, {"u": 19, "w": "hippo", "p": "n", "vi": "hà mã", "ex": "The hippo can swim."}, {"u": 19, "w": "crocodile", "p": "n", "vi": "cá sấu", "ex": "The crocodile can swim quickly."}, {"u": 19, "w": "roar", "p": "v", "vi": "gầm", "ex": "The lion can roar loudly."}, {"u": 19, "w": "run", "p": "v", "vi": "chạy", "ex": "The lion can run quickly."}, {"u": 19, "w": "sing", "p": "v", "vi": "hát", "ex": "The bird can sing beautifully."}, {"u": 19, "w": "dance", "p": "v", "vi": "nhảy múa", "ex": "The monkey can dance merrily."}, {"u": 19, "w": "quickly", "p": "adv", "vi": "nhanh", "ex": "The lion can run quickly."}, {"u": 19, "w": "loudly", "p": "adv", "vi": "ầm ĩ", "ex": "The lion can roar loudly."}, {"u": 20, "w": "build a campfire", "p": "v phr", "vi": "đốt lửa trại", "ex": "We build a campfire at night."}, {"u": 20, "w": "play card games", "p": "v phr", "vi": "chơi bài", "ex": "We play card games at camp."}, {"u": 20, "w": "put up a tent", "p": "v phr", "vi": "dựng lều", "ex": "We put up a tent together."}, {"u": 20, "w": "sing songs", "p": "v phr", "vi": "hát", "ex": "We sing songs around the campfire."}, {"u": 20, "w": "take a photo", "p": "v phr", "vi": "chụp ảnh", "ex": "I take a photo of the lake."}, {"u": 20, "w": "tell a story", "p": "v phr", "vi": "kể chuyện", "ex": "My friend tells a story at night."}], "mc": [{"u": 1, "q": "______ is your new friend from?", "i": "Choose the best answer (A, B, C or D).", "o": ["Where", "What", "Who", "When"], "p": null}, {"u": 1, "q": "\"Where is Linda from?\" \"She ______ from Britain.\"", "i": "Choose the best answer (A, B, C or D).", "o": ["is", "are", "am", "be"], "p": null}, {"u": 1, "q": "My friend is ______ Japan.", "i": "Choose the best answer (A, B, C or D).", "o": ["from", "in", "at", "on"], "p": null}, {"u": 1, "q": "\"Where are Tom and Ken from?\" \"They ______ from Australia.\"", "i": "Choose the best answer (A, B, C or D).", "o": ["are", "is", "am", "be"], "p": null}, {"u": 2, "q": "What ______ do you get up?", "i": "Choose the best answer (A, B, C or D).", "o": ["time", "day", "date", "where"], "p": null}, {"u": 2, "q": "I get up ______ six o'clock.", "i": "Choose the best answer (A, B, C or D).", "o": ["at", "in", "on", "to"], "p": null}, {"u": 2, "q": "\"What time do you go to bed?\" \"I ______ to bed at nine thirty.\"", "i": "Choose the best answer (A, B, C or D).", "o": ["go", "goes", "going", "went"], "p": null}, {"u": 2, "q": "We ______ breakfast at seven o'clock.", "i": "Choose the best answer (A, B, C or D).", "o": ["have", "has", "having", "had"], "p": null}, {"u": 3, "q": "What do you ______ on Sunday?", "i": "Choose the best answer (A, B, C or D).", "o": ["do", "does", "doing", "did"], "p": null}, {"u": 3, "q": "I listen to music ______ Sunday.", "i": "Choose the best answer (A, B, C or D).", "o": ["on", "at", "in", "to"], "p": null}, {"u": 3, "q": "We have Music ______ Thursday.", "i": "Choose the best answer (A, B, C or D).", "o": ["on", "at", "in", "for"], "p": null}, {"u": 3, "q": "\"What do you do on Saturday?\" \"I ______ football.\"", "i": "Choose the best answer (A, B, C or D).", "o": ["play", "plays", "playing", "played"], "p": null}, {"u": 4, "q": "______ is your birthday?", "i": "Choose the best answer (A, B, C or D).", "o": ["When", "Where", "Who", "How"], "p": null}, {"u": 4, "q": "My birthday is ______ May.", "i": "Choose the best answer (A, B, C or D).", "o": ["in", "on", "at", "to"], "p": null}, {"u": 4, "q": "What do you ______ to eat at the party?", "i": "Choose the best answer (A, B, C or D).", "o": ["want", "wants", "wanting", "wanted"], "p": null}, {"u": 4, "q": "I want ______ juice, please.", "i": "Choose the best answer (A, B, C or D).", "o": ["some", "a", "an", "many"], "p": null}, {"u": 5, "q": "______ you swim?", "i": "Choose the best answer (A, B, C or D).", "o": ["Can", "Do", "Are", "Is"], "p": null}, {"u": 5, "q": "\"Can you ride a bike?\" \"Yes, I ______.\"", "i": "Choose the best answer (A, B, C or D).", "o": ["can", "do", "am", "is"], "p": null}, {"u": 5, "q": "I can ______ the guitar.", "i": "Choose the best answer (A, B, C or D).", "o": ["play", "plays", "playing", "played"], "p": null}, {"u": 5, "q": "She can swim, ______ she can't ride a horse.", "i": "Choose the best answer (A, B, C or D).", "o": ["but", "and", "so", "or"], "p": null}, {"u": 6, "q": "______'s your school?", "i": "Choose the best answer (A, B, C or D).", "o": ["Where", "What", "When", "Who"], "p": null}, {"u": 6, "q": "My school is ______ the city.", "i": "Choose the best answer (A, B, C or D).", "o": ["in", "on", "at", "to"], "p": null}, {"u": 6, "q": "How many computer rooms ______ there?", "i": "Choose the best answer (A, B, C or D).", "o": ["are", "is", "am", "be"], "p": null}, {"u": 6, "q": "There ______ a garden in our school.", "i": "Choose the best answer (A, B, C or D).", "o": ["is", "are", "am", "be"], "p": null}, {"u": 7, "q": "What ______ do you have today?", "i": "Choose the best answer (A, B, C or D).", "o": ["subjects", "time", "day", "place"], "p": null}, {"u": 7, "q": "I ______ Maths on Wednesday.", "i": "Choose the best answer (A, B, C or D).", "o": ["have", "has", "having", "had"], "p": null}, {"u": 7, "q": "When ______ you have Music?", "i": "Choose the best answer (A, B, C or D).", "o": ["do", "does", "is", "are"], "p": null}, {"u": 7, "q": "We have ______ and Geography on Tuesday.", "i": "Choose the best answer (A, B, C or D).", "o": ["History", "Art", "Music", "Maths"], "p": null}, {"u": 8, "q": "What's your ______ subject?", "i": "Choose the best answer (A, B, C or D).", "o": ["favourite", "favourites", "favour", "favouring"], "p": null}, {"u": 8, "q": "______ do you like Music?", "i": "Choose the best answer (A, B, C or D).", "o": ["Why", "What", "Where", "Who"], "p": null}, {"u": 8, "q": "I like PE ______ it's fun.", "i": "Choose the best answer (A, B, C or D).", "o": ["because", "but", "so", "and"], "p": null}, {"u": 8, "q": "Miss Lan is my ______ teacher.", "i": "Choose the best answer (A, B, C or D).", "o": ["English", "England", "Englishes", "Englishing"], "p": null}, {"u": 9, "q": "______ your sports day in June?", "i": "Choose the best answer (A, B, C or D).", "o": ["Is", "Are", "Do", "Does"], "p": null}, {"u": 9, "q": "\"Is your sports day in June?\" \"Yes, it ______.\"", "i": "Choose the best answer (A, B, C or D).", "o": ["is", "does", "are", "can"], "p": null}, {"u": 9, "q": "Our sports day is ______ October.", "i": "Choose the best answer (A, B, C or D).", "o": ["in", "on", "at", "to"], "p": null}, {"u": 9, "q": "School starts in ______.", "i": "Choose the best answer (A, B, C or D).", "o": ["September", "Septembers", "Septembering", "Septemberly"], "p": null}, {"u": 10, "q": "Where ______ you go last summer?", "i": "Choose the best answer (A, B, C or D).", "o": ["did", "do", "does", "was"], "p": null}, {"u": 10, "q": "I ______ to the beach yesterday.", "i": "Choose the best answer (A, B, C or D).", "o": ["went", "go", "goes", "going"], "p": null}, {"u": 10, "q": "______ it fun?", "i": "Choose the best answer (A, B, C or D).", "o": ["Was", "Did", "Do", "Is"], "p": null}, {"u": 10, "q": "We stayed at a ______ last week.", "i": "Choose the best answer (A, B, C or D).", "o": ["campsite", "campsites", "camping", "camped"], "p": null}, {"u": 11, "q": "Where do you ______?", "i": "Choose the best answer (A, B, C or D).", "o": ["live", "lives", "living", "lived"], "p": null}, {"u": 11, "q": "I live ______ a quiet street.", "i": "Choose the best answer (A, B, C or D).", "o": ["on", "at", "to", "from"], "p": null}, {"u": 11, "q": "My house is ______; there's no noise.", "i": "Choose the best answer (A, B, C or D).", "o": ["quiet", "busy", "noisy", "big"], "p": null}, {"u": 11, "q": "The city street is very ______ with cars.", "i": "Choose the best answer (A, B, C or D).", "o": ["busy", "quiet", "small", "big"], "p": null}, {"u": 12, "q": "What ______ your mother do?", "i": "Choose the best answer (A, B, C or D).", "o": ["does", "do", "is", "are"], "p": null}, {"u": 12, "q": "My father ______ a farmer.", "i": "Choose the best answer (A, B, C or D).", "o": ["is", "are", "am", "be"], "p": null}, {"u": 12, "q": "My aunt is a nurse. She works in a ______.", "i": "Choose the best answer (A, B, C or D).", "o": ["hospital", "factory", "farm", "school"], "p": null}, {"u": 12, "q": "He is ______ actor.", "i": "Choose the best answer (A, B, C or D).", "o": ["an", "a", "the", "some"], "p": null}, {"u": 13, "q": "What does she ______ like?", "i": "Choose the best answer (A, B, C or D).", "o": ["look", "looks", "looking", "looked"], "p": null}, {"u": 13, "q": "She ______ long hair.", "i": "Choose the best answer (A, B, C or D).", "o": ["has", "have", "having", "is"], "p": null}, {"u": 13, "q": "He ______ tall and slim.", "i": "Choose the best answer (A, B, C or D).", "o": ["is", "has", "have", "are"], "p": null}, {"u": 13, "q": "My sister has a ______ face.", "i": "Choose the best answer (A, B, C or D).", "o": ["round", "roundly", "rounder", "rounding"], "p": null}, {"u": 14, "q": "What do you do in the ______?", "i": "Choose the best answer (A, B, C or D).", "o": ["morning", "Monday", "May", "hospital"], "p": null}, {"u": 14, "q": "I ______ the dishes after dinner.", "i": "Choose the best answer (A, B, C or D).", "o": ["wash", "washes", "washing", "washed"], "p": null}, {"u": 14, "q": "My mother ______ the clothes every day.", "i": "Choose the best answer (A, B, C or D).", "o": ["washes", "wash", "washing", "washed"], "p": null}, {"u": 14, "q": "We have lunch at ______.", "i": "Choose the best answer (A, B, C or D).", "o": ["noon", "night", "morning", "evening"], "p": null}, {"u": 15, "q": "What does your family ______ at the weekend?", "i": "Choose the best answer (A, B, C or D).", "o": ["do", "does", "doing", "did"], "p": null}, {"u": 15, "q": "My mother ______ yoga every weekend.", "i": "Choose the best answer (A, B, C or D).", "o": ["does", "do", "doing", "did"], "p": null}, {"u": 15, "q": "We ______ films together on Sunday.", "i": "Choose the best answer (A, B, C or D).", "o": ["watch", "watches", "watching", "watched"], "p": null}, {"u": 15, "q": "My father plays ______ at the sports centre.", "i": "Choose the best answer (A, B, C or D).", "o": ["tennis", "piano", "guitar", "music"], "p": null}, {"u": 16, "q": "What's the ______ like today?", "i": "Choose the best answer (A, B, C or D).", "o": ["weather", "time", "day", "place"], "p": null}, {"u": 16, "q": "\"What's the weather like today?\" \"It's ______.\"", "i": "Choose the best answer (A, B, C or D).", "o": ["sunny", "sun", "sunning", "sunned"], "p": null}, {"u": 16, "q": "It's ______ today; take an umbrella.", "i": "Choose the best answer (A, B, C or D).", "o": ["rainy", "sunny", "hot", "big"], "p": null}, {"u": 16, "q": "We buy bread at the ______.", "i": "Choose the best answer (A, B, C or D).", "o": ["bakery", "bookshop", "supermarket", "hospital"], "p": null}, {"u": 17, "q": "How do I ______ to the park?", "i": "Choose the best answer (A, B, C or D).", "o": ["get", "gets", "getting", "got"], "p": null}, {"u": 17, "q": "Go straight, then ______ left.", "i": "Choose the best answer (A, B, C or D).", "o": ["turn", "turns", "turning", "turned"], "p": null}, {"u": 17, "q": "Turn ______ at the school, not right.", "i": "Choose the best answer (A, B, C or D).", "o": ["left", "leave", "leaving", "lefts"], "p": null}, {"u": 17, "q": "______ at the red light.", "i": "Choose the best answer (A, B, C or D).", "o": ["Stop", "Stops", "Stopping", "Stopped"], "p": null}, {"u": 18, "q": "How ______ is this T-shirt?", "i": "Choose the best answer (A, B, C or D).", "o": ["much", "many", "old", "long"], "p": null}, {"u": 18, "q": "The gift shop is ______ the bank and the bookshop.", "i": "Choose the best answer (A, B, C or D).", "o": ["between", "behind", "near", "opposite"], "p": null}, {"u": 18, "q": "\"How much is the skirt?\" \"It's fifty ______ dong.\"", "i": "Choose the best answer (A, B, C or D).", "o": ["thousand", "thousands", "thousanding", "thousandly"], "p": null}, {"u": 18, "q": "The bakery is ______ my school.", "i": "Choose the best answer (A, B, C or D).", "o": ["near", "nearly", "nearer", "nearing"], "p": null}, {"u": 19, "q": "The lion can run ______.", "i": "Choose the best answer (A, B, C or D).", "o": ["quickly", "quick", "quicker", "quickness"], "p": null}, {"u": 19, "q": "______ the lion roar loudly?", "i": "Choose the best answer (A, B, C or D).", "o": ["Can", "Is", "Do", "Does"], "p": null}, {"u": 19, "q": "The giraffe is very ______.", "i": "Choose the best answer (A, B, C or D).", "o": ["tall", "short", "small", "round"], "p": null}, {"u": 19, "q": "The bird can ______ beautifully.", "i": "Choose the best answer (A, B, C or D).", "o": ["sing", "sings", "singing", "sang"], "p": null}, {"u": 20, "q": "What do you ______ at summer camp?", "i": "Choose the best answer (A, B, C or D).", "o": ["do", "does", "doing", "did"], "p": null}, {"u": 20, "q": "We ______ a tent together.", "i": "Choose the best answer (A, B, C or D).", "o": ["put up", "puts up", "putting up", "put on"], "p": null}, {"u": 20, "q": "At night, we ______ songs around the campfire.", "i": "Choose the best answer (A, B, C or D).", "o": ["sing", "sings", "singing", "sang"], "p": null}, {"u": 20, "q": "I ______ a photo of the lake.", "i": "Choose the best answer (A, B, C or D).", "o": ["take", "takes", "taking", "took"], "p": null}], "type": [{"u": 1, "q": "Where ______ you from? (BE)", "a": "are"}, {"u": 1, "q": "She ______ from Singapore. (BE)", "a": "is"}, {"u": 2, "q": "What time do you ______ up? (GET)", "a": "get"}, {"u": 2, "q": "I go to ______ at nine o'clock. (BED)", "a": "bed"}, {"u": 3, "q": "I have English on ______. (MONDAY)", "a": "Monday"}, {"u": 3, "q": "What do you ______ on Friday? (DO)", "a": "do"}, {"u": 4, "q": "When is your ______? (BIRTHDAY)", "a": "birthday"}, {"u": 4, "q": "I want ______ chips, please. (SOME)", "a": "some"}, {"u": 5, "q": "______ you cook? (CAN)", "a": "Can"}, {"u": 5, "q": "I can ______ a bike. (RIDE)", "a": "ride"}, {"u": 6, "q": "How many playgrounds ______ there? (BE)", "a": "are"}, {"u": 6, "q": "Our school has a ______ room with computers. (COMPUTER)", "a": "computer"}, {"u": 7, "q": "I have ______ on Friday. (SCIENCE)", "a": "Science"}, {"u": 7, "q": "When do you ______ Art? (HAVE)", "a": "have"}, {"u": 8, "q": "What's your favourite ______? (SUBJECT)", "a": "subject"}, {"u": 8, "q": "I like Art ______ it's fun. (BECAUSE)", "a": "because"}, {"u": 9, "q": "Our ______ day is in October. (SPORTS)", "a": "sports"}, {"u": 9, "q": "School starts in ______. (SEPTEMBER)", "a": "September"}, {"u": 10, "q": "I ______ to the beach yesterday. (GO - past form)", "a": "went"}, {"u": 10, "q": "Where ______ you go last summer? (DO - past form)", "a": "did"}, {"u": 11, "q": "Where do you ______? (LIVE)", "a": "live"}, {"u": 11, "q": "My street is very ______, not noisy. (QUIET)", "a": "quiet"}, {"u": 12, "q": "What does he ______? (DO)", "a": "do"}, {"u": 12, "q": "She is a ______. She helps sick people. (NURSE)", "a": "nurse"}, {"u": 13, "q": "She ______ long hair. (HAVE)", "a": "has"}, {"u": 13, "q": "He is ______, not short. (TALL)", "a": "tall"}, {"u": 14, "q": "I ______ the dishes after dinner. (WASH)", "a": "wash"}, {"u": 14, "q": "We have lunch at ______. (NOON)", "a": "noon"}, {"u": 15, "q": "My mother ______ yoga every day. (DO)", "a": "does"}, {"u": 15, "q": "We watch ______ together on Sunday. (FILM - plural)", "a": "films"}, {"u": 16, "q": "What's the ______ like today? (WEATHER)", "a": "weather"}, {"u": 16, "q": "It's very ______ today; look at those clouds. (CLOUD)", "a": "cloudy"}, {"u": 17, "q": "How do I ______ to the park? (GET)", "a": "get"}, {"u": 17, "q": "Go straight, then turn ______. (LEFT)", "a": "left"}, {"u": 18, "q": "How ______ is this skirt? (MUCH)", "a": "much"}, {"u": 18, "q": "The shop is ______ the bank. (NEAR)", "a": "near"}, {"u": 19, "q": "The lion can roar ______. (LOUD)", "a": "loudly"}, {"u": 19, "q": "The hippo can ______. (SWIM)", "a": "swim"}, {"u": 20, "q": "We put ______ a tent together. (UP)", "a": "up"}, {"u": 20, "q": "At night, we build a ______. (CAMPFIRE)", "a": "campfire"}], "err": [{"u": 1, "q": "She <u>are</u><super>A</super> <u>from</u><super>B</super> <u>Thailand</u><super>C</super>.", "a": "A → is"}, {"u": 1, "q": "Where <u>is</u><super>A</super> <u>they</u><super>B</super> <u>from</u><super>C</super>?", "a": "A → are"}, {"u": 2, "q": "I <u>get up</u><super>A</super> <u>on</u><super>B</super> <u>six o'clock</u><super>C</super>.", "a": "B → at"}, {"u": 2, "q": "She <u>go</u><super>A</super> <u>to</u><super>B</super> <u>bed</u><super>C</super> at nine.", "a": "A → goes"}, {"u": 3, "q": "I <u>listen</u><super>A</super> <u>to</u><super>B</super> music <u>in</u><super>C</super> Sunday.", "a": "C → on"}, {"u": 3, "q": "She <u>study</u><super>A</super> <u>at</u><super>B</super> <u>school</u><super>C</super>.", "a": "A → studies"}, {"u": 4, "q": "My birthday <u>is</u><super>A</super> <u>on</u><super>B</super> <u>March</u><super>C</super>.", "a": "B → in"}, {"u": 4, "q": "I <u>want</u><super>A</super> <u>a</u><super>B</super> <u>water</u><super>C</super>.", "a": "B → some"}, {"u": 5, "q": "I <u>can</u><super>A</super> <u>swims</u><super>B</super> <u>well</u><super>C</super>.", "a": "B → swim"}, {"u": 5, "q": "<u>Do</u><super>A</super> you <u>can</u><super>B</super> <u>cook</u><super>C</super>?", "a": "A → Can"}, {"u": 6, "q": "How many <u>garden</u><super>A</super> <u>are</u><super>B</super> <u>there</u><super>C</super>?", "a": "A → gardens"}, {"u": 6, "q": "My school <u>are</u><super>A</super> <u>in</u><super>B</super> <u>a village</u><super>C</super>.", "a": "A → is"}, {"u": 7, "q": "I <u>haves</u><super>A</super> <u>Art</u><super>B</super> <u>today</u><super>C</super>.", "a": "A → have"}, {"u": 7, "q": "When <u>do</u><super>A</super> she <u>have</u><super>B</super> <u>Science</u><super>C</super>?", "a": "A → does"}, {"u": 8, "q": "What's <u>you</u><super>A</super> <u>favourite</u><super>B</super> <u>subject</u><super>C</super> today?", "a": "A → your"}, {"u": 8, "q": "I like PE <u>because</u><super>A</super> <u>it</u><super>B</super> <u>fun</u><super>C</super>.", "a": "C → is fun"}, {"u": 9, "q": "Is your sports day <u>on</u><super>A</super> <u>October</u><super>B</super>?", "a": "A → in"}, {"u": 9, "q": "<u>Are</u><super>A</super> your sports day in June?", "a": "A → Is"}, {"u": 10, "q": "I <u>go</u><super>A</super> to the beach <u>yesterday</u><super>B</super>.", "a": "A → went"}, {"u": 10, "q": "<u>Do</u><super>A</super> you go to Tokyo last year?", "a": "A → Did"}, {"u": 11, "q": "I <u>lives</u><super>A</super> <u>on</u><super>B</super> <u>this street</u><super>C</super>.", "a": "A → live"}, {"u": 11, "q": "Where <u>does</u><super>A</super> you <u>live</u><super>B</super>?", "a": "A → do"}, {"u": 12, "q": "My father <u>are</u><super>A</super> <u>a</u><super>B</super> <u>farmer</u><super>C</super>.", "a": "A → is"}, {"u": 12, "q": "What <u>do</u><super>A</super> she <u>do</u><super>B</super>?", "a": "A → does"}, {"u": 13, "q": "She <u>have</u><super>A</super> <u>long</u><super>B</super> <u>hair</u><super>C</super>.", "a": "A → has"}, {"u": 13, "q": "What does he <u>looks</u><super>A</super> <u>like</u><super>B</super>?", "a": "A → look"}, {"u": 14, "q": "She <u>wash</u><super>A</super> <u>the</u><super>B</super> <u>dishes</u><super>C</super>.", "a": "A → washes"}, {"u": 14, "q": "I <u>washes</u><super>A</super> <u>the</u><super>B</super> <u>clothes</u><super>C</super>.", "a": "A → wash"}, {"u": 15, "q": "My mother <u>do</u><super>A</super> <u>yoga</u><super>B</super> <u>every day</u><super>C</super>.", "a": "A → does"}, {"u": 15, "q": "We <u>watches</u><super>A</super> <u>films</u><super>B</super> <u>together</u><super>C</super>.", "a": "A → watch"}, {"u": 16, "q": "What's the weather <u>likes</u><super>A</super> <u>today</u><super>B</super>?", "a": "A → like"}, {"u": 16, "q": "It <u>are</u><super>A</super> <u>rainy</u><super>B</super> <u>today</u><super>C</super>.", "a": "A → is"}, {"u": 17, "q": "<u>Turns</u><super>A</super> <u>left</u><super>B</super> <u>here</u><super>C</super>.", "a": "A → Turn"}, {"u": 17, "q": "How do I <u>gets</u><super>A</super> <u>to</u><super>B</super> the park?", "a": "A → get"}, {"u": 18, "q": "How <u>many</u><super>A</super> <u>is</u><super>B</super> <u>this skirt</u><super>C</super>?", "a": "A → much"}, {"u": 18, "q": "It <u>are</u><super>A</super> <u>thirty</u><super>B</super> <u>thousand dong</u><super>C</super>.", "a": "A → is"}, {"u": 19, "q": "The lion can <u>runs</u><super>A</super> <u>quickly</u><super>B</super>.", "a": "A → run"}, {"u": 19, "q": "The bird can sing <u>beautiful</u><super>A</super>.", "a": "A → beautifully"}, {"u": 20, "q": "We <u>puts up</u><super>A</super> <u>a</u><super>B</super> <u>tent</u><super>C</super>.", "a": "A → put up"}, {"u": 20, "q": "I <u>takes</u><super>A</super> <u>a</u><super>B</super> <u>photo</u><super>C</super>.", "a": "A → take"}], "order": [{"u": 1, "a": "Where is she from?"}, {"u": 1, "a": "I am from Viet Nam."}, {"u": 1, "a": "He is from Britain."}, {"u": 2, "a": "What time do you get up?"}, {"u": 2, "a": "I get up at six o'clock."}, {"u": 2, "a": "We go to school at seven."}, {"u": 3, "a": "What do you do on Sunday?"}, {"u": 3, "a": "I listen to music on Sunday."}, {"u": 3, "a": "We have Art on Friday."}, {"u": 4, "a": "When is your birthday?"}, {"u": 4, "a": "My birthday is in May."}, {"u": 4, "a": "I want some juice."}, {"u": 5, "a": "Can you swim?"}, {"u": 5, "a": "I can play the piano."}, {"u": 5, "a": "She can ride a bike."}, {"u": 6, "a": "Where's your school?"}, {"u": 6, "a": "My school is in the city."}, {"u": 6, "a": "We play in the playground."}, {"u": 7, "a": "What subjects do you have today?"}, {"u": 7, "a": "I have Maths on Wednesday."}, {"u": 7, "a": "We have Music on Thursday."}, {"u": 8, "a": "What's your favourite subject?"}, {"u": 8, "a": "I like IT because it's fun."}, {"u": 8, "a": "Why do you like Music?"}, {"u": 9, "a": "Is your sports day in June?"}, {"u": 9, "a": "Our sports day is in October."}, {"u": 9, "a": "School starts in September."}, {"u": 10, "a": "Where did you go last summer?"}, {"u": 10, "a": "I went to the beach."}, {"u": 10, "a": "Was it fun?"}, {"u": 11, "a": "Where do you live?"}, {"u": 11, "a": "I live on a quiet street."}, {"u": 11, "a": "My house is big."}, {"u": 12, "a": "What does she do?"}, {"u": 12, "a": "She is a nurse."}, {"u": 12, "a": "He works on a farm."}, {"u": 13, "a": "What does she look like?"}, {"u": 13, "a": "She has long hair."}, {"u": 13, "a": "He is tall and slim."}, {"u": 14, "a": "What do you do in the morning?"}, {"u": 14, "a": "I wash the dishes."}, {"u": 14, "a": "I help with the cooking."}, {"u": 15, "a": "What does your family do at the weekend?"}, {"u": 15, "a": "We watch films together."}, {"u": 15, "a": "My father plays tennis."}, {"u": 16, "a": "What's the weather like today?"}, {"u": 16, "a": "It's sunny today."}, {"u": 16, "a": "We buy bread at the bakery."}, {"u": 17, "a": "How do I get to the park?"}, {"u": 17, "a": "Go straight, then turn left."}, {"u": 17, "a": "The park is on the right."}, {"u": 18, "a": "How much is this T-shirt?"}, {"u": 18, "a": "It's fifty thousand dong."}, {"u": 18, "a": "The shop is near my house."}, {"u": 19, "a": "The lion can run quickly."}, {"u": 19, "a": "Can it roar loudly?"}, {"u": 19, "a": "The giraffe is very tall."}, {"u": 20, "a": "What do you do at summer camp?"}, {"u": 20, "a": "We build a campfire."}, {"u": 20, "a": "We sing songs at night."}], "tf": [{"u": 1, "p": "This is Mai. She is from Viet Nam. This is her friend Kenji. He is from Japan. They are in the same class.", "q": "Mai is from Viet Nam.", "a": "T"}, {"u": 1, "p": "This is Mai. She is from Viet Nam. This is her friend Kenji. He is from Japan. They are in the same class.", "q": "Kenji is from America.", "a": "F"}, {"u": 2, "p": "Nam gets up at six o'clock. He has breakfast at six thirty. He goes to school at seven o'clock.", "q": "Nam gets up at seven o'clock.", "a": "F"}, {"u": 2, "p": "Nam gets up at six o'clock. He has breakfast at six thirty. He goes to school at seven o'clock.", "q": "Nam has breakfast at six thirty.", "a": "T"}, {"u": 3, "p": "On Monday, Linh studies at school. On Saturday, she plays football. On Sunday, she listens to music.", "q": "Linh plays football on Saturday.", "a": "T"}, {"u": 3, "p": "On Monday, Linh studies at school. On Saturday, she plays football. On Sunday, she listens to music.", "q": "Linh studies at school on Sunday.", "a": "F"}, {"u": 4, "p": "Nam's birthday is in April. He has a party. He wants some chips and juice.", "q": "Nam's birthday is in April.", "a": "T"}, {"u": 4, "p": "Nam's birthday is in April. He has a party. He wants some chips and juice.", "q": "Nam wants some water and grapes.", "a": "F"}, {"u": 5, "p": "Mai can swim. She can play the piano. She can't ride a horse.", "q": "Mai can swim.", "a": "T"}, {"u": 5, "p": "Mai can swim. She can play the piano. She can't ride a horse.", "q": "Mai can ride a horse.", "a": "F"}, {"u": 6, "p": "My school is in a small town. It has a garden and a playground. There is one computer room.", "q": "The school is in a city.", "a": "F"}, {"u": 6, "p": "My school is in a small town. It has a garden and a playground. There is one computer room.", "q": "The school has a playground.", "a": "T"}, {"u": 7, "p": "On Monday, Nam has Maths and English. On Thursday, he has Music. He likes Music very much.", "q": "Nam has Music on Thursday.", "a": "T"}, {"u": 7, "p": "On Monday, Nam has Maths and English. On Thursday, he has Music. He likes Music very much.", "q": "Nam has Art on Monday.", "a": "F"}, {"u": 8, "p": "Mai's favourite subject is IT. She likes it because it's interesting. Her maths teacher is Mr Nam.", "q": "Mai's favourite subject is PE.", "a": "F"}, {"u": 8, "p": "Mai's favourite subject is IT. She likes it because it's interesting. Her maths teacher is Mr Nam.", "q": "Mai likes IT because it's interesting.", "a": "T"}, {"u": 9, "p": "Our sports day is in October. We run and jump. It is a fun day.", "q": "The sports day is in October.", "a": "T"}, {"u": 9, "p": "Our sports day is in October. We run and jump. It is a fun day.", "q": "The sports day is in June.", "a": "F"}, {"u": 10, "p": "Last summer, Linh went to the beach with her family. She had a lot of fun. It was a great holiday.", "q": "Linh went to the beach last summer.", "a": "T"}, {"u": 10, "p": "Last summer, Linh went to the beach with her family. She had a lot of fun. It was a great holiday.", "q": "Linh went to the mountains.", "a": "F"}, {"u": 11, "p": "Nam lives on Tran Phu Street. It is a busy street. His house is big.", "q": "Nam lives on a quiet street.", "a": "F"}, {"u": 11, "p": "Nam lives on Tran Phu Street. It is a busy street. His house is big.", "q": "Nam's house is big.", "a": "T"}, {"u": 12, "p": "My father is a farmer. He works on a farm. My mother is a nurse. She works in a hospital.", "q": "My father is a farmer.", "a": "T"}, {"u": 12, "p": "My father is a farmer. He works on a farm. My mother is a nurse. She works in a hospital.", "q": "My mother works in a factory.", "a": "F"}, {"u": 13, "p": "My brother is tall. He has short hair. My sister is short. She has long hair.", "q": "My brother is tall.", "a": "T"}, {"u": 13, "p": "My brother is tall. He has short hair. My sister is short. She has long hair.", "q": "My sister has short hair.", "a": "F"}, {"u": 14, "p": "In the morning, Lan helps with the cooking. In the evening, she washes the dishes.", "q": "Lan helps with the cooking in the morning.", "a": "T"}, {"u": 14, "p": "In the morning, Lan helps with the cooking. In the evening, she washes the dishes.", "q": "Lan cleans the floor in the evening.", "a": "F"}, {"u": 15, "p": "At the weekend, my family goes to the swimming pool. My mother cooks meals. My father plays tennis.", "q": "The family goes to the swimming pool.", "a": "T"}, {"u": 15, "p": "At the weekend, my family goes to the swimming pool. My mother cooks meals. My father plays tennis.", "q": "My father does yoga.", "a": "F"}, {"u": 16, "p": "Today the weather is sunny. Tomorrow it will be rainy. We are going to the bakery this afternoon.", "q": "Today is sunny.", "a": "T"}, {"u": 16, "p": "Today the weather is sunny. Tomorrow it will be rainy. We are going to the bakery this afternoon.", "q": "Tomorrow will be windy.", "a": "F"}, {"u": 17, "p": "Go straight, then turn left at the bookshop. The park is on the right.", "q": "You turn left at the bookshop.", "a": "T"}, {"u": 17, "p": "Go straight, then turn left at the bookshop. The park is on the right.", "q": "The park is on the left.", "a": "F"}, {"u": 18, "p": "The gift shop is between the bakery and the bookshop. A T-shirt costs thirty thousand dong.", "q": "The gift shop is between the bakery and the bookshop.", "a": "T"}, {"u": 18, "p": "The gift shop is between the bakery and the bookshop. A T-shirt costs thirty thousand dong.", "q": "A T-shirt costs fifty thousand dong.", "a": "F"}, {"u": 19, "p": "The lion can run quickly. It can roar loudly. The giraffe is very tall, but it can't roar.", "q": "The lion can run quickly.", "a": "T"}, {"u": 19, "p": "The lion can run quickly. It can roar loudly. The giraffe is very tall, but it can't roar.", "q": "The giraffe can roar loudly.", "a": "F"}, {"u": 20, "p": "At summer camp, we put up a tent. At night, we build a campfire and sing songs.", "q": "They put up a tent at camp.", "a": "T"}, {"u": 20, "p": "At summer camp, we put up a tent. At night, we build a campfire and sing songs.", "q": "They watch films at night.", "a": "F"}], "gex": [{"u": 1, "s": "My friend is from America."}, {"u": 1, "s": "Is she from Australia?"}, {"u": 1, "s": "He is from Britain."}, {"u": 1, "s": "My pen pal is from Japan."}, {"u": 1, "s": "They come from Malaysia."}, {"u": 1, "s": "She is from Singapore."}, {"u": 1, "s": "My friend Nok is from Thailand."}, {"u": 1, "s": "I am from Viet Nam."}, {"u": 2, "s": "It's seven o'clock."}, {"u": 2, "s": "It's eight fifteen."}, {"u": 2, "s": "It's six thirty."}, {"u": 2, "s": "It's seven forty-five."}, {"u": 2, "s": "I get up at six o'clock."}, {"u": 2, "s": "We go to school at seven."}, {"u": 2, "s": "I go to bed at nine thirty."}, {"u": 2, "s": "I have breakfast at six thirty."}, {"u": 3, "s": "I have English on Monday."}, {"u": 3, "s": "We play football on Tuesday."}, {"u": 3, "s": "I have Maths on Wednesday."}, {"u": 3, "s": "We have Music on Thursday."}, {"u": 3, "s": "I have Art on Friday."}, {"u": 3, "s": "I play football on Saturday."}, {"u": 3, "s": "We visit grandma on Sunday."}, {"u": 3, "s": "I listen to music on Sunday."}, {"u": 3, "s": "I study at school on weekdays."}, {"u": 4, "s": "My birthday is in January."}, {"u": 4, "s": "Her birthday is in February."}, {"u": 4, "s": "His birthday is in March."}, {"u": 4, "s": "Their party is in April."}, {"u": 4, "s": "My birthday is in May."}, {"u": 4, "s": "When is your birthday?"}, {"u": 4, "s": "We have a party every year."}, {"u": 4, "s": "I want to eat some chips."}, {"u": 4, "s": "I want a grape."}, {"u": 4, "s": "I like bread and jam."}, {"u": 4, "s": "I want some juice."}, {"u": 4, "s": "I want some lemonade."}, {"u": 4, "s": "I want some water."}, {"u": 5, "s": "I can cook rice."}, {"u": 5, "s": "She can play the piano."}, {"u": 5, "s": "He can play the guitar."}, {"u": 5, "s": "I can ride a bike."}, {"u": 5, "s": "She can ride a horse."}, {"u": 5, "s": "He can roller skate."}, {"u": 5, "s": "I can swim."}, {"u": 6, "s": "My school is in the city."}, {"u": 6, "s": "My school is in a small town."}, {"u": 6, "s": "My school is in a village."}, {"u": 6, "s": "Their school is near the mountains."}, {"u": 6, "s": "Our school has a computer room."}, {"u": 6, "s": "Our school has a garden."}, {"u": 6, "s": "We play in the playground."}, {"u": 7, "s": "I have Art on Monday."}, {"u": 7, "s": "I have English today."}, {"u": 7, "s": "We have History and Geography on Tuesday."}, {"u": 7, "s": "I have Maths on Wednesday."}, {"u": 7, "s": "We have Music on Thursday."}, {"u": 7, "s": "I have Science on Friday."}, {"u": 7, "s": "I have Vietnamese every day."}, {"u": 8, "s": "I like IT very much."}, {"u": 8, "s": "We have PE on Monday."}, {"u": 8, "s": "Miss Lan is my English teacher."}, {"u": 8, "s": "Mr Nam is my maths teacher."}, {"u": 8, "s": "I like Music because it's fun."}, {"u": 8, "s": "Why do you like PE?"}, {"u": 9, "s": "Our sports day is in June."}, {"u": 9, "s": "Summer starts in July."}, {"u": 9, "s": "School ends in August."}, {"u": 9, "s": "School starts in September."}, {"u": 9, "s": "My birthday is in October."}, {"u": 9, "s": "It's cold in November."}, {"u": 9, "s": "We have a party in December."}, {"u": 9, "s": "I like our sports day."}, {"u": 10, "s": "We went to the beach."}, {"u": 10, "s": "We stayed at a campsite."}, {"u": 10, "s": "We visited the countryside."}, {"u": 10, "s": "They went to Bangkok."}, {"u": 10, "s": "We visited Sydney last year."}, {"u": 10, "s": "She went to Tokyo."}, {"u": 10, "s": "I went there last summer."}, {"u": 10, "s": "We went to the beach yesterday."}, {"u": 11, "s": "I live on a quiet road."}, {"u": 11, "s": "My house is on a busy street."}, {"u": 11, "s": "My house is big."}, {"u": 11, "s": "The street is busy."}, {"u": 11, "s": "I live in a small house."}, {"u": 11, "s": "My street is noisy."}, {"u": 11, "s": "My street is quiet."}, {"u": 12, "s": "He wants to be an actor."}, {"u": 12, "s": "My uncle is a farmer."}, {"u": 12, "s": "My aunt is a nurse."}, {"u": 12, "s": "My father is an office worker."}, {"u": 12, "s": "He is a policeman."}, {"u": 12, "s": "She works in a factory."}, {"u": 12, "s": "He works on a farm."}, {"u": 12, "s": "The nurse works in a hospital."}, {"u": 13, "s": "My father is tall."}, {"u": 13, "s": "My sister is short."}, {"u": 13, "s": "She is slim."}, {"u": 13, "s": "He has big eyes."}, {"u": 13, "s": "She has big eyes."}, {"u": 13, "s": "He has a round face."}, {"u": 13, "s": "She has long hair."}, {"u": 13, "s": "She has long hair."}, {"u": 13, "s": "He has a round face."}, {"u": 14, "s": "I get up in the morning."}, {"u": 14, "s": "I do homework in the afternoon."}, {"u": 14, "s": "I watch TV in the evening."}, {"u": 14, "s": "We have lunch at noon."}, {"u": 14, "s": "I clean the floor every day."}, {"u": 14, "s": "I help with the cooking."}, {"u": 14, "s": "My mother washes the clothes."}, {"u": 14, "s": "I wash the dishes after dinner."}, {"u": 15, "s": "We go to the shopping centre."}, {"u": 15, "s": "My father goes to the sports centre."}, {"u": 15, "s": "We go to the swimming pool."}, {"u": 15, "s": "My mother cooks meals at the weekend."}, {"u": 15, "s": "My mother does yoga."}, {"u": 15, "s": "My father plays tennis."}, {"u": 15, "s": "We watch films together."}, {"u": 16, "s": "It's sunny today."}, {"u": 16, "s": "It's rainy today."}, {"u": 16, "s": "It's cloudy today."}, {"u": 16, "s": "It's windy today."}, {"u": 16, "s": "There's a bakery near my house."}, {"u": 16, "s": "I bought a book at the bookshop."}, {"u": 16, "s": "We buy food at the supermarket."}, {"u": 17, "s": "How do I get to the park?"}, {"u": 17, "s": "Go straight, please."}, {"u": 17, "s": "Turn left at the corner."}, {"u": 17, "s": "Turn right at the corner."}, {"u": 17, "s": "Stop at the light."}, {"u": 17, "s": "Turn left here."}, {"u": 17, "s": "Turn right here."}, {"u": 17, "s": "Turn round and go back."}, {"u": 18, "s": "The shop is behind the bank."}, {"u": 18, "s": "It's between the bakery and the bookshop."}, {"u": 18, "s": "The shop is near my house."}, {"u": 18, "s": "It's opposite the supermarket."}, {"u": 18, "s": "She bought a new skirt."}, {"u": 18, "s": "It's fifty thousand dong."}, {"u": 18, "s": "I want a blue T-shirt."}, {"u": 19, "s": "The lion can run quickly."}, {"u": 19, "s": "The giraffe is very tall."}, {"u": 19, "s": "The hippo can swim."}, {"u": 19, "s": "The crocodile can swim quickly."}, {"u": 19, "s": "The lion can roar loudly."}, {"u": 19, "s": "The lion can run quickly."}, {"u": 19, "s": "The bird can sing beautifully."}, {"u": 19, "s": "The monkey can dance merrily."}, {"u": 19, "s": "The lion can run quickly."}, {"u": 19, "s": "The lion can roar loudly."}, {"u": 20, "s": "We build a campfire at night."}, {"u": 20, "s": "We play card games at camp."}, {"u": 20, "s": "We put up a tent together."}, {"u": 20, "s": "We sing songs around the campfire."}, {"u": 20, "s": "I take a photo of the lake."}, {"u": 20, "s": "My friend tells a story at night."}], "odd": [{"u": 1, "w": ["America", "Japan", "Australia", "Monday"], "a": 3}, {"u": 1, "w": ["Viet Nam", "Thailand", "Singapore", "swim"], "a": 3}, {"u": 2, "w": ["fifteen", "thirty", "forty-five", "get up"], "a": 3}, {"u": 2, "w": ["go to school", "go to bed", "have breakfast", "Sunday"], "a": 3}, {"u": 3, "w": ["Monday", "Tuesday", "Friday", "cook"], "a": 3}, {"u": 3, "w": ["Saturday", "Sunday", "Wednesday", "tall"], "a": 3}, {"u": 4, "w": ["January", "February", "April", "chips"], "a": 3}, {"u": 4, "w": ["juice", "lemonade", "water", "March"], "a": 3}, {"u": 5, "w": ["cook", "swim", "roller skate", "Tuesday"], "a": 3}, {"u": 5, "w": ["play the piano", "play the guitar", "ride a bike", "birthday"], "a": 3}, {"u": 6, "w": ["city", "town", "village", "cook"], "a": 3}, {"u": 6, "w": ["computer room", "garden", "playground", "Friday"], "a": 3}, {"u": 7, "w": ["art", "maths", "music", "swim"], "a": 3}, {"u": 7, "w": ["English", "science", "Vietnamese", "garden"], "a": 3}, {"u": 8, "w": ["IT", "PE", "English teacher", "because"], "a": 3}, {"u": 8, "w": ["science", "Vietnamese", "history and geography", "because"], "a": 3}, {"u": 9, "w": ["June", "July", "August", "sports day"], "a": 3}, {"u": 9, "w": ["September", "October", "November", "swim"], "a": 3}, {"u": 10, "w": ["beach", "campsite", "countryside", "yesterday"], "a": 3}, {"u": 10, "w": ["Bangkok", "Sydney", "Tokyo", "last"], "a": 3}, {"u": 11, "w": ["big", "busy", "noisy", "live"], "a": 3}, {"u": 11, "w": ["road", "street", "quiet", "January"], "a": 3}, {"u": 12, "w": ["policeman", "actor", "nurse", "hospital"], "a": 3}, {"u": 12, "w": ["farmer", "office worker", "policeman", "farm"], "a": 3}, {"u": 13, "w": ["tall", "short", "slim", "eyes"], "a": 3}, {"u": 13, "w": ["hair", "face", "eyes", "tall"], "a": 3}, {"u": 14, "w": ["morning", "afternoon", "evening", "wash the dishes"], "a": 3}, {"u": 14, "w": ["clean the floor", "help with the cooking", "wash the clothes", "noon"], "a": 3}, {"u": 15, "w": ["cinema", "shopping centre", "swimming pool", "cook meals"], "a": 3}, {"u": 15, "w": ["do yoga", "play tennis", "watch films", "sports centre"], "a": 3}, {"u": 16, "w": ["sunny", "rainy", "cloudy", "bakery"], "a": 3}, {"u": 16, "w": ["bookshop", "supermarket", "water park", "windy"], "a": 3}, {"u": 17, "w": ["turn left", "turn right", "turn round", "hospital"], "a": 3}, {"u": 17, "w": ["left", "right", "go straight", "Monday"], "a": 3}, {"u": 18, "w": ["behind", "between", "near", "thousand"], "a": 3}, {"u": 18, "w": ["gift shop", "T-shirt", "skirt", "opposite"], "a": 3}, {"u": 19, "w": ["lion", "giraffe", "hippo", "dance"], "a": 3}, {"u": 19, "w": ["run", "sing", "dance", "loudly"], "a": 3}, {"u": 20, "w": ["build a campfire", "play card games", "put up a tent", "Sunday"], "a": 3}, {"u": 20, "w": ["sing songs", "take a photo", "tell a story", "hospital"], "a": 3}]};
+const $ = s => document.querySelector(s);
+const app = $("#app");
+const LS = {
+  get(k, d){ try{ const v = localStorage.getItem("gs10:"+k); return v===null? d : JSON.parse(v);}catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem("gs10:"+k, JSON.stringify(v)); }catch(e){} }
+};
+const state = {
+  unit: LS.get("unit", 0),
+  xp: LS.get("xp", 0),
+  best: LS.get("best", {}),
+  known: new Set(LS.get("known", [])),
+  unitStats: LS.get("unitStats", {}),   // unit -> {c, t}
+  sound: LS.get("sound", true),
+};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const shuffle = a => { a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const sample = (a, n) => shuffle(a).slice(0, n);
+const strip = h => h.replace(/<[^>]+>/g, "");
+const headword = w => w.split(" / ")[0].replace(/\s*\([^)]*\)/g, "").trim();
+
+/* ---------- sound ---------- */
+let actx = null;
+function tone(freqs, dur=0.12, type="triangle", gap=0.09){
+  if(!state.sound) return;
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    freqs.forEach((f,i)=>{
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = type; o.frequency.value = f;
+      const t = actx.currentTime + i*gap;
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.18, t+0.01); g.gain.exponentialRampToValueAtTime(0.0001, t+dur);
+      o.connect(g).connect(actx.destination); o.start(t); o.stop(t+dur+0.02);
+    });
+  }catch(e){}
+}
+const sfx = {
+  ok(){ tone([660, 880]); }, no(){ tone([220, 170], .18, "sawtooth"); },
+  tap(){ tone([520], .05, "sine"); }, win(){ tone([523,659,784,1046], .18, "triangle", .11); },
+  flip(){ tone([400], .05, "sine"); }
+};
+function speak(text){
+  try{
+    if(!("speechSynthesis" in window)) return toast("Speech is not available in this browser");
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text); u.lang = "en-GB"; u.rate = .9;
+    speechSynthesis.speak(u);
+  }catch(e){ toast("Speech is not available in this browser"); }
+}
+function toast(msg){
+  const t = document.createElement("div"); t.className = "toast"; t.textContent = msg;
+  document.body.appendChild(t); setTimeout(()=>t.remove(), 1800);
+}
+const ICON = {
+  on:'<svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>',
+  off:'<svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>',
+  speak:'<svg viewBox="0 0 24 24" width="18" height="18" style="stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>',
+  back:'<svg viewBox="0 0 24 24" width="18" height="18" style="stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round"><path d="M15 18l-6-6 6-6"/></svg>',
+};
+function renderSoundBtn(){ $("#sound").innerHTML = state.sound ? ICON.on : ICON.off; }
+$("#sound").onclick = () => { state.sound = !state.sound; LS.set("sound", state.sound); renderSoundBtn(); if(state.sound) sfx.tap(); };
+
+const UCOL = ["#2B6CB0","#FF6B6B","#4DABF7","#F783AC","#51CF66","#FFA94D","#9775FA","#22B573","#F4574B","#3BC9DB","#FFD43B","#845EF7","#FF922B","#20C997","#E64980","#748FFC","#82C91E","#FAB005","#5C7CFA","#FF8787","#15AABF"];
+function pop(text, el){
+  try{ const r = el.getBoundingClientRect(); const p = document.createElement("div"); p.className = "pop"; p.textContent = text;
+    p.style.left = (r.left + r.width/2) + "px"; p.style.top = (r.top) + "px"; document.body.appendChild(p); setTimeout(()=>p.remove(), 1000); }catch(e){}
+}
+function starsHTML(m){ const n = m>=9?3 : m>=7?2 : m>=5?1 : 0; return `<span class="bigstars" aria-label="${n} of 3 stars">${[0,1,2].map(i=>`<span class="${i<n?"":"off"}">★</span>`).join("")}</span>`; }
+function confetti(){
+  if(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const cv = document.getElementById("confetti"), ctx = cv.getContext("2d");
+  cv.width = innerWidth; cv.height = innerHeight;
+  const C = ["#FF5A5F","#FFD23F","#16A34A","#0EA5E9","#7C5CFF","#EC4899","#FF9500"];
+  const ps = Array.from({length:160}, () => ({x: innerWidth/2 + (Math.random()-.5)*200, y: innerHeight*0.35, vx:(Math.random()-.5)*14, vy: -Math.random()*14-4, s: 5+Math.random()*7, r: Math.random()*6, vr:(Math.random()-.5)*.4, c: C[Math.random()*C.length|0]}));
+  let f = 0;
+  (function step(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    ps.forEach(p => { p.vy += .35; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.fillRect(-p.s/2,-p.s/3,p.s,p.s*.66); ctx.restore(); });
+    if(++f < 150) requestAnimationFrame(step); else ctx.clearRect(0,0,cv.width,cv.height);
+  })();
+}
+
+/* ---------- pools ---------- */
+function byUnit(arr, allowMixed=true){
+  if(state.unit === 0) return arr;
+  return arr.filter(x => x.u === state.unit);
+}
+function unitTitle(n){ const u = DATA.units.find(x=>x.n===n); return u? u.t : "Mixed review"; }
+const orderPool = () => {
+  const out = [];
+  byUnit(DATA.order).forEach(o => out.push({u:o.u, s:o.a, hint:"Put the words in order."}));
+  byUnit(DATA.type).filter(t => t.long && !/[\/()]/.test(t.a)).forEach(t => out.push({u:t.u, s:t.a, hint:strip(t.q)}));
+  byUnit(DATA.vocab).forEach(v => { const w = v.ex.split(" ").length; if(w>=4 && w<=11) out.push({u:v.u, s:v.ex, hint:"Example for: "+v.w}); });
+  byUnit(DATA.gex).filter(g => !/[→"(]/.test(g.s) && g.s.split(" ").length<=12).forEach(g => out.push({u:g.u, s:g.s, hint:"Grammar example"}));
+  return out;
+};
+const quizPool = () => {
+  const mc = byUnit(DATA.mc).map(m => ({kind:"mc", u:m.u, q:m.q, instr:m.i, opts:m.o, passage:m.p}));
+  const tf = byUnit(DATA.tf).map(t => ({kind:"tf", u:t.u, q:t.q, instr:"True or False?", opts: t.a==="T"? ["True","False"] : ["False","True"], passage:t.p}));
+  return mc.concat(tf);
+};
+
+/* ---------- XP / scores ---------- */
+function addXP(n){ n = Math.max(0, Math.round(n)); state.xp += n; LS.set("xp", state.xp); renderStats(); }
+function renderStats(){
+  const lvl = Math.floor(state.xp/300)+1, pct = (state.xp%300)/3;
+  $("#lvl").textContent = lvl; $("#lvlbar").style.width = pct+"%";
+  $("#xp").textContent = state.xp; $("#known").textContent = state.known.size;
+}
+function recordUnit(u, correct){
+  const k = String(u); const s = state.unitStats[k] || {c:0,t:0};
+  s.t++; if(correct) s.c++; state.unitStats[k] = s; LS.set("unitStats", state.unitStats);
+}
+const markOf = (c, t) => t ? Math.round(c/t*20)/2 : 0;
+const comment = m => m>=9 ? "Xuất sắc!" : m>=8 ? "Giỏi lắm!" : m>=6.5 ? "Khá tốt" : m>=5 ? "Đạt yêu cầu" : "Cố gắng thêm nhé!";
+
+/* ---------- games registry ---------- */
+const GAMES = [
+  {id:"mock", c:"#845EF7", name:"Mock Test", tag:"Full exam practice", desc:"A full 5-part practice test — odd one out, grammar, error hunt, reading and word order — just like the real school exam.", icon:'<svg viewBox="0 0 24 24"><path d="M9 2h6l1 4h4v4l-4 1v9a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-9l-4-1V6h4z"/><path d="M9 12l2 2 4-4"/></svg>', run:gameMock},
+  {id:"odd", c:"#FF922B", name:"Odd One Out", tag:"Vocabulary", desc:"Spot the word that doesn't belong in each group of four.", icon:'<svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><rect x="15" y="15" width="6" height="6" rx="1"/></svg>', run:gameOdd},
+  {id:"flash", c:"#FF6B6B", name:"Flashcards", tag:"Learn", desc:"20 cards per round. Flip, listen and sort the words you know.", icon:'<svg viewBox="0 0 24 24"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="M7 3h12a2 2 0 0 1 2 2v10"/></svg>', run:gameFlash},
+  {id:"memory", c:"#2B6CB0", name:"Memory Match", tag:"Vocabulary", desc:"Pair each English word with its Vietnamese meaning.", icon:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>', run:gameMemory},
+  {id:"quiz", c:"#FFA94D", name:"Quiz Blitz", tag:"Grammar + vocab", desc:"10 timed questions. Keep your hearts for bonus points. Keys 1–4.", icon:'<svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>', run:gameQuiz},
+  {id:"fall", c:"#4DABF7", name:"Word Rain", tag:"Arcade", desc:"Catch the English word that matches the meaning before it lands.", icon:'<svg viewBox="0 0 24 24"><path d="M8 3v6M16 6v6M12 12v6M5 20h14"/></svg>', run:gameFall},
+  {id:"scramble", c:"#F783AC", name:"Word Scramble", tag:"Spelling", desc:"Rebuild the word from mixed-up letters.", icon:'<svg viewBox="0 0 24 24"><path d="M4 7h4l8 10h4M4 17h4l2.5-3M14 10l2-3h4M18 4l2 3-2 3M18 14l2 3-2 3"/></svg>', run:gameScramble},
+  {id:"form", c:"#51CF66", name:"Word Form", tag:"Word building", desc:"Type the right form: responsible, pollution, equally…", icon:'<svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg>', run:gameForm},
+  {id:"order", c:"#9775FA", name:"Sentence Builder", tag:"Grammar", desc:"Tap the word tiles into the right order.", icon:'<svg viewBox="0 0 24 24"><rect x="2" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/><rect x="16" y="9" width="6" height="6" rx="1"/></svg>', run:gameOrder},
+  {id:"error", c:"#FFD43B", name:"Error Hunter", tag:"Accuracy", desc:"Find the underlined part that is wrong.", icon:'<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4M8.5 8.5l5 5M13.5 8.5l-5 5"/></svg>', run:gameError},
+];
+
+/* ---------- home ---------- */
+function home(){
+  cleanup(); app.style.removeProperty("--gc");
+  const chips = [{n:0,t:"All units"}].concat(DATA.units).map(u =>
+    `<button class="chip" data-u="${u.n}" style="--uc:${UCOL[u.n]}" aria-pressed="${state.unit===u.n}">${u.n? "Unit "+u.n : "All units"}</button>`).join("");
+  const cards = GAMES.map(g => {
+    const b = state.best[g.id+"|"+state.unit];
+    return `<button class="gcard" data-g="${g.id}" style="--gc:${g.c}">
+      <span class="ic">${g.icon}</span>
+      <span class="tag">${g.tag}</span>
+      <h3>${g.name}</h3><p>${g.desc}</p>
+      <span class="best"><span>${b!=null? `<span class="stars">${"★".repeat(b>=9?3:b>=7?2:b>=5?1:0)}${"☆".repeat(3-(b>=9?3:b>=7?2:b>=5?1:0))}</span> Best` : "Tap to play!"}</span>${b!=null? `<span class="mk">${b}/10</span>`:""}</span>
+    </button>`;}).join("");
+  const rows = DATA.units.map(u => {
+    const words = DATA.vocab.filter(v=>v.u===u.n); const k = words.filter(v=>state.known.has(v.u+"|"+v.w)).length;
+    const s = state.unitStats[String(u.n)] || {c:0,t:0}; const acc = s.t? Math.round(s.c/s.t*100) : null;
+    return `<tr><td class="num">${u.n}</td><td>${esc(u.t)}</td>
+      <td><div class="row" style="gap:8px"><div class="bar" style="flex:1"><i style="width:${k/words.length*100}%"></i></div><span class="num small">${k}/${words.length}</span></div></td>
+      <td class="num">${s.t? s.t : "–"}</td><td class="num">${acc===null? "–" : acc+"%"}</td></tr>`;}).join("");
+  app.innerHTML = `
+    <nav class="unitbar" aria-label="Choose unit">${chips}</nav>
+    <div class="homebar"><div class="unitname" style="--uc:${UCOL[state.unit]}">${state.unit? "Unit "+state.unit+": "+esc(unitTitle(state.unit)) : "All units · mixed review"}</div><button class="surprise" id="surprise"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8" cy="8" r="1.3"/><circle cx="16" cy="16" r="1.3"/><circle cx="12" cy="12" r="1.3"/></svg>Surprise me!</button></div>
+    <div class="grid">${cards}</div>
+    <h2 class="section-title">My progress</h2>
+    <div class="progress-table"><table>
+      <thead><tr><th>Unit</th><th>Topic</th><th>Words known</th><th>Answers</th><th>Accuracy</th></tr></thead>
+      <tbody>${rows}</tbody></table></div>
+    <p class="small" style="margin-top:10px">Progress is saved in this browser only. <button class="back" id="reset" style="display:inline;color:var(--red)">Reset progress</button></p>`;
+  app.querySelectorAll(".chip").forEach(c => c.onclick = () => { state.unit = +c.dataset.u; LS.set("unit", state.unit); sfx.tap(); home(); });
+  app.querySelectorAll(".gcard").forEach(c => c.onclick = () => { sfx.tap(); open(c.dataset.g); });
+  $("#surprise").onclick = () => { sfx.win(); const g = GAMES[Math.random()*GAMES.length|0]; toast("Let's play " + g.name + "!"); open(g.id); };
+  $("#reset").onclick = () => {
+    const r = $("#reset");
+    if(r.dataset.confirm){ state.xp=0; state.best={}; state.known=new Set(); state.unitStats={};
+      ["xp","best","known","unitStats"].forEach(k=>LS.set(k, k==="known"?[]:(k==="xp"?0:{}))); renderStats(); home(); toast("Progress reset"); }
+    else { r.dataset.confirm = 1; r.textContent = "Tap again to confirm reset"; }
+  };
+}
+
+let current = null, timers = [], keyHandler = null;
+function cleanup(){ timers.forEach(t=>{clearInterval(t); clearTimeout(t); cancelAnimationFrame(t);}); timers=[]; if(keyHandler){ document.removeEventListener("keydown", keyHandler); keyHandler=null; } try{speechSynthesis.cancel();}catch(e){} }
+function onKey(fn){ if(keyHandler) document.removeEventListener("keydown", keyHandler); keyHandler = fn; document.addEventListener("keydown", fn); }
+function open(id){
+  cleanup(); current = GAMES.find(g=>g.id===id); app.style.setProperty("--gc", current.c);
+  app.innerHTML = `<div class="stagehead"><div class="row"><button class="back" id="back">${ICON.back} Games</button><h2>${current.name}</h2></div><div class="hud" id="hud"></div></div><div id="stage"></div>`;
+  $("#back").onclick = () => { sfx.tap(); home(); };
+  window.scrollTo({top:0});
+  current.run($("#stage"), $("#hud"));
+}
+function empty(stage){ stage.innerHTML = `<div class="panel center"><p class="qtext">There is not enough material in this unit for this game.</p><button class="btn" onclick="state.unit=0;LS.set('unit',0);home()">Play with all units</button></div>`; }
+
+function finish(stage, {correct, total, xp, review=[], extra=""}){
+  cleanup();
+  const m = markOf(correct, total);
+  const key = current.id+"|"+state.unit;
+  const prev = state.best[key]; const newBest = prev==null || m > prev;
+  if(newBest){ state.best[key] = m; LS.set("best", state.best); }
+  addXP(xp);
+  xp = Math.max(0, Math.round(xp)); m>=5 ? sfx.win() : sfx.no(); if(m>=6.5) confetti();
+  stage.innerHTML = `<div class="panel">
+    <div class="result">
+      <div class="stamp" aria-label="Mark ${m} out of 10"><span class="m">${m}</span><span class="c">/10</span></div>
+      <div>
+        ${starsHTML(m)}<p style="font-family:var(--display);font-weight:800;font-size:32px;color:var(--gc);margin:0;line-height:1.1">${comment(m)}</p>
+        <p class="qtext" style="margin:4px 0">${current.id==="memory"? "All pairs found" : `${correct} of ${total} correct`} · +${xp} XP</p>
+        <p class="small">${newBest && prev!=null ? "New best mark!" : prev!=null ? "Best mark: "+prev : "First score saved."} ${extra}</p>
+        <div class="row" style="margin-top:12px"><button class="btn" id="again">Play again</button><button class="btn ghost" id="home2">All games</button></div>
+      </div>
+    </div>
+    ${review.length? `<div class="review"><h3 class="tag" style="font-size:12px">Review your mistakes</h3><ol>${review.map(r=>`<li>${r}</li>`).join("")}</ol></div>`:""}
+  </div>`;
+  $("#again").onclick = () => open(current.id);
+  $("#home2").onclick = home;
+}
+
+/* ================= 1. FLASHCARDS ================= */
+function gameFlash(stage, hud){
+  const SESSION = 20;
+  let deck = shuffle(byUnit(DATA.vocab)).slice(0, SESSION);
+  let onlyNew = false, i = 0, flipped = false, knownNow = 0, seen = 0;
+  function render(){
+    if(i >= deck.length){
+      finish(stage, {correct:knownNow, total:seen||1, xp:knownNow*5, extra:"Cards you marked “I know it” count toward your words known."});
+      return;
+    }
+    const v = deck[i]; flipped = false;
+    hud.innerHTML = `<span class="pill">Card <b>${i+1}</b>/${deck.length}</span><span class="pill">Known <b>${knownNow}</b></span>`;
+    stage.innerHTML = `
+      <div class="progress"><i style="width:${i/deck.length*100}%"></i></div>
+      <div class="row" style="justify-content:space-between;margin-bottom:12px">
+        <label class="small row" style="gap:6px"><input type="checkbox" id="onlynew" ${onlyNew?"checked":""}> Only words I don't know yet</label>
+        <span class="small">Unit ${v.u} · <kbd>Space</kbd> flip · <kbd>←</kbd> learning · <kbd>→</kbd> know</span>
+      </div>
+      <div class="flash"><div class="fcard" id="fc" tabindex="0" role="button" aria-label="Flip card">
+        <div class="face"><span class="pos">${esc(v.p)}</span><span class="w">${esc(v.w)}</span>${state.known.has(v.u+"|"+v.w)?'<span class="small" style="color:var(--ok)">Known</span>':""}<span class="hint">Tap to see the meaning</span></div>
+        <div class="face back"><span class="vi">${esc(v.vi)}</span><span class="ex">${esc(v.ex)}</span><span class="hint">Tap to flip back</span></div>
+      </div></div>
+      <div class="row" style="justify-content:center;margin-top:18px">
+        <button class="btn ghost" id="say">${ICON.speak} Listen</button>
+        <button class="btn warn" id="learn">Still learning</button>
+        <button class="btn" id="know">I know it</button>
+      </div>`;
+    const fc = $("#fc");
+    const flip = () => { flipped = !flipped; fc.classList.toggle("flip", flipped); sfx.flip(); };
+    fc.onclick = flip;
+    $("#say").onclick = () => speak(headword(v.w) + ". " + v.ex);
+    $("#learn").onclick = () => { state.known.delete(v.u+"|"+v.w); LS.set("known",[...state.known]); seen++; i++; renderStats(); render(); };
+    $("#know").onclick = () => { state.known.add(v.u+"|"+v.w); LS.set("known",[...state.known]); knownNow++; seen++; i++; sfx.ok(); renderStats(); render(); };
+    $("#onlynew").onchange = e => { onlyNew = e.target.checked; deck = shuffle(byUnit(DATA.vocab).filter(x => !onlyNew || !state.known.has(x.u+"|"+x.w))).slice(0, SESSION); i=0; knownNow=0; seen=0;
+      if(!deck.length){ stage.innerHTML = `<div class="panel center"><p class="qtext">You know every word here. Well done!</p><button class="btn" id="all">Show all cards</button></div>`; $("#all").onclick=()=>{onlyNew=false; deck=shuffle(byUnit(DATA.vocab)).slice(0, SESSION); render();}; return; }
+      render(); };
+  }
+  onKey(e => { if(e.target.tagName==="INPUT") return;
+    if(e.code==="Space"){ e.preventDefault(); $("#fc")&&$("#fc").click(); }
+    if(e.key==="ArrowRight") $("#know")&&$("#know").click();
+    if(e.key==="ArrowLeft") $("#learn")&&$("#learn").click(); });
+  if(!deck.length) return empty(stage);
+  render();
+}
+
+/* ================= 2. MEMORY ================= */
+function gameMemory(stage, hud){
+  const pool = byUnit(DATA.vocab); if(pool.length < 6) return empty(stage);
+  const pick = sample(pool, 6);
+  let cards = [];
+  pick.forEach((v, k) => { cards.push({id:k, side:"en", text:headword(v.w), v}); cards.push({id:k, side:"vi", text:v.vi, v}); });
+  cards = shuffle(cards);
+  let open1 = null, lock = false, moves = 0, matched = 0, secs = 0;
+  stage.innerHTML = `<p class="instr">Flip two cards. Match the English word with its Vietnamese meaning.</p><div class="mem" id="mem"></div>`;
+  const mem = $("#mem");
+  cards.forEach((c, idx) => {
+    const b = document.createElement("button"); b.className = "mcard" + (c.side==="vi"?" vi-side":"");
+    b.innerHTML = `<span class="back-logo">G4Q</span><span class="inner">${esc(c.text)}</span>`;
+    b.setAttribute("aria-label", "Hidden card"); b.onclick = () => flip(b, c); mem.appendChild(b);
+  });
+  const hudR = () => hud.innerHTML = `<span class="pill">Moves <b>${moves}</b></span><span class="pill">Pairs <b>${matched}</b>/6</span><span class="pill">Time <b>${secs}s</b></span>`;
+  hudR(); timers.push(setInterval(()=>{ secs++; hudR(); }, 1000));
+  function flip(b, c){
+    if(lock || b.classList.contains("open") || b.classList.contains("done")) return;
+    b.classList.add("open"); b.setAttribute("aria-label", c.text); sfx.flip();
+    if(!open1){ open1 = {b, c}; return; }
+    moves++; hudR();
+    if(open1.c.id === c.id && open1.c.side !== c.side){
+      b.classList.add("done"); open1.b.classList.add("done"); matched++; sfx.ok(); pop("Match!", b); open1 = null; hudR();
+      recordUnit(c.v.u, true);
+      if(matched === 6){
+        // 8 moves or fewer = 10/10; each extra move costs half a point; finishing always earns at least 4
+        const correct = Math.max(4, Math.min(10, 10 - Math.max(0, moves - 8) * 0.5));
+        setTimeout(()=>finish(stage, {correct, total:10, xp: 30 + Math.max(0, 60 - moves*2), extra:`All 6 pairs in ${moves} moves and ${secs} seconds. Fewer moves = higher mark.`}), 600);
+      }
+    } else {
+      lock = true; sfx.no(); const a = open1; open1 = null;
+      setTimeout(()=>{ a.b.classList.remove("open"); b.classList.remove("open"); a.b.setAttribute("aria-label","Hidden card"); b.setAttribute("aria-label","Hidden card"); lock = false; }, 850);
+    }
+  }
+}
+
+/* ================= 3. QUIZ BLITZ ================= */
+function gameQuiz(stage, hud){
+  const pool = quizPool(); if(pool.length < 4) return empty(stage);
+  const qs = sample(pool, Math.min(10, pool.length));
+  let i = 0, lives = 3, score = 0, streak = 0, correct = 0, review = [], t0 = 0, answered = false;
+  const LIMIT = 20;
+  function hudR(){ hud.innerHTML = `<span class="pill">Q <b>${Math.min(i+1,qs.length)}</b>/${qs.length}</span><span class="pill">Score <b>${score}</b></span><span class="pill">Streak <b>${streak}</b></span><span class="pill hearts" aria-label="${lives} lives">${"♥".repeat(lives)}${"♡".repeat(3-lives)}</span>`; }
+  function render(){
+    if(i >= qs.length){
+      const bonus = lives*100; score += bonus;
+      finish(stage, {correct, total: qs.length, xp: Math.round(score/10), review, extra: `Score: ${score} points${bonus? ` (includes +${bonus} for ${lives} heart${lives>1?"s":""} left)`:""}.`}); return;
+    }
+    const q = qs[i]; answered = false; hudR();
+    const opts = shuffle(q.opts.map((o, k) => ({o, right: k===0})));
+    const label = q.kind==="tf" ? q.q : (q.q || "");
+    stage.innerHTML = `<div class="panel">
+      <div class="progress"><i style="width:${i/qs.length*100}%"></i></div>
+      <p class="tag">${q.u? "Unit "+q.u : "Final review"}</p>
+      ${q.passage? `<details class="passage" ${q.kind==="tf"?"open":""}><summary class="small" style="cursor:pointer">Reading text</summary>${esc(q.passage)}</details>`:""}
+      <p class="instr">${esc(q.instr)}</p>
+      ${label? `<p class="qtext">${label}</p>`:""}
+      <div class="timer"><i id="tbar" style="width:100%"></i></div>
+      <div class="opts">${opts.map((x,k)=>`<button class="opt" data-k="${k}"><span class="k">${k+1}</span><span>${x.o}</span></button>`).join("")}</div>
+      <div class="feedback" id="fb" aria-live="polite"></div></div>`;
+    const btns = [...stage.querySelectorAll(".opt")];
+    t0 = performance.now();
+    const tick = setInterval(()=>{
+      const left = LIMIT - (performance.now()-t0)/1000;
+      const bar = $("#tbar"); if(bar) bar.style.width = Math.max(0,left/LIMIT*100)+"%";
+      if(left <= 0 && !answered){ clearInterval(tick); choose(-1); }
+    }, 100); timers.push(tick);
+    function choose(k){
+      if(answered) return; answered = true; clearInterval(tick);
+      const ok = k>=0 && opts[k].right;
+      btns.forEach((b, j) => { b.disabled = true; if(opts[j].right) b.classList.add("right"); else if(j===k) b.classList.add("wrong"); });
+      const fb = $("#fb");
+      recordUnit(q.u, ok);
+      const rightText = opts.find(x=>x.right).o;
+      if(ok){
+        streak++; correct++;
+        const left = Math.max(0, LIMIT - (performance.now()-t0)/1000);
+        const pts = Math.round((100 + left*5) * (1 + Math.min(streak-1,4)*0.25));
+        score += pts; fb.className = "feedback ok"; fb.innerHTML = `Correct! +${pts} ${streak>1? `<span class="combo">Combo ×${1+Math.min(streak-1,4)*0.25}</span>`:""}`; sfx.ok(); pop("+"+pts, btns[k]);
+      } else {
+        streak = 0; lives = Math.max(0, lives-1); fb.className = "feedback no";
+        fb.innerHTML = (k<0? "Time's up! " : "Not quite. ") + "Answer: " + rightText; sfx.no();
+        review.push(`${label? label+" " : strip(q.instr)+" "}<span class="corr">${rightText}</span>${k>=0? ` <span class="yours">${opts[k].o}</span>`:""}`);
+      }
+      hudR();
+      const nx = setTimeout(()=>{ i++; render(); }, ok? 900 : 1900); timers.push(nx);
+    }
+    btns.forEach((b, k) => b.onclick = () => choose(k));
+  }
+  onKey(e => { const n = parseInt(e.key); if(n>=1 && n<=4){ const b = stage.querySelectorAll(".opt")[n-1]; if(b && !b.disabled) b.click(); } });
+  render();
+}
+
+/* ================= 4. WORD RAIN ================= */
+function gameFall(stage, hud){
+  const pool = byUnit(DATA.vocab).map(v => ({...v, h: headword(v.w)})).filter(v => v.h.length <= 22);
+  const all = DATA.vocab.map(v => ({...v, h: headword(v.w)})).filter(v => v.h.length <= 22);
+  if(pool.length < 4) return empty(stage);
+  let lives = 3, score = 0, hits = 0, rounds = 0, speed = 55, running = false, drops = [], target = null, last = 0, review = [], raf = 0;
+  stage.innerHTML = `<div class="target" id="tg">Get ready…</div>
+    <div class="arena" id="arena"><div class="ground"></div>
+      <div class="overlay" id="ov"><div><p class="qtext">Words fall from the sky.</p><p class="small">Tap the English word that matches the Vietnamese meaning.<br>Miss the right word or tap a wrong one and you lose a heart.</p><button class="btn" id="go">Start</button></div></div>
+    </div>`;
+  const arena = $("#arena"), tg = $("#tg");
+  const hudR = () => hud.innerHTML = `<span class="pill">Score <b>${score}</b></span><span class="pill">Caught <b>${hits}</b></span><span class="pill hearts">${"♥".repeat(Math.max(0,lives))}${"♡".repeat(3-Math.max(0,lives))}</span>`;
+  hudR();
+  $("#go").onclick = () => { $("#ov").remove(); running = true; next(); last = performance.now(); raf = requestAnimationFrame(loop); timers.push(raf); };
+  function next(){
+    drops.forEach(d => d.el.remove()); drops = [];
+    if(lives <= 0 || rounds >= 15){ end(); return; }
+    rounds++;
+    target = pool[Math.floor(Math.random()*pool.length)];
+    tg.innerHTML = `${esc(target.vi)}<small>Round ${rounds}/15 · ${esc(target.p)}</small>`;
+    const distract = sample(all.filter(v => v.h !== target.h), 3);
+    const words = shuffle([target, ...distract]);
+    const W = arena.clientWidth;
+    const lanes = shuffle([0.14, 0.38, 0.62, 0.86]);
+    words.forEach((w, k) => {
+      const el = document.createElement("button"); el.className = "drop"; el.textContent = w.h;
+      el.style.left = (lanes[k]*100) + "%";
+      const d = {el, y: -40 - k*55 - Math.random()*30, right: w.h === target.h, done:false};
+      el.onclick = () => tapDrop(d);
+      arena.appendChild(el); drops.push(d);
+    });
+  }
+  function tapDrop(d){
+    if(!running || d.done) return;
+    if(d.right){ d.done = true; d.el.classList.add("hit"); pop("+"+(10 + Math.round(speed/10)), d.el); hits++; score += 10 + Math.round(speed/10); sfx.ok(); recordUnit(target.u, true); speed += 6; hudR(); pause(next, 450); }
+    else { d.done = true; d.el.classList.add("miss"); lives--; sfx.no(); recordUnit(target.u, false); review.push(`${esc(target.vi)} → <span class="corr">${esc(target.h)}</span> <span class="yours">${esc(d.el.textContent)}</span>`); hudR(); if(lives<=0) pause(end, 500); }
+  }
+  let paused = false;
+  function pause(fn, ms){ paused = true; const t = setTimeout(()=>{ paused = false; fn(); }, ms); timers.push(t); }
+  function loop(ts){
+    if(!running) return;
+    const dt = Math.min(0.05, (ts-last)/1000); last = ts;
+    if(!paused){
+      const H = arena.clientHeight;
+      drops.forEach(d => {
+        if(d.done) return;
+        d.y += speed*dt; d.el.style.top = d.y + "px";
+        if(d.y > H - 40){
+          d.done = true;
+          if(d.right){ d.el.classList.add("miss"); lives--; sfx.no(); recordUnit(target.u, false); review.push(`${esc(target.vi)} → <span class="corr">${esc(target.h)}</span> (missed)`); hudR(); pause(lives<=0? end : next, 600); }
+          else d.el.style.opacity = .25;
+        }
+      });
+    }
+    raf = requestAnimationFrame(loop); timers.push(raf);
+  }
+  function end(){ running = false; finish(stage, {correct: hits, total: rounds || 1, xp: score/2|0, review, extra:`Score: ${score}.`}); }
+}
+
+/* ================= 5. SCRAMBLE ================= */
+function gameScramble(stage, hud){
+  const pool = byUnit(DATA.vocab).map(v => ({...v, h: headword(v.w)})).filter(v => /^[a-z\- ]+$/i.test(v.h) && v.h !== v.h.toUpperCase() && v.h.replace(/[ \-]/g,"").length <= 14 && v.h.split(" ").length <= 3);
+  if(pool.length < 3) return empty(stage);
+  const items = sample(pool, Math.min(8, pool.length));
+  let i = 0, correct = 0, review = [], hintsUsed = 0;
+  function render(){
+    if(i >= items.length){ finish(stage, {correct, total: items.length, xp: correct*12 - hintsUsed*2, review}); return; }
+    const v = items[i]; const target = v.h.toLowerCase();
+    const letters = [...target].map((ch, k) => ({ch, k})).filter(x => x.ch !== " " && x.ch !== "-");
+    let bank = shuffle(letters); if(letters.length>1 && bank.map(x=>x.ch).join("") === letters.map(x=>x.ch).join("")) bank = bank.reverse();
+    const filled = []; // indexes into letters (answer order)
+    let hinted = 0, done = false;
+    hud.innerHTML = `<span class="pill">Word <b>${i+1}</b>/${items.length}</span><span class="pill">Correct <b>${correct}</b></span>`;
+    const blanked = v.ex.replace(new RegExp(v.h.replace(/[-]/g,"\\-"), "i"), "_____");
+    stage.innerHTML = `<div class="panel">
+      <div class="progress"><i style="width:${i/items.length*100}%"></i></div>
+      <p class="tag">Unit ${v.u} · ${esc(v.p)}</p>
+      <p class="qtext">${esc(v.vi)}</p>
+      <p class="instr">${esc(blanked)}</p>
+      <div class="slots" id="slots"></div>
+      <div class="bank" id="bank"></div>
+      <div class="row" style="margin-top:14px"><button class="btn ghost" id="undo">Undo</button><button class="btn ghost" id="hint">Hint</button><button class="btn ghost" id="say">${ICON.speak} Listen</button><button class="btn warn" id="skip">Skip</button></div>
+      <div class="feedback" id="fb" aria-live="polite"></div></div>`;
+    const slots = $("#slots"), bankEl = $("#bank");
+    function draw(){
+      let html = "", li = 0;
+      for(const ch of target){
+        if(ch === " "){ html += '<span class="gap-space"></span>'; continue; }
+        if(ch === "-"){ html += '<span class="lslot fixed">-</span>'; continue; }
+        const f = filled[li]; html += `<span class="lslot ${li < hinted ? "hinted":""}">${f!=null? letters[f].ch : ""}</span>`; li++;
+      }
+      slots.innerHTML = html;
+      bankEl.innerHTML = bank.map((b, j) => b.used? "" : `<button class="tile letter" data-j="${j}">${b.ch}</button>`).join("");
+      bankEl.querySelectorAll(".tile").forEach(t => t.onclick = () => place(+t.dataset.j));
+    }
+    function place(j){
+      if(done) return; const b = bank[j]; b.used = true; filled.push(letters.findIndex((x)=>x===b)); sfx.tap(); draw();
+      if(filled.length === letters.length) check();
+    }
+    function check(){
+      const got = filled.map(f => letters[f].ch).join(""), want = letters.map(x=>x.ch).join("");
+      const fb = $("#fb"); done = true; recordUnit(v.u, got===want);
+      if(got === want){ slots.classList.add("ok"); fb.className="feedback ok"; fb.textContent = "Correct: " + v.h; correct++; sfx.ok(); pop("Great!", slots); timers.push(setTimeout(()=>{i++; render();}, 1100)); }
+      else { slots.classList.add("no"); fb.className="feedback no"; fb.innerHTML = "Not quite. Try again or skip."; sfx.no();
+        timers.push(setTimeout(()=>{ slots.classList.remove("no"); fb.textContent=""; done=false; while(filled.length>hinted){ const f=filled.pop(); bank.find(b=>b===letters[f]).used=false; } draw(); }, 1100)); }
+    }
+    $("#undo").onclick = () => { if(done || filled.length<=hinted) return; const f = filled.pop(); letters[f].used = false; draw(); };
+    $("#hint").onclick = () => {
+      if(done) return;
+      while(filled.length > hinted){ const f = filled.pop(); letters[f].used = false; }
+      if(hinted >= letters.length-1) return;
+      const need = letters[hinted]; need.used = true; filled.push(hinted); hinted++; hintsUsed++; draw();
+    };
+    $("#say").onclick = () => speak(v.h);
+    $("#skip").onclick = () => { if(done) return; done = true; recordUnit(v.u, false); review.push(`${esc(v.vi)} → <span class="corr">${esc(v.h)}</span>`); const fb=$("#fb"); fb.className="feedback no"; fb.textContent = "Answer: "+v.h; sfx.no(); timers.push(setTimeout(()=>{i++; render();}, 1300)); };
+    draw();
+  }
+  onKey(e => {
+    if(!/^[a-z]$/i.test(e.key)) { if(e.key==="Backspace") $("#undo")&&$("#undo").click(); return; }
+    const t = [...document.querySelectorAll("#bank .tile")].find(b => b.textContent === e.key.toLowerCase()); if(t) t.click();
+  });
+  render();
+}
+
+/* ================= 6. WORD FORM ================= */
+function gameForm(stage, hud){
+  const pool = byUnit(DATA.type).filter(t => !t.long);
+  if(pool.length < 3) return empty(stage);
+  const items = sample(pool, Math.min(8, pool.length));
+  let i = 0, correct = 0, review = [], hints = 0;
+  function render(){
+    if(i >= items.length){ finish(stage, {correct, total: items.length, xp: correct*12 - hints*3, review}); return; }
+    const it = items[i]; const ans = it.a.trim(); let hintN = 0, done = false, tries = 0;
+    hud.innerHTML = `<span class="pill">Item <b>${i+1}</b>/${items.length}</span><span class="pill">Correct <b>${correct}</b></span>`;
+    const q = it.q.replace(/\(([^)]+)\)\s*$/, '<mark style="background:var(--hl);color:#1F2433;border-radius:4px;padding:0 5px">$1</mark>');
+    stage.innerHTML = `<div class="panel">
+      <div class="progress"><i style="width:${i/items.length*100}%"></i></div>
+      <p class="tag">${it.u? "Unit "+it.u : "Final review"}</p>
+      <p class="instr">Write the correct form of the highlighted word.</p>
+      <p class="qtext">${q}</p>
+      <form id="f" class="row" style="margin-top:12px" autocomplete="off">
+        <input class="typein" id="inp" aria-label="Your answer" placeholder="Type here…" spellcheck="false">
+        <button class="btn" type="submit">Check</button>
+        <button class="btn ghost" type="button" id="hint">Hint</button>
+      </form>
+      <div class="feedback" id="fb" aria-live="polite"></div></div>`;
+    const inp = $("#inp"), fb = $("#fb"); inp.focus();
+    $("#hint").onclick = () => { if(done) return; hintN = Math.min(hintN+1, ans.length-1); hints++; inp.value = ans.slice(0, hintN); inp.focus(); fb.className="feedback"; fb.textContent = `Starts with “${ans.slice(0,hintN)}” · ${ans.length} letters`; };
+    $("#f").onsubmit = e => {
+      e.preventDefault(); if(done) return;
+      const v = inp.value.trim().toLowerCase(); if(!v) return;
+      tries++;
+      if(v === ans.toLowerCase()){ done = true; inp.classList.add("ok"); fb.className="feedback ok"; fb.textContent = "Correct!"; if(tries===1) correct++; else correct += .5; recordUnit(it.u, true); sfx.ok(); pop("Correct!", inp); timers.push(setTimeout(()=>{i++; render();}, 900)); }
+      else if(tries < 2){ inp.classList.add("no"); fb.className="feedback no"; fb.textContent = "Not quite. One more try (half point)."; sfx.no(); timers.push(setTimeout(()=>inp.classList.remove("no"), 600)); inp.select(); }
+      else { done = true; inp.classList.add("no"); fb.className="feedback no"; fb.innerHTML = `Answer: <b>${esc(ans)}</b>`; recordUnit(it.u, false); review.push(`${strip(it.q)} → <span class="corr">${esc(ans)}</span> <span class="yours">${esc(inp.value)}</span>`); sfx.no(); timers.push(setTimeout(()=>{i++; render();}, 1800)); }
+    };
+  }
+  render();
+}
+
+/* ================= 7. SENTENCE BUILDER ================= */
+function gameOrder(stage, hud){
+  const pool = orderPool(); if(pool.length < 3) return empty(stage);
+  const items = sample(pool, Math.min(6, pool.length));
+  let i = 0, correct = 0, review = [];
+  function render(){
+    if(i >= items.length){ finish(stage, {correct, total: items.length, xp: correct*15, review}); return; }
+    const it = items[i]; const words = it.s.split(/\s+/);
+    let bank = shuffle(words.map((w,k)=>({w,k}))); if(bank.every((b,k)=>b.k===k) && bank.length>1) bank.reverse();
+    const line = []; let tries = 0, done = false;
+    hud.innerHTML = `<span class="pill">Sentence <b>${i+1}</b>/${items.length}</span><span class="pill">Correct <b>${correct}</b></span>`;
+    stage.innerHTML = `<div class="panel">
+      <div class="progress"><i style="width:${i/items.length*100}%"></i></div>
+      <p class="tag">${it.u? "Unit "+it.u : "Final review"}</p>
+      <p class="instr">${esc(it.hint)}</p>
+      <div class="slots" id="line" aria-label="Your sentence"></div>
+      <div class="bank" id="bank"></div>
+      <div class="row" style="margin-top:14px"><button class="btn" id="check">Check</button><button class="btn ghost" id="clear">Clear</button><button class="btn ghost" id="say">${ICON.speak} Listen</button><button class="btn warn" id="skip">Show answer</button></div>
+      <div class="feedback" id="fb" aria-live="polite"></div></div>`;
+    const lineEl = $("#line"), bankEl = $("#bank"), fb = $("#fb");
+    function draw(){
+      lineEl.innerHTML = line.length? line.map((b,j)=>`<button class="tile" data-j="${j}">${esc(b.w)}</button>`).join("") : '<span class="small">Tap the words below…</span>';
+      bankEl.innerHTML = bank.map((b,j)=> b.used? "" : `<button class="tile" data-j="${j}">${esc(b.w)}</button>`).join("");
+      lineEl.querySelectorAll(".tile").forEach(t => t.onclick = () => { if(done) return; const b = line.splice(+t.dataset.j,1)[0]; b.used=false; sfx.tap(); draw(); });
+      bankEl.querySelectorAll(".tile").forEach(t => t.onclick = () => { if(done) return; const b = bank[+t.dataset.j]; b.used = true; line.push(b); sfx.tap(); draw(); });
+    }
+    draw();
+    $("#clear").onclick = () => { if(done) return; line.splice(0).forEach(b=>b.used=false); draw(); };
+    $("#say").onclick = () => speak(it.s);
+    $("#check").onclick = () => {
+      if(done || line.length < words.length){ if(!done){ fb.className="feedback no"; fb.textContent = "Use all the words first."; } return; }
+      const got = line.map(b=>b.w).join(" ");
+      if(got === it.s){ done = true; lineEl.classList.add("ok"); fb.className="feedback ok"; fb.textContent = "Correct!"; correct += tries? .5 : 1; recordUnit(it.u, true); sfx.ok(); pop("Perfect!", lineEl); timers.push(setTimeout(()=>{i++; render();}, 1000)); }
+      else { tries++; lineEl.classList.add("no"); sfx.no(); fb.className="feedback no"; fb.textContent = tries<2? "Not yet. Move some words and check again (half point)." : "";
+        timers.push(setTimeout(()=>lineEl.classList.remove("no"), 700)); if(tries>=2) reveal(got); }
+    };
+    $("#skip").onclick = () => { if(!done) reveal(line.map(b=>b.w).join(" ")); };
+    function reveal(got){ done = true; recordUnit(it.u, false); fb.className="feedback no"; fb.innerHTML = `Answer: <b>${esc(it.s)}</b>`; review.push(`<span class="corr">${esc(it.s)}</span>${got? ` <span class="yours">${esc(got)}</span>`:""}`); timers.push(setTimeout(()=>{i++; render();}, 2200)); }
+  }
+  render();
+}
+
+/* ================= 8. ERROR HUNTER ================= */
+function gameError(stage, hud){
+  const pool = byUnit(DATA.err); if(pool.length < 2) return empty(stage);
+  const items = sample(pool, Math.min(8, pool.length));
+  let i = 0, correct = 0, review = [];
+  function render(){
+    if(i >= items.length){ finish(stage, {correct, total: items.length, xp: correct*12, review}); return; }
+    const it = items[i]; const letter = it.a.trim()[0]; const fix = it.a.split("→")[1]?.trim() || "";
+    const html = it.q.replace(/<u>(.*?)<\/u><super>([A-D])<\/super>/g, (m, t, l) => `<button class="seg" data-l="${l}">${t}<sup>${l}</sup></button>`);
+    hud.innerHTML = `<span class="pill">Sentence <b>${i+1}</b>/${items.length}</span><span class="pill">Correct <b>${correct}</b></span>`;
+    stage.innerHTML = `<div class="panel">
+      <div class="progress"><i style="width:${i/items.length*100}%"></i></div>
+      <p class="tag">${it.u? "Unit "+it.u : "Final review"}</p>
+      <p class="instr">One underlined part is wrong. Tap it.</p>
+      <p class="err-sent">${html}</p>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <div class="row" id="nx" hidden><button class="btn" id="next">Next</button></div></div>`;
+    const segs = [...stage.querySelectorAll(".seg")];
+    segs.forEach(s => s.onclick = () => {
+      const ok = s.dataset.l === letter; segs.forEach(x => { x.disabled = true; if(x.dataset.l===letter) x.classList.add("right"); });
+      if(!ok) s.classList.add("wrong");
+      const fb = $("#fb"); fb.className = "feedback " + (ok? "ok":"no");
+      fb.innerHTML = (ok? "Well spotted! " : `The mistake is <b>${letter}</b>. `) + `Correction: <b>${esc(fix)}</b>`;
+      recordUnit(it.u, ok); ok ? (correct++, sfx.ok(), pop("Found it!", s)) : sfx.no();
+      if(!ok) review.push(`${strip(it.q.replace(/<super>([A-D])<\/super>/g,"($1)"))} → <span class="corr">${esc(it.a)}</span>`);
+      $("#nx").hidden = false; $("#next").focus();
+    });
+    $("#next").onclick = () => { i++; render(); };
+  }
+  onKey(e => { const k = e.key.toUpperCase(); if("ABCD".includes(k) && k.length===1){ const s = [...stage.querySelectorAll(".seg")].find(x=>x.dataset.l===k); if(s && !s.disabled) s.click(); } if(e.key==="Enter"){ const n=$("#next"); if(n && !$("#nx").hidden){ e.preventDefault(); n.click(); } } });
+  render();
+}
+
+/* ================= 9. ODD ONE OUT ================= */
+function gameOdd(stage, hud){
+  const pool = byUnit(DATA.odd); if(pool.length < 3) return empty(stage);
+  const items = sample(pool, Math.min(10, pool.length));
+  let i = 0, correct = 0, review = [];
+  function render(){
+    if(i >= items.length){ finish(stage, {correct, total: items.length, xp: correct*10, review}); return; }
+    const it = items[i];
+    hud.innerHTML = `<span class="pill">Item <b>${i+1}</b>/${items.length}</span><span class="pill">Correct <b>${correct}</b></span>`;
+    stage.innerHTML = `<div class="panel">
+      <div class="progress"><i style="width:${i/items.length*100}%"></i></div>
+      <p class="tag">${it.u? "Unit "+it.u : "Final review"}</p>
+      <p class="instr">Tap the word that doesn't belong.</p>
+      <div class="opts">${it.w.map((w,k)=>`<button class="opt" data-k="${k}"><span class="k">${k+1}</span><span>${esc(w)}</span></button>`).join("")}</div>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <div class="row" id="nx" hidden><button class="btn" id="next">Next</button></div></div>`;
+    const btns = [...stage.querySelectorAll(".opt")];
+    btns.forEach((b,k) => b.onclick = () => {
+      const ok = k===it.a; btns.forEach((x,j) => { x.disabled = true; if(j===it.a) x.classList.add("right"); else if(j===k) x.classList.add("wrong"); });
+      recordUnit(it.u, ok); ok ? (correct++, sfx.ok(), pop("Correct!", b)) : sfx.no();
+      const fb = $("#fb"); fb.className = "feedback " + (ok?"ok":"no"); fb.innerHTML = ok? "Correct!" : `The odd one out is <b>${esc(it.w[it.a])}</b>.`;
+      if(!ok) review.push(`${it.w.join(", ")} → <span class="corr">${esc(it.w[it.a])}</span>`);
+      $("#nx").hidden = false; $("#next").onclick = () => {i++; render();}; $("#next").focus();
+    });
+  }
+  onKey(e => { const n = parseInt(e.key); if(n>=1 && n<=4){ const b = stage.querySelectorAll(".opt")[n-1]; if(b && !b.disabled) b.click(); } if(e.key==="Enter"){ const nx=$("#next"); if(nx && !$("#nx").hidden){ e.preventDefault(); nx.click(); } } });
+  render();
+}
+
+/* ================= 10. MOCK TEST ================= */
+function gameMock(stage, hud){
+  if(DATA.odd.length<4 || DATA.mc.length<4 || DATA.err.length<2 || DATA.tf.length<2 || DATA.order.length<2) return empty(stage);
+
+  const oddItems = sample(DATA.odd, Math.min(5, DATA.odd.length));
+  const mcItems = sample(DATA.mc, Math.min(8, DATA.mc.length));
+  const errItems = sample(DATA.err, Math.min(4, DATA.err.length));
+  const tfByPassage = {};
+  DATA.tf.forEach(t => { (tfByPassage[t.p] = tfByPassage[t.p] || []).push(t); });
+  const groups = Object.entries(tfByPassage);
+  groups.sort((a,b) => b[1].length - a[1].length);
+  const bestLen = groups[0][1].length;
+  const topGroups = groups.filter(g => g[1].length === bestLen);
+  const chosen = topGroups[Math.random()*topGroups.length|0];
+  const passageText = chosen[0];
+  const tfItems = sample(chosen[1], Math.min(5, chosen[1].length));
+  const orderItems = sample(orderPool(), Math.min(5, orderPool().length));
+
+  const parts = [
+    {label:"Part 1 · Circle the odd one out", items: oddItems.map(o => ({kind:"odd", u:o.u, w:o.w, a:o.a}))},
+    {label:"Part 2 · Choose the correct answer", items: mcItems.map(m => ({kind:"mc", u:m.u, q:m.q, instr:m.i, opts:m.o, passage:m.p}))},
+    {label:"Part 3 · Find and correct the mistake", items: errItems.map(e => ({kind:"err", u:e.u, q:e.q, a:e.a}))},
+    {label:"Part 4 · Read and decide True or False", items: tfItems.map(t => ({kind:"tf", u:t.u, q:t.q, a:t.a, passage:passageText}))},
+    {label:"Part 5 · Put the words in order", items: orderItems.map(o => ({kind:"order", u:o.u, a:o.s}))},
+  ];
+  const steps = [];
+  parts.forEach((p,pi) => p.items.forEach((it,ii) => steps.push({...it, part:pi, partLabel:p.label, partLen:p.items.length, partPos:ii})));
+
+  let i = 0, correct = 0, review = [];
+
+  function next(){ i++; render(); }
+
+  function render(){
+    if(i >= steps.length){
+      finish(stage, {correct, total: steps.length, xp: correct*10, review, extra: `Full mock exam: ${parts.map(p=>p.label.split("· ")[1]).join(" · ")}.`}); return;
+    }
+    const st = steps[i];
+    hud.innerHTML = `<span class="pill">${st.partLabel}</span><span class="pill">Item <b>${st.partPos+1}</b>/${st.partLen}</span><span class="pill">Score <b>${correct}</b>/${steps.length}</span>`;
+    if(st.kind==="odd") renderOdd(st);
+    else if(st.kind==="mc") renderMC(st);
+    else if(st.kind==="err") renderErr(st);
+    else if(st.kind==="tf") renderTF(st);
+    else renderOrder(st);
+  }
+
+  function progressBar(){ return `<div class="progress"><i style="width:${i/steps.length*100}%"></i></div>`; }
+
+  function renderOdd(st){
+    stage.innerHTML = `<div class="panel">${progressBar()}
+      <p class="tag">${st.partLabel}</p>
+      <p class="instr">Tap the word that doesn't belong.</p>
+      <div class="opts">${st.w.map((w,k)=>`<button class="opt" data-k="${k}"><span class="k">${k+1}</span><span>${esc(w)}</span></button>`).join("")}</div>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <div class="row" id="nx" hidden><button class="btn" id="next">Next</button></div></div>`;
+    const btns = [...stage.querySelectorAll(".opt")];
+    btns.forEach((b,k) => b.onclick = () => {
+      const ok = k===st.a; btns.forEach((x,j) => { x.disabled = true; if(j===st.a) x.classList.add("right"); else if(j===k) x.classList.add("wrong"); });
+      recordUnit(st.u, ok); ok ? (correct++, sfx.ok(), pop("Correct!", b)) : sfx.no();
+      const fb = $("#fb"); fb.className = "feedback " + (ok?"ok":"no"); fb.innerHTML = ok? "Correct!" : `The odd one out is <b>${esc(st.w[st.a])}</b>.`;
+      if(!ok) review.push(`Odd one out: ${st.w.join(", ")} → <span class="corr">${esc(st.w[st.a])}</span>`);
+      $("#nx").hidden = false; $("#next").onclick = next; $("#next").focus();
+    });
+  }
+
+  function renderMC(st){
+    const opts = shuffle(st.opts.map((o,k) => ({o, right:k===0})));
+    stage.innerHTML = `<div class="panel">${progressBar()}
+      <p class="tag">${st.partLabel}</p>
+      ${st.passage? `<details class="passage"><summary class="small" style="cursor:pointer">Reading text</summary>${esc(st.passage)}</details>`:""}
+      <p class="instr">${esc(st.instr)}</p>
+      <p class="qtext">${st.q}</p>
+      <div class="opts">${opts.map((x,k)=>`<button class="opt" data-k="${k}"><span class="k">${k+1}</span><span>${x.o}</span></button>`).join("")}</div>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <div class="row" id="nx" hidden><button class="btn" id="next">Next</button></div></div>`;
+    const btns = [...stage.querySelectorAll(".opt")];
+    btns.forEach((b,k) => b.onclick = () => {
+      const ok = opts[k].right; btns.forEach((x,j) => { x.disabled = true; if(opts[j].right) x.classList.add("right"); else if(j===k) x.classList.add("wrong"); });
+      recordUnit(st.u, ok); ok ? (correct++, sfx.ok(), pop("Correct!", b)) : sfx.no();
+      const rightText = opts.find(x=>x.right).o;
+      const fb = $("#fb"); fb.className = "feedback " + (ok?"ok":"no"); fb.innerHTML = ok? "Correct!" : `Answer: <b>${esc(rightText)}</b>`;
+      if(!ok) review.push(`${esc(st.q)} → <span class="corr">${esc(rightText)}</span>`);
+      $("#nx").hidden = false; $("#next").onclick = next; $("#next").focus();
+    });
+  }
+
+  function renderErr(st){
+    const letter = st.a.trim()[0]; const fix = st.a.split("→")[1]?.trim() || "";
+    const html = st.q.replace(/<u>(.*?)<\/u><super>([A-D])<\/super>/g, (m,t,l) => `<button class="seg" data-l="${l}">${t}<sup>${l}</sup></button>`);
+    stage.innerHTML = `<div class="panel">${progressBar()}
+      <p class="tag">${st.partLabel}</p>
+      <p class="instr">One underlined part is wrong. Tap it.</p>
+      <p class="err-sent">${html}</p>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <div class="row" id="nx" hidden><button class="btn" id="next">Next</button></div></div>`;
+    const segs = [...stage.querySelectorAll(".seg")];
+    segs.forEach(s => s.onclick = () => {
+      const ok = s.dataset.l === letter; segs.forEach(x => { x.disabled = true; if(x.dataset.l===letter) x.classList.add("right"); });
+      if(!ok) s.classList.add("wrong");
+      recordUnit(st.u, ok); ok ? (correct++, sfx.ok(), pop("Found it!", s)) : sfx.no();
+      const fb = $("#fb"); fb.className = "feedback " + (ok?"ok":"no"); fb.innerHTML = (ok? "Well spotted! " : `The mistake is <b>${letter}</b>. `) + `Correction: <b>${esc(fix)}</b>`;
+      if(!ok) review.push(`${strip(st.q.replace(/<super>([A-D])<\/super>/g,"($1)"))} → <span class="corr">${esc(st.a)}</span>`);
+      $("#nx").hidden = false; $("#next").onclick = next; $("#next").focus();
+    });
+  }
+
+  function renderTF(st){
+    stage.innerHTML = `<div class="panel">${progressBar()}
+      <p class="tag">${st.partLabel}</p>
+      <details class="passage" open><summary class="small" style="cursor:pointer">Reading text</summary>${esc(st.passage)}</details>
+      <p class="instr">True or False?</p>
+      <p class="qtext">${esc(st.q)}</p>
+      <div class="opts">${["True","False"].map((o,k)=>`<button class="opt" data-k="${k}"><span class="k">${k+1}</span><span>${o}</span></button>`).join("")}</div>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <div class="row" id="nx" hidden><button class="btn" id="next">Next</button></div></div>`;
+    const btns = [...stage.querySelectorAll(".opt")]; const rightIdx = st.a==="T"? 0 : 1;
+    btns.forEach((b,k) => b.onclick = () => {
+      const ok = k===rightIdx; btns.forEach((x,j) => { x.disabled = true; if(j===rightIdx) x.classList.add("right"); else if(j===k) x.classList.add("wrong"); });
+      recordUnit(st.u, ok); ok ? (correct++, sfx.ok(), pop("Correct!", b)) : sfx.no();
+      const fb = $("#fb"); fb.className = "feedback " + (ok?"ok":"no"); fb.innerHTML = ok? "Correct!" : `Answer: <b>${st.a==="T"?"True":"False"}</b>`;
+      if(!ok) review.push(`${esc(st.q)} → <span class="corr">${st.a==="T"?"True":"False"}</span>`);
+      $("#nx").hidden = false; $("#next").onclick = next; $("#next").focus();
+    });
+  }
+
+  function renderOrder(st){
+    const words = st.a.split(/\s+/);
+    let bank = shuffle(words.map((w,k)=>({w,k}))); if(bank.every((b,k)=>b.k===k) && bank.length>1) bank.reverse();
+    const line = []; let tries = 0, done = false;
+    stage.innerHTML = `<div class="panel">${progressBar()}
+      <p class="tag">${st.partLabel}</p>
+      <p class="instr">Put the words in order.</p>
+      <div class="slots" id="line" aria-label="Your sentence"></div>
+      <div class="bank" id="bank"></div>
+      <div class="row" style="margin-top:14px"><button class="btn" id="check">Check</button><button class="btn ghost" id="clear">Clear</button><button class="btn warn" id="skip">Show answer</button></div>
+      <div class="feedback" id="fb" aria-live="polite"></div></div>`;
+    const lineEl = $("#line"), bankEl = $("#bank"), fb = $("#fb");
+    function draw(){
+      lineEl.innerHTML = line.length? line.map((b,j)=>`<button class="tile" data-j="${j}">${esc(b.w)}</button>`).join("") : '<span class="small">Tap the words below…</span>';
+      bankEl.innerHTML = bank.map((b,j)=> b.used? "" : `<button class="tile" data-j="${j}">${esc(b.w)}</button>`).join("");
+      lineEl.querySelectorAll(".tile").forEach(t => t.onclick = () => { if(done) return; const b = line.splice(+t.dataset.j,1)[0]; b.used=false; sfx.tap(); draw(); });
+      bankEl.querySelectorAll(".tile").forEach(t => t.onclick = () => { if(done) return; const b = bank[+t.dataset.j]; b.used = true; line.push(b); sfx.tap(); draw(); });
+    }
+    draw();
+    $("#clear").onclick = () => { if(done) return; line.splice(0).forEach(b=>b.used=false); draw(); };
+    $("#check").onclick = () => {
+      if(done || line.length < words.length){ if(!done){ fb.className="feedback no"; fb.textContent = "Use all the words first."; } return; }
+      const got = line.map(b=>b.w).join(" ");
+      if(got === st.a){ done = true; lineEl.classList.add("ok"); fb.className="feedback ok"; fb.textContent = "Correct!"; correct += tries? .5 : 1; recordUnit(st.u, true); sfx.ok(); pop("Correct!", lineEl); timers.push(setTimeout(next, 900)); }
+      else { tries++; lineEl.classList.add("no"); sfx.no(); fb.className="feedback no"; fb.textContent = tries<2? "Not yet. Try again.":"";
+        timers.push(setTimeout(()=>lineEl.classList.remove("no"), 700)); if(tries>=2) reveal(got); }
+    };
+    $("#skip").onclick = () => { if(!done) reveal(line.map(b=>b.w).join(" ")); };
+    function reveal(got){ done = true; recordUnit(st.u, false); fb.className="feedback no"; fb.innerHTML = `Answer: <b>${esc(st.a)}</b>`; review.push(`<span class="corr">${esc(st.a)}</span>${got? ` <span class="yours">${esc(got)}</span>`:""}`); timers.push(setTimeout(next, 2200)); }
+  }
+
+  onKey(e => { if(e.key==="Enter"){ const nx=$("#next"); if(nx && !$("#nx").hidden){ e.preventDefault(); nx.click(); } } else { const n = parseInt(e.key); if(n>=1 && n<=4){ const b = stage.querySelectorAll(".opt")[n-1]; if(b && !b.disabled) b.click(); } } });
+  render();
+}
+
+renderSoundBtn(); renderStats(); home();
+</script>
+
+</body></html>

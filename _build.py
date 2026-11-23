@@ -10,6 +10,7 @@ import re
 from urllib.parse import quote
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
+SITE_URL = "https://davidenglish.vercel.app"
 
 TAGLINE = "Học tiếng Anh miễn phí — giải thích bằng tiếng Việt"
 
@@ -74,6 +75,7 @@ NAV = [
     ("Du học", "/du-hoc.html"),
     ("Tài nguyên miễn phí", "/tai-nguyen.html"),
     ("Sách học", "/sach/"),
+    ("Trò chơi & Công cụ", "/tro-choi/"),
     ("Trò chuyện AI", "/tro-chuyen-ai.html"),
 ]
 
@@ -105,10 +107,12 @@ def derive_desc(body_html):
     return _short(text)
 
 
-def page(path, title, h1, body_html, active="/", desc=None, eyebrow=None, hero=None):
+def page(path, title, h1, body_html, active="/", desc=None, eyebrow=None, hero=None, noindex=False):
     d = desc or derive_desc(body_html)
     desc_esc = htmlmod.escape(d, quote=True)
     title_esc = htmlmod.escape(title, quote=True)
+    robots_meta = ('<meta name="robots" content="noindex, follow">\n'
+                   if noindex else "")
     if hero is not None:
         # Trang chủ: hero full-bleed, con trực tiếp của <main class="wrap">.
         head_html = (
@@ -146,7 +150,7 @@ def page(path, title, h1, body_html, active="/", desc=None, eyebrow=None, hero=N
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title_esc} | David English</title>
 <meta name="description" content="{desc_esc}">
-<meta property="og:title" content="{title_esc} | David English">
+{robots_meta}<meta property="og:title" content="{title_esc} | David English">
 <meta property="og:description" content="{desc_esc}">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#123a6d">
@@ -225,8 +229,8 @@ def soon(title, lines, extra="", parent=None, prev=None, next=None, ai_question=
 PAGES = []
 
 
-def add(path, title, h1, body, active="/", desc=None, eyebrow=None, hero=None):
-    PAGES.append((path, title, h1, body, active, desc, eyebrow, hero))
+def add(path, title, h1, body, active="/", desc=None, eyebrow=None, hero=None, noindex=False):
+    PAGES.append((path, title, h1, body, active, desc, eyebrow, hero, noindex))
 
 
 # ---------------- Trang chủ ----------------
@@ -236,7 +240,7 @@ add("/", "Trang chủ", "Học tiếng Anh miễn phí, từ đầu tới giỏi
 <section class="section">
 <div class="cards">
   <article class="card card-tool">{card_icon("tool")}<h2><a href="/bai-xep-lop.html">Bài xếp lớp</a></h2><p>Bản demo với 3 câu mẫu — thử giao diện xếp lớp rồi gợi ý lộ trình học phù hợp.</p></article>
-  <article class="card card-level">{card_icon("level")}<h2><a href="/trinh-do/">Theo trình độ (A1–C2)</a></h2><p><span class="badge badge-soon">Sắp có</span></p><p>Lộ trình học theo từng cấp độ sẽ có, từ người mới bắt đầu tới nâng cao.</p></article>
+  <article class="card card-level">{card_icon("level")}<h2><a href="/trinh-do/">Theo trình độ (A1–C2)</a></h2><p>Đã có bài học A1 và A2 — từ vựng, ngữ pháp, bài tập và PDF miễn phí. Các cấp B1–C2 sẽ có sau.</p></article>
   <article class="card card-skill">{card_icon("skill")}<h2><a href="/ky-nang/">Theo kỹ năng</a></h2><p><span class="badge badge-soon">Sắp có</span></p><p>Nghe, nói, đọc, viết — sẽ luyện từng kỹ năng riêng, có giải thích tiếng Việt.</p></article>
   <article class="card card-exam">{card_icon("exam")}<h2><a href="/luyen-thi/">Luyện thi</a></h2><p><span class="badge badge-soon">Sắp có</span></p><p>IELTS · TOEIC · PTE · TOEFL · VSTEP — sẽ có đề thi thử và mẹo làm bài từng phần.</p></article>
   <article class="card card-kids">{card_icon("kids")}<h2><a href="/tre-em.html">Trẻ em</a></h2><p><span class="badge badge-soon">Sắp có</span></p><p>Tiếng Anh cho trẻ em: sẽ có từ vựng theo chủ đề, bài hát, trò chơi, truyện ngắn.</p></article>
@@ -244,6 +248,7 @@ add("/", "Trang chủ", "Học tiếng Anh miễn phí, từ đầu tới giỏi
   <article class="card card-abroad">{card_icon("abroad")}<h2><a href="/du-hoc.html">Du học</a></h2><p><span class="badge badge-soon">Sắp có</span></p><p>Chuẩn bị tiếng Anh đi du học sẽ có: học bổng, hồ sơ, phỏng vấn, đời sống ở nước ngoài.</p></article>
   <article class="card card-resource">{card_icon("resource")}<h2><a href="/tai-nguyen.html">Tài nguyên miễn phí</a></h2><p>Link tới tài nguyên học tiếng Anh miễn phí chất lượng cao trên mạng (British Council, BBC, Cambridge…).</p></article>
   <article class="card card-book">{card_icon("book")}<h2><a href="/sach/">Sách học</a></h2><p>Hướng dẫn tự học với các sách tiếng Anh phổ biến: Global Success, American English File, Barron's TOEIC, Mindset for IELTS.</p></article>
+  <article class="card card-tool">{card_icon("tool")}<h2><a href="/tro-choi/">Trò chơi &amp; Công cụ</a></h2><p>Học tiếng Anh bằng trò chơi: luyện TOEIC, PTE, IELTS, kiểm tra trình độ, trò chơi theo lớp 4–10 và công cụ cho giáo viên.</p></article>
 </div>
 </section>
 <section class="section section-alt">
@@ -329,16 +334,182 @@ LEVELS = [
     ("c1", "C1 — Nâng cao", "Dùng tiếng Anh linh hoạt trong học thuật và công việc: đọc tài liệu chuyên ngành, thuyết trình, viết báo cáo."),
     ("c2", "C2 — Thành thạo", "Gần như người bản xứ: hiểu mọi thứ đọc/nghe được, diễn đạt tinh tế, viết văn bản phức tạp."),
 ]
+
+# ---------------- Bài học A1–A2 (tạo từ tai-lieu/src/*.json) ----------------
+# Trang bài học và trang hub A1/A2 được sinh từ cùng JSON làm PDF
+# (build_de_pdf.py) để nội dung trang và PDF luôn khớp nhau.
+import json as _json
+
+LESSON_FILES = [
+    ("a1", "a1-chao-hoi-gioi-thieu.json"),
+    ("a1", "a1-so-dem-ngay-gio.json"),
+    ("a2", "a2-everyday-english.json"),
+    ("a2", "a2-mua-sam-hoi-gia.json"),
+]
+LESSONS = []  # mỗi mục: dict JSON + level + path + pdf_href
+LESSONS_BY_LEVEL = {"a1": [], "a2": []}
+for _lv, _fn in LESSON_FILES:
+    with open(os.path.join(ROOT, "tai-lieu", "src", _fn), encoding="utf-8") as _f:
+        _d = _json.load(_f)
+    _d["_level"] = _lv
+    _d["_path"] = f"/trinh-do/{_lv}/{_d['slug']}.html"
+    _d["_pdf"] = f"/tai-lieu/{_lv}/{_d['slug']}.pdf"
+    LESSONS.append(_d)
+    LESSONS_BY_LEVEL[_lv].append(_d)
+
+AI_NOTE = ('<p><span class="badge">AI, chưa duyệt</span> Bài học do AI soạn thảo, '
+           'chưa được giáo viên duyệt — hãy đối chiếu với sách và giáo viên của bạn.</p>')
+
+
+def _esc(s):
+    return htmlmod.escape(str(s), quote=False)
+
+
+def lesson_body(d, prev_lesson, next_lesson):
+    vocab_rows = "".join(
+        f"<tr><td><strong>{_esc(v['word'])}</strong></td>"
+        f"<td>{_esc(v.get('pos', ''))}</td>"
+        f"<td>/{_esc(v.get('ipa', ''))}/</td>"
+        f"<td>{_esc(v.get('vi', ''))}</td>"
+        f"<td><em>{_esc(v.get('ex', ''))}</em></td></tr>"
+        for v in d.get("vocabulary", []))
+    grammar_html = ""
+    for g in d.get("grammar", []):
+        exs = "".join(f"<li><em>{_esc(e)}</em></li>" for e in g.get("examples", []))
+        grammar_html += (f"<h2>{_esc(g['title'])}</h2>\n"
+                         f"<p>{_esc(g['explain'])}</p>\n<ul>{exs}</ul>\n")
+    dlg = d.get("dialogue")
+    dlg_html = ""
+    if dlg:
+        lines = "".join(f"<p><strong>{_esc(w)}:</strong> {_esc(t)}</p>"
+                        for w, t in dlg.get("lines", []))
+        dlg_html = (f'<section class="section section-alt">\n'
+                    f"<div class=\"section-head\"><h2>Hội thoại mẫu</h2>"
+                    f"<p class=\"section-sub\">{_esc(dlg.get('title', ''))}</p></div>\n"
+                    f"{lines}</section>\n")
+    quiz = d.get("quiz", [])[:3]
+    practice = ""
+    for i, q in enumerate(quiz, 1):
+        opts = "".join(f"<li>{chr(65 + j)}. {_esc(o)}</li>"
+                       for j, o in enumerate(q["options"]))
+        correct = f"{chr(65 + q['answer'])}. {_esc(q['options'][q['answer']])}"
+        practice += (f"<details><summary><strong>Câu {i}.</strong> "
+                     f"{_esc(q['q'])}</summary><ul>{opts}</ul>"
+                     f"<p>Đáp án: <strong>{correct}</strong></p></details>\n")
+    mistakes = "".join(f"<li>{_esc(m)}</li>" for m in d.get("common_mistakes", []))
+    nav = []
+    if prev_lesson:
+        nav.append(f'<a href="{prev_lesson["_path"]}">← {prev_lesson["title"]}</a>')
+    if next_lesson:
+        nav.append(f'<a href="{next_lesson["_path"]}">{next_lesson["title"]} →</a>')
+    nav.append(f'<a href="/trinh-do/{d["_level"]}.html">← Về trình độ {d["_level"].upper()}</a>')
+    nav.append('<a href="/">← Về trang chủ</a>')
+    return f"""
+<p class="lead">{_esc(d.get("subtitle", ""))}</p>
+{AI_NOTE}
+<section class="section">
+<div class="section-head"><h2>Mục tiêu bài học</h2></div>
+<ul>{''.join(f"<li>{_esc(o)}</li>" for o in d.get("objectives", []))}</ul>
+</section>
+<section class="section section-alt">
+<div class="section-head"><h2>Từ vựng</h2><p class="section-sub">Học thuộc các từ dưới đây trước khi đọc phần ngữ pháp — mỗi từ có phiên âm IPA, nghĩa tiếng Việt và câu ví dụ.</p></div>
+<table><thead><tr><th>Từ</th><th>Loại</th><th>IPA</th><th>Nghĩa</th><th>Ví dụ</th></tr></thead><tbody>{vocab_rows}</tbody></table>
+</section>
+<section class="section">
+<div class="section-head"><h2>Ngữ pháp</h2><p class="section-sub">Giải thích bằng tiếng Việt, ví dụ song ngữ Anh – Việt.</p></div>
+{grammar_html}</section>
+{dlg_html}<section class="section">
+<div class="section-head"><h2>Luyện tập nhanh</h2><p class="section-sub">Thử 3 câu trắc nghiệm — bấm vào từng câu để xem đáp án. Bài tập đầy đủ và 10 câu trắc nghiệm nằm trong file PDF dưới đây.</p></div>
+{practice}</section>
+<section class="section section-alt">
+<div class="section-head"><h2>Lỗi thường gặp</h2><p class="section-sub">Những lỗi người Việt hay mắc ở bài này — tránh ngay từ đầu.</p></div>
+<ul>{mistakes}</ul>
+</section>
+<p><a class="btn btn-primary" href="{d['_pdf']}">Tải PDF bài học (miễn phí)</a></p>
+<p>{' · '.join(nav)}</p>
+"""
+
+
+for _i, _d in enumerate(LESSONS):
+    _prev = LESSONS[_i - 1] if _i > 0 else None
+    _next = LESSONS[_i + 1] if _i < len(LESSONS) - 1 else None
+    add(_d["_path"], _d["title"], _d["title"],
+        lesson_body(_d, _prev, _next),
+        active="/trinh-do/", eyebrow=f"Trình độ {_d['_level'].upper()}",
+        desc=_d.get("subtitle", ""))
+
+
+def level_cards():
+    out = []
+    for slug, name, desc in LEVELS:
+        if slug in ("a1", "a2"):
+            badge = ""
+            note = " Đã có 2 bài học và tài liệu PDF miễn phí."
+        else:
+            badge = '<p><span class="badge badge-soon">Sắp có</span></p>'
+            note = ""
+        out.append(
+            f'<article class="card card-level">{card_icon("level")}'
+            f'<span class="level-chip lv-{slug}">{slug.upper()}</span>'
+            f'<h2><a href="/trinh-do/{slug}.html">{name}</a></h2>'
+            f'{badge}<p>{desc}{note}</p></article>')
+    return "".join(out)
+
+
+def level_hub_body(slug, name, desc):
+    lessons = LESSONS_BY_LEVEL[slug]
+    items = "".join(
+        f'<li><a href="{l["_path"]}">{l["title"]}</a> — {l["subtitle"]}</li>'
+        for l in lessons)
+    pdfs = "".join(
+        f'<li><a href="{l["_pdf"]}">{l["title"]} (PDF, miễn phí)</a></li>'
+        for l in lessons)
+    extra = ""
+    if slug == "a2":
+        extra = """
+<section class="section section-alt">
+<div class="section-head"><h2>Sách bài tập của thầy David (miễn phí)</h2></div>
+<p>Hai bộ sách bài tập do chính thầy David biên soạn cho lớp học của mình — tải miễn phí tại đây:</p>
+<ul>
+<li><a href="/tai-lieu/a2/On-tap-tieng-Anh-Unit-9-12.pdf">Ôn tập tiếng Anh — Units 9–12 (PDF, 21 trang)</a> — bài tập ôn tập từ vựng và ngữ pháp Units 9–12.</li>
+<li><a href="/tai-lieu/a2/Kingdom-English-A2-Unit-01-Creation-Fall-and-Promise.pdf">Kingdom English A2 — Unit 1: Creation, Fall, and Promise (PDF)</a></li>
+<li><a href="/tai-lieu/a2/Kingdom-English-A2-Unit-02-The-Covenant-with-Abraham.pdf">Kingdom English A2 — Unit 2: The Covenant with Abraham (PDF)</a></li>
+<li><a href="/tai-lieu/a2/Kingdom-English-A2-Unit-03-The-Parables-Compassion-of-Jesus.pdf">Kingdom English A2 — Unit 3: The Parables & Compassion of Jesus (PDF)</a></li>
+<li><a href="/tai-lieu/a2/Kingdom-English-A2-Unit-04-The-Cross-Resurrection.pdf">Kingdom English A2 — Unit 4: The Cross & Resurrection (PDF)</a></li>
+<li><a href="/tai-lieu/a2/Kingdom-English-A2-Unit-05-Pentecost-The-Early-Church.pdf">Kingdom English A2 — Unit 5: Pentecost & The Early Church (PDF)</a></li>
+<li><a href="/tai-lieu/a2/Kingdom-English-A2-Unit-06-The-Reformation-The-Bible-in-Our-Heart-Language.pdf">Kingdom English A2 — Unit 6: The Reformation & The Bible in Our Heart Language (PDF)</a></li>
+<li><a href="/tai-lieu/a2/Kingdom-English-A2-Unit-07-Saved-by-Grace-Through-Faith.pdf">Kingdom English A2 — Unit 7: Saved by Grace Through Faith (PDF)</a></li>
+<li><a href="/tai-lieu/a2/Kingdom-English-A2-Unit-08-The-Fruit-of-the-Spirit-Abiding-in-Christ.pdf">Kingdom English A2 — Unit 8: The Fruit of the Spirit & Abiding in Christ (PDF)</a></li>
+<li><a href="/tai-lieu/a2/Kingdom-English-A2-Unit-09-Prayer.pdf">Kingdom English A2 — Unit 9: Prayer (PDF)</a></li>
+<li><a href="/tai-lieu/a2/Kingdom-English-A2-Unit-10-Church-Baptism-Lords-Supper.pdf">Kingdom English A2 — Unit 10: Church, Baptism, Lord's Supper (PDF)</a></li>
+<li><a href="/tai-lieu/a2/Kingdom-English-A2-Unit-11-Evangelism-Missions.pdf">Kingdom English A2 — Unit 11: Evangelism, Missions (PDF)</a></li>
+<li><a href="/tai-lieu/a2/Kingdom-English-A2-Unit-12-Second-Coming-Eternal-Hope.pdf">Kingdom English A2 — Unit 12: Second Coming, Eternal Hope (PDF)</a></li>
+</ul>
+<p class="muted">Kingdom English A2 là bộ sách bài tập tiếng Anh theo chủ đề Kinh Thánh, trình độ A2 — mỗi unit có từ vựng, bài đọc, ngữ pháp và bài tập.</p>
+</section>"""
+    nxt = {"a1": ("A2", "/trinh-do/a2.html"), "a2": ("B1", "/trinh-do/b1.html")}[slug]
+    return f"""
+<p class="lead">{desc}</p>
+{AI_NOTE}
+<section class="section">
+<div class="section-head"><h2>Bài học</h2></div>
+<ul>{items}</ul>
+</section>
+<section class="section section-alt">
+<div class="section-head"><h2>Tài liệu PDF miễn phí</h2></div>
+<ul>{pdfs}</ul>
+</section>
+{extra}<p><a href="{nxt[1]}">{nxt[0]} →</a> · <a href="/trinh-do/">← Tất cả trình độ</a> · <a href="/bai-xep-lop.html">Làm bài xếp lớp →</a> · <a href="/tro-chuyen-ai.html?q={quote(f"Cho tôi lộ trình học tiếng Anh trình độ {slug.upper()}.", safe="")}">Hỏi AI về lộ trình học →</a></p>
+"""
+
+
 add("/trinh-do/index.html", "Theo trình độ", "Học theo trình độ (A1–C2)",
     """
 <p class="lead">Chọn trình độ của bạn để đi đúng lộ trình — mỗi cấp độ sẽ có từ vựng, ngữ pháp, bài đọc, bài nghe và bài tập riêng.</p>
 <p>Chưa biết mình ở đâu? <a href="/bai-xep-lop.html">Làm bài xếp lớp →</a></p>
 <section class="section">
 <div class="cards">
-""" + "".join(
-        f'<article class="card card-level">{card_icon("level")}<span class="level-chip lv-{slug}">{slug.upper()}</span><h2><a href="/trinh-do/{slug}.html">{name}</a></h2><p><span class="badge badge-soon">Sắp có</span></p><p>{desc}</p></article>'
-        for slug, name, desc in LEVELS
-    ) + """
+""" + level_cards() + """
 </div>
 </section>
 <section class="section section-alt">
@@ -353,6 +524,12 @@ add("/trinh-do/index.html", "Theo trình độ", "Học theo trình độ (A1–
 for i, (slug, name, desc) in enumerate(LEVELS):
     prev = (LEVELS[i - 1][0].upper(), f"/trinh-do/{LEVELS[i - 1][0]}.html") if i > 0 else None
     next_ = (LEVELS[i + 1][0].upper(), f"/trinh-do/{LEVELS[i + 1][0]}.html") if i < len(LEVELS) - 1 else None
+    if slug in ("a1", "a2"):
+        # Đã có nội dung thật: hub bài học + PDF, không còn là stub.
+        add(f"/trinh-do/{slug}.html", name, name,
+            level_hub_body(slug, name, desc),
+            active="/trinh-do/", eyebrow="Theo trình độ", desc=desc)
+        continue
     last = ("Lộ trình duy trì và nâng cao trình độ C2." if slug == "c2"
             else f"Lộ trình lên cấp độ tiếp theo từ {slug.upper()}.")
     add(f"/trinh-do/{slug}.html", name, name,
@@ -365,7 +542,7 @@ for i, (slug, name, desc) in enumerate(LEVELS):
              prev=prev, next=next_,
              ai_question=f"Cho tôi lộ trình học tiếng Anh trình độ {slug.upper()}.",
              chip=slug),
-        active="/trinh-do/", eyebrow="Theo trình độ", desc=desc)
+        active="/trinh-do/", eyebrow="Theo trình độ", desc=desc, noindex=True)
 
 # ---------------- Theo kỹ năng ----------------
 SKILLS = [
@@ -398,7 +575,7 @@ for i, (slug, name, desc) in enumerate(SKILLS):
              parent=("Tất cả kỹ năng", "/ky-nang/"),
              prev=prev, next=next_,
              ai_question=f"Làm sao để luyện {name.lower()} tiếng Anh hiệu quả?"),
-        active="/ky-nang/", eyebrow="Theo kỹ năng", desc=desc)
+        active="/ky-nang/", eyebrow="Theo kỹ năng", desc=desc, noindex=True)
 
 # ---------------- Luyện thi ----------------
 # Hướng dẫn sử dụng sách đã có sẵn cho IELTS và TOEIC — gắn vào trang luyện thi.
@@ -439,7 +616,7 @@ for i, (slug, name, desc) in enumerate(TESTS):
              parent=("Tất cả kỳ thi", "/luyen-thi/"),
              prev=prev, next=next_,
              ai_question=f"Lộ trình luyện thi {name} như thế nào?"),
-        active="/luyen-thi/", eyebrow="Luyện thi", desc=desc)
+        active="/luyen-thi/", eyebrow="Luyện thi", desc=desc, noindex=True)
 
 # ---------------- Các mục còn lại ----------------
 add("/tre-em.html", "Trẻ em", "Tiếng Anh cho trẻ em",
@@ -449,7 +626,7 @@ add("/tre-em.html", "Trẻ em", "Tiếng Anh cho trẻ em",
           "Bài học ngắn, hình ảnh lớn, phù hợp cho trẻ từ mầm non tới tiểu học.",
           "Hướng dẫn cho phụ huynh cùng học với con."],
          ai_question="Cho tôi lộ trình dạy tiếng Anh cho trẻ em."),
-    active="/tre-em.html", eyebrow="Trẻ em",
+    active="/tre-em.html", eyebrow="Trẻ em", noindex=True,
     desc="Tiếng Anh cho trẻ em: từ vựng theo chủ đề, bài hát, truyện ngắn và trò chơi — bài học ngắn, hình ảnh lớn. Sắp có.")
 
 add("/cong-viec.html", "Tiếng Anh công việc", "Tiếng Anh cho công việc",
@@ -458,7 +635,7 @@ add("/cong-viec.html", "Tiếng Anh công việc", "Tiếng Anh cho công việc
           "Mẫu email, họp, thuyết trình, phỏng vấn xin việc bằng tiếng Anh.",
           "Từ vựng chuyên ngành kèm giải thích tiếng Việt."],
          ai_question="Tôi muốn học tiếng Anh cho công việc, bắt đầu từ đâu?"),
-    active="/cong-viec.html", eyebrow="Tiếng Anh công việc",
+    active="/cong-viec.html", eyebrow="Tiếng Anh công việc", noindex=True,
     desc="Tiếng Anh cho công việc theo từng ngành nghề: mẫu email, họp, thuyết trình và phỏng vấn xin việc bằng tiếng Anh. Sắp có.")
 
 add("/du-hoc.html", "Du học", "Chuẩn bị tiếng Anh đi du học",
@@ -467,7 +644,7 @@ add("/du-hoc.html", "Du học", "Chuẩn bị tiếng Anh đi du học",
           "Học bổng toàn phần: Chevening, Fulbright, Australia Awards, DAAD, GKS, MEXT, Erasmus Mundus.",
           "Đời sống ở nước ngoài: nhà ở, ngân hàng, giao tiếp hằng ngày."],
          ai_question="Tôi muốn đi du học, cần chuẩn bị tiếng Anh như thế nào?"),
-    active="/du-hoc.html", eyebrow="Du học",
+    active="/du-hoc.html", eyebrow="Du học", noindex=True,
     desc="Chuẩn bị tiếng Anh đi du học: thi IELTS/TOEFL/PTE, học bổng toàn phần, phỏng vấn visa và đời sống ở nước ngoài. Sắp có.")
 
 add("/tai-nguyen.html", "Tài nguyên miễn phí", "Tài nguyên học tiếng Anh miễn phí",
@@ -864,8 +1041,82 @@ add("/sach/mindset-for-ielts.html", "Hướng dẫn học với sách Mindset fo
 """), active="/sach/", eyebrow="Sách học",
     desc="Hướng dẫn tự học bộ sách Mindset for IELTS theo từng cấp độ, từ Foundation đến Level 3, kèm kế hoạch tuần và mẹo thi.")
 
+# ---------------- Trò chơi & Công cụ (batch 2) ----------------
+# 18 trò chơi/công cụ HTML độc lập do David gửi (file gốc trong
+# ~/workspace/user-files-inspect/artifacts-html/), đã dọn link claude.ai
+# bằng adopt_artifacts.py và đặt tại tro-choi/<slug>.html. Trang hub này
+# là trang duy nhất do _build.py sinh ra trong mục tro-choi; các file trò
+# chơi giữ nguyên giao diện riêng, không ép theo design system navy.
+TRO_CHOI = [
+    ("toeic-arcade", "TOEIC Arcade", "exam",
+     "Luyện TOEIC Listening & Reading dạng trò chơi, chủ đề công việc và đời sống."),
+    ("pte-arcade", "PTE Arcade", "exam",
+     "Trò chơi luyện PTE Academic: đọc, nghe, ngữ pháp và từ vựng."),
+    ("workplace-english-arcade", "Workplace English Arcade", "work",
+     "Trò chơi tiếng Anh công việc trình độ B2: từ vựng, ngữ pháp, 4 kỹ năng và bài thi thử Linguaskill Business."),
+    ("english-level-check", "English Level Check", "level",
+     "Bài kiểm tra trình độ tiếng Anh (A1–C2) rồi gợi ý công cụ luyện phù hợp."),
+    ("level-map", "Level Map", "level",
+     "Bản đồ tất cả công cụ luyện tập theo trình độ — chưa biết mình ở đâu thì bắt đầu từ đây."),
+    ("band-climb", "Band Climb", "level",
+     "Luyện IELTS theo band hiện tại của bạn: ngữ pháp, nghe, đọc — bấm giờ như thi thật."),
+    ("speaking-booth", "Speaking Booth", "skill",
+     "Luyện nói: gõ lại những gì bạn nói theo gợi ý IELTS, TOEIC, PTE và nhận phản hồi AI."),
+    ("starter-quest", "Starter Quest", "kids",
+     "Trò chơi từ vựng và ngữ pháp cho người mới bắt đầu: chào hỏi, số đếm, gia đình, động từ hằng ngày."),
+    ("intermediate-quest", "Intermediate Quest", "level",
+     "Luyện B1: ngữ pháp, từ vựng, đọc, nghe, viết theo từng unit."),
+    ("grade-4-quest", "Grade 4 Quest", "kids",
+     "Trò chơi từ vựng, ngữ pháp theo sách Global Success lớp 4 (20 unit)."),
+    ("grade-9-quest", "Grade 9 Quest", "kids",
+     "Trò chơi từ vựng, ngữ pháp theo từng unit sách lớp 9."),
+    ("grade-10-quest", "Grade 10 Quest", "kids",
+     "Trò chơi từ vựng, ngữ pháp theo từng unit sách lớp 10."),
+    ("teacher-quest", "Teacher Quest", "tool",
+     "Trò chơi ngữ pháp nâng cao cho giáo viên: thì hoàn thành, câu điều kiện, mệnh đề quan hệ."),
+    ("game-room-lobby", "Game Room Lobby", "tool",
+     "Sảnh trò chơi: chọn lớp 4, 9 hoặc 10 để vào Grade Quest."),
+    ("ai-workbench", "AI Workbench", "tool",
+     "Học cách dùng AI (ChatGPT, Claude, Gemini…) để học và dạy tiếng Anh: 9 bài học ngắn, thư viện prompt mẫu."),
+    ("efec-helper", "EFEC Helper", "work",
+     "Tiếng Anh cho điều dưỡng: chào hỏi bệnh nhân, giao tiếp trong bệnh viện — giải thích bằng tiếng Việt."),
+    ("open-shelf", "Open Shelf", "book",
+     "Kệ sách mở: đọc sách tiếng Anh miễn phí từ Project Gutenberg, LibriVox, Archive.org — lưu sách bạn đang đọc."),
+    ("bible-english-adventure", "Bible English Adventure", "book",
+     "Học tiếng Anh sơ cấp qua các đoạn Kinh Thánh ngắn: từ vựng, ngữ pháp, viết."),
+]
+add("/tro-choi/index.html", "Trò chơi & Công cụ", "Trò chơi & Công cụ",
+    """
+<p class="lead">Học tiếng Anh bằng trò chơi và công cụ tương tác — miễn phí, chơi ngay trên trình duyệt, tiến độ được lưu trên máy của bạn.</p>
+<p class="muted">Một số trò chơi có tính năng phản hồi AI — tính năng này chỉ hoạt động khi mở trong ứng dụng Claude; mọi trò chơi vẫn chơi đầy đủ không cần AI.</p>
+<section class="section">
+<div class="cards">
+""" + "".join(
+        f'<article class="card card-{kind}">{card_icon(kind)}<h2><a href="/tro-choi/{slug}.html">{name}</a></h2><p>{desc}</p></article>'
+        for slug, name, kind, desc in TRO_CHOI
+    ) + """
+</div>
+</section>
+<p>Chưa biết mình ở đâu? <a href="/tro-choi/english-level-check.html">Làm bài kiểm tra trình độ →</a> · <a href="/tro-choi/level-map.html">Xem bản đồ công cụ theo trình độ →</a></p>
+""", active="/tro-choi/", eyebrow="Trò chơi & Công cụ",
+    desc="Trò chơi và công cụ học tiếng Anh miễn phí: luyện TOEIC, PTE, IELTS, kiểm tra trình độ, trò chơi theo lớp 4–10 và công cụ cho giáo viên.")
+
 if __name__ == "__main__":
-    for path, title, h1, body, active, desc, eyebrow, hero in PAGES:
-        full = page(path, title, h1, body, active, desc, eyebrow, hero)
+    for path, title, h1, body, active, desc, eyebrow, hero, noindex in PAGES:
+        full = page(path, title, h1, body, active, desc, eyebrow, hero, noindex)
         print("wrote", path, os.path.getsize(full), "B")
     print("total pages:", len(PAGES))
+    # Sitemap: chỉ các trang được index (không noindex), trang chủ trước.
+    # Các file trò chơi tro-choi/*.html không qua page() nên cộng thêm tay.
+    indexed = [p[0] for p in PAGES if not p[8]]
+    indexed += [f"/tro-choi/{slug}.html" for slug, _, _, _ in TRO_CHOI]
+    indexed.sort(key=lambda u: (0, "") if u == "/" else (1, u))
+    lines = ['<?xml version="1.0" encoding="UTF-8"?>',
+             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for u in indexed:
+        lines.append(f"  <url><loc>{SITE_URL}{u}</loc></url>")
+    lines.append("</urlset>")
+    with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
+    print("sitemap urls:", len(indexed),
+          "(noindex excluded:", sum(1 for p in PAGES if p[8]), ")")

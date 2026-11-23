@@ -1,0 +1,214 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Open Shelf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Literata:opsz,wght@7..72,400;7..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: masthead + sticky filter bar, then a two-column area: catalog grid left, reading/listening desk right (stacks on phones). */
+:root{
+  --bg:#eef1ef; --surface:#ffffff; --fg:#14231f; --muted:#5a6c66; --line:#cfd8d4;
+  --accent:#0f6b5c; --accent-fg:#ffffff; --mark:#e0a526; --mark-fg:#2a1e00;
+  --font-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --font-body:"Literata",Georgia,"Times New Roman",serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1815; --surface:#15251f; --fg:#e6efeb; --muted:#93a8a0; --line:#27403a;
+  --accent:#4cc4a8; --accent-fg:#06211a; --mark:#f0b83a; --mark-fg:#2a1e00; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1815; --surface:#15251f; --fg:#e6efeb; --muted:#93a8a0; --line:#27403a;
+  --accent:#4cc4a8; --accent-fg:#06211a; --mark:#f0b83a; --mark-fg:#2a1e00; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.55;padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:1180px;margin-inline:auto}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+header.top{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:end;justify-content:space-between;padding-block:36px 24px;border-bottom:2px solid var(--fg)}
+h1{font-family:var(--font-display);font-weight:700;font-size:clamp(2.4rem,7vw,4.6rem);line-height:.95;letter-spacing:-.03em;margin:0;text-wrap:balance}
+h1 span{color:var(--accent)}
+.lede{max-width:34ch;margin:0;color:var(--muted);font-size:1rem}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+button,select,input[type=search],input[type=range]{font:inherit}
+.btn{font-family:var(--font-display);font-weight:500;font-size:.95rem;border:1.5px solid var(--fg);background:transparent;color:var(--fg);padding:8px 14px;border-radius:6px;cursor:pointer}
+.btn:hover{background:var(--fg);color:var(--bg)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.btn.primary:hover{filter:brightness(1.1);background:var(--accent);color:var(--accent-fg)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;padding-block:12px;border-bottom:1px solid var(--line)}
+.bar input[type=search]{flex:1 1 220px;min-width:0;background:var(--surface);color:var(--fg);border:1.5px solid var(--line);border-radius:6px;padding:9px 12px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-family:var(--font-mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;border:1.5px solid var(--line);background:transparent;color:var(--muted);padding:6px 10px;border-radius:99px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.count{font-family:var(--font-mono);font-size:.8rem;color:var(--muted);margin-left:auto}
+main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);gap:32px;padding-top:24px;align-items:start}
+@media(max-width:900px){main{grid-template-columns:minmax(0,1fr)}}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.book{background:var(--surface);border:1px solid var(--line);border-radius:8px;display:flex;flex-direction:column;min-width:0}
+.spine{height:96px;padding:12px 14px;border-radius:8px 8px 0 0;display:flex;flex-direction:column;justify-content:space-between;color:#fff}
+.spine b{font-family:var(--font-mono);font-weight:500;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;opacity:.85}
+.spine i{font-family:var(--font-display);font-style:normal;font-size:1.05rem;line-height:1.15;font-weight:700}
+.body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.book h3{font-family:var(--font-display);font-size:1.1rem;line-height:1.2;margin:0}
+.by{color:var(--muted);font-size:.9rem;margin:0}
+.note{font-size:.88rem;margin:0}
+.links{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:auto;padding-top:8px;font-family:var(--font-mono);font-size:.78rem}
+.links a{font-weight:500}
+.fav{align-self:flex-end;background:none;border:none;color:var(--muted);cursor:pointer;font-family:var(--font-mono);font-size:.75rem;padding:0}
+.fav[aria-pressed=true]{color:var(--mark)}
+.empty{grid-column:1/-1;padding:32px;border:1.5px dashed var(--line);border-radius:8px;color:var(--muted)}
+.desk{position:sticky;top:calc(env(safe-area-inset-top,0px) + 72px);display:flex;flex-direction:column;gap:20px;min-width:0}
+@media(max-width:900px){.desk{position:static}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;min-width:0}
+.panel h2{font-family:var(--font-display);font-size:1.25rem;margin:0 0 4px}
+.panel p.hint{margin:0 0 12px;color:var(--muted);font-size:.88rem}
+label{display:block;font-family:var(--font-mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:10px}
+select,textarea{width:100%;background:var(--bg);color:var(--fg);border:1.5px solid var(--line);border-radius:6px;padding:8px 10px}
+textarea{font:inherit;font-size:.95rem;min-height:170px;resize:vertical}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.status{font-family:var(--font-mono);font-size:.78rem;color:var(--muted);margin-top:8px;min-height:1.2em}
+audio{width:100%;margin-top:10px}
+.foot{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;max-width:70ch}
+@media(prefers-reduced-motion:no-preference){.book{transition:transform .15s}.book:hover{transform:translateY(-2px)}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <h1>Open<br><span>Shelf</span></h1>
+  <p class="lede">Free books to read and hear. Every title here is in the public domain. No accounts, no fees.</p>
+  <div class="tools"><button class="btn" id="theme" type="button">Light / Dark</button></div>
+</header>
+
+<div class="bar">
+  <input type="search" id="q" placeholder="Search title, author or topic" aria-label="Search the shelf">
+  <div class="chips" id="fmt" role="group" aria-label="Format">
+    <button class="chip" type="button" data-f="all" aria-pressed="true">All</button>
+    <button class="chip" type="button" data-f="theology" aria-pressed="false">Theology</button>
+    <button class="chip" type="button" data-f="classic" aria-pressed="false">Classics</button>
+    <button class="chip" type="button" data-f="saved" aria-pressed="false">Saved</button>
+  </div>
+  <span class="count" id="count"></span>
+</div>
+
+<main>
+  <section>
+    <div class="grid" id="grid" aria-live="polite"></div>
+  </section>
+
+  <aside class="desk">
+    <div class="panel">
+      <h2>Listen to any text</h2>
+      <p class="hint">Paste a chapter from a free ebook, or pick a sample. Your device reads it aloud.</p>
+      <label for="sample">Sample</label>
+      <select id="sample"></select>
+      <label for="txt">Text</label>
+      <textarea id="txt"></textarea>
+      <label for="voice">Voice</label>
+      <select id="voice"></select>
+      <label for="rate">Speed <span id="rateVal">1.0x</span></label>
+      <input type="range" id="rate" min="0.6" max="1.6" step="0.1" value="1">
+      <div class="row">
+        <button class="btn primary" id="play" type="button">Play</button>
+        <button class="btn" id="pause" type="button">Pause</button>
+        <button class="btn" id="stop" type="button">Stop</button>
+      </div>
+      <div class="status" id="tts"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Play your own audio</h2>
+      <p class="hint">Open an MP3 or M4A from your device, such as a LibriVox chapter you downloaded. It stays on your device.</p>
+      <label for="file">Audio file</label>
+      <input type="file" id="file" accept="audio/*">
+      <audio id="player" controls hidden></audio>
+      <div class="status" id="fileStatus"></div>
+    </div>
+  </aside>
+</main>
+
+<p class="foot">Ebooks link to Project Gutenberg and Internet Archive. Audiobooks link to LibriVox, where volunteers record public-domain books. Editions and recordings vary, so pick the reader you like best. Translations and modern editions may still be under copyright.</p>
+</div>
+
+<script>
+var G=function(q){return "https://www.gutenberg.org/ebooks/search/?query="+encodeURIComponent(q)};
+var L=function(q){return "https://librivox.org/search?primary_key=0&search_category=title&search_page=1&search_form=get_results&q="+encodeURIComponent(q)};
+var A=function(q){return "https://archive.org/search?query="+encodeURIComponent(q)+"&and[]=mediatype%3A%22texts%22"};
+var BOOKS=[
+{t:"The Pilgrim's Progress",a:"John Bunyan",c:"theology",y:1678,n:"A dreamer follows Christian from the City of Destruction to the Celestial City.",q:"Pilgrim's Progress Bunyan",col:"#7a3b2e"},
+{t:"Institutes of the Christian Religion",a:"John Calvin",c:"theology",y:1559,n:"The foundational systematic work of Reformed theology, in four books.",q:"Institutes of the Christian Religion Calvin",col:"#1f4e79"},
+{t:"The Bondage of the Will",a:"Martin Luther",c:"theology",y:1525,n:"Luther's reply to Erasmus on free will and grace.",q:"Bondage of the Will Luther",col:"#5b3a7a"},
+{t:"Confessions",a:"Augustine of Hippo",c:"theology",y:400,n:"Augustine's spiritual autobiography and prayer.",q:"Confessions Augustine",col:"#245b4a"},
+{t:"The Imitation of Christ",a:"Thomas a Kempis",c:"theology",y:1418,n:"Short meditations on the inner life and humility.",q:"Imitation of Christ Kempis",col:"#6b5a1f"},
+{t:"The Practice of the Presence of God",a:"Brother Lawrence",c:"theology",y:1692,n:"Letters and conversations on ordinary work as prayer.",q:"Practice of the Presence of God Lawrence",col:"#8a4b1f"},
+{t:"Holy Bible, King James Version",a:"Various",c:"theology",y:1611,n:"The complete Scriptures in the KJV.",q:"Bible King James",col:"#2b2f3a"},
+{t:"The Westminster Confession of Faith",a:"Westminster Assembly",c:"theology",y:1646,n:"A Reformed confession, with the Larger and Shorter Catechisms.",q:"Westminster Confession of Faith",col:"#3b4a1f"},
+{t:"The Heidelberg Catechism",a:"Ursinus and Olevianus",c:"theology",y:1563,n:"129 questions on comfort, sin and gratitude.",q:"Heidelberg Catechism",col:"#7a2e4a"},
+{t:"Pride and Prejudice",a:"Jane Austen",c:"classic",y:1813,n:"Elizabeth Bennet and Mr Darcy. Good for English learners at B2 and above.",q:"Pride and Prejudice Austen",col:"#8a3b5a"},
+{t:"Alice's Adventures in Wonderland",a:"Lewis Carroll",c:"classic",y:1865,n:"Short chapters and playful language, ideal for reading practice.",q:"Alice's Adventures in Wonderland",col:"#2e6a8a"},
+{t:"The Adventures of Sherlock Holmes",a:"Arthur Conan Doyle",c:"classic",y:1892,n:"Twelve stand-alone detective stories.",q:"Adventures of Sherlock Holmes",col:"#4a4a2e"},
+{t:"Frankenstein",a:"Mary Shelley",c:"classic",y:1818,n:"A scientist creates life and refuses to care for it.",q:"Frankenstein Shelley",col:"#2e4a5a"},
+{t:"Great Expectations",a:"Charles Dickens",c:"classic",y:1861,n:"Pip's rise from village boy to London gentleman.",q:"Great Expectations Dickens",col:"#5a2e2e"},
+{t:"Treasure Island",a:"Robert Louis Stevenson",c:"classic",y:1883,n:"Pirates, a map and Long John Silver.",q:"Treasure Island Stevenson",col:"#1f5a6b"},
+{t:"The Secret Garden",a:"Frances Hodgson Burnett",c:"classic",y:1911,n:"A lonely girl finds a locked garden. Clear, gentle English.",q:"Secret Garden Burnett",col:"#3b6a2e"},
+{t:"Meditations",a:"Marcus Aurelius",c:"classic",y:180,n:"Private notes of a Roman emperor on duty and self-control.",q:"Meditations Marcus Aurelius",col:"#5a5a5a"},
+{t:"The Art of War",a:"Sun Tzu",c:"classic",y:-500,n:"Ancient Chinese treatise on strategy.",q:"Art of War Sun Tzu",col:"#7a2e1f"}
+];
+var SAMPLES=[
+{n:"Psalm 23 (KJV)",t:"The LORD is my shepherd; I shall not want. He maketh me to lie down in green pastures: he leadeth me beside the still waters. He restoreth my soul: he leadeth me in the paths of righteousness for his name's sake. Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me. Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over. Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever."},
+{n:"John 1:1-5 (KJV)",t:"In the beginning was the Word, and the Word was with God, and the Word was God. The same was in the beginning with God. All things were made by him; and without him was not any thing made that was made. In him was life; and the life was the light of men. And the light shineth in darkness; and the darkness comprehended it not."},
+{n:"Genesis 1:1-5 (KJV)",t:"In the beginning God created the heaven and the earth. And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters. And God said, Let there be light: and there was light. And God saw the light, that it was good: and God divided the light from the darkness. And God called the light Day, and the darkness he called Night. And the evening and the morning were the first day."},
+{n:"Your own text",t:""}
+];
+var $=function(i){return document.getElementById(i)};
+var state={f:"all",q:"",saved:[]};
+try{state.saved=JSON.parse(localStorage.getItem("openshelf.saved")||"[]")}catch(e){}
+function persist(){try{localStorage.setItem("openshelf.saved",JSON.stringify(state.saved))}catch(e){}}
+function esc(s){return s.replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function render(){
+  var q=state.q.toLowerCase(),out=[];
+  BOOKS.forEach(function(b,i){
+    if(state.f==="saved"&&state.saved.indexOf(b.t)<0)return;
+    if((state.f==="theology"||state.f==="classic")&&b.c!==state.f)return;
+    if(q&&(b.t+" "+b.a+" "+b.n+" "+b.c).toLowerCase().indexOf(q)<0)return;
+    var s=state.saved.indexOf(b.t)>=0;
+    out.push('<article class="book"><div class="spine" style="background:'+b.col+'"><b>'+(b.c==="theology"?"Theology":"Classic")+' · '+(b.y<0?Math.abs(b.y)+" BC":b.y)+'</b><i>'+esc(b.t)+'</i></div><div class="body"><h3>'+esc(b.t)+'</h3><p class="by">'+esc(b.a)+'</p><p class="note">'+esc(b.n)+'</p><div class="links"><a href="'+G(b.q)+'" target="_blank" rel="noopener">Read</a><a href="'+L(b.t)+'" target="_blank" rel="noopener">Listen</a><a href="'+A(b.q)+'" target="_blank" rel="noopener">Archive</a></div><button type="button" class="fav" data-i="'+i+'" aria-pressed="'+s+'">'+(s?"★ Saved":"☆ Save")+'</button></div></article>');
+  });
+  $("grid").innerHTML=out.length?out.join(""):'<div class="empty">'+(state.f==="saved"?"Nothing saved yet. Tap Save on a book and it will appear here on this device.":"No titles match that search.")+'</div>';
+  $("count").textContent=out.length+" of "+BOOKS.length+" titles";
+}
+$("q").addEventListener("input",function(e){state.q=e.target.value;render()});
+$("fmt").addEventListener("click",function(e){var b=e.target.closest(".chip");if(!b)return;state.f=b.dataset.f;[].forEach.call($("fmt").children,function(c){c.setAttribute("aria-pressed",c===b)});render()});
+$("grid").addEventListener("click",function(e){var b=e.target.closest(".fav");if(!b)return;var t=BOOKS[+b.dataset.i].t,k=state.saved.indexOf(t);if(k<0)state.saved.push(t);else state.saved.splice(k,1);persist();render()});
+$("theme").addEventListener("click",function(){var r=document.documentElement,d=r.getAttribute("data-theme")==="dark"||(!r.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme:dark)").matches);r.setAttribute("data-theme",d?"light":"dark")});
+
+/* text to speech */
+var syn=window.speechSynthesis,voices=[];
+SAMPLES.forEach(function(s,i){var o=document.createElement("option");o.value=i;o.textContent=s.n;$("sample").appendChild(o)});
+$("txt").value=SAMPLES[0].t;
+$("sample").addEventListener("change",function(){$("txt").value=SAMPLES[+this.value].t;$("txt").focus()});
+function loadVoices(){
+  if(!syn){$("tts").textContent="This browser cannot read text aloud. Try Chrome, Edge or Safari.";return}
+  voices=syn.getVoices().filter(function(v){return /^(en|vi)/i.test(v.lang)});
+  $("voice").innerHTML=voices.map(function(v,i){return '<option value="'+i+'">'+esc(v.name)+' ('+v.lang+')</option>'}).join("")||'<option>Default voice</option>';
+}
+loadVoices();if(syn)syn.onvoiceschanged=loadVoices;
+$("rate").addEventListener("input",function(){$("rateVal").textContent=(+this.value).toFixed(1)+"x"});
+$("play").addEventListener("click",function(){
+  if(!syn)return;var t=$("txt").value.trim();if(!t){$("tts").textContent="Add some text first.";return}
+  if(syn.paused&&syn.speaking){syn.resume();$("tts").textContent="Playing";return}
+  syn.cancel();var u=new SpeechSynthesisUtterance(t);u.rate=+$("rate").value;
+  var v=voices[+$("voice").value];if(v){u.voice=v;u.lang=v.lang}
+  u.onend=function(){$("tts").textContent="Finished"};u.onerror=function(){$("tts").textContent="Stopped"};
+  syn.speak(u);$("tts").textContent="Playing";
+});
+$("pause").addEventListener("click",function(){if(syn&&syn.speaking){syn.pause();$("tts").textContent="Paused"}});
+$("stop").addEventListener("click",function(){if(syn){syn.cancel();$("tts").textContent="Stopped"}});
+
+/* local audio */
+$("file").addEventListener("change",function(){
+  var f=this.files[0];if(!f)return;var p=$("player");p.src=URL.createObjectURL(f);p.hidden=false;
+  $("fileStatus").textContent=f.name+" ("+(f.size/1048576).toFixed(1)+" MB)";
+});
+render();
+</script>
+
+</body></html>

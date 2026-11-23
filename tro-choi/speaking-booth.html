@@ -1,0 +1,348 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Speaking Booth</title>
+<meta name="description" content="Typed speaking practice for IELTS, TOEIC, PTE and everyday English, with AI feedback on your answers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+:root{
+  --paper:#F5F3EC; --surface:#FFFFFF; --line:#E4DFD1; --ink:#1E2A2F; --muted:#6B6558;
+  --rec:#C3462F; --rec-soft:#F7E3DD; --amber:#B9812C; --amber-soft:#F3E6CC;
+  --ok:#1E8F5F; --ok-soft:#E1F3E9; --bad:#B5443A; --bad-soft:#F6E4E1;
+  --display:"Fraunces",Georgia,serif; --body:"Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --paper:#161B18; --surface:#1F2622; --line:#333C36; --ink:#EDEAE0; --muted:#9BA69C;
+  --rec:#E3806D; --rec-soft:#3A241E; --amber:#E0AC5A; --amber-soft:#33280F;
+  --ok:#5CC98D; --ok-soft:#183028; --bad:#E38077; --bad-soft:#3A211E;
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#161B18; --surface:#1F2622; --line:#333C36; --ink:#EDEAE0; --muted:#9BA69C;
+  --rec:#E3806D; --rec-soft:#3A241E; --amber:#E0AC5A; --amber-soft:#33280F;
+  --ok:#5CC98D; --ok-soft:#183028; --bad:#E38077; --bad-soft:#3A211E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.55;padding-inline:16px}
+.wrap{max-width:700px;margin:0 auto;padding-block:28px 60px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,textarea:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+h1,h2,h3{font-family:var(--display);line-height:1.15;margin:0;text-wrap:balance}
+
+.top h1{font-size:clamp(28px,6vw,38px);font-weight:700}
+.top p{margin:6px 0 0;color:var(--muted);font-size:14.5px;max-width:48ch}
+.brandmark{display:inline-flex;align-items:baseline;gap:1px;font-family:var(--mono);font-weight:600;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.brandmark b{color:var(--ink);font-weight:600}
+.brandmark i{font-style:normal;color:var(--amber)}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.tab{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:9px 14px;font-weight:600;font-size:13.5px}
+.tab[aria-pressed="true"]{border-color:var(--amber);background:var(--amber-soft);color:var(--amber)}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(18px,3.5vw,28px);margin-top:16px}
+.kicker{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted);display:inline-block}
+.dot.live{background:var(--rec);animation:pulse 1.1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.prompt-title{font-size:clamp(19px,2.8vw,23px);font-weight:600;margin:8px 0 6px}
+.bullets{margin:8px 0 0;padding-left:20px;color:var(--ink)}
+.bullets li{margin-bottom:4px}
+.meta{color:var(--muted);font-size:13.5px;margin:6px 0 0}
+
+.timerbar{display:flex;align-items:center;gap:12px;margin-top:16px}
+.clock{font-family:var(--mono);font-size:26px;font-weight:600;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:6px 12px;min-width:74px;text-align:center}
+.tbar{flex:1;height:6px;background:var(--line);border-radius:6px;overflow:hidden}
+.tbar i{display:block;height:100%;background:var(--amber);transition:width .3s linear}
+.tbar.rec i{background:var(--rec)}
+
+textarea{width:100%;min-height:130px;margin-top:14px;background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-family:var(--body);font-size:15px;color:var(--ink);resize:vertical}
+.wc{color:var(--muted);font-size:12.5px;margin-top:4px;text-align:right}
+
+.btn{border:none;background:var(--rec);color:#fff;border-radius:11px;padding:10px 18px;font-weight:600;font-size:14.5px;display:inline-flex;gap:8px;align-items:center}
+.btn.amber{background:var(--amber)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:16px}
+
+.fb-score{display:flex;align-items:baseline;gap:10px;margin:4px 0 16px}
+.fb-score .num{font-family:var(--display);font-size:44px;font-weight:700;color:var(--amber)}
+.fb-score .lbl{color:var(--muted);font-size:13px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em}
+.fb-sec{margin-top:14px}
+.fb-sec h3{font-size:14px;font-family:var(--body);font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-size:12px;margin-bottom:6px}
+.fb-sec ul{margin:0;padding-left:20px}
+.fb-sec.good ul li::marker{color:var(--ok)}
+.fb-sec.bad ul li::marker{color:var(--bad)}
+.model{background:var(--paper);border-left:3px solid var(--amber);border-radius:6px;padding:10px 14px;font-size:14.5px;font-style:italic;margin-top:6px}
+.err{color:var(--bad);font-size:14px;margin-top:10px}
+.hint{color:var(--muted);font-size:13px;margin-top:10px}
+footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+footer a{color:var(--ink);font-weight:600;text-decoration:underline}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <span class="brandmark"><b>DAVID</b><i>.English</i></span>
+    <h1>Speaking Booth</h1>
+    <p>Type what you would say to a real exam prompt, then get feedback on your answer. No microphone needed — this checks your spoken-style English, not your pronunciation.</p>
+  </header>
+
+  <div class="tabs" id="tabs"></div>
+  <main id="app"></main>
+
+  <footer>Looking for a written test instead? See the <a href="/tro-choi/english-level-check.html">English Level Check</a> or the full <a href="/tro-choi/level-map.html">Level Map</a>.<br><span class="brandmark" style="margin:10px 0 0">DAVID<i>.English</i></span></footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ================= content ================= */
+var IELTS_P1=[
+ "What do you do — do you work or are you a student?",
+ "Can you describe the town or city where you grew up?",
+ "What do you usually do in your free time?",
+ "Do you prefer eating at home or eating out? Why?",
+ "How do you usually travel to work or school?",
+ "What kind of music do you enjoy listening to?",
+ "Do you think it's important to learn a foreign language? Why?",
+ "What did you do last weekend?"
+];
+var IELTS_P2=[
+ {topic:"Describe a person who has influenced you.",bullets:["Who this person is","How you know them","What they have done","And explain how they have influenced you"]},
+ {topic:"Describe a place you would like to visit in the future.",bullets:["Where it is","How you learned about it","What you would do there","And explain why you want to visit it"]},
+ {topic:"Describe a skill you learned that was difficult at first.",bullets:["What the skill is","When you learned it","How you learned it","And explain why it was difficult"]},
+ {topic:"Describe a piece of technology you find useful.",bullets:["What it is","How often you use it","What you use it for","And explain why it is useful to you"]},
+ {topic:"Describe a memorable trip you have taken.",bullets:["Where you went","Who you went with","What you did there","And explain why it was memorable"]}
+];
+var IELTS_P3=[
+ "Do you think technology has made communication better or worse overall?",
+ "How do you think travel changes a person's outlook on life?",
+ "Should schools spend more time teaching practical skills instead of theory?",
+ "Do you think older generations and younger generations learn differently?",
+ "Is it more important for a job to pay well or to be enjoyable?",
+ "How might learning styles change in the next twenty years?",
+ "Do you think cities will look very different in fifty years?",
+ "What role should government play in protecting the environment?"
+];
+
+var TOEIC_OPINION=[
+ "Some companies allow employees to work from home. Do you think this is a good policy? Why or why not?",
+ "Do you think it's better for a team to have one strong leader or to share leadership equally?",
+ "Some people prefer to plan their day in detail, while others prefer to stay flexible. Which do you prefer?",
+ "Is it more effective to give feedback in person or in writing? Explain your opinion.",
+ "Should companies require employees to take regular vacations?"
+];
+var TOEIC_RESPOND=[
+ "A colleague calls to say the client meeting has been moved up to tomorrow morning. Respond, asking two questions you'd need answered to prepare.",
+ "Your manager asks you to suggest one way to make team meetings more efficient. Give your suggestion and a brief reason.",
+ "A new employee asks you how to submit an expense report. Explain the process in a few steps.",
+ "A client emails saying a shipment is a week late. Respond as the supplier, explaining what you will do about it."
+];
+
+var PTE_SHORT=[
+ {q:"What do you call a document that lists a book's sources?",a:"a bibliography / reference list"},
+ {q:"What is the opposite of 'increase'?",a:"decrease"},
+ {q:"What do you call a place where books are borrowed?",a:"a library"},
+ {q:"What word means 'to make something clear'?",a:"clarify"},
+ {q:"What do you call the person who teaches at a university?",a:"a lecturer / professor"},
+ {q:"What's another word for 'enough'?",a:"sufficient"}
+];
+var PTE_RETELL=[
+ "Short talk: Sleep researchers have found that most adults need between seven and nine hours of sleep a night, yet many report getting less on weekdays and trying to make up for it on weekends. This pattern, sometimes called social jet lag, has been linked to lower concentration and mood during the week.",
+ "Short talk: A recent study followed university students who took short walking breaks between study sessions. Students who walked for even ten minutes reported better focus afterward than those who scrolled on their phones during the same break.",
+ "Short talk: Many language learners focus only on grammar rules, but research suggests that regularly listening to natural speech, even without understanding every word, helps learners recognise patterns faster than grammar study alone."
+];
+var PTE_DESCRIBE=[
+ "Describe a place near your home that you visit often.",
+ "Describe your daily routine on a typical weekday.",
+ "Describe a book, film or show you recently enjoyed.",
+ "Describe a skill you would like to learn and why."
+];
+
+var GENERAL=[
+ "Introduce yourself: your name, what you do, and one interesting fact about you.",
+ "Describe your weekend — what did you do and what did you enjoy most?",
+ "Talk about a hobby you enjoy and how you got into it.",
+ "Describe your favourite meal and why you like it.",
+ "Talk about a goal you're currently working towards.",
+ "Describe someone in your family and what they're like.",
+ "Talk about a place you'd love to travel to and why.",
+ "Describe a typical day at your job or school.",
+ "Talk about a piece of advice someone gave you that you remember.",
+ "Describe your neighbourhood to someone who has never been there."
+];
+
+/* ================= capability ================= */
+var sampleApi=null;
+(function initSample(){
+  try{
+    if(window.claude&&window.claude.use){
+      window.claude.use("sample").then(function(s){sampleApi=s;}).catch(function(){sampleApi=null;});
+    }
+  }catch(e){}
+})();
+
+/* ================= modes ================= */
+var MODES=[
+ {id:"ielts",label:"IELTS Speaking"},
+ {id:"toeic",label:"TOEIC Speaking"},
+ {id:"pte",label:"PTE Speaking"},
+ {id:"general",label:"Everyday English"}
+];
+var CUR="ielts";
+var tabsEl=document.getElementById("tabs"),app=document.getElementById("app");
+var TICK=null;
+
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]});}
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
+function clearTick(){if(TICK){clearInterval(TICK);TICK=null;}}
+
+function renderTabs(){
+  tabsEl.innerHTML=MODES.map(function(m){return '<button class="tab" aria-pressed="'+(m.id===CUR)+'" data-m="'+m.id+'">'+esc(m.label)+'</button>';}).join("");
+  Array.prototype.forEach.call(tabsEl.querySelectorAll(".tab"),function(b){
+    b.addEventListener("click",function(){clearTick();CUR=b.getAttribute("data-m");renderTabs();newPrompt();});
+  });
+}
+
+/* build a prompt object per mode: {kicker, title, bullets, prep, speak, scale, examLabel} */
+function buildPrompt(){
+  if(CUR==="ielts"){
+    var kind=pick(["p1","p2","p3"]);
+    if(kind==="p1")return{kicker:"IELTS · Part 1",title:pick(IELTS_P1),bullets:null,prep:0,speak:30,scale:"IELTS band (0–9, in 0.5 steps)"};
+    if(kind==="p3")return{kicker:"IELTS · Part 3",title:pick(IELTS_P3),bullets:null,prep:0,speak:45,scale:"IELTS band (0–9, in 0.5 steps)"};
+    var c=pick(IELTS_P2);return{kicker:"IELTS · Part 2",title:c.topic,bullets:c.bullets,prep:60,speak:120,scale:"IELTS band (0–9, in 0.5 steps)"};
+  }
+  if(CUR==="toeic"){
+    var opinion=Math.random()<0.5;
+    if(opinion)return{kicker:"TOEIC · Express an opinion",title:pick(TOEIC_OPINION),bullets:null,prep:15,speak:60,scale:"TOEIC Speaking proficiency level (1–8)"};
+    return{kicker:"TOEIC · Respond to a request",title:pick(TOEIC_RESPOND),bullets:null,prep:0,speak:45,scale:"TOEIC Speaking proficiency level (1–8)"};
+  }
+  if(CUR==="pte"){
+    var r=Math.random();
+    if(r<0.34){var s=pick(PTE_SHORT);return{kicker:"PTE · Answer a short question",title:s.q,bullets:null,prep:0,speak:10,scale:"PTE Academic score (10–90)",_answer:s.a};}
+    if(r<0.67){var t=pick(PTE_RETELL);return{kicker:"PTE · Retell the talk",title:"Retell this talk in your own words.",bullets:null,prep:10,speak:40,scale:"PTE Academic score (10–90)",passage:t};}
+    return{kicker:"PTE · Describe",title:pick(PTE_DESCRIBE),bullets:null,prep:25,speak:40,scale:"PTE Academic score (10–90)"};
+  }
+  return{kicker:"Everyday English",title:pick(GENERAL),bullets:null,prep:0,speak:45,scale:"a fluency rating from 1 to 5 stars"};
+}
+
+var CURRENT=null;
+function newPrompt(){
+  CURRENT=buildPrompt();
+  renderPrompt();
+}
+
+function renderPrompt(){
+  var p=CURRENT;
+  var html='<div class="panel">'+
+    '<div class="kicker"><span class="dot"></span>'+esc(p.kicker)+'</div>'+
+    '<div class="prompt-title">'+esc(p.title)+'</div>'+
+    (p.bullets?'<ul class="bullets">'+p.bullets.map(function(b){return '<li>'+esc(b)+'</li>';}).join("")+'</ul>':'')+
+    (p.passage?'<p class="passage" style="background:var(--paper);border-left:3px solid var(--amber);border-radius:6px;padding:10px 14px;font-size:14.5px;margin-top:10px">'+esc(p.passage)+'</p>':'')+
+    (p.prep?'<p class="meta">'+p.prep+'s to prepare, then speak for about '+p.speak+'s.</p>':'<p class="meta">Speak for about '+p.speak+'s — no preparation time for this one.</p>')+
+    '<div class="row"><button class="btn amber" id="start">Start</button><button class="btn ghost" id="skip">New prompt</button></div>'+
+  '</div>';
+  app.innerHTML=html;
+  document.getElementById("start").onclick=function(){p.prep?runPrep():runSpeak();};
+  document.getElementById("skip").onclick=newPrompt;
+}
+
+function runPrep(){
+  var p=CURRENT,left=p.prep;
+  function draw(){
+    app.innerHTML='<div class="panel">'+
+      '<div class="kicker"><span class="dot"></span>'+esc(p.kicker)+' · preparing</div>'+
+      '<div class="prompt-title">'+esc(p.title)+'</div>'+
+      (p.bullets?'<ul class="bullets">'+p.bullets.map(function(b){return '<li>'+esc(b)+'</li>';}).join("")+'</ul>':'')+
+      '<div class="timerbar"><div class="clock" id="clk">'+left+'</div><div class="tbar"><i id="bar" style="width:100%"></i></div></div>'+
+      '<div class="row"><button class="btn amber" id="now">Speak now</button></div>'+
+    '</div>';
+    document.getElementById("now").onclick=function(){clearTick();runSpeak();};
+  }
+  draw();
+  var total=p.prep;
+  clearTick();
+  TICK=setInterval(function(){
+    left--;
+    var clk=document.getElementById("clk"),bar=document.getElementById("bar");
+    if(clk)clk.textContent=Math.max(left,0);
+    if(bar)bar.style.width=Math.max(0,(left/total)*100)+"%";
+    if(left<=0){clearTick();runSpeak();}
+  },1000);
+}
+
+function runSpeak(){
+  var p=CURRENT,left=p.speak,total=p.speak;
+  app.innerHTML='<div class="panel">'+
+    '<div class="kicker"><span class="dot live"></span>'+esc(p.kicker)+' · speaking</div>'+
+    '<div class="prompt-title">'+esc(p.title)+'</div>'+
+    (p.bullets?'<ul class="bullets">'+p.bullets.map(function(b){return '<li>'+esc(b)+'</li>';}).join("")+'</ul>':'')+
+    (p.passage?'<p class="passage">'+esc(p.passage)+'</p>':'')+
+    '<div class="timerbar"><div class="clock" id="clk">'+left+'</div><div class="tbar rec"><i id="bar" style="width:100%"></i></div></div>'+
+    '<textarea id="resp" placeholder="Type what you would say out loud, as you say it. Don’t worry about perfect punctuation."></textarea>'+
+    '<div class="wc"><span id="wc">0</span> words</div>'+
+    '<div class="row"><button class="btn" id="done">Finish &amp; get feedback</button><button class="btn ghost" id="skip2">Skip this prompt</button></div>'+
+  '</div>';
+  var ta=document.getElementById("resp");
+  ta.addEventListener("input",function(){document.getElementById("wc").textContent=(ta.value.trim().match(/\S+/g)||[]).length;});
+  clearTick();
+  TICK=setInterval(function(){
+    left--;
+    var clk=document.getElementById("clk"),bar=document.getElementById("bar");
+    if(clk)clk.textContent=Math.max(left,0);
+    if(bar)bar.style.width=Math.max(0,(left/total)*100)+"%";
+    if(left<=0){clearTick();}
+  },1000);
+  document.getElementById("done").onclick=function(){clearTick();getFeedback(ta.value.trim());};
+  document.getElementById("skip2").onclick=function(){clearTick();newPrompt();};
+}
+
+function getFeedback(responseText){
+  var p=CURRENT;
+  if(!responseText){
+    app.innerHTML='<div class="panel"><div class="kicker">'+esc(p.kicker)+'</div><p class="err">Type something before asking for feedback — even a short, imperfect answer works.</p><div class="row"><button class="btn ghost" id="back">Back</button></div></div>';
+    document.getElementById("back").onclick=function(){runSpeak();};
+    return;
+  }
+  app.innerHTML='<div class="panel"><div class="kicker"><span class="dot live"></span>'+esc(p.kicker)+'</div><p class="hint" id="thinking">Thinking about your answer…</p></div>';
+  if(!sampleApi){
+    app.innerHTML='<div class="panel"><div class="kicker">'+esc(p.kicker)+'</div><p class="err">Feedback needs Claude access for this artifact, which isn’t available right now. Your answer:</p><p class="model">'+esc(responseText)+'</p><div class="row"><button class="btn ghost" id="again">New prompt</button></div></div>';
+    document.getElementById("again").onclick=newPrompt;
+    return;
+  }
+  var task="Task: "+p.title+(p.bullets?" ("+p.bullets.join("; ")+")":"")+(p.passage?" Talk to retell: "+p.passage:"")+(p._answer?" Model short answer: "+p._answer:"");
+  var sys="You are a supportive but honest speaking examiner for "+p.kicker.split(" · ")[0]+". "+task+
+    " The candidate's spoken answer (typed as they said it, so treat it as speech, not an essay) is below. "+
+    "Score it on "+p.scale+". Reply with JSON ONLY, no markdown, in exactly this shape: "+
+    '{"score":"<the score as a short string, matching the scale given>","strengths":["...","..."],"improve":["...","..."],"modelAnswer":"<a short 2-4 sentence spoken-style model answer to this exact task>"}'+
+    " Keep each strength/improve item under 15 words, plain and specific to this answer, no generic filler.\\n\\nCandidate's answer: "+responseText;
+  sampleApi.json(sys,{modelTier:"default"}).then(function(res){
+    var f=res;
+    var html='<div class="panel">'+
+      '<div class="kicker">'+esc(p.kicker)+' · feedback</div>'+
+      '<div class="fb-score"><span class="num">'+esc(String(f.score||"?"))+'</span><span class="lbl">'+esc(p.scale)+'</span></div>'+
+      (f.strengths&&f.strengths.length?'<div class="fb-sec good"><h3>What worked</h3><ul>'+f.strengths.map(function(s){return '<li>'+esc(s)+'</li>';}).join("")+'</ul></div>':'')+
+      (f.improve&&f.improve.length?'<div class="fb-sec bad"><h3>Work on</h3><ul>'+f.improve.map(function(s){return '<li>'+esc(s)+'</li>';}).join("")+'</ul></div>':'')+
+      (f.modelAnswer?'<div class="fb-sec"><h3>A model answer</h3><div class="model">'+esc(f.modelAnswer)+'</div></div>':'')+
+      '<div class="row"><button class="btn amber" id="again">Next prompt</button></div>'+
+    '</div>';
+    app.innerHTML=html;
+    document.getElementById("again").onclick=newPrompt;
+  }).catch(function(err){
+    var msg=(err&&err.code==="not_granted")?"Feedback wasn't allowed for this session.":
+            (err&&err.code==="rate_limited")?"Too many requests right now — wait a moment and try again.":
+            "Couldn't get feedback this time.";
+    app.innerHTML='<div class="panel"><div class="kicker">'+esc(p.kicker)+'</div><p class="err">'+esc(msg)+'</p><p class="model">'+esc(responseText)+'</p><div class="row"><button class="btn ghost" id="again">New prompt</button></div></div>';
+    document.getElementById("again").onclick=newPrompt;
+  });
+}
+
+renderTabs();
+newPrompt();
+})();
+</script>
+
+</body></html>

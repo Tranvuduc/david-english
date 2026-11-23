@@ -1,0 +1,932 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Bible English Adventure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+:root{
+  --bg:#edf2f1; --surface:#ffffff; --surface-2:#e2ebe9; --ink:#10303d; --muted:#56707a; --line:#cddbd8;
+  --accent:#1d7469; --accent-ink:#ffffff; --accent-soft:#d3ebe6;
+  --gold:#b87a12; --gold-soft:#f5e6c6; --good:#2b7a4b; --good-soft:#dcf0e2; --bad:#b0413a; --bad-soft:#f7dfdc;
+  --hl:#fbe7a8; --shadow:0 1px 2px rgba(16,48,61,.06),0 6px 18px rgba(16,48,61,.07);
+  --f-display:"Bricolage Grotesque",ui-rounded,system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-read:"Literata",Georgia,"Times New Roman",serif;
+  --r:14px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --bg:#0b161b; --surface:#12222a; --surface-2:#1a2f37; --ink:#e2eeec; --muted:#93aab0; --line:#27414a;
+  --accent:#52b5a6; --accent-ink:#062019; --accent-soft:#173b37;
+  --gold:#e6ad48; --gold-soft:#3a2d14; --good:#63c790; --good-soft:#15352a; --bad:#e67c71; --bad-soft:#3d1d1a;
+  --hl:#5a4a17; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25);
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0b161b; --surface:#12222a; --surface-2:#1a2f37; --ink:#e2eeec; --muted:#93aab0; --line:#27414a;
+  --accent:#52b5a6; --accent-ink:#062019; --accent-soft:#173b37;
+  --gold:#e6ad48; --gold-soft:#3a2d14; --good:#63c790; --good-soft:#15352a; --bad:#e67c71; --bad-soft:#3d1d1a;
+  --hl:#5a4a17; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--f-body);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:1.75rem;font-weight:800} h2{font-size:1.3rem;font-weight:800} h3{font-size:1.05rem;font-weight:600}
+p{margin:0}
+.wrap{max-width:600px;margin:0 auto;padding-inline:16px;padding-block:16px 110px}
+.eyebrow{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.muted{color:var(--muted)}
+.stack{display:flex;flex-direction:column;gap:12px}
+.stack-lg{display:flex;flex-direction:column;gap:22px}
+.row{display:flex;align-items:center;gap:10px}
+.row.wrap-row{flex-wrap:wrap}
+.spacer{flex:1}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.card.raised{box-shadow:var(--shadow);border-color:transparent}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:10px 16px;font-weight:700;min-height:44px}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.block{width:100%}
+.btn.ghost{background:transparent}
+.btn.small{min-height:34px;padding:6px 12px;font-size:.88rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.icon-btn{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--surface);flex:none}
+.icon-btn.accent{background:var(--accent-soft);border-color:transparent;color:var(--accent)}
+svg.i{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:.75rem;font-weight:700;border-radius:999px;padding:3px 9px;background:var(--surface-2);color:var(--muted);white-space:nowrap}
+.pill.good{background:var(--good-soft);color:var(--good)}
+.pill.gold{background:var(--gold-soft);color:var(--gold)}
+.pill.accent{background:var(--accent-soft);color:var(--accent)}
+.bar{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .4s}
+.bar.gold>i{background:var(--gold)}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* top bar */
+.topbar{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.brand{font-family:var(--f-display);font-weight:800;font-size:1.05rem;line-height:1.1}
+.brand small{display:block;font-family:var(--f-body);font-weight:400;font-size:.78rem;color:var(--muted)}
+.mark{width:38px;height:38px;border-radius:11px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;flex:none}
+.brandmark{display:inline-flex;align-items:baseline;gap:1px;font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-weight:600;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.brandmark b{color:var(--ink);font-weight:600}
+.brandmark i{font-style:normal;color:var(--gold)}
+.chips{display:flex;gap:6px}
+.chip{display:flex;align-items:center;gap:4px;font-weight:700;font-size:.85rem;padding:5px 9px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.chip .i{width:16px;height:16px}
+.chip.flame{color:var(--gold)}
+
+/* home */
+.hero{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center}
+.ring{width:92px;height:92px;position:relative}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .v{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-family:var(--f-display);font-weight:800;font-size:1.15rem;line-height:1}
+.ring .v small{display:block;font-family:var(--f-body);font-weight:400;font-size:.68rem;color:var(--muted)}
+.continue{background:var(--ink);color:var(--bg);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px;border:0;text-align:left;width:100%}
+.continue .eyebrow{color:inherit;opacity:.7}
+.continue h2{font-size:1.45rem}
+.continue .go{align-self:flex-start;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:9px 16px;font-weight:700;display:inline-flex;gap:8px;align-items:center}
+.continue .steps-mini{display:flex;gap:4px}
+.continue .steps-mini i{flex:1;height:5px;border-radius:9px;background:currentColor;opacity:.22}
+.continue .steps-mini i.on{opacity:1;background:var(--accent)}
+.verse-card{font-family:var(--f-read);font-size:1.12rem;line-height:1.55}
+.verse-card cite{display:block;margin-top:8px;font-family:var(--f-body);font-style:normal;font-size:.85rem;color:var(--muted);font-weight:700}
+
+/* units */
+.unit{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;text-align:left;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.unit .num{width:44px;height:44px;border-radius:12px;background:var(--surface-2);display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:1.15rem}
+.unit.done .num{background:var(--good-soft);color:var(--good)}
+.unit.active .num{background:var(--accent);color:var(--accent-ink)}
+.unit .t{font-weight:700;line-height:1.25}
+.unit .s{font-size:.82rem;color:var(--muted)}
+.unit .bar{margin-top:7px;height:5px}
+.steplist{display:flex;flex-direction:column;gap:8px}
+.stepitem{display:grid;grid-template-columns:32px 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.stepitem .dot{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--surface-2);font-weight:700;font-size:.85rem}
+.stepitem.done .dot{background:var(--good);color:var(--surface)}
+.wordgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.wordtile{background:var(--surface-2);border-radius:10px;padding:8px 10px;display:flex;flex-direction:column}
+.wordtile b{font-size:.98rem}
+.wordtile span{font-size:.8rem;color:var(--muted)}
+
+/* lesson */
+.lesson-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;display:flex;align-items:center;gap:10px}
+.segs{flex:1;display:flex;gap:4px}
+.segs i{flex:1;height:7px;border-radius:9px;background:var(--surface-2)}
+.segs i.on{background:var(--good)}
+.segs i.cur{background:var(--accent)}
+.lesson-foot{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.lesson-foot .in{max-width:600px;margin:0 auto;display:flex;gap:10px;align-items:center}
+.steptitle{display:flex;flex-direction:column;gap:4px;margin-block:6px 16px}
+.steptitle h1{font-size:1.55rem}
+
+.flash{perspective:1200px;min-height:260px}
+.flash-in{position:relative;min-height:260px;transition:transform .5s;transform-style:preserve-3d}
+.flash.flipped .flash-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow)}
+.face.back{transform:rotateY(180deg)}
+.face .word{font-family:var(--f-display);font-weight:800;font-size:2.3rem;line-height:1.05}
+.face .vi{font-size:1.25rem;font-weight:700;color:var(--accent)}
+.face .ex{font-family:var(--f-read);font-style:italic}
+.tapnote{font-size:.8rem;color:var(--muted);margin-top:auto}
+@media (prefers-reduced-motion:reduce){.flash-in{transition:none}.bar>i{transition:none}}
+
+.scripture{font-family:var(--f-read);font-size:1.18rem;line-height:1.75}
+.vs{display:block;padding:8px 10px;margin-inline:-10px;border-radius:10px;transition:background .2s}
+.vs.playing{background:var(--accent-soft)}
+.vs sup{font-family:var(--f-body);font-weight:700;color:var(--accent);font-size:.7rem;margin-right:4px}
+.vs .say{vertical-align:middle;margin-left:4px;width:30px;height:30px;border-radius:50%;border:0;background:transparent;color:var(--muted);display:inline-grid;place-items:center}
+.vs .say .i{width:17px;height:17px}
+.gw{background:none;border:0;padding:0 1px;font:inherit;color:inherit;border-bottom:2px dotted var(--accent);cursor:pointer}
+.gp{background:var(--hl);border-radius:4px;padding:0 2px}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);border-radius:18px 18px 0 0;box-shadow:0 -10px 30px rgba(0,0,0,.18);padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))}
+.sheet .in{max-width:600px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.note{font-size:.88rem;background:var(--gold-soft);color:var(--ink);border-radius:12px;padding:10px 12px}
+
+.q{display:flex;flex-direction:column;gap:8px}
+.q .qt{font-weight:700}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:11px 14px;min-height:46px}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default;opacity:1}
+.fb{font-size:.88rem;font-weight:700}
+.fb.good{color:var(--good)} .fb.bad{color:var(--bad)}
+
+.gtable{width:100%;border-collapse:collapse;font-size:.95rem}
+.gtable td,.gtable th{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.gtable th{font-size:.75rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.scroll-x{overflow-x:auto}
+.explain p+p{margin-top:8px}
+.explain b{color:var(--accent)}
+
+textarea{width:100%;min-height:180px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);padding:12px;font:1.02rem/1.55 var(--f-body);resize:vertical}
+.frame{font-family:var(--f-read);background:var(--surface-2);border-radius:12px;padding:10px 12px;font-style:italic}
+.check{display:flex;gap:8px;align-items:center;font-size:.92rem}
+.check .box{width:20px;height:20px;border-radius:6px;border:2px solid var(--line);display:grid;place-items:center;flex:none}
+.check.ok .box{background:var(--good);border-color:var(--good);color:var(--surface)}
+.check .box .i{width:14px;height:14px;stroke-width:3}
+
+.tiles{display:flex;flex-wrap:wrap;gap:8px}
+.tile{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 12px;font-weight:700;min-height:42px}
+.tile.used{visibility:hidden}
+.answer{min-height:60px;border:2px dashed var(--line);border-radius:12px;padding:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start}
+.answer.right{border-color:var(--good);border-style:solid;background:var(--good-soft)}
+.answer.wrong{border-color:var(--bad);border-style:solid}
+.letters .tile{min-width:44px;font-size:1.2rem;text-transform:lowercase}
+
+.speakline{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
+.speakline p{font-family:var(--f-read);font-size:1.08rem}
+
+/* games */
+.gamegrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gamebtn{text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:6px;min-height:118px}
+.gamebtn .gi{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.gamebtn b{font-family:var(--f-display);font-size:1.08rem}
+.gamebtn span{font-size:.82rem;color:var(--muted);line-height:1.3}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mcell{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:10px;min-height:54px;text-align:center;font-weight:700;font-size:.95rem}
+.mcell.sel{border-color:var(--accent);background:var(--accent-soft)}
+.mcell.done{visibility:hidden}
+.mcell.shake{border-color:var(--bad);background:var(--bad-soft)}
+.bigq{font-family:var(--f-read);font-size:1.2rem}
+
+/* progress */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.stat b{display:block;font-family:var(--f-display);font-size:1.6rem;font-weight:800;line-height:1.1}
+.stat span{font-size:.8rem;color:var(--muted)}
+.days{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;align-items:end;height:80px}
+.days i{display:block;background:var(--accent);border-radius:4px 4px 2px 2px;min-height:3px;opacity:.9}
+.days i.zero{background:var(--surface-2);opacity:1}
+.days-l{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;font-size:.62rem;color:var(--muted);text-align:center}
+.badges{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.badge{display:flex;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px}
+.badge .bi{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--surface-2);color:var(--muted);flex:none}
+.badge.on .bi{background:var(--gold-soft);color:var(--gold)}
+.badge:not(.on){opacity:.6}
+.badge b{font-size:.88rem;display:block;line-height:1.2}
+.badge span{font-size:.75rem;color:var(--muted);line-height:1.2}
+.setting{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px;border-bottom:1px solid var(--line)}
+.setting:last-child{border-bottom:0}
+.switch{width:50px;height:30px;border-radius:99px;border:0;background:var(--surface-2);position:relative;flex:none}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.3);transition:left .2s}
+.switch[aria-checked="true"]{background:var(--accent)}
+.switch[aria-checked="true"]::after{left:23px}
+input[type=range]{accent-color:var(--accent);width:140px}
+select{font:inherit;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:6px 8px;max-width:190px}
+.codebox{width:100%;min-height:80px;font:.78rem/1.4 ui-monospace,Menlo,monospace}
+
+/* tabbar */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px))}
+.tabbar .in{max-width:600px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.tab{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;font-size:.72rem;font-weight:700;color:var(--muted);border-radius:10px}
+.tab[aria-current="page"]{color:var(--accent)}
+.tab .i{width:22px;height:22px}
+
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-weight:700;font-size:.9rem;z-index:50;box-shadow:var(--shadow);max-width:calc(100% - 32px);text-align:center}
+.celebrate{text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px;padding-top:30px}
+.celebrate .big{font-family:var(--f-display);font-weight:800;font-size:3rem;color:var(--gold);line-height:1}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:40}
+.foot-note{font-size:.75rem;color:var(--muted);text-align:center;line-height:1.4}
+.sep{height:1px;background:var(--line)}
+</style>
+
+<div id="app"></div>
+<div id="toast" class="toast" hidden></div>
+<script>
+const UNITS = [
+{
+ id:1, title:"In the Beginning", ref:"Genesis 1:1–5", theme:"God makes light and the first day.", grammar:"was / were · there was",
+ warm:["What is the first thing you see when you wake up in the morning?","Do you like the day or the night more? Why?"],
+ verses:[[1,"In the beginning, God created the heavens and the earth."],[2,"The earth was formless and empty. Darkness was on the surface of the deep and God's Spirit was hovering over the surface of the waters."],[3,"God said, “Let there be light,” and there was light."],[4,"God saw the light, and saw that it was good. God divided the light from the darkness."],[5,"God called the light “day”, and the darkness he called “night”. There was evening and there was morning, the first day."]],
+ vocab:[
+  {w:"beginning",forms:["beginning"],pos:"noun",vi:"sự khởi đầu, ban đầu",def:"the first part or start of something",ex:"In the beginning, God created the heavens and the earth."},
+  {w:"create",forms:["created","create"],pos:"verb",vi:"tạo dựng, sáng tạo",def:"to make something new that was not there before",ex:"God created the heavens and the earth."},
+  {w:"earth",forms:["earth"],pos:"noun",vi:"đất, trái đất",def:"the world we live on; land",ex:"The earth was formless and empty."},
+  {w:"empty",forms:["empty"],pos:"adjective",vi:"trống rỗng",def:"with nothing inside",ex:"My glass is empty. Can I have more water?"},
+  {w:"darkness",forms:["darkness"],pos:"noun",vi:"bóng tối",def:"when there is no light",ex:"Darkness was on the surface of the deep."},
+  {w:"light",forms:["light"],pos:"noun",vi:"ánh sáng",def:"what the sun gives so we can see",ex:"God said, “Let there be light.”"},
+  {w:"divide",forms:["divided","divide"],pos:"verb",vi:"phân rẽ, chia ra",def:"to separate into two or more parts",ex:"God divided the light from the darkness."},
+  {w:"evening",forms:["evening"],pos:"noun",vi:"buổi chiều tối",def:"the end of the day, before night",ex:"There was evening and there was morning."}
+ ],
+ comp:[
+  {q:"What did God create in the beginning?",o:["The sun and the moon","The heavens and the earth","Animals and people"],a:1},
+  {q:"What was on the surface of the deep?",o:["Light","Darkness","Trees"],a:1},
+  {q:"What did God call the light?",o:["Day","Night","Morning"],a:0},
+  {q:"What did God think about the light?",o:["It was good","It was too bright","It was empty"],a:0}
+ ],
+ g:{explain:"<p><b>was</b> is the past of <i>am / is</i>. <b>were</b> is the past of <i>are</i>.</p><p>Use <b>there was</b> + one thing, and <b>there were</b> + many things, to say something existed in the past.</p>",
+  table:[["","Singular","Plural"],["be","It <b>was</b> good.","The waters <b>were</b> dark."],["there","There <b>was</b> light.","There <b>were</b> many stars."],["question","<b>Was</b> it good?","<b>Were</b> they there?"]],
+  find:"\\b(was|were)\\b",
+  practice:[
+   {q:"The earth ___ formless and empty.",o:["was","were","is"],a:0},
+   {q:"There ___ evening and there was morning.",o:["were","was","are"],a:1},
+   {q:"The waters ___ dark and deep.",o:["was","were","be"],a:1},
+   {q:"___ there light before God spoke?",o:["Were","Is","Was"],a:2}
+ ]},
+ speak:["In the beginning, God created the heavens and the earth.","God saw the light, and saw that it was good.","There was evening and there was morning, the first day.","Your turn: say three things God made that you love. “God made …”"],
+ write:{prompt:"Describe a beautiful place in nature you visited. What was there?",frame:"Last year I was at ___. There was a ___. There were many ___. The sky was ___.",min:40,pat:"\\b(was|were)\\b",patLabel:"was / were",patMin:4},
+ mv:{ref:"Genesis 1:1",text:"In the beginning, God created the heavens and the earth."}
+},
+{
+ id:2, title:"The Lord Is My Shepherd", ref:"Psalm 23:1–3", theme:"God takes care of his people like a shepherd.", grammar:"Present simple: he / she / it + -s",
+ warm:["Who takes care of you when you are sick or tired?","Have you ever seen sheep? What do sheep need every day?"],
+ verses:[[1,"The LORD is my shepherd; I shall lack nothing."],[2,"He makes me lie down in green pastures. He leads me beside still waters."],[3,"He restores my soul. He guides me in the paths of righteousness for his name's sake."]],
+ note:"“LORD” written in small capitals stands for God's own name, which in Hebrew is Yahweh. In Vietnamese Bibles: Đức Giê-hô-va / Đức Chúa Trời.",
+ vocab:[
+  {w:"shepherd",forms:["shepherd"],pos:"noun",vi:"người chăn chiên",def:"a person who takes care of sheep",ex:"The shepherd knows every sheep by name."},
+  {w:"lack",forms:["lack"],pos:"verb",vi:"thiếu",def:"to not have something you need",ex:"I shall lack nothing."},
+  {w:"lie down",forms:["lie down"],pos:"phrasal verb",vi:"nằm xuống",def:"to put your body flat to rest",ex:"I lie down after lunch."},
+  {w:"pasture",forms:["pastures","pasture"],pos:"noun",vi:"đồng cỏ",def:"a field of grass where animals eat",ex:"He makes me lie down in green pastures."},
+  {w:"lead",forms:["leads","lead"],pos:"verb",vi:"dẫn dắt",def:"to go in front and show the way",ex:"He leads me beside still waters."},
+  {w:"still",forms:["still"],pos:"adjective",vi:"yên lặng, phẳng lặng",def:"quiet and not moving",ex:"The lake is still in the early morning."},
+  {w:"restore",forms:["restores","restore"],pos:"verb",vi:"phục hồi, bổ lại",def:"to make something new and strong again",ex:"He restores my soul."},
+  {w:"path",forms:["paths","path"],pos:"noun",vi:"lối đi, con đường",def:"a small road for walking",ex:"He guides me in the paths of righteousness."}
+ ],
+ comp:[
+  {q:"Who is my shepherd?",o:["David","The LORD","My father"],a:1},
+  {q:"Where does he make me lie down?",o:["In green pastures","In a big house","On the mountain"],a:0},
+  {q:"Where does he lead me?",o:["Into the city","Beside still waters","Into the sea"],a:1},
+  {q:"What does he restore?",o:["My house","My money","My soul"],a:2}
+ ],
+ g:{explain:"<p>We use the <b>present simple</b> for things that are always true or happen again and again.</p><p>With <b>he / she / it</b> we add <b>-s</b>: he <b>makes</b>, he <b>leads</b>. After -s, -sh, -ch, -x, -o add <b>-es</b>: he <b>watches</b>, she <b>goes</b>.</p>",
+  table:[["","I / you / we / they","he / she / it"],["+","I <b>lead</b>","He <b>leads</b>"],["–","I <b>don't</b> lack","He <b>doesn't</b> lack"],["?","<b>Do</b> you pray?","<b>Does</b> she pray?"]],
+  find:"\\b(makes|leads|restores|guides)\\b",
+  practice:[
+   {q:"The shepherd ___ the sheep to water.",o:["lead","leads","leading"],a:1},
+   {q:"The sheep ___ from the still waters.",o:["drinks","drink","drinkes"],a:1},
+   {q:"My mother ___ every morning.",o:["prays","pray","praies"],a:0},
+   {q:"He ___ the sheep at night.",o:["watchs","watch","watches"],a:2}
+ ]},
+ speak:["The LORD is my shepherd; I shall lack nothing.","He makes me lie down in green pastures.","He leads me beside still waters.","Your turn: “My ___ takes care of me. He / She ___ every day.”"],
+ write:{prompt:"Write about a person who takes care of you. What do they do every day?",frame:"My ___ takes care of me. Every morning she ___. He always ___. She never ___.",min:40,pat:"\\b(he|she|it)\\s+\\w+(s)\\b",patLabel:"he/she/it + -s verbs",patMin:3},
+ mv:{ref:"Psalm 23:1",text:"The LORD is my shepherd; I shall lack nothing."}
+},
+{
+ id:3, title:"God's Promise to Abram", ref:"Genesis 12:1–2", theme:"God calls Abram to a new land and makes a promise.", grammar:"will for promises",
+ warm:["Have you ever moved to a new city or home? How did you feel?","What is a promise? Tell about a promise someone kept for you."],
+ verses:[[1,"Now the LORD said to Abram, “Leave your country, and your relatives, and your father's house, and go to the land that I will show you."],[2,"I will make of you a great nation. I will bless you and make your name great. You will be a blessing.”"]],
+ vocab:[
+  {w:"leave",forms:["leave"],pos:"verb",vi:"rời khỏi",def:"to go away from a place",ex:"Leave your country and go to the land."},
+  {w:"country",forms:["country"],pos:"noun",vi:"quê hương, xứ sở",def:"the land where a people lives",ex:"Abram left his country."},
+  {w:"relatives",forms:["relatives"],pos:"noun",vi:"bà con, họ hàng",def:"people in your family, like aunts and cousins",ex:"My relatives live in Huế."},
+  {w:"land",forms:["land"],pos:"noun",vi:"vùng đất",def:"an area of ground; a country",ex:"Go to the land that I will show you."},
+  {w:"show",forms:["show"],pos:"verb",vi:"chỉ cho, cho thấy",def:"to let someone see something",ex:"Can you show me the way?"},
+  {w:"nation",forms:["nation"],pos:"noun",vi:"dân tộc, quốc gia",def:"a large group of people with one land",ex:"I will make of you a great nation."},
+  {w:"bless",forms:["bless"],pos:"verb",vi:"ban phước",def:"to give good things from God",ex:"I will bless you."},
+  {w:"blessing",forms:["blessing"],pos:"noun",vi:"phước lành, nguồn phước",def:"a good gift; something that helps others",ex:"You will be a blessing."}
+ ],
+ comp:[
+  {q:"Who spoke to Abram?",o:["His father","The LORD","A king"],a:1},
+  {q:"What did God tell Abram to leave?",o:["His country, relatives and father's house","Only his sheep","His city and his king"],a:0},
+  {q:"Where must Abram go?",o:["To Egypt","To the land God will show him","Back home"],a:1},
+  {q:"What will God make of Abram?",o:["A rich man","A great nation","A shepherd"],a:1}
+ ],
+ g:{explain:"<p>Use <b>will + verb</b> to make a <b>promise</b> or to talk about the future.</p><p>The verb after <i>will</i> has no -s: God <b>will bless</b> (not <i>will blesses</i>). Negative: <b>will not = won't</b>.</p>",
+  table:[["","Example"],["+","I <b>will show</b> you the land."],["–","I <b>won't</b> forget you."],["?","<b>Will</b> you go with me?"]],
+  find:"\\bwill\\b",
+  practice:[
+   {q:"God: “I ___ bless you.”",o:["will","am","do"],a:0},
+   {q:"“I will not forget” = “I ___ forget.”",o:["don't","won't","wasn't"],a:1},
+   {q:"___ you come to church with me on Sunday?",o:["Do","Are","Will"],a:2},
+   {q:"Which is correct?",o:["God will blesses you.","God will bless you.","God wills bless you."],a:1}
+ ]},
+ speak:["Leave your country, and go to the land that I will show you.","I will bless you and make your name great.","You will be a blessing.","Your turn: make two promises. “I will …”"],
+ write:{prompt:"Write promises to someone in your family or church. What will you do for them this year?",frame:"Dear ___, this year I will ___. I will also ___. I won't ___.",min:40,pat:"\\b(will|won't)\\b",patLabel:"will / won't",patMin:4},
+ mv:{ref:"Genesis 12:2",text:"I will bless you and make your name great. You will be a blessing."}
+},
+{
+ id:4, title:"David and Goliath", ref:"1 Samuel 17:48–50", theme:"A young shepherd trusts God and wins.", grammar:"Past simple: irregular verbs",
+ warm:["What is something big or difficult you are afraid of?","Who is a brave person you know? What did they do?"],
+ verses:[[48,"When the Philistine arose, and walked and came near to meet David, David hurried, and ran toward the army to meet the Philistine."],[49,"David put his hand in his bag, took a stone, and slung it, and struck the Philistine in his forehead. The stone sank into his forehead, and he fell on his face to the earth."],[50,"So David prevailed over the Philistine with a sling and with a stone, and struck the Philistine and killed him; but there was no sword in David's hand."]],
+ note:"The Philistine is Goliath, a very tall soldier. “Prevailed” means “won”.",
+ vocab:[
+  {w:"hurry",forms:["hurried","hurry"],pos:"verb",vi:"vội vàng, đi nhanh",def:"to move or do something quickly",ex:"David hurried to meet the Philistine."},
+  {w:"run (ran)",forms:["ran"],pos:"verb",vi:"chạy",def:"to move very fast on your feet",ex:"David ran toward the army."},
+  {w:"army",forms:["army"],pos:"noun",vi:"quân đội, đạo quân",def:"a large group of soldiers",ex:"The army stood on the hill."},
+  {w:"bag",forms:["bag"],pos:"noun",vi:"cái túi",def:"a soft container you carry things in",ex:"David put his hand in his bag."},
+  {w:"stone",forms:["stone"],pos:"noun",vi:"hòn đá",def:"a small hard piece of rock",ex:"He took a stone from the river."},
+  {w:"forehead",forms:["forehead"],pos:"noun",vi:"cái trán",def:"the top part of your face, above your eyes",ex:"The stone struck him in the forehead."},
+  {w:"fall (fell)",forms:["fell"],pos:"verb",vi:"ngã, té",def:"to go down to the ground suddenly",ex:"He fell on his face to the earth."},
+  {w:"sword",forms:["sword"],pos:"noun",vi:"cây gươm",def:"a long sharp metal weapon",ex:"There was no sword in David's hand."}
+ ],
+ comp:[
+  {q:"What did David do when the Philistine came near?",o:["He ran away","He hurried and ran toward him","He sat down"],a:1},
+  {q:"What did David take from his bag?",o:["A sword","Bread","A stone"],a:2},
+  {q:"Where did the stone hit the Philistine?",o:["In his forehead","In his hand","In his foot"],a:0},
+  {q:"What was NOT in David's hand?",o:["A sling","A sword","A stone"],a:1}
+ ],
+ g:{explain:"<p>Many common verbs are <b>irregular</b> in the past. They do not end in -ed. You need to learn them.</p><p>Negatives and questions use <b>did</b> + base verb: <i>He <b>didn't take</b> a sword. <b>Did</b> he <b>fall</b>?</i></p>",
+  table:[["Base","Past","Base","Past"],["come","<b>came</b>","take","<b>took</b>"],["run","<b>ran</b>","fall","<b>fell</b>"],["put","<b>put</b>","strike","<b>struck</b>"],["sink","<b>sank</b>","go","<b>went</b>"]],
+  find:"\\b(came|ran|put|took|struck|sank|fell)\\b",
+  practice:[
+   {q:"David ___ a stone from his bag.",o:["taked","took","take"],a:1},
+   {q:"The giant ___ on his face.",o:["fell","falled","fall"],a:0},
+   {q:"David ___ toward the army.",o:["runned","run","ran"],a:2},
+   {q:"David ___ take a sword.",o:["didn't","don't","wasn't"],a:0}
+ ]},
+ speak:["David put his hand in his bag and took a stone.","The stone sank into his forehead, and he fell on his face.","There was no sword in David's hand.","Your turn: “Last week I was afraid, but I …”"],
+ write:{prompt:"Write about a time you were afraid but did something brave. What happened?",frame:"One day I ___. I was afraid because ___. Then I ___ and ___. In the end, ___.",min:50,pat:"\\b(came|ran|put|took|struck|sank|fell|went|saw|said|made|got|had|did|gave|told|felt|knew|thought|found|left|began|spoke|stood|sat|ate|drank|wrote|met|brought|bought|kept)\\b",patLabel:"irregular past verbs",patMin:5},
+ mv:{ref:"1 Samuel 17:50",text:"So David prevailed over the Philistine with a sling and with a stone."}
+},
+{
+ id:5, title:"Daniel Prays", ref:"Daniel 6:10, 22", theme:"Daniel keeps praying, and God keeps him safe.", grammar:"How often: always, usually, three times a day",
+ warm:["How many times a day do you eat? Pray? Check your phone?","What do you do every day, even when you are busy?"],
+ verses:[[10,"When Daniel knew that the writing was signed, he went into his house (now his windows were open in his room toward Jerusalem) and he kneeled on his knees three times a day, and prayed, and gave thanks before his God, as he did before."],[22,"My God has sent his angel, and has shut the lions' mouths, and they have not hurt me, because innocence was found in me before him; and also before you, O king, I have done no harm."]],
+ note:"“The writing” is the king's new law: no one may pray to any god except the king for 30 days.",
+ vocab:[
+  {w:"window",forms:["windows","window"],pos:"noun",vi:"cửa sổ",def:"an opening in a wall with glass, to let light in",ex:"His windows were open toward Jerusalem."},
+  {w:"kneel",forms:["kneeled","kneel"],pos:"verb",vi:"quỳ gối",def:"to go down and rest on your knees",ex:"He kneeled on his knees to pray."},
+  {w:"pray",forms:["prayed","pray"],pos:"verb",vi:"cầu nguyện",def:"to talk to God",ex:"Daniel prayed three times a day."},
+  {w:"give thanks",forms:["gave thanks","give thanks"],pos:"phrase",vi:"tạ ơn, cảm tạ",def:"to say thank you, especially to God",ex:"We give thanks before we eat."},
+  {w:"angel",forms:["angel"],pos:"noun",vi:"thiên sứ",def:"a messenger from God",ex:"My God has sent his angel."},
+  {w:"shut",forms:["shut"],pos:"verb",vi:"đóng lại, bịt lại",def:"to close",ex:"The angel shut the lions' mouths."},
+  {w:"lion",forms:["lions'","lions","lion"],pos:"noun",vi:"con sư tử",def:"a large wild cat with a loud roar",ex:"The lions did not hurt Daniel."},
+  {w:"harm",forms:["harm"],pos:"noun",vi:"điều hại, tổn hại",def:"damage or hurt",ex:"I have done no harm."}
+ ],
+ comp:[
+  {q:"How many times a day did Daniel pray?",o:["Once","Two times","Three times"],a:2},
+  {q:"His windows were open toward…",o:["Babylon","Jerusalem","the sea"],a:1},
+  {q:"Who shut the lions' mouths?",o:["The king","God's angel","Daniel"],a:1},
+  {q:"Did the lions hurt Daniel?",o:["Yes, a little","No, they did not","We don't know"],a:1}
+ ],
+ g:{explain:"<p><b>Adverbs of frequency</b> say how often: <b>always</b> (100%) → <b>usually</b> → <b>often</b> → <b>sometimes</b> → <b>never</b> (0%).</p><p>They go <b>before</b> the main verb (<i>I <b>always</b> pray</i>) but <b>after</b> be (<i>She is <b>never</b> late</i>). For exact numbers, use <b>once / twice / three times a day</b> at the end.</p>",
+  table:[["Word","Example"],["always","Daniel <b>always</b> prayed."],["usually","I <b>usually</b> read the Bible at night."],["sometimes","We <b>sometimes</b> sing at home."],["never","He is <b>never</b> afraid."],["___ times a ___","He prayed <b>three times a day</b>."]],
+  find:"\\b(three times a day|as he did before)\\b",
+  practice:[
+   {q:"Choose the correct order.",o:["I pray always in the morning.","I always pray in the morning.","Always I pray in the morning."],a:1},
+   {q:"She is ___ late for church. (0%)",o:["always","never","sometimes"],a:1},
+   {q:"Daniel prayed three times ___ day.",o:["the","in","a"],a:2},
+   {q:"“Two times” can also be ___.",o:["twice","twoce","second"],a:0}
+ ]},
+ speak:["He kneeled on his knees three times a day, and prayed, and gave thanks before his God.","My God has sent his angel, and has shut the lions' mouths.","Your turn: “I always … I usually … I never …”"],
+ write:{prompt:"Write about your daily routine. What do you always, usually, sometimes and never do?",frame:"I always ___ in the morning. I usually ___. I pray ___ times a day. I never ___.",min:45,pat:"\\b(always|usually|often|sometimes|never|once|twice|times a (day|week|month))\\b",patLabel:"frequency words",patMin:4},
+ mv:{ref:"Daniel 6:22",text:"My God has sent his angel, and has shut the lions' mouths, and they have not hurt me."}
+},
+{
+ id:6, title:"Jesus Calms the Storm", ref:"Mark 4:39–41", theme:"Jesus speaks, and the wind and sea obey.", grammar:"Wh- questions",
+ warm:["Have you ever been in a big storm? Where were you?","What do you do when you feel afraid?"],
+ verses:[[39,"He awoke and rebuked the wind, and said to the sea, “Peace! Be still!” The wind ceased and there was a great calm."],[40,"He said to them, “Why are you so afraid? How is it that you have no faith?”"],[41,"They were greatly afraid and said to one another, “Who then is this, that even the wind and the sea obey him?”"]],
+ note:"“Rebuked” means spoke strongly to stop something. “Ceased” means stopped.",
+ vocab:[
+  {w:"awake (awoke)",forms:["awoke"],pos:"verb",vi:"thức dậy",def:"to stop sleeping",ex:"He awoke and spoke to the wind."},
+  {w:"wind",forms:["wind"],pos:"noun",vi:"gió",def:"air that moves fast",ex:"The wind ceased."},
+  {w:"sea",forms:["sea"],pos:"noun",vi:"biển",def:"a very large area of salt water",ex:"He said to the sea, “Peace! Be still!”"},
+  {w:"peace",forms:["peace"],pos:"noun",vi:"bình an, yên lặng",def:"a quiet, calm feeling with no fighting",ex:"Jesus gives us peace."},
+  {w:"calm",forms:["calm"],pos:"noun / adj.",vi:"sự yên lặng; êm ả",def:"quiet, with no wind or worry",ex:"There was a great calm."},
+  {w:"afraid",forms:["afraid"],pos:"adjective",vi:"sợ hãi",def:"feeling fear",ex:"Why are you so afraid?"},
+  {w:"faith",forms:["faith"],pos:"noun",vi:"đức tin",def:"trust in God",ex:"How is it that you have no faith?"},
+  {w:"obey",forms:["obey"],pos:"verb",vi:"vâng lời, vâng phục",def:"to do what someone tells you",ex:"Even the wind and the sea obey him."}
+ ],
+ comp:[
+  {q:"What did Jesus say to the sea?",o:["“Go away!”","“Peace! Be still!”","“Help us!”"],a:1},
+  {q:"What happened to the wind?",o:["It ceased (stopped)","It got stronger","It went to the city"],a:0},
+  {q:"What did Jesus ask the disciples?",o:["“Where is the boat?”","“Why are you so afraid?”","“Who is hungry?”"],a:1},
+  {q:"What obeys Jesus?",o:["Only people","The wind and the sea","Only the disciples"],a:1}
+ ],
+ g:{explain:"<p><b>Wh- questions</b> ask for information, not yes/no.</p><p>Word order: <b>Wh- word + be / do / can + subject + verb</b>. <i><b>Why are</b> you afraid? <b>Where do</b> you live?</i> With <b>Who</b> as subject, no do: <i><b>Who calmed</b> the sea?</i></p>",
+  table:[["Word","Asks about","Example"],["Who","a person","<b>Who</b> is this?"],["What","a thing","<b>What</b> did he say?"],["Why","a reason","<b>Why</b> are you afraid?"],["How","the way","<b>How</b> is it that you have no faith?"],["Where","a place","<b>Where</b> was the boat?"],["When","a time","<b>When</b> did he wake up?"]],
+  find:"\\b(Why|How|Who)\\b",
+  practice:[
+   {q:"___ is this, that even the wind obeys him? (a person)",o:["What","Who","Where"],a:1},
+   {q:"___ are you so afraid? (a reason)",o:["Why","When","How"],a:0},
+   {q:"Choose the correct question.",o:["Where you do live?","Where do you live?","Where you live?"],a:1},
+   {q:"___ did the storm start? — In the evening.",o:["When","Who","Why"],a:0}
+ ]},
+ speak:["Peace! Be still!","Why are you so afraid? How is it that you have no faith?","Who then is this, that even the wind and the sea obey him?","Your turn: ask a friend three Wh- questions about their week."],
+ write:{prompt:"Write six questions you want to ask a new friend at church. Then answer two of them about yourself.",frame:"Where do you ___? What is your ___? Why do you ___? … My answers: ___.",min:40,pat:"\\b(who|what|why|how|where|when|which)\\b[^?]*\\?",patLabel:"Wh- questions",patMin:5},
+ mv:{ref:"Mark 4:39",text:"He said to the sea, “Peace! Be still!” The wind ceased, and there was a great calm."}
+},
+{
+ id:7, title:"Five Loaves and Two Fish", ref:"John 6:9–11", theme:"Jesus feeds a huge crowd with a boy's small lunch.", grammar:"much / many · a few / a little",
+ warm:["What do you usually eat for lunch?","Have you ever shared food with many people? When?"],
+ verses:[[9,"“There is a boy here who has five barley loaves and two fish, but what are these among so many?”"],[10,"“Have the people sit down.” Now there was much grass in that place. So the men sat down, in number about five thousand."],[11,"Jesus took the loaves, and having given thanks, he distributed to the disciples, and the disciples to those who were sitting down, likewise also of the fish as much as they desired."]],
+ vocab:[
+  {w:"loaf (loaves)",forms:["loaves","loaf"],pos:"noun",vi:"ổ bánh",def:"bread in one piece; plural: loaves",ex:"The boy had five barley loaves."},
+  {w:"barley",forms:["barley"],pos:"noun",vi:"lúa mạch",def:"a grain used to make cheap bread",ex:"Barley bread was food for poor people."},
+  {w:"fish",forms:["fish"],pos:"noun",vi:"con cá",def:"an animal that lives in water (plural: fish)",ex:"He had two small fish."},
+  {w:"grass",forms:["grass"],pos:"noun",vi:"cỏ",def:"short green plants on the ground",ex:"There was much grass in that place."},
+  {w:"thousand",forms:["thousand"],pos:"number",vi:"nghìn, ngàn",def:"1,000",ex:"About five thousand men sat down."},
+  {w:"distribute",forms:["distributed","distribute"],pos:"verb",vi:"phân phát, chia ra",def:"to give things out to many people",ex:"He distributed the bread to the disciples."},
+  {w:"disciple",forms:["disciples","disciple"],pos:"noun",vi:"môn đồ",def:"a follower and student of Jesus",ex:"The disciples gave bread to the people."},
+  {w:"desire",forms:["desired","desire"],pos:"verb",vi:"muốn, ao ước",def:"to want something very much",ex:"They ate as much as they desired."}
+ ],
+ comp:[
+  {q:"What did the boy have?",o:["Five loaves and two fish","Two loaves and five fish","Rice and water"],a:0},
+  {q:"What was in that place?",o:["Much sand","Much grass","Many trees"],a:1},
+  {q:"About how many men sat down?",o:["500","5,000","50,000"],a:1},
+  {q:"What did Jesus do before he gave out the bread?",o:["He gave thanks","He sang","He slept"],a:0}
+ ],
+ g:{explain:"<p><b>Countable</b> nouns can be counted: one loaf, two fish, five <i>people</i>. Use <b>many</b> and <b>a few</b>.</p><p><b>Uncountable</b> nouns cannot be counted: grass, water, bread, rice. Use <b>much</b> and <b>a little</b>. Ask <b>How many…?</b> / <b>How much…?</b></p>",
+  table:[["","Countable","Uncountable"],["a lot","<b>many</b> people","<b>much</b> grass"],["small amount","<b>a few</b> fish","<b>a little</b> water"],["question","<b>How many</b> loaves?","<b>How much</b> bread?"],["both","<b>some</b> / <b>a lot of</b> apples","<b>some</b> / <b>a lot of</b> rice"]],
+  find:"\\b(much|many|five|two|thousand)\\b",
+  practice:[
+   {q:"There was ___ grass in that place.",o:["many","much","a few"],a:1},
+   {q:"How ___ loaves do you have?",o:["much","many","little"],a:1},
+   {q:"The boy had only a ___ fish.",o:["few","little","much"],a:0},
+   {q:"Can I have a ___ water, please?",o:["few","many","little"],a:2}
+ ]},
+ speak:["There is a boy here who has five barley loaves and two fish.","Jesus took the loaves, and having given thanks, he distributed to the disciples.","Your turn: “In my kitchen there is a little … and there are a few …”"],
+ write:{prompt:"Describe a meal you shared with many people (a party, Tết, a church lunch). What food was there? How much? How many?",frame:"At ___ there were many ___. There was a lot of ___. We only had a little ___. How many people ___?",min:45,pat:"\\b(much|many|a few|a little|some|a lot of|lots of|how much|how many)\\b",patLabel:"much / many / a few / a little",patMin:4},
+ mv:{ref:"John 6:11",text:"Jesus took the loaves, and having given thanks, he distributed to the disciples."}
+},
+{
+ id:8, title:"The Good Samaritan", ref:"Luke 10:30–34", theme:"A stranger shows real love to a hurt man.", grammar:"Past continuous: was / were + -ing",
+ warm:["Who is your neighbor? Only the people next door?","Tell about a time a stranger helped you."],
+ verses:[[30,"Jesus answered, “A certain man was going down from Jerusalem to Jericho, and he fell among robbers, who both stripped him and beat him, and departed, leaving him half dead."],[31,"By chance a certain priest was going down that way. When he saw him, he passed by on the other side."],[32,"In the same way a Levite also, when he came to the place and saw him, passed by on the other side."],[33,"But a certain Samaritan, as he traveled, came where he was. When he saw him, he was moved with compassion,"],[34,"came to him, and bound up his wounds, pouring on oil and wine. He set him on his own animal, brought him to an inn, and took care of him.”"]],
+ note:"Jews and Samaritans did not like each other. That is why the Samaritan's help is so surprising.",
+ vocab:[
+  {w:"robber",forms:["robbers","robber"],pos:"noun",vi:"kẻ cướp",def:"a person who takes things by force",ex:"He fell among robbers."},
+  {w:"half dead",forms:["half dead"],pos:"phrase",vi:"gần chết, dở sống dở chết",def:"very badly hurt, almost dead",ex:"They left him half dead."},
+  {w:"priest",forms:["priest"],pos:"noun",vi:"thầy tế lễ",def:"a man who served God in the temple",ex:"A priest was going down that way."},
+  {w:"pass by",forms:["passed by","pass by"],pos:"phrasal verb",vi:"đi ngang qua",def:"to go past without stopping",ex:"He passed by on the other side."},
+  {w:"travel",forms:["traveled","travel"],pos:"verb",vi:"đi đường, du hành",def:"to go from one place to another",ex:"As he traveled, he came where the man was."},
+  {w:"compassion",forms:["compassion"],pos:"noun",vi:"lòng thương xót",def:"a strong feeling of love for someone who suffers",ex:"He was moved with compassion."},
+  {w:"wound",forms:["wounds","wound"],pos:"noun",vi:"vết thương",def:"a cut or hurt on the body",ex:"He bound up his wounds."},
+  {w:"inn",forms:["inn"],pos:"noun",vi:"quán trọ",def:"a small hotel for travelers",ex:"He brought him to an inn."}
+ ],
+ comp:[
+  {q:"Where was the man going?",o:["From Jericho to Jerusalem","From Jerusalem to Jericho","To the temple"],a:1},
+  {q:"What did the priest do?",o:["He helped the man","He passed by on the other side","He called the police"],a:1},
+  {q:"Who helped the man?",o:["A Levite","A Samaritan","A robber"],a:1},
+  {q:"Where did the Samaritan take him?",o:["To an inn","To his house","To Jerusalem"],a:0}
+ ],
+ g:{explain:"<p>Use the <b>past continuous</b> (<b>was / were + verb-ing</b>) for an action that was in progress at a time in the past.</p><p>We often use it with the <b>past simple</b> for a shorter action that happened in the middle: <i>A man <b>was going down</b> to Jericho <b>when</b> robbers <b>attacked</b> him.</i></p>",
+  table:[["","Example"],["+","A priest <b>was going</b> down that way."],["–","They <b>weren't helping</b>."],["?","<b>Was</b> he <b>traveling</b> alone?"],["+ when","I <b>was walking</b> home <b>when</b> it <b>started</b> to rain."]],
+  find:"\\b(was going|were sitting|was)\\b",
+  practice:[
+   {q:"A man ___ down to Jericho.",o:["was going","were going","goes"],a:0},
+   {q:"The robbers ___ by the road.",o:["was waiting","were waiting","waiting"],a:1},
+   {q:"I was reading ___ my phone rang.",o:["when","while","what"],a:0},
+   {q:"___ you sleeping at 10 p.m.?",o:["Was","Did","Were"],a:2}
+ ]},
+ speak:["A certain man was going down from Jerusalem to Jericho.","When he saw him, he was moved with compassion.","He brought him to an inn, and took care of him.","Your turn: “I was ___ing when someone helped me.”"],
+ write:{prompt:"Tell a story about a time someone helped you (or you helped someone). What were you doing when it happened?",frame:"Last ___, I was ___ing when ___. A kind ___ was ___ing nearby. He / She ___ and ___.",min:50,pat:"\\b(was|were)\\s+\\w+ing\\b",patLabel:"was / were + -ing",patMin:3},
+ mv:{ref:"Luke 10:37",text:"Then Jesus said to him, “Go and do likewise.”"}
+},
+{
+ id:9, title:"The Lost Son Comes Home", ref:"Luke 15:20–24", theme:"A father runs to welcome his son home.", grammar:"Imperatives & let's",
+ warm:["How do you feel when you come home after a long trip?","What does your family do to celebrate?"],
+ verses:[[20,"He arose and came to his father. But while he was still far off, his father saw him and was moved with compassion, and ran, fell on his neck, and kissed him."],[21,"The son said to him, ‘Father, I have sinned against heaven and in your sight. I am no longer worthy to be called your son.’"],[22,"But the father said to his servants, ‘Bring out the best robe and put it on him. Put a ring on his hand and sandals on his feet."],[23,"Bring the fattened calf, kill it, and let's eat and celebrate;"],[24,"for this, my son, was dead and is alive again. He was lost and is found.’ Then they began to celebrate."]],
+ note:"“Fell on his neck” means hugged him. A “fattened calf” is a young cow kept for a big feast.",
+ vocab:[
+  {w:"far off",forms:["far off"],pos:"phrase",vi:"ở xa",def:"a long way away",ex:"While he was still far off, his father saw him."},
+  {w:"kiss",forms:["kissed","kiss"],pos:"verb",vi:"hôn",def:"to touch someone with your lips to show love",ex:"His father kissed him."},
+  {w:"sin",forms:["sinned","sin"],pos:"verb",vi:"phạm tội",def:"to do wrong against God",ex:"Father, I have sinned against heaven."},
+  {w:"worthy",forms:["worthy"],pos:"adjective",vi:"xứng đáng",def:"good enough to have or be something",ex:"I am no longer worthy to be called your son."},
+  {w:"servant",forms:["servants","servant"],pos:"noun",vi:"đầy tớ, người hầu",def:"a person who works in another person's house",ex:"The father said to his servants…"},
+  {w:"robe",forms:["robe"],pos:"noun",vi:"áo choàng dài",def:"a long, loose piece of clothing",ex:"Bring out the best robe."},
+  {w:"ring",forms:["ring"],pos:"noun",vi:"chiếc nhẫn",def:"a circle of metal you wear on your finger",ex:"Put a ring on his hand."},
+  {w:"celebrate",forms:["celebrate"],pos:"verb",vi:"ăn mừng",def:"to have a happy party for a special reason",ex:"Let's eat and celebrate!"}
+ ],
+ comp:[
+  {q:"When did the father see his son?",o:["When he was at the door","While he was still far off","The next day"],a:1},
+  {q:"What did the father do first?",o:["He was angry","He ran and kissed him","He called the police"],a:1},
+  {q:"What did the son say?",o:["“Give me more money.”","“I have sinned. I am no longer worthy.”","“I am hungry.”"],a:1},
+  {q:"What did the father tell the servants to bring?",o:["The best robe, a ring and sandals","Water and bread","Only sandals"],a:0}
+ ],
+ g:{explain:"<p>An <b>imperative</b> tells someone to do something. It is the base verb with no subject: <b>Bring</b> the robe. <b>Put</b> a ring on his hand. Negative: <b>Don't</b> + verb.</p><p><b>Let's</b> (= let us) + verb is an invitation for you <i>and</i> me: <b>Let's eat</b> and celebrate!</p>",
+  table:[["","Example"],["Do it","<b>Bring</b> out the best robe."],["Don't do it","<b>Don't be</b> afraid."],["Do it together","<b>Let's celebrate</b>!"],["Be polite","<b>Please sit</b> down."]],
+  find:"\\b(Bring|Put|kill|let's)\\b",
+  practice:[
+   {q:"___ a ring on his hand.",o:["Puts","Put","Putting"],a:1},
+   {q:"___ eat and celebrate!",o:["Let's","Lets","Let"],a:0},
+   {q:"Negative: “___ run in the church.”",o:["Not","No","Don't"],a:2},
+   {q:"Which sentence is an imperative?",o:["He brings the robe.","Bring the robe.","He brought the robe."],a:1}
+ ]},
+ speak:["While he was still far off, his father saw him, and ran, and kissed him.","Bring out the best robe, and put it on him.","He was lost, and is found.","Your turn: give three instructions for a party. “Let's … Please … Don't …”"],
+ write:{prompt:"Your friend is coming home after one year away. Plan the welcome party. Give instructions to your family.",frame:"Mom, please cook ___. Brother, buy ___. Don't ___. Let's ___!",min:40,pat:"(^|[.!?]\\s*|\\b(please|and)\\s+)(let's|don't|bring|put|come|go|give|make|sing|eat|open|take|call|help|cook|buy|clean|write|invite|get|wait|sit)\\b",patLabel:"imperatives / let's",patMin:5},
+ mv:{ref:"Luke 15:24",text:"For this, my son, was dead, and is alive again. He was lost, and is found."}
+},
+{
+ id:10, title:"The Lord's Prayer", ref:"Matthew 6:9–12", theme:"Jesus teaches us how to talk with our Father.", grammar:"Requests: please, let, may, could you",
+ warm:["When do you pray? What do you usually say?","How do you ask for something politely in English?"],
+ verses:[[9,"Pray like this: ‘Our Father in heaven, may your name be kept holy."],[10,"Let your Kingdom come. Let your will be done on earth as it is in heaven."],[11,"Give us today our daily bread."],[12,"Forgive us our debts, as we also forgive our debtors.’"]],
+ vocab:[
+  {w:"heaven",forms:["heaven"],pos:"noun",vi:"thiên đàng, trên trời",def:"the place where God is",ex:"Our Father in heaven."},
+  {w:"holy",forms:["holy"],pos:"adjective",vi:"thánh, thánh khiết",def:"pure and set apart for God",ex:"May your name be kept holy."},
+  {w:"kingdom",forms:["kingdom"],pos:"noun",vi:"vương quốc, nước",def:"a land or people under a king",ex:"Let your Kingdom come."},
+  {w:"will",forms:["will"],pos:"noun",vi:"ý muốn",def:"what someone wants to happen",ex:"Let your will be done."},
+  {w:"daily",forms:["daily"],pos:"adjective",vi:"hằng ngày",def:"happening every day",ex:"Give us today our daily bread."},
+  {w:"bread",forms:["bread"],pos:"noun",vi:"bánh, lương thực",def:"food made from flour; food we need",ex:"Give us today our daily bread."},
+  {w:"forgive",forms:["forgive"],pos:"verb",vi:"tha thứ",def:"to stop being angry about a wrong",ex:"Forgive us, as we also forgive others."},
+  {w:"debt",forms:["debts","debtors","debt"],pos:"noun",vi:"món nợ",def:"something you owe; here, our sins",ex:"Forgive us our debts."}
+ ],
+ comp:[
+  {q:"Where is our Father?",o:["In the temple","In heaven","In Galilee"],a:1},
+  {q:"What should be done on earth as in heaven?",o:["God's will","Our work","The king's law"],a:0},
+  {q:"What do we ask for today?",o:["Money","Daily bread","A new house"],a:1},
+  {q:"We ask God to forgive us, as we…",o:["forgive others","forget others","pay others"],a:0}
+ ],
+ g:{explain:"<p>There are many ways to <b>ask for something</b>. In prayer and in polite English we often use:</p><p><b>Please</b> + imperative (<i>Please give us…</i>) · <b>Let</b> + noun + verb (<i>Let your will be done</i>) · <b>May</b> for a wish (<i>May your name be kept holy</i>) · <b>Could / Can you…?</b> (<i>Could you help me?</i>)</p>",
+  table:[["Form","Example","Polite level"],["Imperative","<b>Give</b> us today our daily bread.","direct"],["Please + verb","<b>Please help</b> me.","polite"],["Can you…?","<b>Can you</b> open the door?","polite"],["Could you…?","<b>Could you</b> pray for me?","very polite"],["May…","<b>May</b> God bless you.","a wish / blessing"]],
+  find:"\\b(may|Let|Give|Forgive)\\b",
+  practice:[
+   {q:"The most polite request is…",o:["Open the door.","Could you open the door, please?","You open the door."],a:1},
+   {q:"___ your Kingdom come.",o:["Let","Lets","Make"],a:0},
+   {q:"___ God bless you and your family.",o:["Can","May","Do"],a:1},
+   {q:"___ you pray for my mother, please?",o:["Could","May","Let"],a:0}
+ ]},
+ speak:["Our Father in heaven, may your name be kept holy.","Let your Kingdom come. Let your will be done on earth as it is in heaven.","Give us today our daily bread.","Your turn: ask a friend politely to pray for you. “Could you …?”"],
+ write:{prompt:"Write your own short prayer in English. Include thanks, praise, and at least four requests.",frame:"Dear Father, thank you for ___. Please ___. Help me to ___. Forgive me for ___. May ___. Amen.",min:50,pat:"\\b(please|help|let|may|could you|can you|forgive|give)\\b",patLabel:"request words",patMin:4},
+ mv:{ref:"Matthew 6:11–12",text:"Give us today our daily bread. Forgive us our debts, as we also forgive our debtors."}
+}
+];
+</script>
+<script>
+(function(){
+"use strict";
+/* ---------- constants ---------- */
+const STEPS=[
+ {id:"warm",name:"Warm-up",mins:3,xp:10,desc:"Think and talk"},
+ {id:"words",name:"Key words",mins:8,xp:20,desc:"8 flashcards with audio"},
+ {id:"read",name:"Read the Bible",mins:8,xp:20,desc:"Listen and read"},
+ {id:"check",name:"Understand",mins:5,xp:20,desc:"Comprehension check"},
+ {id:"grammar",name:"Grammar",mins:8,xp:20,desc:"Learn and practise"},
+ {id:"speak",name:"Speak",mins:5,xp:15,desc:"Listen and repeat"},
+ {id:"write",name:"Write",mins:8,xp:20,desc:"Your own text"},
+ {id:"verse",name:"Memory verse",mins:4,xp:15,desc:"Build the verse"}
+];
+const DAILY_GOAL=60, LEVEL_XP=150, LEGACY_KEY="bea2-progress-v1", PROFILES_KEY="bea2-profiles", ACTIVE_KEY="bea2-active", KEYNS="bea2-progress-v2::";
+const ALLWORDS=UNITS.flatMap(u=>u.vocab.map(v=>Object.assign({unit:u.id},v)));
+const IC={
+ home:'<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
+ book:'<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/><path d="M12 7v6M9 10h6"/>',
+ games:'<rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><path d="M17 13v8M13 17h8"/>',
+ chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+ flame:'<path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-3 3-5 5-5 8 0 4 3 7 7 7z"/>',
+ star:'<path d="M12 3l2.8 5.8 6.2.9-4.5 4.4 1 6.3L12 17.5 6.5 20.4l1-6.3L3 9.7l6.2-.9z"/>',
+ sound:'<path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>',
+ slow:'<path d="M4 9v6h4l5 4V5L8 9z"/><path d="M17 12h4"/>',
+ x:'<path d="M6 6l12 12M18 6L6 18"/>',
+ back:'<path d="M15 5l-7 7 7 7"/>',
+ next:'<path d="M9 5l7 7-7 7"/>',
+ check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+ play:'<path d="M7 4l13 8-13 8z"/>',
+ stop:'<rect x="6" y="6" width="12" height="12" rx="2"/>',
+ match:'<path d="M4 7h7M4 17h7M13 7h7M13 17h7"/><path d="M9 7l6 10M9 17l6-10"/>',
+ quiz:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.5v.7M12 17h.01"/>',
+ shuffle:'<path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>',
+ ear:'<path d="M6 9a6 6 0 1 1 12 0c0 3-2 4-3 5.5S14 18 12 20c-1.5 1.3-4 .5-4-1.5"/><path d="M10 9a2 2 0 1 1 4 0"/>',
+ scroll:'<path d="M8 4h11v13a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-1h11v1a3 3 0 0 0 3 3"/><path d="M8 4a2 2 0 0 0-2 2v10"/><path d="M10 8h6M10 12h6"/>',
+ pen:'<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/>',
+ mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
+ bulb:'<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/>',
+ copy:'<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>',
+ trophy:'<path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H4a3 3 0 0 0 4 4M16 6h4a3 3 0 0 1-4 4M12 13v4M8 21h8M10 17h4v4h-4z"/>',
+ cross:'<path d="M12 3v18M6 8h12"/>',
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>',
+ swap:'<path d="M7 3l-4 4 4 4M3 7h13M17 21l4-4-4-4M21 17H8"/>'
+};
+const icon=(n,c)=>'<svg class="i'+(c?' '+c:'')+'" viewBox="0 0 24 24" aria-hidden="true">'+(IC[n]||"")+'</svg>';
+const h=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const baseWord=w=>w.replace(/\s*\(.*?\)\s*/g,"").trim();
+const $=s=>document.querySelector(s);
+const reduceMotion=()=>window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- state ---------- */
+function defaults(){return{xp:0,streak:0,last:null,days:{},units:{},words:{},stats:{correct:0,answered:0,games:0},settings:{vi:true,rate:0.85,voice:""}}}
+let S=defaults();
+let ACTIVE=null;
+
+/* ---------- student profiles (so a shared device keeps each learner's progress separate) ---------- */
+function profiles(){try{return JSON.parse(localStorage.getItem(PROFILES_KEY)||"[]")}catch(e){return[]}}
+function saveProfiles(list){try{localStorage.setItem(PROFILES_KEY,JSON.stringify(list))}catch(e){}}
+function addProfile(name){const list=profiles();if(!list.includes(name)){list.push(name);saveProfiles(list)}}
+function setActive(name){ACTIVE=name;try{localStorage.setItem(ACTIVE_KEY,name)}catch(e){}}
+function keyFor(name){return KEYNS+name}
+function migrateLegacy(){try{const raw=localStorage.getItem(LEGACY_KEY);if(raw&&!profiles().length){addProfile("Student 1");localStorage.setItem(keyFor("Student 1"),raw);localStorage.removeItem(LEGACY_KEY);return"Student 1"}}catch(e){}return null}
+function load(){try{const raw=localStorage.getItem(keyFor(ACTIVE));if(raw){const d=JSON.parse(raw);S=Object.assign(defaults(),d);S.settings=Object.assign(defaults().settings,d.settings||{});S.stats=Object.assign(defaults().stats,d.stats||{})}else S=defaults()}catch(e){S=defaults()}}
+function save(){if(!ACTIVE)return;try{localStorage.setItem(keyFor(ACTIVE),JSON.stringify(S))}catch(e){}}
+function dstr(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+const today=()=>dstr(new Date());
+const yesterday=()=>{const d=new Date();d.setDate(d.getDate()-1);return dstr(d)};
+function touch(){const t=today();if(S.last===t)return;S.streak=(S.last===yesterday()?S.streak:0)+1;S.last=t}
+function curStreak(){return (S.last===today()||S.last===yesterday())?S.streak:0}
+function addXP(n){S.xp+=n;const t=today();S.days[t]=(S.days[t]||0)+n;touch();save()}
+const todayXP=()=>S.days[today()]||0;
+const U=id=>(S.units[id]=S.units[id]||{steps:[],write:""});
+const done=(id,sid)=>!!(S.units[id]&&S.units[id].steps.includes(sid));
+const unitDone=id=>STEPS.every(s=>done(id,s.id));
+const unitCount=id=>STEPS.filter(s=>done(id,s.id)).length;
+const W=w=>(S.words[w]=S.words[w]||{s:0,n:0});
+function scoreWord(w,ok){const r=W(w);r.n++;r.s=ok?Math.min(5,r.s+1):Math.max(0,r.s-1);S.stats.answered++;if(ok)S.stats.correct++;save()}
+const mastered=()=>ALLWORDS.filter(v=>(S.words[v.w]||{}).s>=3).length;
+function nextLesson(){for(let i=0;i<UNITS.length;i++){const u=UNITS[i];const k=STEPS.findIndex(s=>!done(u.id,s.id));if(k>=0)return{u:i,s:k}}return null}
+function studiedWords(){const ids=UNITS.filter(u=>done(u.id,"words")).map(u=>u.id);let pool=ALLWORDS.filter(v=>ids.includes(v.unit));let fallback=false;if(pool.length<6){pool=ALLWORDS.filter(v=>v.unit<=2);fallback=true}return{pool,fallback}}
+function reviewOrder(pool){return shuffle(pool).sort((a,b)=>((S.words[a.w]||{}).s||0)-((S.words[b.w]||{}).s||0))}
+
+/* ---------- speech ---------- */
+const TTS="speechSynthesis" in window;
+let voices=[];
+function loadVoices(){if(!TTS)return;try{voices=speechSynthesis.getVoices().filter(v=>/^en[-_]/i.test(v.lang)||v.lang==="en")}catch(e){}}
+if(TTS){loadVoices();try{speechSynthesis.onvoiceschanged=()=>{loadVoices();if(view.name==="progress")render()}}catch(e){}}
+function pickVoice(){if(!voices.length)return null;return voices.find(v=>v.name===S.settings.voice)||voices.find(v=>/en[-_]US/i.test(v.lang)&&/natural|google|samantha|aria|jenny/i.test(v.name))||voices.find(v=>/en[-_]US/i.test(v.lang))||voices[0]}
+function speak(text,opt){opt=opt||{};if(!TTS){toast("Audio isn't available in this browser");opt.onend&&opt.onend();return}
+ try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(text).replace(/[“”‘’]/g,m=>m==="’"?"'":"").replace(/\(|\)/g,","));
+ const v=pickVoice();if(v){u.voice=v;u.lang=v.lang}else u.lang="en-US";
+ u.rate=(opt.rate||S.settings.rate);u.onend=()=>opt.onend&&opt.onend();u.onerror=()=>opt.onend&&opt.onend();speechSynthesis.speak(u)}catch(e){opt.onend&&opt.onend()}}
+function stopSpeech(){if(TTS)try{speechSynthesis.cancel()}catch(e){}}
+
+/* ---------- ui helpers ---------- */
+let toastT;
+function toast(msg){const t=$("#toast");t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2200)}
+const say=(text,cls)=>'<button class="icon-btn '+(cls||"accent")+'" data-act="say" data-text="'+h(text)+'" aria-label="Listen">'+icon("sound")+'</button>';
+function tabbar(active){const t=[["home","Home","home"],["units","Units","book"],["games","Games","games"],["progress","Progress","chart"]];
+ return '<nav class="tabbar" aria-label="Main"><div class="in">'+t.map(x=>'<button class="tab" data-act="go" data-arg="'+x[0]+'"'+(active===x[0]?' aria-current="page"':"")+'>'+icon(x[2])+x[1]+'</button>').join("")+'</div></nav>'}
+function ring(val,max,label){const r=40,c=2*Math.PI*r,p=Math.min(1,val/max);
+ return '<div class="ring"><svg viewBox="0 0 92 92"><circle cx="46" cy="46" r="'+r+'" stroke="var(--surface-2)" stroke-width="9" fill="none"/><circle cx="46" cy="46" r="'+r+'" stroke="'+(p>=1?"var(--gold)":"var(--accent)")+'" stroke-width="9" fill="none" stroke-linecap="round" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+(c*(1-p)).toFixed(1)+'"/></svg><div class="v tnum">'+val+'<small>'+label+'</small></div></div>'}
+function markVocab(text,vocab){let t=h(text);const forms=[];vocab.forEach(v=>v.forms.forEach(f=>forms.push([f,v.w])));forms.sort((a,b)=>b[0].length-a[0].length);
+ const re=new RegExp("(^|[^A-Za-z])("+forms.map(f=>f[0].replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|")+")(?![A-Za-z])","gi");
+ return t.replace(re,(m,pre,word)=>{const f=forms.find(x=>x[0].toLowerCase()===word.toLowerCase());return pre+'<button class="gw" data-act="gloss" data-arg="'+h(f[1])+'">'+word+'</button>'})}
+function markPattern(text,src){return h(text).replace(new RegExp(src,"gi"),m=>'<span class="gp">'+m+'</span>')}
+function viLine(v){return S.settings.vi?'<div class="vi">'+h(v.vi)+'</div>':''}
+
+/* ---------- router ---------- */
+let view={name:"home"};let ls={};const app=$("#app");
+function go(v){stopSpeech();view=v;ls={};render();window.scrollTo(0,0)}
+function render(){const f={onboard:vOnboard,home:vHome,units:vUnits,unit:vUnit,lesson:vLesson,finish:vFinish,games:vGames,game:vGame,progress:vProgress}[view.name]||vHome;app.innerHTML=f();after()}
+function after(){if(view.name==="lesson"&&STEPS[view.s].id==="write"){const ta=$("#wr");if(ta){ta.addEventListener("input",()=>{U(UNITS[view.u].id).write=ta.value;save();updWrite()});updWrite()}}
+ const rng=$("#rate");if(rng)rng.addEventListener("input",()=>{S.settings.rate=+rng.value;$("#rateV").textContent=rng.value+"×";save()});
+ const vs=$("#voice");if(vs)vs.addEventListener("change",()=>{S.settings.voice=vs.value;save();speak("Hello! Let's learn English with the Bible.")});
+ const nn=$("#newname");if(nn){nn.focus();nn.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();A.newprofile()}})}
+ if(view.name==="finish"&&!reduceMotion())confetti()}
+
+/* ---------- views: home ---------- */
+function header(){return '<header class="topbar"><div class="mark">'+icon("cross")+'</div><div class="brand">Bible English Adventure<small>A2 · English through Scripture</small><span class="brandmark"><b>DAVID</b><i>.English</i></span></div><div class="spacer"></div><div class="chips"><button class="chip" data-act="switchstudent" title="Switch student">'+icon("user")+'<span style="max-width:64px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+h(ACTIVE||"")+'</span></button><span class="chip flame" title="Day streak">'+icon("flame")+'<span class="tnum">'+curStreak()+'</span></span><span class="chip" title="Total XP">'+icon("star")+'<span class="tnum">'+S.xp+'</span></span></div></header>'}
+
+/* ---------- onboarding / switch student ---------- */
+function vOnboard(){const list=profiles();const canCancel=!!(view.from&&ACTIVE);
+ return '<div class="wrap stack-lg" style="padding-top:40px">'+(canCancel?'<button class="icon-btn" data-act="cancelonboard" aria-label="Cancel">'+icon("back")+'</button>':'')+
+ '<div class="stack" style="gap:6px;text-align:center;align-items:center"><div class="mark" style="width:56px;height:56px;border-radius:16px">'+icon("cross")+'</div><h1>Who is studying?</h1><p class="muted">Each student keeps their own XP, streak and progress on this device.</p></div>'+
+ (list.length?'<section class="stack"><span class="eyebrow">Continue as</span><div class="stack" style="gap:8px">'+list.map(n=>'<button class="unit" style="grid-template-columns:44px 1fr" data-act="pickprofile" data-arg="'+h(n)+'"><span class="num">'+icon("user")+'</span><span class="t">'+h(n)+'</span></button>').join("")+'</div></section>':'')+
+ '<section class="card stack"><span class="eyebrow">Add a new student</span><div class="row"><input id="newname" placeholder="Type a name" autocomplete="off" style="flex:1;font:1.05rem var(--f-body);padding:12px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink)"><button class="btn primary" data-act="newprofile">Start</button></div></section></div>'}
+function vHome(){const nl=nextLesson();const lvl=Math.floor(S.xp/LEVEL_XP)+1,inl=S.xp%LEVEL_XP;
+ const days=Object.keys(UNITS).length;const vod=UNITS[(Math.floor(Date.now()/864e5))%UNITS.length];
+ const {pool,fallback}=studiedWords();const weak=pool.filter(v=>((S.words[v.w]||{}).s||0)<3).length;
+ let cont;
+ if(nl){const u=UNITS[nl.u];const st=STEPS[nl.s];const started=unitCount(u.id)>0;
+  cont='<button class="continue" data-act="lesson" data-u="'+nl.u+'" data-s="'+nl.s+'"><span class="eyebrow">'+(started?"Continue":"Today's lesson")+' · Unit '+u.id+' of 10</span><h2>'+h(u.title)+'</h2><span style="opacity:.8">'+h(u.ref)+' · '+h(u.grammar)+'</span><div class="steps-mini" aria-hidden="true">'+STEPS.map(s=>'<i class="'+(done(u.id,s.id)?"on":"")+'"></i>').join("")+'</div><span class="go">'+icon("play")+(started?"Next: "+st.name:"Start lesson")+' · ~'+STEPS.slice(nl.s).reduce((a,s)=>a+s.mins,0)+' min</span></button>'}
+ else cont='<div class="continue"><span class="eyebrow">Course complete</span><h2>You finished all 10 units!</h2><span style="opacity:.8">Keep your words strong with daily review games.</span><button class="go" data-act="go" data-arg="games" style="border:0">'+icon("games")+'Play review games</button></div>';
+ return '<div class="wrap stack-lg">'+header()+
+ '<section class="card raised hero">'+ring(todayXP(),DAILY_GOAL,"/ "+DAILY_GOAL+" XP")+'<div class="stack" style="gap:6px"><span class="eyebrow">Today · goal '+DAILY_GOAL+' XP (~40–50 min)</span><h3>'+(todayXP()>=DAILY_GOAL?"Daily goal reached. Well done!":"Keep going to finish today’s goal")+'</h3><div class="row" style="gap:8px"><span class="pill accent">Level '+lvl+'</span><span class="muted tnum" style="font-size:.82rem">'+inl+' / '+LEVEL_XP+' XP to level '+(lvl+1)+'</span></div><div class="bar gold"><i style="width:'+(inl/LEVEL_XP*100)+'%"></i></div></div></section>'+
+ cont+
+ '<section class="card stack"><div class="row"><span class="eyebrow">Verse of the day</span><div class="spacer"></div>'+say(vod.mv.text+". "+vod.mv.ref)+'</div><blockquote class="verse-card" style="margin:0">'+h(vod.mv.text)+'<cite>'+h(vod.mv.ref)+' · Unit '+vod.id+'</cite></blockquote></section>'+
+ '<section class="card row wrap-row"><div class="stack" style="gap:2px;flex:1;min-width:180px"><span class="eyebrow">Word review</span><b>'+(fallback?"Practise Unit 1–2 words":weak+" word"+(weak===1?"":"s")+" still need practice")+'</b><span class="muted" style="font-size:.85rem">'+mastered()+' of '+ALLWORDS.length+' words mastered</span></div><button class="btn primary" data-act="game" data-arg="quiz">'+icon("quiz")+'Quick review</button></section>'+
+ '<section class="stack"><div class="row"><h2>Units</h2><div class="spacer"></div><button class="btn small ghost" data-act="go" data-arg="units">See all '+icon("next")+'</button></div>'+UNITS.slice(nl?Math.max(0,Math.min(nl.u,7)):7,(nl?Math.max(0,Math.min(nl.u,7)):7)+3).map(unitRow).join("")+'</section>'+
+ '<p class="foot-note">Scripture quotations: World English Bible (public domain).<br>Progress is saved in this browser. Back it up from the Progress tab.</p>'+
+ '</div>'+tabbar("home")}
+function unitRow(u){const i=UNITS.indexOf(u);const c=unitCount(u.id);const nl=nextLesson();const cls=c===8?"done":(nl&&nl.u===i?"active":"");
+ const st=c===8?'<span class="pill good">'+icon("check")+'Done</span>':c>0?'<span class="pill accent">'+c+'/8</span>':'<span class="pill">'+STEPS.reduce((a,s)=>a+s.mins,0)+' min</span>';
+ return '<button class="unit '+cls+'" data-act="unit" data-arg="'+i+'"><span class="num">'+(c===8?icon("check"):u.id)+'</span><span><span class="t">'+h(u.title)+'</span><span class="s" style="display:block">'+h(u.ref)+' · '+h(u.grammar)+'</span><span class="bar" style="display:block"><i style="width:'+(c/8*100)+'%"></i></span></span>'+st+'</button>'}
+
+/* ---------- units ---------- */
+function vUnits(){const n=UNITS.filter(u=>unitDone(u.id)).length;
+ return '<div class="wrap stack-lg">'+header()+'<div class="stack" style="gap:4px"><h1>10 Units</h1><p class="muted">'+n+' complete · each unit has 8 steps and takes about 50 minutes.</p></div><div class="stack" style="gap:10px">'+UNITS.map(unitRow).join("")+'</div></div>'+tabbar("units")}
+function vUnit(){const u=UNITS[view.u];const nl=STEPS.findIndex(s=>!done(u.id,s.id));
+ return '<div class="wrap stack-lg"><div class="row"><button class="icon-btn" data-act="go" data-arg="units" aria-label="Back">'+icon("back")+'</button><span class="eyebrow">Unit '+u.id+' of 10</span></div>'+
+ '<div class="stack" style="gap:8px"><h1>'+h(u.title)+'</h1><p class="muted">'+h(u.ref)+' — '+h(u.theme)+'</p><div class="row wrap-row" style="gap:6px"><span class="pill accent">'+h(u.grammar)+'</span><span class="pill">'+u.vocab.length+' words</span><span class="pill">~'+STEPS.reduce((a,s)=>a+s.mins,0)+' min</span></div></div>'+
+ '<button class="btn primary block" data-act="lesson" data-u="'+view.u+'" data-s="'+(nl<0?0:nl)+'">'+icon("play")+(nl<0?"Review this unit":nl===0?"Start the lesson":"Continue: "+STEPS[nl].name)+'</button>'+
+ '<section class="stack"><h3>Lesson steps</h3><div class="steplist">'+STEPS.map((s,k)=>'<button class="stepitem '+(done(u.id,s.id)?"done":"")+'" data-act="lesson" data-u="'+view.u+'" data-s="'+k+'"><span class="dot">'+(done(u.id,s.id)?icon("check"):k+1)+'</span><span><b>'+s.name+'</b><span class="muted" style="display:block;font-size:.82rem">'+s.desc+'</span></span><span class="muted tnum" style="font-size:.82rem">'+s.mins+' min · '+s.xp+' XP</span></button>').join("")+'</div></section>'+
+ '<section class="stack"><h3>Words in this unit</h3><div class="wordgrid">'+u.vocab.map(v=>'<div class="wordtile"><b>'+h(v.w)+'</b><span>'+h(S.settings.vi?v.vi:v.def)+'</span></div>').join("")+'</div></section>'+
+ '<section class="card stack"><span class="eyebrow">Memory verse</span><blockquote class="verse-card" style="margin:0">'+h(u.mv.text)+'<cite>'+h(u.mv.ref)+'</cite></blockquote></section></div>'}
+
+/* ---------- lesson ---------- */
+function vLesson(){const u=UNITS[view.u],st=STEPS[view.s];const isDone=done(u.id,st.id);
+ const body={warm:sWarm,words:sWords,read:sRead,check:sCheck,grammar:sGrammar,speak:sSpeak,write:sWrite,verse:sVerse}[st.id](u);
+ const ready=ls.ready||isDone;
+ return '<div class="wrap" style="padding-bottom:120px"><div class="lesson-head"><button class="icon-btn" data-act="exit" aria-label="Close lesson">'+icon("x")+'</button><div class="segs" aria-label="Step '+(view.s+1)+' of 8">'+STEPS.map((s,k)=>'<i class="'+(k===view.s?"cur":done(u.id,s.id)?"on":"")+'"></i>').join("")+'</div><span class="pill gold tnum">+'+st.xp+'</span></div>'+
+ '<div class="steptitle"><span class="eyebrow">Unit '+u.id+' · Step '+(view.s+1)+' of 8'+(isDone?' · done':'')+'</span><h1>'+st.name+'</h1></div>'+body+'</div>'+
+ '<div class="lesson-foot"><div class="in">'+(view.s>0?'<button class="btn" data-act="prev">'+icon("back")+'Back</button>':'')+'<div class="spacer"></div><button class="btn primary" id="cont" data-act="cont" '+(ready?"":"disabled")+'>'+(view.s===7?"Finish unit":"Continue")+icon("next")+'</button></div></div>'+
+ (ls.gloss?glossSheet(ls.gloss):"")}
+function setReady(){ls.ready=true;const b=$("#cont");if(b)b.disabled=false}
+function glossSheet(w){const v=ALLWORDS.find(x=>x.w===w);if(!v)return"";return '<div class="sheet" role="dialog" aria-label="Word meaning"><div class="in"><div class="row"><span class="pill">'+h(v.pos)+'</span><div class="spacer"></div><button class="icon-btn" data-act="closegloss" aria-label="Close">'+icon("x")+'</button></div><div class="row"><h2 style="font-size:1.6rem">'+h(v.w)+'</h2>'+say(baseWord(v.w))+'</div>'+(S.settings.vi?'<b style="color:var(--accent);font-size:1.1rem">'+h(v.vi)+'</b>':'')+'<p>'+h(v.def)+'</p><p class="muted" style="font-family:var(--f-read);font-style:italic">'+h(v.ex)+'</p></div></div>'}
+
+function sWarm(u){ls.ready=true;
+ return '<div class="stack-lg"><section class="card raised stack" style="background:var(--ink);color:var(--bg);border:0"><span class="eyebrow" style="color:inherit;opacity:.7">'+h(u.ref)+'</span><h2 style="font-size:1.9rem">'+h(u.title)+'</h2><p style="opacity:.85">'+h(u.theme)+'</p></section>'+
+ '<section class="stack"><h3>Talk about it</h3>'+u.warm.map((q,i)=>'<div class="card speakline"><p>'+(i+1)+'. '+h(q)+'</p>'+say(q)+'</div>').join("")+'</section>'+
+ '<div class="note row" style="align-items:flex-start">'+icon("bulb")+'<span>Answer in English, out loud. Short answers are fine. If you study with a partner, ask each other.</span></div>'+
+ '<section class="card stack"><span class="eyebrow">Today you will learn</span><div class="row wrap-row" style="gap:6px"><span class="pill accent">'+h(u.grammar)+'</span>'+u.vocab.slice(0,4).map(v=>'<span class="pill">'+h(baseWord(v.w))+'</span>').join("")+'<span class="pill">+'+(u.vocab.length-4)+' words</span></div></section></div>'}
+
+function sWords(u){if(ls.i===undefined){ls.i=0;ls.flip=false}
+ if(ls.i>=u.vocab.length){ls.ready=true;return '<div class="stack"><div class="note">All '+u.vocab.length+' words done. Tap any word to hear it again.</div>'+u.vocab.map(v=>{const s=(S.words[v.w]||{}).s||0;return '<div class="card speakline"><div><b style="font-size:1.1rem">'+h(v.w)+'</b> <span class="muted">'+h(v.pos)+'</span>'+(S.settings.vi?'<div style="color:var(--accent);font-weight:700">'+h(v.vi)+'</div>':'')+'<div class="muted" style="font-size:.9rem">'+h(v.def)+'</div></div>'+say(baseWord(v.w))+'</div>'}).join("")+'<button class="btn" data-act="wrestart">'+icon("shuffle")+'Go through the cards again</button></div>'}
+ const v=u.vocab[ls.i];
+ return '<div class="stack-lg"><div class="row"><span class="muted tnum">Card '+(ls.i+1)+' of '+u.vocab.length+'</span><div class="spacer"></div><div class="bar" style="width:40%"><i style="width:'+(ls.i/u.vocab.length*100)+'%"></i></div></div>'+
+ '<div class="flash'+(ls.flip?" flipped":"")+'" data-act="flip" role="button" tabindex="0" aria-label="Flip card"><div class="flash-in">'+
+ '<div class="face front"><span class="pill" style="align-self:flex-start">'+h(v.pos)+'</span><div class="row"><div class="word">'+h(v.w)+'</div><div class="spacer"></div>'+say(baseWord(v.w))+'</div><p class="ex muted">'+markPattern(v.ex,"\\b("+v.forms.map(f=>f.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|")+")\\b")+'</p><span class="tapnote">Tap the card to see the meaning</span></div>'+
+ '<div class="face back"><div class="row"><b style="font-size:1.3rem">'+h(v.w)+'</b><div class="spacer"></div>'+say(v.ex)+'</div>'+viLine(v)+'<p>'+h(v.def)+'</p><p class="ex">'+h(v.ex)+'</p><span class="tapnote">Tap to flip back</span></div>'+
+ '</div></div><div class="row"><button class="btn" data-act="wprev" '+(ls.i===0?"disabled":"")+' aria-label="Previous card">'+icon("back")+'</button><button class="btn" style="flex:1" data-act="wrate" data-arg="0">Still learning</button><button class="btn primary" style="flex:1" data-act="wrate" data-arg="1">'+icon("check")+'I know it</button></div></div>'}
+
+function sRead(u){ls.ready=true;
+ return '<div class="stack-lg"><div class="row wrap-row"><button class="btn primary" data-act="readall">'+icon(ls.playing?"stop":"play")+(ls.playing?"Stop":"Listen to all")+'</button><button class="btn" data-act="readslow">'+icon("slow")+'Slow</button><div class="spacer"></div><span class="muted" style="font-size:.82rem">Tap <u style="text-decoration-style:dotted">underlined</u> words for meaning</span></div>'+
+ '<section class="card raised"><span class="eyebrow">'+h(u.ref)+'</span><div class="scripture" style="margin-top:8px">'+u.verses.map(v=>'<span class="vs" id="vs'+v[0]+'"><sup>'+v[0]+'</sup>'+markVocab(v[1],u.vocab)+'<button class="say" data-act="say" data-text="'+h(v[1])+'" aria-label="Listen to verse '+v[0]+'">'+icon("sound")+'</button></span>').join("")+'</div></section>'+
+ (u.note?'<div class="note row" style="align-items:flex-start">'+icon("bulb")+'<span>'+h(u.note)+'</span></div>':'')+
+ '<div class="card stack"><span class="eyebrow">Reading plan</span><p>1. Listen once with the text. 2. Read aloud with the audio. 3. Read aloud alone, slowly.</p></div></div>'}
+function readAll(u,rate){if(ls.playing){ls.playing=false;stopSpeech();document.querySelectorAll(".vs.playing").forEach(e=>e.classList.remove("playing"));render();return}
+ ls.playing=true;render();let k=0;const next=()=>{document.querySelectorAll(".vs.playing").forEach(e=>e.classList.remove("playing"));if(!ls.playing||view.name!=="lesson")return;if(k>=u.verses.length){ls.playing=false;render();return}
+  const v=u.verses[k++];const el=$("#vs"+v[0]);if(el){el.classList.add("playing");el.scrollIntoView({block:"center",behavior:reduceMotion()?"auto":"smooth"})}speak(v[1],{rate:rate,onend:()=>setTimeout(next,250)})};next()}
+
+function quizBlock(list,key){ls[key]=ls[key]||{};const ans=ls[key];
+ return list.map((q,i)=>{const a=ans[i];return '<div class="q card"><div class="qt">'+(i+1)+'. '+h(q.q)+'</div><div class="opts">'+q.o.map((o,j)=>{let c="";if(a!==undefined){if(j===q.a)c="right";else if(j===a)c="wrong"}return '<button class="opt '+c+'" data-act="ans" data-k="'+key+'" data-i="'+i+'" data-j="'+j+'" '+(a!==undefined?"disabled":"")+'>'+h(o)+'</button>'}).join("")+'</div>'+(a!==undefined?'<div class="fb '+(a===q.a?"good":"bad")+'">'+(a===q.a?"Correct!":"The answer is: "+h(q.o[q.a]))+'</div>':'')+'</div>'}).join("")}
+function sCheck(u){const ans=ls.c||{};const n=Object.keys(ans).length;const right=u.comp.filter((q,i)=>ans[i]===q.a).length;if(n===u.comp.length)ls.ready=true;
+ return '<div class="stack"><p class="muted">Answer from the Bible text. You can go back to read again.</p>'+quizBlock(u.comp,"c")+(n===u.comp.length?'<div class="note"><b>'+right+' / '+u.comp.length+' correct.</b> '+(right===u.comp.length?"Excellent reading!":"Read the verses again and see why.")+'</div>':'')+'</div>'}
+function sGrammar(u){const g=u.g;const ans=ls.g||{};const n=Object.keys(ans).length;if(n===g.practice.length)ls.ready=true;
+ return '<div class="stack-lg"><section class="card raised stack"><span class="pill accent" style="align-self:flex-start">'+h(u.grammar)+'</span><div class="explain">'+g.explain+'</div><div class="scroll-x"><table class="gtable"><thead><tr>'+g.table[0].map(c=>'<th>'+c+'</th>').join("")+'</tr></thead><tbody>'+g.table.slice(1).map(r=>'<tr>'+r.map(c=>'<td>'+c+'</td>').join("")+'</tr>').join("")+'</tbody></table></div></section>'+
+ '<section class="card stack"><span class="eyebrow">Find it in the Bible text</span><div class="scripture" style="font-size:1.02rem">'+u.verses.map(v=>'<p style="margin-bottom:6px"><sup style="color:var(--accent);font-family:var(--f-body);font-weight:700">'+v[0]+'</sup> '+markPattern(v[1],g.find)+'</p>').join("")+'</div></section>'+
+ '<section class="stack"><h3>Practice</h3>'+quizBlock(g.practice,"g")+'</section></div>'}
+function sSpeak(u){ls.sd=ls.sd||{};const n=Object.keys(ls.sd).length;if(n>=u.speak.length)ls.ready=true;
+ return '<div class="stack"><div class="note row" style="align-items:flex-start">'+icon("mic")+'<span>Listen, then say it out loud 2–3 times. Copy the rhythm and stress. Tap the tick when you can say it without looking.</span></div>'+
+ u.speak.map((l,i)=>{const own=/^Your turn/.test(l);const ok=ls.sd[i];return '<div class="card stack" style="gap:10px"><p style="font-family:var(--f-read);font-size:1.1rem">'+(own?'<b style="font-family:var(--f-body)">Your turn: </b>'+h(l.replace(/^Your turn:\s*/,"")):h(l))+'</p><div class="row">'+(own?'':'<button class="btn small" data-act="say" data-text="'+h(l)+'">'+icon("sound")+'Normal</button><button class="btn small" data-act="sayslow" data-text="'+h(l)+'">'+icon("slow")+'Slow</button>')+'<div class="spacer"></div><button class="btn small '+(ok?"primary":"")+'" data-act="spoke" data-arg="'+i+'" aria-pressed="'+(ok?"true":"false")+'">'+icon("check")+(ok?"Said it":"I said it")+'</button></div></div>'}).join("")+'</div>'}
+function sWrite(u){const w=u.write;const val=U(u.id).write||"";
+ return '<div class="stack-lg"><section class="card raised stack"><span class="eyebrow">Your task</span><p style="font-size:1.08rem;font-weight:700">'+h(w.prompt)+'</p><div class="frame">'+h(w.frame)+'</div><div class="row wrap-row"><button class="btn small" data-act="useframe">'+icon("pen")+'Start with this frame</button><span class="muted" style="font-size:.82rem">At least '+w.min+' words · use '+h(w.patLabel)+'</span></div></section>'+
+ '<label for="wr" class="eyebrow">Your writing</label><textarea id="wr" placeholder="Write here…" spellcheck="true">'+h(val)+'</textarea>'+
+ '<div class="card stack" id="wchk"></div>'+
+ '<section class="stack"><span class="eyebrow">Tap to add a unit word</span><div class="row wrap-row" style="gap:6px">'+u.vocab.map(v=>'<button class="btn small" data-act="addword" data-arg="'+h(baseWord(v.w))+'">'+h(baseWord(v.w))+'</button>').join("")+'</div></section>'+
+ '<button class="btn" data-act="copywrite">'+icon("copy")+'Copy to send to your teacher</button></div>'}
+function updWrite(){const u=UNITS[view.u],w=u.write;const t=($("#wr")||{}).value||"";const words=(t.match(/[A-Za-zÀ-ỹ']+/g)||[]).length;
+ const pc=(t.match(new RegExp(w.pat,"gim"))||[]).length;const unitWords=u.vocab.filter(v=>v.forms.some(f=>new RegExp("\\b"+f.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"\\b","i").test(t))).length;
+ const items=[[words>=w.min,words+" / "+w.min+" words"],[pc>=w.patMin,pc+" / "+w.patMin+" × "+w.patLabel],[unitWords>=2,unitWords+" unit word"+(unitWords===1?"":"s")+" used (try 2+)"],[/^[A-Z]/.test(t.trim())&&/[.!?]$/.test(t.trim()),"Starts with a capital, ends with . ! or ?"]];
+ const el=$("#wchk");if(el)el.innerHTML='<span class="eyebrow">Checklist</span>'+items.map(x=>'<div class="check'+(x[0]?" ok":"")+'"><span class="box">'+(x[0]?icon("check"):"")+'</span><span class="tnum">'+x[1]+'</span></div>').join("");
+ if(words>=w.min&&!ls.ready)setReady()}
+function sVerse(u){const mv=u.mv;
+ if(!ls.build)return '<div class="stack-lg"><section class="card raised stack"><span class="eyebrow">Read it 3 times</span><blockquote class="verse-card" style="margin:0;font-size:1.3rem">'+h(mv.text)+'<cite>'+h(mv.ref)+'</cite></blockquote><div class="row">'+say(mv.text)+'<button class="btn small" data-act="sayslow" data-text="'+h(mv.text)+'">'+icon("slow")+'Slow</button></div></section><button class="btn primary block" data-act="buildverse">'+icon("shuffle")+'Hide it and build it from memory</button></div>';
+ return '<div class="stack-lg"><p class="muted">Tap the words in the right order. Tap a word in the box to remove it.</p>'+verseBuilder(mv.text,mv.ref)+'</div>'}
+function verseBuilder(text,ref){if(!ls.vb||ls.vb.text!==text){const toks=text.split(/\s+/);ls.vb={text,toks,order:shuffle(toks.map((t,i)=>i)),picked:[],state:""}}
+ const b=ls.vb;const full=b.picked.length===b.toks.length;
+ return '<div class="answer '+b.state+'" aria-live="polite">'+b.picked.map((ti,k)=>'<button class="tile" data-act="vbun" data-arg="'+k+'">'+h(b.toks[ti])+'</button>').join("")+'</div><p class="muted" style="font-size:.85rem">'+h(ref)+'</p>'+
+ '<div class="tiles">'+b.order.map(ti=>'<button class="tile'+(b.picked.includes(ti)?" used":"")+'" data-act="vbpick" data-arg="'+ti+'">'+h(b.toks[ti])+'</button>').join("")+'</div>'+
+ (b.state==="right"?'<div class="note"><b>Perfect!</b> You built the verse.</div>':b.state==="wrong"?'<div class="row"><span class="fb bad">Not quite. Check the order.</span><div class="spacer"></div><button class="btn small" data-act="vbreset">Try again</button></div>':full?'':'')}
+function vbCheck(){const b=ls.vb;if(b.picked.length<b.toks.length)return;const got=b.picked.map(i=>b.toks[i]).join(" ");b.state=(got===b.text)?"right":"wrong";return b.state==="right"}
+
+/* ---------- finish ---------- */
+function vFinish(){const u=UNITS[view.u];const all=unitDone(u.id);const nextU=UNITS[view.u+1];
+ return '<div class="wrap"><div class="celebrate"><span class="eyebrow">Unit '+u.id+(all?" complete":"")+'</span><div class="big tnum">+'+view.gained+' XP</div><h1>'+(all?h(u.title)+" — finished!":"Great work today")+'</h1><p class="muted" style="max-width:40ch">'+(all?"You read "+h(u.ref)+", learned "+u.vocab.length+" new words and practised "+h(u.grammar)+".":"Some steps are still open. You can finish them any time.")+'</p>'+
+ '<blockquote class="card verse-card" style="margin:8px 0;text-align:left;max-width:460px">'+h(u.mv.text)+'<cite>'+h(u.mv.ref)+'</cite></blockquote>'+
+ '<div class="stack" style="width:100%;max-width:360px">'+(all&&nextU?'<button class="btn primary block" data-act="unit" data-arg="'+(view.u+1)+'">Next: Unit '+nextU.id+' · '+h(nextU.title)+icon("next")+'</button>':'')+'<button class="btn block" data-act="game" data-arg="match">'+icon("games")+'Review these words in a game</button><button class="btn ghost block" data-act="go" data-arg="home">Back to home</button></div></div></div>'}
+function confetti(){const c=document.createElement("canvas");c.className="confetti";document.body.appendChild(c);const x=c.getContext("2d");const W_=c.width=innerWidth,H_=c.height=innerHeight;
+ const cs=getComputedStyle(document.documentElement);const cols=["--accent","--gold","--good"].map(v=>cs.getPropertyValue(v).trim()||"#1d7469");
+ const ps=Array.from({length:90},()=>({x:Math.random()*W_,y:-20-Math.random()*H_*.5,vx:(Math.random()-.5)*2,vy:2+Math.random()*3,r:Math.random()*6,s:4+Math.random()*5,c:cols[Math.floor(Math.random()*3)]}));
+ let t=0;(function f(){x.clearRect(0,0,W_,H_);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.r+=.1;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);x.restore()});if(++t<160)requestAnimationFrame(f);else c.remove()})()}
+
+/* ---------- games ---------- */
+const GAMES=[["match","Match","Pair each word with its meaning","match"],["quiz","Quiz","Read the meaning, pick the word","quiz"],["scramble","Scramble","Unscramble the letters","shuffle"],["listen","Listen","Hear a word, choose it","ear"],["verse","Verse builder","Rebuild memory verses","scroll"],["spell","Spell it","Hear it, type it","pen"]];
+function vGames(){const {pool,fallback}=studiedWords();
+ return '<div class="wrap stack-lg">'+header()+'<div class="stack" style="gap:4px"><h1>Review games</h1><p class="muted">'+(fallback?"Finish the “Key words” step in a unit to add its words. For now you'll practise Unit 1–2 words.":"Practising "+pool.length+" words from your units. Weak words come up first.")+'</p></div>'+
+ '<div class="gamegrid">'+GAMES.map(g=>'<button class="gamebtn" data-act="game" data-arg="'+g[0]+'"><span class="gi">'+icon(g[3])+'</span><b>'+g[1]+'</b><span>'+g[2]+'</span></button>').join("")+'</div>'+
+ '<section class="card stack"><span class="eyebrow">Word strength</span><div class="row wrap-row" style="gap:6px">'+pool.slice(0,40).map(v=>{const s=(S.words[v.w]||{}).s||0;return '<span class="pill '+(s>=3?"good":s>0?"gold":"")+'" title="strength '+s+'/5">'+h(baseWord(v.w))+'</span>'}).join("")+'</div><p class="muted" style="font-size:.8rem">Green = mastered (3+ correct in a row). Gold = learning. Grey = new.</p></section></div>'+tabbar("games")}
+function newGame(kind){const {pool}=studiedWords();const ord=reviewOrder(pool);const g={kind,round:0,score:0,total:0,over:false};
+ if(kind==="match"){g.words=ord.slice(0,6);g.left=shuffle(g.words.map(v=>v.w));g.right=shuffle(g.words.map(v=>v.w));g.done=[];g.sel=null;g.total=g.words.length}
+ else if(kind==="verse"){const started=UNITS.filter(u=>unitCount(u.id)>0);g.verses=shuffle((started.length?started:[UNITS[0]]).map(u=>u.mv)).slice(0,3);g.total=g.verses.length}
+ else{g.items=ord.slice(0,Math.min(kind==="quiz"?10:8,ord.length));g.total=g.items.length;g.pool=pool}
+ return g}
+function vGame(){const g=ls.g||(ls.g=newGame(view.kind));const meta=GAMES.find(x=>x[0]===g.kind);
+ const head='<div class="lesson-head"><button class="icon-btn" data-act="go" data-arg="games" aria-label="Close game">'+icon("x")+'</button><b style="font-family:var(--f-display);font-size:1.1rem">'+meta[1]+'</b><div class="spacer"></div><span class="pill accent tnum">'+g.score+' / '+g.total+'</span></div>';
+ if(g.over)return '<div class="wrap">'+head+'<div class="celebrate"><span class="eyebrow">Game over</span><div class="big tnum">'+g.score+' / '+g.total+'</div><h2>'+(g.score===g.total?"Perfect score!":g.score>=g.total*.7?"Well done!":"Keep practising!")+'</h2><p class="muted">+'+g.score*2+' XP</p><div class="stack" style="width:100%;max-width:320px"><button class="btn primary block" data-act="game" data-arg="'+g.kind+'">Play again</button><button class="btn block" data-act="go" data-arg="games">All games</button></div></div></div>';
+ return '<div class="wrap" style="padding-bottom:40px">'+head+'<div class="stack-lg" style="margin-top:12px">'+({match:gMatch,quiz:gQuiz,scramble:gScramble,listen:gListen,verse:gVerse,spell:gSpell}[g.kind])(g)+'</div></div>'}
+function endRound(g,ok,w){if(w)scoreWord(w,ok);if(ok){g.score++;addXP(2)}}
+function finishGame(g){g.over=true;S.stats.games++;save();render()}
+function gMatch(g){const meaning=v=>S.settings.vi?v.vi:v.def;
+ return '<p class="muted">Tap a word, then tap its '+(S.settings.vi?"Vietnamese meaning":"meaning")+'.</p><div class="match"><div class="stack" style="gap:8px">'+g.left.map(w=>'<button class="mcell'+(g.done.includes(w)?" done":"")+(g.sel===w?" sel":"")+'" data-act="mleft" data-arg="'+h(w)+'">'+h(baseWord(w))+'</button>').join("")+'</div><div class="stack" style="gap:8px">'+g.right.map(w=>{const v=g.words.find(x=>x.w===w);return '<button class="mcell'+(g.done.includes(w)?" done":"")+'" style="font-weight:400" data-act="mright" data-arg="'+h(w)+'">'+h(meaning(v))+'</button>'}).join("")+'</div></div>'}
+function opts4(g,v){if(!g.opts||g.optsFor!==g.round){const others=shuffle(ALLWORDS.filter(x=>x.w!==v.w&&(g.pool.includes(x)||true))).filter((x,i,a)=>a.findIndex(y=>baseWord(y.w)===baseWord(x.w))===i).slice(0,3);g.opts=shuffle([v].concat(others));g.optsFor=g.round;g.pick=undefined}return g.opts}
+function roundHead(g){return '<div class="bar"><i style="width:'+(g.round/g.total*100)+'%"></i></div>'}
+function optButtons(g,v,label){return '<div class="opts">'+opts4(g,v).map((o,j)=>{let c="";if(g.pick!==undefined){if(o.w===v.w)c="right";else if(j===g.pick)c="wrong"}return '<button class="opt '+c+'" data-act="gpick" data-arg="'+j+'" '+(g.pick!==undefined?"disabled":"")+'>'+h(label(o))+'</button>'}).join("")+'</div>'+(g.pick!==undefined?'<div class="row"><span class="fb '+(g.opts[g.pick].w===v.w?"good":"bad")+'">'+(g.opts[g.pick].w===v.w?"Correct!":"Answer: "+h(baseWord(v.w)))+'</span><div class="spacer"></div><button class="btn primary" data-act="gnext">Next'+icon("next")+'</button></div>':'')}
+function gQuiz(g){const v=g.items[g.round];return roundHead(g)+'<div class="card raised stack"><span class="eyebrow">Which word means…</span><p class="bigq">'+h(v.def)+'</p>'+(S.settings.vi?'<p class="muted">'+h(v.vi)+'</p>':'')+'</div>'+optButtons(g,v,o=>baseWord(o.w))}
+function gListen(g){const v=g.items[g.round];if(g.pick===undefined&&g.heard!==g.round){g.heard=g.round;setTimeout(()=>speak(baseWord(v.w)),150)}
+ return roundHead(g)+'<div class="card raised stack" style="align-items:center;text-align:center"><span class="eyebrow">Listen and choose</span><button class="btn primary" data-act="say" data-text="'+h(baseWord(v.w))+'">'+icon("sound")+'Play word</button><button class="btn small ghost" data-act="sayslow" data-text="'+h(baseWord(v.w))+'">'+icon("slow")+'Slower</button></div>'+optButtons(g,v,o=>baseWord(o.w))}
+function gScramble(g){const v=g.items[g.round];const target=baseWord(v.w).replace(/\s+/g,"").toLowerCase();
+ if(g.sf!==g.round){g.sf=g.round;let letters=target.split("");let sh=shuffle(letters.map((c,i)=>i));if(letters.length>1&&sh.every((x,i)=>x===i))sh.reverse();g.sorder=sh;g.letters=letters;g.spicked=[];g.sstate=""}
+ const got=g.spicked.map(i=>g.letters[i]).join("");
+ return roundHead(g)+'<div class="card raised stack"><span class="eyebrow">'+(baseWord(v.w).includes(" ")?"Two words · ":"")+target.length+' letters</span><p class="bigq">'+h(v.def)+'</p>'+(S.settings.vi?'<p class="muted">'+h(v.vi)+'</p>':'')+'</div>'+
+ '<div class="answer '+g.sstate+' letters">'+g.spicked.map((ti,k)=>'<button class="tile" data-act="sun" data-arg="'+k+'">'+h(g.letters[ti])+'</button>').join("")+'</div>'+
+ '<div class="tiles letters">'+g.sorder.map(ti=>'<button class="tile'+(g.spicked.includes(ti)?" used":"")+'" data-act="spick" data-arg="'+ti+'" '+(g.sstate?"disabled":"")+'>'+h(g.letters[ti])+'</button>').join("")+'</div>'+
+ (g.sstate?'<div class="row"><span class="fb '+(g.sstate==="right"?"good":"bad")+'">'+(g.sstate==="right"?"Correct!":"Answer: "+h(baseWord(v.w)))+'</span><div class="spacer"></div><button class="btn primary" data-act="gnext">Next'+icon("next")+'</button></div>':'<div class="row"><button class="btn small ghost" data-act="sskip">Show answer</button></div>')}
+function gSpell(g){const v=g.items[g.round];if(g.heard!==g.round&&!g.sp){g.heard=g.round;setTimeout(()=>speak(baseWord(v.w)),150)}
+ return roundHead(g)+'<div class="card raised stack"><div class="row"><span class="eyebrow">Listen and type the word</span><div class="spacer"></div>'+say(baseWord(v.w))+'</div><p class="muted">'+h(S.settings.vi?v.vi:v.def)+'</p></div>'+
+ '<form class="stack" data-form="spell"><label for="spin" class="eyebrow">Your answer</label><input id="spin" autocomplete="off" autocapitalize="off" spellcheck="false" style="font:1.3rem var(--f-body);padding:12px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink)" '+(g.sp?"disabled":"")+' value="'+h(g.sp?g.sp.val:"")+'">'+
+ (g.sp?'<div class="row"><span class="fb '+(g.sp.ok?"good":"bad")+'">'+(g.sp.ok?"Correct!":"Answer: "+h(baseWord(v.w)))+'</span><div class="spacer"></div><button type="button" class="btn primary" data-act="gnext">Next'+icon("next")+'</button></div>':'<button class="btn primary" type="submit">Check</button>')+'</form>'}
+function gVerse(g){const mv=g.verses[g.round];return roundHead(g)+verseBuilder(mv.text,mv.ref)+(ls.vb&&ls.vb.state==="right"?'<button class="btn primary block" data-act="gnext">Next'+icon("next")+'</button>':'')}
+function gAdvance(g){g.round++;g.pick=undefined;g.sp=null;ls.vb=null;if(g.round>=g.total)finishGame(g);else render()}
+
+/* ---------- progress ---------- */
+const BADGES=[["first","First step","Finish any lesson step",()=>UNITS.some(u=>unitCount(u.id)>0)],["unit1","Unit complete","Finish a whole unit",()=>UNITS.some(u=>unitDone(u.id))],["streak3","3-day streak","Study 3 days in a row",()=>S.streak>=3],["streak7","7-day streak","Study 7 days in a row",()=>S.streak>=7],["words20","Word keeper","Master 20 words",()=>mastered()>=20],["half","Halfway","Finish 5 units",()=>UNITS.filter(u=>unitDone(u.id)).length>=5],["writer","Writer","Finish 5 writing tasks",()=>UNITS.filter(u=>done(u.id,"write")).length>=5],["gamer","Game player","50 correct game answers",()=>S.stats.correct>=50],["all","Finisher","Complete all 10 units",()=>UNITS.every(u=>unitDone(u.id))],["words80","All the words","Master all 80 words",()=>mastered()>=ALLWORDS.length]];
+function vProgress(){const lvl=Math.floor(S.xp/LEVEL_XP)+1;const days=[];for(let i=13;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);days.push([dstr(d),d])}
+ const mx=Math.max(DAILY_GOAL,...days.map(d=>S.days[d[0]]||0));const uc=UNITS.filter(u=>unitDone(u.id)).length;
+ const acc=S.stats.answered?Math.round(S.stats.correct/S.stats.answered*100):0;
+ return '<div class="wrap stack-lg">'+header()+'<h1>Progress</h1>'+
+ '<div class="stats"><div class="stat"><b class="tnum" style="color:var(--gold)">'+curStreak()+'</b><span>day streak</span></div><div class="stat"><b class="tnum">'+S.xp+'</b><span>total XP · level '+lvl+'</span></div><div class="stat"><b class="tnum">'+uc+'<span class="muted" style="font-size:1rem"> / 10</span></b><span>units complete</span></div><div class="stat"><b class="tnum">'+mastered()+'<span class="muted" style="font-size:1rem"> / '+ALLWORDS.length+'</span></b><span>words mastered</span></div></div>'+
+ '<section class="card stack"><div class="row"><span class="eyebrow">Last 14 days</span><div class="spacer"></div><span class="muted" style="font-size:.8rem">goal '+DAILY_GOAL+' XP/day</span></div><div class="days" aria-label="XP per day">'+days.map(d=>{const v=S.days[d[0]]||0;return '<i class="'+(v?"":"zero")+'" style="height:'+Math.max(4,v/mx*100)+'%" title="'+d[0]+': '+v+' XP"></i>'}).join("")+'</div><div class="days-l">'+days.map(d=>'<span>'+"SMTWTFS"[d[1].getDay()]+'</span>').join("")+'</div><p class="muted" style="font-size:.82rem">Game accuracy: '+acc+'% of '+S.stats.answered+' answer'+(S.stats.answered===1?"":"s")+'.</p></section>'+
+ '<section class="stack"><h3>Badges</h3><div class="badges">'+BADGES.map(b=>{const on=b[3]();return '<div class="badge'+(on?" on":"")+'"><span class="bi">'+icon(on?"trophy":"star")+'</span><span><b>'+b[1]+'</b><span>'+b[2]+'</span></span></div>'}).join("")+'</div></section>'+
+ '<section class="stack"><h3>Units</h3><div class="card scroll-x" style="padding:8px 12px"><table class="gtable"><thead><tr><th>Unit</th>'+STEPS.map((s,k)=>'<th title="'+s.name+'">'+(k+1)+'</th>').join("")+'</tr></thead><tbody>'+UNITS.map(u=>'<tr><td style="white-space:nowrap"><b>'+u.id+'</b> '+h(u.title.length>18?u.title.slice(0,17)+"…":u.title)+'</td>'+STEPS.map(s=>'<td style="color:'+(done(u.id,s.id)?"var(--good)":"var(--line)")+'">'+(done(u.id,s.id)?icon("check"):"·")+'</td>').join("")+'</tr>').join("")+'</tbody></table></div></section>'+
+ '<section class="card"><h3 style="margin-bottom:6px">Settings</h3><div class="setting"><span><b>Student</b><span class="muted" style="display:block;font-size:.82rem">Studying as '+h(ACTIVE||"")+'. Sharing this device? Switch students so progress stays separate.</span></span><button class="btn small" data-act="switchstudent">'+icon("swap")+'Switch</button></div><div class="setting"><span><b>Vietnamese meanings</b><span class="muted" style="display:block;font-size:.82rem">Show nghĩa tiếng Việt on cards and games</span></span><button class="switch" role="switch" aria-checked="'+S.settings.vi+'" data-act="togglevi" aria-label="Vietnamese meanings"></button></div>'+
+ '<div class="setting"><label for="rate"><b>Speech speed</b></label><span class="row"><input type="range" id="rate" min="0.5" max="1.2" step="0.05" value="'+S.settings.rate+'"><span id="rateV" class="tnum muted" style="width:44px">'+S.settings.rate+'×</span></span></div>'+
+ '<div class="setting"><label for="voice"><b>Voice</b></label>'+(TTS&&voices.length?'<select id="voice"><option value="">Automatic</option>'+voices.map(v=>'<option value="'+h(v.name)+'"'+(v.name===S.settings.voice?" selected":"")+'>'+h(v.name.replace(/Microsoft |Google /,""))+' ('+h(v.lang)+')</option>').join("")+'</select>':'<span class="muted" style="font-size:.85rem">'+(TTS?"Loading voices…":"Not available here")+'</span>')+'</div></section>'+
+ '<section class="card stack"><h3>Back up your progress</h3><p class="muted" style="font-size:.88rem">'+h(ACTIVE||"")+'’s progress lives in this browser only. Copy the code and keep it safe, or paste a code to move it to another device (this only backs up the current student).</p><div class="row wrap-row"><button class="btn small" data-act="copycode">'+icon("copy")+'Copy progress code</button></div><label for="restore" class="eyebrow">Paste a code to restore</label><textarea id="restore" class="codebox" placeholder="Paste your progress code here"></textarea><button class="btn small" data-act="restore" style="align-self:flex-start">Restore progress</button></section>'+
+ '<section class="card stack"><h3>Start over</h3>'+(ls.confirmReset?'<p><b>Delete '+h(ACTIVE||"this student")+'’s progress, XP and writing?</b> This cannot be undone. Other students on this device are not affected.</p><div class="row"><button class="btn" data-act="noreset">Cancel</button><button class="btn" style="background:var(--bad);color:#fff;border-color:var(--bad)" data-act="doreset">Yes, reset everything</button></div>':'<button class="btn small" data-act="askreset" style="align-self:flex-start">Reset progress…</button>')+'</section>'+
+ '<p class="foot-note">Scripture quotations are from the World English Bible (WEB), which is in the public domain.</p></div>'+tabbar("progress")}
+
+/* ---------- actions ---------- */
+function completeStep(){const u=UNITS[view.u],st=STEPS[view.s];let gained=0;if(!done(u.id,st.id)){U(u.id).steps.push(st.id);gained=st.xp;addXP(gained)}else save();ls.gainedTotal=(view.gained||0)+gained;return gained}
+const A={
+ go:t=>go({name:t.dataset.arg}),
+ unit:t=>go({name:"unit",u:+t.dataset.arg}),
+ lesson:t=>go({name:"lesson",u:+t.dataset.u,s:+t.dataset.s,gained:0}),
+ exit:()=>go({name:"unit",u:view.u}),
+ prev:()=>{const g=view.gained;go({name:"lesson",u:view.u,s:view.s-1,gained:g})},
+ cont:()=>{const g=completeStep();const total=(view.gained||0)+g;if(view.s<7)go({name:"lesson",u:view.u,s:view.s+1,gained:total});else go({name:"finish",u:view.u,gained:total})},
+ say:t=>speak(t.dataset.text),
+ sayslow:t=>speak(t.dataset.text,{rate:Math.max(.5,S.settings.rate-.3)}),
+ flip:()=>{ls.flip=!ls.flip;const f=$(".flash");if(f)f.classList.toggle("flipped",ls.flip)},
+ wrate:t=>{const u=UNITS[view.u];const v=u.vocab[ls.i];const r=W(v.w);if(t.dataset.arg==="1"){r.s=Math.max(r.s,1)}r.n++;save();ls.i++;ls.flip=false;render()},
+ wprev:()=>{ls.i=Math.max(0,ls.i-1);ls.flip=false;render()},
+ wrestart:()=>{ls.i=0;ls.flip=false;render()},
+ gloss:t=>{ls.gloss=t.dataset.arg;render();speak(baseWord(t.dataset.arg))},
+ closegloss:()=>{ls.gloss=null;render()},
+ readall:()=>readAll(UNITS[view.u]),
+ readslow:()=>{if(ls.playing){ls.playing=false;stopSpeech()}readAll(UNITS[view.u],Math.max(.5,S.settings.rate-.3))},
+ ans:t=>{const k=t.dataset.k,i=+t.dataset.i,j=+t.dataset.j;ls[k]=ls[k]||{};if(ls[k][i]!==undefined)return;ls[k][i]=j;const y=scrollY;render();scrollTo(0,y)},
+ spoke:t=>{ls.sd=ls.sd||{};const i=t.dataset.arg;if(ls.sd[i])delete ls.sd[i];else ls.sd[i]=1;const y=scrollY;render();scrollTo(0,y)},
+ useframe:()=>{const ta=$("#wr");const f=UNITS[view.u].write.frame;if(!ta.value.trim()){ta.value=f}else ta.value=ta.value.trimEnd()+"\n"+f;ta.dispatchEvent(new Event("input"));ta.focus();const p=ta.value.indexOf("___");if(p>=0)ta.setSelectionRange(p,p+3)},
+ addword:t=>{const ta=$("#wr");const s=ta.selectionStart??ta.value.length,e=ta.selectionEnd??ta.value.length;const w=t.dataset.arg;const pre=ta.value.slice(0,s);const ins=(pre&&!/\s$/.test(pre)?" ":"")+w+" ";ta.value=pre+ins+ta.value.slice(e);ta.dispatchEvent(new Event("input"));ta.focus();ta.setSelectionRange(s+ins.length,s+ins.length)},
+ copywrite:()=>{const u=UNITS[view.u];const txt="Unit "+u.id+" — "+u.title+" ("+u.ref+")\nTask: "+u.write.prompt+"\n\n"+(($("#wr")||{}).value||"");copyText(txt,"Copied. Paste it into a message to your teacher.")},
+ buildverse:()=>{ls.build=true;render()},
+ vbpick:t=>{const b=ls.vb;const i=+t.dataset.arg;if(b.state==="right"||b.picked.includes(i))return;b.picked.push(i);if(vbCheck()){if(view.name==="lesson")ls.ready=true;else{endRound(ls.g,true)}}render()},
+ vbun:t=>{const b=ls.vb;if(b.state==="right")return;b.picked.splice(+t.dataset.arg,1);b.state="";render()},
+ vbreset:()=>{ls.vb.picked=[];ls.vb.state="";render()},
+ game:t=>go({name:"game",kind:t.dataset.arg}),
+ mleft:t=>{const g=ls.g;g.sel=t.dataset.arg;render();speak(baseWord(g.sel))},
+ mright:t=>{const g=ls.g;if(!g.sel)return toast("Tap a word on the left first");const w=t.dataset.arg;if(w===g.sel){g.done.push(w);endRound(g,true,w);g.sel=null;if(g.done.length===g.words.length){finishGame(g);return}render()}else{scoreWord(g.sel,false);t.classList.add("shake");setTimeout(()=>t.classList.remove("shake"),450);g.sel=null;document.querySelectorAll(".mcell.sel").forEach(e=>e.classList.remove("sel"))}},
+ gpick:t=>{const g=ls.g;if(g.pick!==undefined)return;g.pick=+t.dataset.arg;const v=g.items[g.round];endRound(g,g.opts[g.pick].w===v.w,v.w);render()},
+ gnext:()=>gAdvance(ls.g),
+ spick:t=>{const g=ls.g;const i=+t.dataset.arg;if(g.sstate||g.spicked.includes(i))return;g.spicked.push(i);if(g.spicked.length===g.letters.length){const v=g.items[g.round];const ok=g.spicked.map(k=>g.letters[k]).join("")===g.letters.join("");g.sstate=ok?"right":"wrong";endRound(g,ok,v.w);if(ok)speak(baseWord(v.w))}render()},
+ sun:t=>{const g=ls.g;if(g.sstate)return;g.spicked.splice(+t.dataset.arg,1);render()},
+ sskip:()=>{const g=ls.g;const v=g.items[g.round];g.spicked=g.letters.map((c,i)=>i);g.sstate="wrong";endRound(g,false,v.w);render()},
+ togglevi:()=>{S.settings.vi=!S.settings.vi;save();render()},
+ copycode:()=>{let code="";try{code=btoa(unescape(encodeURIComponent(JSON.stringify(S))))}catch(e){}copyText(code,"Progress code copied. Save it in your notes.")},
+ restore:()=>{const v=($("#restore")||{}).value||"";try{const d=JSON.parse(decodeURIComponent(escape(atob(v.trim()))));if(typeof d.xp!=="number")throw 0;S=Object.assign(defaults(),d);save();toast("Progress restored");render()}catch(e){toast("That code didn't work. Copy the whole code and try again.")}},
+ askreset:()=>{ls.confirmReset=true;render()},
+ noreset:()=>{ls.confirmReset=false;render()},
+ doreset:()=>{S=defaults();save();toast("Progress reset");go({name:"home"})},
+ switchstudent:()=>go({name:"onboard",from:"progress"}),
+ cancelonboard:()=>go({name:"progress"}),
+ pickprofile:t=>{setActive(t.dataset.arg);load();toast("Studying as "+t.dataset.arg);go({name:"home"})},
+ newprofile:()=>{const inp=$("#newname");const name=((inp&&inp.value)||"").trim().slice(0,24);if(!name){toast("Type a name first");return}addProfile(name);setActive(name);load();toast("Welcome, "+name+"!");go({name:"home"})}
+};
+function copyText(txt,msg){const ok=()=>toast(msg);try{navigator.clipboard.writeText(txt).then(ok,()=>fallbackCopy(txt,msg))}catch(e){fallbackCopy(txt,msg)}}
+function fallbackCopy(txt,msg){const ta=document.createElement("textarea");ta.value=txt;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();let ok=false;try{ok=document.execCommand("copy")}catch(e){}ta.remove();toast(ok?msg:"Copy isn't allowed here. Select the text and copy it by hand.")}
+app.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||t.disabled)return;const f=A[t.dataset.act];if(f){e.preventDefault();f(t,e)}});
+app.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches(".flash")){e.preventDefault();A.flip()}});
+app.addEventListener("submit",e=>{e.preventDefault();if(e.target.dataset.form==="spell"){const g=ls.g;const v=g.items[g.round];const val=($("#spin").value||"").trim();if(!val)return;const ok=val.toLowerCase().replace(/\s+/g," ")===baseWord(v.w).toLowerCase();g.sp={val,ok};endRound(g,ok,v.w);render()}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&ls.gloss){ls.gloss=null;render()}});
+
+(function boot(){let a=null;try{a=localStorage.getItem(ACTIVE_KEY)}catch(e){}
+ if(!a)a=migrateLegacy();
+ if(a&&(!profiles().length||profiles().includes(a))){if(!profiles().length)addProfile(a);ACTIVE=a;load();render()}
+ else{view={name:"onboard"};render()}
+})();
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,1035 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Grade 9 Quest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Patrick+Hand&display=swap">
+<style>
+:root{
+  --paper:#FFFDF6; --grid:#E4ECFF; --grid2:#D3DFFF; --margin:#FF9BB3;
+  --ink:#0F7A6B; --ink-soft:#2F9C8C; --text:#1C2B27; --muted:#5F736E;
+  --red:#E8543D; --hl:#FFC53D; --ok:#1DA36B; --ok-bg:#DEF7E9; --bad-bg:#FDE4DD;
+  --card:#FFFFFF; --line:#DCEDE7; --shadow:0 3px 0 #DCEDE7, 0 14px 28px -16px rgba(15,122,107,.4);
+  --gc:#0F7A6B;
+  --display:"Baloo 2", "Be Vietnam Pro", system-ui, sans-serif;
+  --body:"Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --hand:"Patrick Hand", "Comic Sans MS", cursive;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:var(--body); color:var(--text); font-size:15px; line-height:1.5;
+  background-color:#F2F8F5;
+  background-image:
+    radial-gradient(circle at 8% 12%, rgba(255,197,61,.5) 0 90px, transparent 91px),
+    radial-gradient(circle at 92% 8%, rgba(232,84,61,.28) 0 120px, transparent 121px),
+    radial-gradient(circle at 96% 70%, rgba(47,156,140,.32) 0 140px, transparent 141px),
+    radial-gradient(circle at 4% 80%, rgba(29,163,107,.25) 0 110px, transparent 111px),
+    radial-gradient(rgba(15,122,107,.12) 1.4px, transparent 1.6px);
+  background-size:100% 100%,100% 100%,100% 100%,100% 100%,22px 22px;
+  background-attachment:fixed;
+  min-height:100vh;
+}
+.wrap{max-width:980px; margin:0 auto; padding-inline:16px; padding-block:18px 60px; position:relative}
+
+button{font:inherit; color:inherit; cursor:pointer}
+button:focus-visible, input:focus-visible{outline:3px solid var(--hl); outline-offset:2px}
+
+/* header */
+.top{display:flex; flex-wrap:wrap; align-items:center; gap:12px 18px; justify-content:space-between}
+.brand h1{font-family:var(--display); font-weight:800; font-size:clamp(26px,5vw,38px); line-height:1.05; margin:0; color:var(--ink); text-wrap:balance}
+.brand h1 mark{background:var(--hl); color:var(--text); padding:0 10px; border-radius:12px; display:inline-block; transform:rotate(-2deg)}
+.brand h1 .wd{display:inline-block; white-space:nowrap}
+.brand h1 .rb i{font-style:normal}
+.brand h1 .rb i:nth-of-type(6n+1){color:#F0364E}.brand h1 .rb i:nth-of-type(6n+2){color:#FF8A00}.brand h1 .rb i:nth-of-type(6n+3){color:#12A150}.brand h1 .rb i:nth-of-type(6n+4){color:#1FB6FF}.brand h1 .rb i:nth-of-type(6n+5){color:#7C5CFF}.brand h1 .rb i:nth-of-type(6n){color:#FF5FA2}
+.brand p{margin:4px 0 0; color:var(--muted); font-size:14px}
+.stats{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+.pill{display:inline-flex; align-items:center; gap:6px; background:var(--card); border:1px solid var(--line); border-radius:999px; padding:5px 12px; font-size:13px; font-weight:600; font-variant-numeric:tabular-nums}
+.pill b{color:var(--ink)}
+.iconbtn{background:var(--card); border:1px solid var(--line); border-radius:999px; width:36px; height:36px; display:inline-grid; place-items:center}
+.iconbtn svg{width:18px; height:18px; stroke:var(--ink); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+.lvl{height:8px; width:120px; background:var(--grid2); border-radius:9px; overflow:hidden}
+.lvl i{display:block; height:100%; background:var(--ink); border-radius:9px; transition:width .5s}
+
+/* unit chips */
+.unitbar{margin:20px 0 6px; display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; scrollbar-width:thin}
+.chip{flex:none; border:1.5px solid var(--line); background:var(--card); border-radius:10px; padding:6px 12px; font-weight:600; font-size:13px; white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--paper)}
+.unitname{font-family:var(--hand); font-size:20px; color:var(--red); margin:4px 0 14px; min-height:28px}
+
+/* game cards */
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px}
+.gcard{position:relative; overflow:hidden; text-align:left; background:var(--gc); color:#fff; border:none; border-radius:22px; padding:18px 18px 16px; box-shadow:0 6px 0 color-mix(in srgb, var(--gc) 70%, #000), 0 18px 30px -18px var(--gc); display:flex; flex-direction:column; gap:6px; transition:transform .18s cubic-bezier(.3,1.6,.5,1)}
+.gcard::after{content:""; position:absolute; right:-30px; top:-30px; width:120px; height:120px; border-radius:50%; background:rgba(255,255,255,.16)}
+.gcard:hover{transform:translateY(-5px) rotate(-1deg)}
+.gcard:active{transform:translateY(2px)}
+.gcard .ic{width:48px; height:48px; border-radius:14px; display:grid; place-items:center; background:rgba(255,255,255,.95); color:var(--gc); position:relative; z-index:1}
+.gcard .ic svg{width:26px; height:26px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
+.gcard h3{font-family:var(--display); font-size:24px; margin:4px 0 0; line-height:1.05; color:#fff}
+.gcard p{margin:0; color:rgba(255,255,255,.9); font-size:13.5px}
+.gcard .tag{color:rgba(255,255,255,.85)}
+.gcard .best{margin-top:auto; padding-top:8px; font-size:12.5px; color:rgba(255,255,255,.9); display:flex; justify-content:space-between; align-items:center; gap:8px}
+.gcard .best .mk{font-family:var(--display); font-weight:800; font-size:18px; background:#fff; color:var(--gc); border-radius:999px; padding:0 10px; line-height:1.5}
+.gcard .stars{letter-spacing:1px; color:#FFE27A}
+.tag{font-size:11px; letter-spacing:.06em; text-transform:uppercase; font-weight:700; color:var(--ink-soft)}
+
+.section-title{font-family:var(--display); font-size:22px; color:var(--ink); margin:30px 0 10px}
+.progress-table{background:var(--card); border:1.5px solid var(--line); border-radius:14px; padding:12px 14px; overflow-x:auto}
+.progress-table table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:420px}
+.progress-table th,.progress-table td{padding:6px 8px; text-align:left; border-bottom:1px solid var(--line)}
+.progress-table th{font-size:11.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted)}
+.bar{height:8px; background:var(--grid2); border-radius:8px; overflow:hidden; min-width:90px}
+.bar i{display:block; height:100%; background:var(--ok)}
+.num{font-variant-numeric:tabular-nums}
+
+/* stage */
+.stagehead{display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:space-between; margin-bottom:14px}
+.back{background:none; border:none; color:var(--ink); font-weight:700; padding:6px 0; display:inline-flex; gap:6px; align-items:center}
+.stagehead h2{font-family:var(--display); color:var(--ink); font-size:28px; margin:0; line-height:1}
+.hud{display:flex; gap:8px; flex-wrap:wrap}
+.panel{background:var(--card); border:1.5px solid var(--line); border-radius:16px; padding:clamp(16px,3vw,26px); box-shadow:var(--shadow)}
+.progress{height:6px; background:var(--grid2); border-radius:6px; overflow:hidden; margin-bottom:16px}
+.progress i{display:block; height:100%; background:var(--ink); transition:width .3s}
+.qtext{font-size:clamp(17px,2.4vw,20px); font-weight:600; line-height:1.45; margin:0 0 6px}
+.qtext u{text-decoration-thickness:2px; text-underline-offset:3px; text-decoration-color:var(--red)}
+.instr{color:var(--muted); font-size:13.5px; font-style:italic; margin:0 0 10px}
+.opts{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin-top:14px}
+.opt{text-align:left; background:var(--paper); border:2px solid var(--line); border-radius:12px; padding:12px 14px; font-size:16px; display:flex; gap:10px; align-items:center; transition:border-color .12s, background .12s}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt .k{flex:none; width:26px; height:26px; border-radius:7px; background:var(--grid); color:var(--ink); display:grid; place-items:center; font-weight:700; font-size:13px}
+.opt.right{border-color:var(--ok); background:var(--ok-bg)}
+.opt.wrong{border-color:var(--red); background:var(--bad-bg)}
+.opt:disabled{cursor:default}
+.passage{background:var(--paper); border-left:4px solid var(--hl); border-radius:6px; padding:10px 14px; font-size:14.5px; margin-bottom:12px; max-height:180px; overflow:auto}
+.timer{height:10px; background:var(--grid2); border-radius:10px; overflow:hidden; margin:10px 0 0}
+.timer i{display:block; height:100%; background:var(--hl); transition:width .1s linear}
+.feedback{min-height:26px; margin-top:12px; font-weight:600}
+.feedback.ok{color:var(--ok)} .feedback.no{color:var(--red)}
+.hearts{color:var(--red); letter-spacing:2px; font-size:16px}
+.btn{border:none; background:var(--ink); color:var(--paper); border-radius:11px; padding:10px 18px; font-weight:700; font-size:15px; display:inline-flex; align-items:center; gap:8px}
+.btn.ghost{background:transparent; color:var(--ink); border:2px solid var(--ink)}
+.btn.warn{background:var(--red)}
+.btn:disabled{opacity:.45; cursor:not-allowed}
+.row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+.center{text-align:center}
+
+/* flashcards */
+.flash{perspective:1200px; margin:0 auto; max-width:520px}
+.fcard{position:relative; height:280px; transform-style:preserve-3d; transition:transform .5s; cursor:pointer}
+.fcard.flip{transform:rotateY(180deg)}
+.face{position:absolute; inset:0; backface-visibility:hidden; border-radius:18px; border:2px solid var(--line); background:var(--card); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; padding:22px; text-align:center; box-shadow:var(--shadow)}
+.face.back{transform:rotateY(180deg); background:var(--paper)}
+.face .w{font-family:var(--display); font-size:clamp(26px,5vw,36px); font-weight:700; color:var(--ink); line-height:1.1}
+.face .vi{font-size:22px; font-weight:700; color:var(--text)}
+.face .ex{font-style:italic; color:var(--muted); font-size:15px; max-width:40ch}
+.face .pos{font-family:var(--hand); color:var(--red); font-size:20px}
+.face .hint{position:absolute; bottom:12px; font-size:12px; color:var(--muted)}
+
+/* memory */
+.mem{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+@media (max-width:560px){ .mem{grid-template-columns:repeat(3,1fr)} }
+.mcard{aspect-ratio:4/3; max-width:100%; border-radius:12px; border:2px solid var(--line); background:var(--ink); color:var(--paper); display:grid; place-items:center; padding:6px; font-size:14px; font-weight:600; text-align:center; line-height:1.25; transition:transform .25s, background .2s}
+.mcard .inner{visibility:hidden}
+.mcard.open,.mcard.done{background:var(--card); color:var(--text); transform:rotateY(0)}
+.mcard.open .inner,.mcard.done .inner{visibility:visible}
+.mcard.done{border-color:var(--ok); background:var(--ok-bg)}
+.mcard.vi-side .inner{font-weight:500}
+.mcard .back-logo{font-family:var(--display); font-size:24px; opacity:.55}
+.mcard.open .back-logo,.mcard.done .back-logo{display:none}
+
+/* tiles */
+.slots{display:flex; flex-wrap:wrap; gap:8px; min-height:58px; padding:10px; border:2px dashed var(--line); border-radius:12px; background:var(--paper); align-items:center}
+.slots.ok{border-color:var(--ok); background:var(--ok-bg)} .slots.no{border-color:var(--red); background:var(--bad-bg)}
+.bank{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; min-height:48px}
+.tile{background:var(--card); border:2px solid var(--line); border-bottom-width:4px; border-radius:10px; padding:7px 12px; font-weight:600; font-size:16px; transition:transform .1s}
+.tile:hover{transform:translateY(-2px); border-color:var(--ink)}
+.tile.letter{width:42px; height:46px; padding:0; font-family:var(--display); font-size:22px; text-transform:lowercase}
+.gap-space{width:18px}
+.lslot{width:42px; height:46px; border-bottom:3px solid var(--ink); display:grid; place-items:center; font-family:var(--display); font-size:22px; color:var(--ink)}
+.lslot.fixed{border-bottom-color:transparent}
+.lslot.hinted{color:var(--red)}
+
+/* typing */
+.typein{width:100%; max-width:360px; font-size:20px; padding:10px 14px; border:2px solid var(--line); border-radius:12px; background:var(--paper); color:var(--text); font-family:var(--body)}
+.typein.ok{border-color:var(--ok)} .typein.no{border-color:var(--red)}
+
+/* error hunter */
+.err-sent{font-size:clamp(18px,2.6vw,22px); line-height:2.2}
+.seg{border:none; background:none; padding:0 2px; font:inherit; color:var(--ink); text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:5px; border-radius:6px}
+.seg sup{font-size:12px; color:var(--red); font-weight:700; margin-left:1px}
+.seg:hover:not(:disabled){background:var(--hl); color:#1F2433}
+.seg.right{background:var(--ok-bg); color:var(--ok)} .seg.wrong{background:var(--bad-bg); color:var(--red)}
+
+/* falling */
+.arena{position:relative; height:min(62vh,460px); border-radius:16px; border:2px solid var(--line); background:linear-gradient(var(--card),var(--paper)); overflow:hidden; touch-action:manipulation}
+.arena .ground{position:absolute; left:0; right:0; bottom:0; height:6px; background:var(--red); opacity:.6}
+.drop{position:absolute; top:0; transform:translate(-50%,0); background:var(--card); border:2px solid var(--ink); border-radius:999px; padding:6px 14px; font-weight:700; color:var(--ink); white-space:nowrap; font-size:15px; box-shadow:var(--shadow)}
+.drop.hit{background:var(--ok); color:var(--paper); border-color:var(--ok)}
+.drop.miss{background:var(--red); color:var(--paper); border-color:var(--red)}
+.target{font-size:clamp(18px,3vw,22px); font-weight:700; text-align:center; margin-bottom:10px}
+.target small{display:block; font-weight:500; font-size:13px; color:var(--muted)}
+.overlay{position:absolute; inset:0; display:grid; place-items:center; background:color-mix(in srgb, var(--paper) 80%, transparent); text-align:center; padding:16px}
+
+/* results */
+.result{display:grid; grid-template-columns:auto 1fr; gap:22px; align-items:center}
+@media (max-width:560px){ .result{grid-template-columns:1fr; justify-items:center; text-align:center} }
+.stamp{width:150px; height:150px; border-radius:50%; border:4px solid var(--red); display:grid; place-items:center; transform:rotate(-8deg); color:var(--red); font-family:var(--hand); position:relative; animation:stamp .45s cubic-bezier(.2,1.6,.4,1)}
+.stamp .m{font-size:64px; line-height:.9}
+.stamp .c{position:absolute; bottom:18px; font-size:18px}
+@keyframes stamp{from{transform:scale(1.8) rotate(-20deg); opacity:0} to{transform:scale(1) rotate(-8deg); opacity:1}}
+.review{margin-top:18px}
+.review li{margin-bottom:8px}
+.review .yours{color:var(--red); text-decoration:line-through}
+.review .corr{color:var(--ok); font-weight:700}
+kbd{font-family:var(--body); font-size:12px; border:1px solid var(--line); border-bottom-width:2px; border-radius:5px; padding:0 5px; background:var(--card)}
+.small{font-size:13px; color:var(--muted)}
+.toast{position:fixed; left:50%; bottom:calc(20px + env(safe-area-inset-bottom,0px)); transform:translateX(-50%); background:var(--ink); color:var(--paper); padding:10px 18px; border-radius:12px; font-weight:600; z-index:50}
+.brandmark{display:inline-flex; align-items:baseline; gap:1px; font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-weight:600; font-size:12px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted)}
+.brandmark b{color:var(--ink); font-weight:600}
+.brandmark i{font-style:normal; color:#B9812C}
+
+.chip{border:none; background:#fff; color:var(--text); box-shadow:0 3px 0 var(--line)}
+.chip[aria-pressed="true"]{background:var(--uc,#3A2BB8); color:#fff; box-shadow:0 3px 0 color-mix(in srgb, var(--uc,#3A2BB8) 70%, #000)}
+.unitname{font-family:var(--display); font-weight:700; font-size:20px; color:var(--uc,#3A2BB8); margin:6px 0 16px}
+.surprise{border:none; background:linear-gradient(90deg,#FF5FA2,#FF8A00,#FFD23F); color:#221B45; font-family:var(--display); font-weight:800; font-size:17px; border-radius:999px; padding:8px 18px; box-shadow:0 4px 0 #D8457F; display:inline-flex; gap:8px; align-items:center}
+.surprise:hover{transform:translateY(-2px)} .surprise svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.4}
+.homebar{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap}
+.panel{border:none; border-top:8px solid var(--gc); border-radius:22px}
+.stagehead h2{color:var(--gc)}
+.progress i,.timer i{background:linear-gradient(90deg, var(--gc), color-mix(in srgb, var(--gc) 55%, #fff))}
+.btn{background:var(--gc); box-shadow:0 4px 0 color-mix(in srgb, var(--gc) 70%, #000); border-radius:14px}
+.btn:active{transform:translateY(3px); box-shadow:0 1px 0 color-mix(in srgb, var(--gc) 70%, #000)}
+.btn.ghost{background:#fff; color:var(--gc); border:2px solid var(--gc); box-shadow:0 3px 0 color-mix(in srgb, var(--gc) 40%, #fff)}
+.btn.warn{background:var(--red); box-shadow:0 4px 0 #B01F33}
+.opt{background:#fff; border:2.5px solid var(--line); border-radius:16px; box-shadow:0 3px 0 var(--line)}
+.opt:nth-child(1) .k{background:#FF6B6B;color:#fff}.opt:nth-child(2) .k{background:#1FB6FF;color:#fff}.opt:nth-child(3) .k{background:#FFB020;color:#fff}.opt:nth-child(4) .k{background:#22C55E;color:#fff}
+.opt:hover:not(:disabled){border-color:var(--gc); transform:translateY(-2px)}
+.opt.right{animation:bounce .4s} .opt.wrong{animation:shake .35s}
+@keyframes bounce{40%{transform:scale(1.05)}} @keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.tile{border-color:color-mix(in srgb, var(--gc) 35%, #fff); border-bottom-color:color-mix(in srgb, var(--gc) 60%, #fff)}
+.tile:nth-child(5n+1){background:#FFF1F3}.tile:nth-child(5n+2){background:#EAF7FF}.tile:nth-child(5n+3){background:#FFF6DB}.tile:nth-child(5n+4){background:#E9FBEF}.tile:nth-child(5n){background:#F1EDFF}
+.lslot{border-bottom-color:var(--gc); color:var(--gc)}
+.mcard{background:linear-gradient(135deg,#7C5CFF,#FF5FA2); border:none; color:#fff; box-shadow:0 4px 0 #5B3FD6}
+.mcard .back-logo{font-family:var(--display); font-weight:800; opacity:.9}
+.mcard.open,.mcard.done{box-shadow:0 3px 0 var(--line); border:2.5px solid var(--line)}
+.mcard.done{border-color:var(--ok); animation:bounce .4s}
+.face{border:none; box-shadow:0 6px 0 color-mix(in srgb, var(--gc) 45%, #fff), 0 20px 30px -20px var(--gc)}
+.face:not(.back){background:linear-gradient(160deg,#fff 60%, color-mix(in srgb, var(--gc) 14%, #fff))}
+.face.back{background:linear-gradient(160deg,#FFF9E3, #FFE9F0)}
+.face .w{color:var(--gc)}
+.arena{border:none; background:linear-gradient(#BDE8FF, #EAF7FF 60%, #FFF6DB); box-shadow:inset 0 -10px 0 #7ED67E}
+.arena .ground{background:#46B946; height:10px; opacity:1}
+.drop{border:none; color:#fff; box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.drop:nth-of-type(4n+1){background:#FF6B6B}.drop:nth-of-type(4n+2){background:#7C5CFF}.drop:nth-of-type(4n+3){background:#1FB6FF}.drop:nth-of-type(4n){background:#FF8A00}
+.drop.hit{background:var(--ok)!important; transform:translate(-50%,0) scale(1.25); transition:transform .2s}
+.drop.miss{background:#555!important}
+.target{background:#fff; border-radius:16px; padding:10px; box-shadow:0 4px 0 var(--line); color:var(--gc)}
+.seg{color:var(--gc)}
+.pop{position:fixed; pointer-events:none; font-family:var(--display); font-weight:800; font-size:28px; color:var(--ok); text-shadow:0 2px 0 #fff; animation:floatup 1s forwards; z-index:60}
+@keyframes floatup{from{opacity:1; transform:translate(-50%,0) scale(.8)} to{opacity:0; transform:translate(-50%,-70px) scale(1.2)}}
+.combo{display:inline-block; background:linear-gradient(90deg,#FF8A00,#FF5FA2); color:#fff; border-radius:999px; padding:1px 10px; font-family:var(--display); font-weight:800; animation:bounce .4s}
+.bigstars{font-size:34px; letter-spacing:4px; color:#FFC400; text-shadow:0 2px 0 #E0A200}
+.bigstars .off{color:#E3DEF7; text-shadow:none}
+#confetti{position:fixed; inset:0; pointer-events:none; z-index:70}
+.pill{border:none; box-shadow:0 2px 0 var(--line)}
+.lvl i{background:linear-gradient(90deg,#FF5FA2,#FFB020)}
+.progress-table{border:none; box-shadow:var(--shadow); border-radius:18px}
+.bar i{background:linear-gradient(90deg,#22C55E,#1FB6FF)}
+.section-title{color:var(--ink)}
+.stamp{background:#fff}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important; animation:none!important} }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1><span class="rb"><span class="wd"><i>G</i><i>r</i><i>a</i><i>d</i><i>e</i></span> <span class="wd"><i>9</i></span></span> <mark>Quest</mark></h1>
+      <p>Tiếng Anh 9 · 12 units · 223 textbook words · 10 games</p>
+      <p><span class="brandmark"><b>DAVID</b><i>.English</i></span></p>
+    </div>
+    <div class="stats">
+      <span class="pill">Lv <b id="lvl">1</b> <span class="lvl"><i id="lvlbar" style="width:0%"></i></span></span>
+      <span class="pill"><b id="xp">0</b> XP</span>
+      <span class="pill"><b id="known">0</b>/223 words</span>
+      <button class="iconbtn" id="sound" aria-label="Sound on/off" title="Sound on/off"></button>
+    </div>
+  </header>
+  <main id="app"></main>
+</div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<script>
+const DATA = {"units": [{"n": 1, "t": "Local Community"}, {"n": 2, "t": "City Life"}, {"n": 3, "t": "Healthy Living for Teens"}, {"n": 4, "t": "Remembering the Past"}, {"n": 5, "t": "Our Experiences"}, {"n": 6, "t": "Vietnamese Lifestyle: Then and Now"}, {"n": 7, "t": "Natural Wonders of the World"}, {"n": 8, "t": "Tourism"}, {"n": 9, "t": "World Englishes"}, {"n": 10, "t": "Planet Earth"}, {"n": 11, "t": "Electronic Devices"}, {"n": 12, "t": "Career Choices"}], "vocab": [{"u": 1, "w": "artisan", "p": "n", "vi": "thợ làm nghề thủ công", "ex": "The artisan makes beautiful pottery by hand."}, {"u": 1, "w": "community helper", "p": "n", "vi": "người phục vụ cộng đồng", "ex": "A firefighter is a community helper."}, {"u": 1, "w": "craft village", "p": "n", "vi": "làng nghề thủ công", "ex": "Bat Trang is a famous craft village."}, {"u": 1, "w": "cut down on", "p": "phr v", "vi": "cắt giảm", "ex": "We should cut down on plastic waste."}, {"u": 1, "w": "delivery person", "p": "n", "vi": "nhân viên giao hàng", "ex": "The delivery person brought my parcel."}, {"u": 1, "w": "electrician", "p": "n", "vi": "thợ điện", "ex": "The electrician fixed the wiring."}, {"u": 1, "w": "facilities", "p": "n (pl)", "vi": "cơ sở vật chất", "ex": "Our town has good sports facilities."}, {"u": 1, "w": "firefighter", "p": "n", "vi": "lính cứu hoả", "ex": "Firefighters saved the family from the fire."}, {"u": 1, "w": "fragrance", "p": "n", "vi": "hương thơm", "ex": "The fragrance of the flowers filled the street."}, {"u": 1, "w": "function", "p": "n", "vi": "chức năng", "ex": "What is the function of this machine?"}, {"u": 1, "w": "garbage collector", "p": "n", "vi": "nhân viên dọn vệ sinh", "ex": "The garbage collector comes every morning."}, {"u": 1, "w": "get on with", "p": "phr v", "vi": "có quan hệ tốt với", "ex": "I get on well with my neighbours."}, {"u": 1, "w": "hand down", "p": "phr v", "vi": "truyền lại", "ex": "This skill was handed down for generations."}, {"u": 1, "w": "handicraft", "p": "n", "vi": "sản phẩm thủ công", "ex": "The market sells local handicrafts."}, {"u": 1, "w": "look around", "p": "phr v", "vi": "ngắm nghía xung quanh", "ex": "We looked around the old town."}, {"u": 1, "w": "original", "p": "adj", "vi": "nguyên bản", "ex": "This is the original design of the temple."}, {"u": 1, "w": "pass down", "p": "phr v", "vi": "truyền lại", "ex": "The recipe was passed down from her grandmother."}, {"u": 1, "w": "police officer", "p": "n", "vi": "công an", "ex": "The police officer helped us cross the road."}, {"u": 1, "w": "pottery", "p": "n", "vi": "đồ gốm", "ex": "The village is famous for its pottery."}, {"u": 1, "w": "preserve", "p": "v", "vi": "bảo tồn", "ex": "We should preserve our traditional crafts."}, {"u": 1, "w": "run out of", "p": "phr v", "vi": "hết, cạn kiệt", "ex": "The shop ran out of rice paper."}, {"u": 1, "w": "speciality", "p": "n", "vi": "đặc sản", "ex": "Pho is a speciality of Ha Noi."}, {"u": 1, "w": "suburb", "p": "n", "vi": "vùng ngoại ô", "ex": "My family lives in a quiet suburb."}, {"u": 1, "w": "tourist attraction", "p": "n", "vi": "điểm du lịch", "ex": "The old market is a popular tourist attraction."}, {"u": 2, "w": "bustling", "p": "adj", "vi": "hối hả, nhộn nhịp", "ex": "The city centre is bustling with people."}, {"u": 2, "w": "carry out", "p": "phr v", "vi": "tiến hành", "ex": "Scientists carried out a study on air quality."}, {"u": 2, "w": "come down with", "p": "phr v", "vi": "bị ốm (vì bệnh gì)", "ex": "I came down with a cold last week."}, {"u": 2, "w": "concrete jungle", "p": "n", "vi": "rừng bê tông", "ex": "Some people call big cities a concrete jungle."}, {"u": 2, "w": "congested", "p": "adj", "vi": "tắc nghẽn", "ex": "The roads are congested during rush hour."}, {"u": 2, "w": "construction site", "p": "n", "vi": "công trường xây dựng", "ex": "There is a new construction site near my house."}, {"u": 2, "w": "downtown", "p": "n", "vi": "khu trung tâm thành phố", "ex": "We went shopping downtown."}, {"u": 2, "w": "get around", "p": "phr v", "vi": "đi xung quanh", "ex": "It's easy to get around by metro."}, {"u": 2, "w": "hang out with", "p": "phr v", "vi": "đi chơi cùng ai", "ex": "I like to hang out with my friends."}, {"u": 2, "w": "hygiene", "p": "n", "vi": "vệ sinh", "ex": "Good hygiene keeps you healthy."}, {"u": 2, "w": "itchy", "p": "adj", "vi": "ngứa", "ex": "The smoke made my eyes itchy."}, {"u": 2, "w": "leftover", "p": "n", "vi": "thức ăn thừa", "ex": "We gave the leftovers to the dog."}, {"u": 2, "w": "liveable", "p": "adj", "vi": "đáng sống", "ex": "People want their city to be more liveable."}, {"u": 2, "w": "metro", "p": "n", "vi": "hệ thống tàu điện ngầm", "ex": "I take the metro to school."}, {"u": 2, "w": "pricey", "p": "adj", "vi": "đắt đỏ", "ex": "Housing downtown is very pricey."}, {"u": 2, "w": "process", "p": "v", "vi": "xử lí", "ex": "The factory processes waste every day."}, {"u": 2, "w": "public amenities", "p": "n", "vi": "tiện ích công cộng", "ex": "The park has good public amenities."}, {"u": 2, "w": "rush hour", "p": "n", "vi": "giờ cao điểm", "ex": "The streets are congested during rush hour."}, {"u": 2, "w": "sky train", "p": "n", "vi": "tàu điện trên không", "ex": "The sky train is fast and convenient."}, {"u": 2, "w": "tram", "p": "n", "vi": "xe điện", "ex": "Old Hanoi once had trams."}, {"u": 2, "w": "underground", "p": "n", "vi": "tàu điện ngầm", "ex": "London's underground is very old."}, {"u": 3, "w": "accomplish", "p": "v", "vi": "hoàn thành, đạt được", "ex": "She accomplished all her goals this term."}, {"u": 3, "w": "anxiety", "p": "n", "vi": "nỗi lo, mối băn khoăn", "ex": "Exams can cause anxiety."}, {"u": 3, "w": "assignment", "p": "n", "vi": "bài tập, nhiệm vụ", "ex": "I have to finish my assignment tonight."}, {"u": 3, "w": "counsellor", "p": "n", "vi": "cố vấn, người tư vấn", "ex": "The school counsellor helps students with problems."}, {"u": 3, "w": "deadline", "p": "n", "vi": "thời hạn cuối cùng", "ex": "The deadline for the project is Friday."}, {"u": 3, "w": "distraction", "p": "n", "vi": "điều làm sao lãng", "ex": "My phone is a big distraction when I study."}, {"u": 3, "w": "mental", "p": "adj", "vi": "tinh thần", "ex": "Mental health is as important as physical health."}, {"u": 3, "w": "minimise", "p": "v", "vi": "giảm đến mức tối thiểu", "ex": "Try to minimise stress before exams."}, {"u": 3, "w": "mood", "p": "n", "vi": "tâm trạng", "ex": "Exercise can improve your mood."}, {"u": 3, "w": "optimistic", "p": "adj", "vi": "lạc quan", "ex": "She stays optimistic even when things go wrong."}, {"u": 3, "w": "physical", "p": "adj", "vi": "thể chất", "ex": "Physical exercise is good for your health."}, {"u": 3, "w": "priority", "p": "n", "vi": "sự ưu tiên", "ex": "Health should be a priority."}, {"u": 3, "w": "stressed out", "p": "adj", "vi": "căng thẳng", "ex": "I feel stressed out before tests."}, {"u": 3, "w": "well-balanced", "p": "adj", "vi": "cân bằng", "ex": "A well-balanced diet keeps you healthy."}, {"u": 3, "w": "confident", "p": "adj", "vi": "tự tin", "ex": "He felt confident before the interview."}, {"u": 3, "w": "depressed", "p": "adj", "vi": "chán nản", "ex": "She felt depressed after failing the test."}, {"u": 3, "w": "frustrated", "p": "adj", "vi": "bực bội", "ex": "I get frustrated when I can't finish on time."}, {"u": 3, "w": "relaxed", "p": "adj", "vi": "thư giãn, thoải mái", "ex": "Yoga makes me feel relaxed."}, {"u": 3, "w": "take a break", "p": "v", "vi": "nghỉ ngơi", "ex": "You should take a break after studying for an hour."}, {"u": 3, "w": "helpline", "p": "n", "vi": "đường dây cứu trợ", "ex": "The school has a helpline for stressed students."}, {"u": 4, "w": "ancient", "p": "adj", "vi": "cổ đại, lâu đời", "ex": "The ancient temple is over 500 years old."}, {"u": 4, "w": "anniversary", "p": "n", "vi": "ngày kỉ niệm", "ex": "We celebrate the anniversary of our school's founding."}, {"u": 4, "w": "barefoot", "p": "adj, adv", "vi": "chân trần", "ex": "The children ran barefoot on the beach."}, {"u": 4, "w": "castle", "p": "n", "vi": "lâu đài", "ex": "Tourists love visiting the old castle."}, {"u": 4, "w": "communal", "p": "adj", "vi": "dùng chung, thuộc cộng đồng", "ex": "The village has a communal house."}, {"u": 4, "w": "complex", "p": "n", "vi": "khu phức hợp, quần thể", "ex": "My Son is a famous temple complex."}, {"u": 4, "w": "deep-rooted", "p": "adj", "vi": "lâu đời, ăn sâu bén rễ", "ex": "This tradition is deep-rooted in our culture."}, {"u": 4, "w": "face to face", "p": "adv", "vi": "trực tiếp", "ex": "They talked face to face about the plan."}, {"u": 4, "w": "found", "p": "v", "vi": "thành lập", "ex": "The city was founded 300 years ago."}, {"u": 4, "w": "generation", "p": "n", "vi": "thế hệ", "ex": "This custom has lasted for many generations."}, {"u": 4, "w": "monument", "p": "n", "vi": "tượng đài", "ex": "The monument honours the war heroes."}, {"u": 4, "w": "observe", "p": "v", "vi": "duy trì, tuân theo (phong tục)", "ex": "Many families still observe this old custom."}, {"u": 4, "w": "occupied", "p": "adj", "vi": "có người ở", "ex": "The old house is still occupied."}, {"u": 4, "w": "promote", "p": "v", "vi": "thúc đẩy", "ex": "The festival promotes local culture."}, {"u": 4, "w": "recognise", "p": "v", "vi": "công nhận", "ex": "UNESCO recognised the site as a world heritage."}, {"u": 4, "w": "religious", "p": "adj", "vi": "thuộc tôn giáo", "ex": "The pagoda is an important religious site."}, {"u": 4, "w": "structure", "p": "n", "vi": "cấu trúc, công trình", "ex": "The bridge is an impressive structure."}, {"u": 5, "w": "amazing", "p": "adj", "vi": "đáng kinh ngạc", "ex": "The waterfall was an amazing sight."}, {"u": 5, "w": "brilliant", "p": "adj", "vi": "rất ấn tượng, rất thông minh", "ex": "It was a brilliant idea to go camping."}, {"u": 5, "w": "campus", "p": "n", "vi": "khuôn viên trường", "ex": "The university campus is very large."}, {"u": 5, "w": "confidence", "p": "n", "vi": "sự tự tin", "ex": "The trip gave her more confidence."}, {"u": 5, "w": "coral reef", "p": "n", "vi": "rặng san hô", "ex": "We saw a beautiful coral reef while snorkelling."}, {"u": 5, "w": "eco-tour", "p": "n", "vi": "du lịch sinh thái", "ex": "We went on an eco-tour of the national park."}, {"u": 5, "w": "embarrassing", "p": "adj", "vi": "làm bối rối", "ex": "It was embarrassing when I forgot my lines."}, {"u": 5, "w": "exhilarating", "p": "adj", "vi": "đầy phấn khích", "ex": "Skydiving was an exhilarating experience."}, {"u": 5, "w": "explore", "p": "v", "vi": "khám phá", "ex": "We explored the old caves together."}, {"u": 5, "w": "fauna", "p": "n", "vi": "động vật của một khu vực", "ex": "The forest has rich fauna."}, {"u": 5, "w": "flora", "p": "n", "vi": "thực vật của một khu vực", "ex": "The island has unique flora."}, {"u": 5, "w": "lack", "p": "v", "vi": "thiếu", "ex": "The city centre lacks green spaces."}, {"u": 5, "w": "learn by rote", "p": "phr", "vi": "học vẹt", "ex": "Learning by rote doesn't always help you understand."}, {"u": 5, "w": "memorable", "p": "adj", "vi": "đáng nhớ", "ex": "It was the most memorable trip of my life."}, {"u": 5, "w": "seabed", "p": "n", "vi": "đáy biển", "ex": "Divers explored the seabed near the reef."}, {"u": 5, "w": "snorkelling", "p": "n", "vi": "môn bơi lặn", "ex": "We went snorkelling near the coral reef."}, {"u": 5, "w": "thrilling", "p": "adj", "vi": "rất phấn khích", "ex": "The roller coaster ride was thrilling."}, {"u": 5, "w": "touching", "p": "adj", "vi": "gây xúc động", "ex": "It was a touching moment when we met the local children."}, {"u": 5, "w": "unpleasant", "p": "adj", "vi": "không thoải mái", "ex": "The long bus ride was quite unpleasant."}, {"u": 6, "w": "democratic", "p": "adj", "vi": "thuộc dân chủ", "ex": "Family decisions today are more democratic."}, {"u": 6, "w": "dependent", "p": "adj", "vi": "lệ thuộc vào", "ex": "In the past, children were more dependent on parents' decisions."}, {"u": 6, "w": "dye", "p": "v", "vi": "nhuộm", "ex": "Grandmother used to dye cloth by hand."}, {"u": 6, "w": "extended family", "p": "n", "vi": "gia đình nhiều thế hệ", "ex": "Many Vietnamese used to live in extended families."}, {"u": 6, "w": "family-oriented", "p": "adj", "vi": "coi trọng gia đình", "ex": "Vietnamese culture is very family-oriented."}, {"u": 6, "w": "gap", "p": "n", "vi": "khoảng cách", "ex": "There is a generation gap between grandparents and grandchildren."}, {"u": 6, "w": "household", "p": "n", "vi": "hộ gia đình", "ex": "Each household has its own customs."}, {"u": 6, "w": "lifestyle", "p": "n", "vi": "lối sống", "ex": "Modern lifestyle is very different from the past."}, {"u": 6, "w": "memorise", "p": "v", "vi": "ghi nhớ", "ex": "Students used to memorise long texts."}, {"u": 6, "w": "monk", "p": "n", "vi": "nhà sư", "ex": "The monk lived a simple life at the pagoda."}, {"u": 6, "w": "nuclear family", "p": "n", "vi": "gia đình hai thế hệ", "ex": "Nowadays, many people live in nuclear families."}, {"u": 6, "w": "opportunity", "p": "n", "vi": "cơ hội", "ex": "Young people today have more opportunities."}, {"u": 6, "w": "popularity", "p": "n", "vi": "sự phổ biến", "ex": "Online shopping has grown in popularity."}, {"u": 6, "w": "privacy", "p": "n", "vi": "sự riêng tư", "ex": "Teenagers today want more privacy."}, {"u": 6, "w": "pursue", "p": "v", "vi": "theo đuổi", "ex": "She decided to pursue a career in design."}, {"u": 6, "w": "replace", "p": "v", "vi": "thay thế", "ex": "Smartphones have replaced letters for many people."}, {"u": 6, "w": "trend", "p": "n", "vi": "xu hướng", "ex": "Living in small families is a growing trend."}, {"u": 6, "w": "western", "p": "adj", "vi": "thuộc phương Tây", "ex": "Western lifestyles have influenced young people."}, {"u": 7, "w": "annual", "p": "adj", "vi": "hằng năm", "ex": "The park holds an annual festival."}, {"u": 7, "w": "biodiversity", "p": "n", "vi": "sự đa dạng sinh học", "ex": "The rainforest has amazing biodiversity."}, {"u": 7, "w": "coral", "p": "n, adj", "vi": "san hô", "ex": "The coral in this area is very colourful."}, {"u": 7, "w": "destination", "p": "n", "vi": "điểm đến", "ex": "This waterfall is a popular travel destination."}, {"u": 7, "w": "ecosystem", "p": "n", "vi": "hệ sinh thái", "ex": "Coral reefs are important ecosystems."}, {"u": 7, "w": "feature", "p": "n", "vi": "đặc điểm", "ex": "Its main feature is the huge cave system."}, {"u": 7, "w": "locate", "p": "v", "vi": "định vị, đặt ở", "ex": "The cave is located in the north of the province."}, {"u": 7, "w": "majestic", "p": "adj", "vi": "uy nghi, tráng lệ", "ex": "The mountain looked majestic at sunrise."}, {"u": 7, "w": "occur", "p": "v", "vi": "xảy ra", "ex": "Earthquakes sometimes occur in this region."}, {"u": 7, "w": "paradise", "p": "n", "vi": "thiên đường", "ex": "The island felt like paradise."}, {"u": 7, "w": "peak", "p": "n", "vi": "đỉnh núi", "ex": "We reached the peak after a long climb."}, {"u": 7, "w": "permission", "p": "n", "vi": "sự cho phép", "ex": "You need permission to enter the reserve."}, {"u": 7, "w": "permit", "p": "v", "vi": "cho phép", "ex": "Visitors are not permitted to touch the coral."}, {"u": 7, "w": "possess", "p": "v", "vi": "có, sở hữu", "ex": "This region possesses rich biodiversity."}, {"u": 7, "w": "sustainable", "p": "adj", "vi": "bền vững", "ex": "We need sustainable tourism to protect nature."}, {"u": 7, "w": "urgent", "p": "adj", "vi": "gấp, cấp bách", "ex": "Protecting the reef is an urgent task."}, {"u": 8, "w": "agency", "p": "n", "vi": "hãng (du lịch)", "ex": "We booked our trip through a travel agency."}, {"u": 8, "w": "brochure", "p": "n", "vi": "quyển quảng cáo du lịch", "ex": "The brochure shows all the tour packages."}, {"u": 8, "w": "domestic tourism", "p": "n", "vi": "du lịch trong nước", "ex": "Domestic tourism has grown a lot this year."}, {"u": 8, "w": "estimate", "p": "v", "vi": "ước tính", "ex": "They estimate the trip will take five hours."}, {"u": 8, "w": "food tourism", "p": "n", "vi": "du lịch ẩm thực", "ex": "Food tourism is popular in Ha Noi."}, {"u": 8, "w": "holidaymaker", "p": "n", "vi": "người đi nghỉ", "ex": "Holidaymakers crowd the beach in summer."}, {"u": 8, "w": "homestay", "p": "n", "vi": "nhà trọ (ở cùng gia đình bản địa)", "ex": "We stayed in a homestay in Sa Pa."}, {"u": 8, "w": "itinerary", "p": "n", "vi": "lịch trình", "ex": "Our itinerary includes three cities."}, {"u": 8, "w": "low season", "p": "n", "vi": "mùa du lịch vắng khách", "ex": "Prices are lower in the low season."}, {"u": 8, "w": "package holiday", "p": "n", "vi": "kì nghỉ trọn gói", "ex": "We booked a package holiday to Da Nang."}, {"u": 8, "w": "self-guided", "p": "adj", "vi": "tự tổ chức", "ex": "We went on a self-guided walking tour."}, {"u": 8, "w": "shopping tourism", "p": "n", "vi": "du lịch mua sắm", "ex": "Shopping tourism attracts many visitors."}, {"u": 8, "w": "wander", "p": "v", "vi": "dạo chơi", "ex": "We wandered around the old streets."}, {"u": 8, "w": "world-famous", "p": "adj", "vi": "nổi tiếng thế giới", "ex": "Ha Long Bay is world-famous for its scenery."}, {"u": 8, "w": "work out", "p": "phr v", "vi": "soạn thảo, lên kế hoạch", "ex": "We worked out our travel plan together."}, {"u": 9, "w": "bilingual", "p": "adj", "vi": "sử dụng được hai ngôn ngữ", "ex": "She is bilingual in English and French."}, {"u": 9, "w": "borrowed word", "p": "n", "vi": "từ mượn", "ex": "\"Cafe\" is a borrowed word from French."}, {"u": 9, "w": "consist", "p": "v", "vi": "bao gồm", "ex": "The class consists of twenty students."}, {"u": 9, "w": "establish", "p": "v", "vi": "thành lập", "ex": "English was established as an official language there."}, {"u": 9, "w": "exchange student", "p": "n", "vi": "học sinh trao đổi", "ex": "We hosted an exchange student last year."}, {"u": 9, "w": "first language", "p": "n", "vi": "ngôn ngữ thứ nhất", "ex": "Vietnamese is my first language."}, {"u": 9, "w": "fluent", "p": "adj", "vi": "trôi chảy, thành thạo", "ex": "She is fluent in three languages."}, {"u": 9, "w": "go over", "p": "phr v", "vi": "ôn tập lại", "ex": "Let's go over the new vocabulary again."}, {"u": 9, "w": "immigrant", "p": "n", "vi": "người nhập cư", "ex": "Many immigrants speak more than one language."}, {"u": 9, "w": "look up", "p": "phr v", "vi": "tra (từ điển)", "ex": "I looked up the word in a dictionary."}, {"u": 9, "w": "official language", "p": "n", "vi": "ngôn ngữ chính thức", "ex": "English is the official language of many countries."}, {"u": 9, "w": "pick up", "p": "phr v", "vi": "học một cách tự nhiên", "ex": "Children pick up languages quickly."}, {"u": 9, "w": "propose", "p": "v", "vi": "đề xuất", "ex": "The teacher proposed a new project."}, {"u": 9, "w": "second language", "p": "n", "vi": "ngôn ngữ thứ hai", "ex": "English is her second language."}, {"u": 9, "w": "standard", "p": "n", "vi": "chuẩn mực", "ex": "There is no single standard for World Englishes."}, {"u": 9, "w": "translate", "p": "v", "vi": "dịch", "ex": "Can you translate this sentence for me?"}, {"u": 9, "w": "variety", "p": "n", "vi": "biến thể", "ex": "There are many varieties of English around the world."}, {"u": 9, "w": "vocabulary", "p": "n", "vi": "từ vựng", "ex": "Reading helps you build vocabulary."}, {"u": 10, "w": "affect", "p": "v", "vi": "gây ảnh hưởng", "ex": "Climate change affects the whole planet."}, {"u": 10, "w": "appreciate", "p": "v", "vi": "đánh giá cao", "ex": "We should appreciate the beauty of nature."}, {"u": 10, "w": "climate change", "p": "n", "vi": "biến đổi khí hậu", "ex": "Climate change is causing more extreme weather."}, {"u": 10, "w": "ecological balance", "p": "n", "vi": "cân bằng sinh thái", "ex": "Hunting upsets the ecological balance."}, {"u": 10, "w": "fascinating", "p": "adj", "vi": "rất thú vị và hấp dẫn", "ex": "Space is a fascinating subject."}, {"u": 10, "w": "food chain", "p": "n", "vi": "chuỗi thức ăn", "ex": "Every animal has a place in the food chain."}, {"u": 10, "w": "grassland", "p": "n", "vi": "khu vực đồng cỏ", "ex": "Lions live on the grassland."}, {"u": 10, "w": "habitat", "p": "n", "vi": "môi trường sống", "ex": "Deforestation destroys animal habitats."}, {"u": 10, "w": "harm", "p": "v", "vi": "làm hại", "ex": "Pollution harms marine life."}, {"u": 10, "w": "landform", "p": "n", "vi": "dạng địa hình", "ex": "Mountains and valleys are landforms."}, {"u": 10, "w": "nature reserve", "p": "n", "vi": "khu bảo tồn thiên nhiên", "ex": "The nature reserve protects endangered species."}, {"u": 10, "w": "observe", "p": "v", "vi": "quan sát, chú ý", "ex": "Scientists observe animals in their natural habitat."}, {"u": 10, "w": "orbit", "p": "v", "vi": "quay quanh quỹ đạo", "ex": "The Earth orbits the Sun."}, {"u": 10, "w": "outer space", "p": "n", "vi": "ngoài vũ trụ", "ex": "Astronauts travel into outer space."}, {"u": 10, "w": "pole", "p": "n", "vi": "cực (bắc/nam)", "ex": "Ice is melting at the poles."}, {"u": 10, "w": "preserve", "p": "v", "vi": "bảo tồn", "ex": "We must preserve our forests and rivers."}, {"u": 10, "w": "threat", "p": "n", "vi": "nỗi đe doạ", "ex": "Pollution is a serious threat to wildlife."}, {"u": 10, "w": "vital", "p": "adj", "vi": "quan trọng mức sống còn", "ex": "Clean water is vital for all living things."}, {"u": 11, "w": "aluminium", "p": "n", "vi": "nhôm", "ex": "The laptop case is made of aluminium."}, {"u": 11, "w": "camcorder", "p": "n", "vi": "máy quay phim xách tay", "ex": "We used a camcorder to record the wedding."}, {"u": 11, "w": "cardboard", "p": "n", "vi": "bìa cứng, các tông", "ex": "Old electronics packaging is often made of cardboard."}, {"u": 11, "w": "copper", "p": "n", "vi": "đồng", "ex": "Electric wires are usually made of copper."}, {"u": 11, "w": "e-reader", "p": "n", "vi": "máy đọc sách điện tử", "ex": "I read novels on my e-reader."}, {"u": 11, "w": "leaflet", "p": "n", "vi": "tờ rơi", "ex": "The shop gave us a leaflet about the new phone."}, {"u": 11, "w": "plastic", "p": "n", "vi": "chất dẻo", "ex": "Many phone cases are made of plastic."}, {"u": 11, "w": "portable", "p": "adj", "vi": "có thể mang theo", "ex": "This speaker is small and portable."}, {"u": 11, "w": "portable music player", "p": "n", "vi": "máy nghe nhạc cầm tay", "ex": "My father still has an old portable music player."}, {"u": 11, "w": "robotic vacuum cleaner", "p": "n", "vi": "robot hút bụi", "ex": "Our robotic vacuum cleaner cleans the floor automatically."}, {"u": 11, "w": "rubber", "p": "n", "vi": "cao su", "ex": "The wheels are made of rubber."}, {"u": 11, "w": "self-portrait", "p": "n", "vi": "ảnh chân dung tự chụp", "ex": "She took a self-portrait with her phone."}, {"u": 11, "w": "smartwatch", "p": "n", "vi": "đồng hồ thông minh", "ex": "My smartwatch tracks my steps every day."}, {"u": 11, "w": "steel", "p": "n", "vi": "thép", "ex": "The frame of the laptop is made of steel."}, {"u": 11, "w": "stylish", "p": "adj", "vi": "hợp thời trang", "ex": "This smartwatch looks very stylish."}, {"u": 11, "w": "touchscreen", "p": "n", "vi": "màn hình cảm ứng", "ex": "Most smartphones have a touchscreen."}, {"u": 11, "w": "virtual", "p": "adj", "vi": "ảo", "ex": "We had a virtual meeting online."}, {"u": 11, "w": "wireless", "p": "adj", "vi": "không dây", "ex": "These headphones are wireless."}, {"u": 12, "w": "assembly worker", "p": "n", "vi": "công nhân dây chuyền", "ex": "The assembly worker checks each product."}, {"u": 12, "w": "bartender", "p": "n", "vi": "thợ pha chế", "ex": "The bartender made us fresh juice."}, {"u": 12, "w": "career", "p": "n", "vi": "sự nghiệp", "ex": "She is planning her future career."}, {"u": 12, "w": "cashier", "p": "n", "vi": "thu ngân", "ex": "The cashier scanned my shopping."}, {"u": 12, "w": "decisive", "p": "adj", "vi": "quyết đoán", "ex": "A good leader must be decisive."}, {"u": 12, "w": "demanding", "p": "adj", "vi": "khắt khe, phức tạp", "ex": "Being a surgeon is a demanding job."}, {"u": 12, "w": "fabric", "p": "n", "vi": "vải vóc", "ex": "The tailor chose soft fabric for the dress."}, {"u": 12, "w": "garment worker", "p": "n", "vi": "công nhân may", "ex": "My aunt works as a garment worker."}, {"u": 12, "w": "hand-eye coordination", "p": "n", "vi": "sự phối hợp tay và mắt", "ex": "Surgeons need excellent hand-eye coordination."}, {"u": 12, "w": "hands-on", "p": "adj", "vi": "có tính thực tiễn", "ex": "I prefer hands-on work to office work."}, {"u": 12, "w": "inquiring", "p": "adj", "vi": "ham học hỏi", "ex": "Scientists need an inquiring mind."}, {"u": 12, "w": "knowledgeable", "p": "adj", "vi": "am hiểu", "ex": "Our tour guide was very knowledgeable."}, {"u": 12, "w": "mechanic", "p": "n", "vi": "thợ sửa chữa", "ex": "The mechanic fixed my bike quickly."}, {"u": 12, "w": "repetitive", "p": "adj", "vi": "lặp đi lặp lại", "ex": "Some factory jobs are quite repetitive."}, {"u": 12, "w": "rewarding", "p": "adj", "vi": "bổ ích", "ex": "Teaching can be a very rewarding career."}, {"u": 12, "w": "sew", "p": "v", "vi": "khâu, may vá", "ex": "She learned to sew when she was young."}, {"u": 12, "w": "software engineer", "p": "n", "vi": "kĩ sư phần mềm", "ex": "He works as a software engineer."}, {"u": 12, "w": "vocational", "p": "adj", "vi": "thuộc về nghề nghiệp", "ex": "She attends a vocational school."}, {"u": 12, "w": "well-paid", "p": "adj", "vi": "được trả lương cao", "ex": "Doctors usually have well-paid jobs."}], "mc": [{"u": 1, "q": "I don't know ______ to this address.", "i": "Choose the best answer (A, B, C or D).", "o": ["how to get", "how get", "how getting", "to get how"], "p": null}, {"u": 1, "q": "Can you tell me ______ to start the project?", "i": "Choose the best answer (A, B, C or D).", "o": ["what", "how", "who", "whose"], "p": null}, {"u": 1, "q": "My grandmother is a skilled ______. She makes beautiful pottery.", "i": "Choose the best answer (A, B, C or D).", "o": ["artisan", "agent", "counsellor", "cashier"], "p": null}, {"u": 1, "q": "This craft village is a famous tourist ______.", "i": "Choose the best answer (A, B, C or D).", "o": ["attraction", "facility", "function", "speciality"], "p": null}, {"u": 1, "q": "We should ______ plastic bags to protect the environment.", "i": "Choose the best answer (A, B, C or D).", "o": ["cut down on", "hand down", "look around", "run out of"], "p": null}, {"u": 1, "q": "The shop has ______ rice paper, so we can't buy any.", "i": "Choose the best answer (A, B, C or D).", "o": ["run out of", "cut down on", "got on with", "passed down"], "p": null}, {"u": 1, "q": "I get on well ______ my new neighbours.", "i": "Choose the best answer (A, B, C or D).", "o": ["with", "in", "at", "for"], "p": null}, {"u": 2, "q": "The bigger the city, ______ the traffic.", "i": "Choose the best answer (A, B, C or D).", "o": ["the worse", "worse", "the worst", "more worse"], "p": null}, {"u": 2, "q": "Prices in the city centre are getting ______ and ______.", "i": "Choose the best answer (A, B, C or D).", "o": ["higher, higher", "high, high", "highest, highest", "more high, more high"], "p": null}, {"u": 2, "q": "The streets downtown are always ______ during rush hour.", "i": "Choose the best answer (A, B, C or D).", "o": ["congested", "liveable", "bustling", "pricey"], "p": null}, {"u": 2, "q": "I ______ a cold after walking in the rain.", "i": "Choose the best answer (A, B, C or D).", "o": ["came down with", "carried out", "got around", "hung out with"], "p": null}, {"u": 2, "q": "We ______ a small study about noise pollution in the city.", "i": "Choose the best answer (A, B, C or D).", "o": ["carried out", "came down with", "processed", "hung out"], "p": null}, {"u": 2, "q": "It's easy to ______ the city by metro.", "i": "Choose the best answer (A, B, C or D).", "o": ["get around", "get on with", "run out of", "hand down"], "p": null}, {"u": 2, "q": "Flats near the city centre are very ______.", "i": "Choose the best answer (A, B, C or D).", "o": ["pricey", "liveable", "bustling", "congested"], "p": null}, {"u": 3, "q": "If you feel stressed, you ______ talk to someone you trust.", "i": "Choose the best answer (A, B, C or D).", "o": ["should", "shoulds", "shoulding", "to should"], "p": null}, {"u": 3, "q": "If she studies every day, she ______ pass the exam.", "i": "Choose the best answer (A, B, C or D).", "o": ["will", "would", "is", "was"], "p": null}, {"u": 3, "q": "You ______ skip breakfast; it's bad for your health.", "i": "Choose the best answer (A, B, C or D).", "o": ["shouldn't", "should", "must", "can"], "p": null}, {"u": 3, "q": "Doing exercise helps to ______ stress and anxiety.", "i": "Choose the best answer (A, B, C or D).", "o": ["minimise", "accomplish", "distract", "prioritise"], "p": null}, {"u": 3, "q": "I feel ______ because I have three deadlines this week.", "i": "Choose the best answer (A, B, C or D).", "o": ["stressed out", "optimistic", "confident", "relaxed"], "p": null}, {"u": 3, "q": "It's important to keep a ______ diet for good health.", "i": "Choose the best answer (A, B, C or D).", "o": ["well-balanced", "stressed out", "depressed", "frustrated"], "p": null}, {"u": 3, "q": "Talking to a school ______ can help with worries.", "i": "Choose the best answer (A, B, C or D).", "o": ["counsellor", "agent", "electrician", "cashier"], "p": null}, {"u": 4, "q": "At 8 p.m. last night, my family ______ dinner together.", "i": "Choose the best answer (A, B, C or D).", "o": ["was having", "have", "had", "has"], "p": null}, {"u": 4, "q": "While we ______ the temple, it started to rain.", "i": "Choose the best answer (A, B, C or D).", "o": ["were visiting", "visited", "visit", "visits"], "p": null}, {"u": 4, "q": "I wish I ______ more about ancient history.", "i": "Choose the best answer (A, B, C or D).", "o": ["knew", "know", "will know", "knowing"], "p": null}, {"u": 4, "q": "She wishes she ______ near the old citadel.", "i": "Choose the best answer (A, B, C or D).", "o": ["lived", "lives", "will live", "living"], "p": null}, {"u": 4, "q": "This custom is ______ in our culture; it has lasted for generations.", "i": "Choose the best answer (A, B, C or D).", "o": ["deep-rooted", "occupied", "barefoot", "communal"], "p": null}, {"u": 4, "q": "UNESCO ______ the complex as a world heritage site.", "i": "Choose the best answer (A, B, C or D).", "o": ["recognised", "founded", "observed", "promoted"], "p": null}, {"u": 4, "q": "Many families still ______ this traditional festival every year.", "i": "Choose the best answer (A, B, C or D).", "o": ["observe", "occupy", "found", "recognise"], "p": null}, {"u": 5, "q": "I ______ never been snorkelling before this trip.", "i": "Choose the best answer (A, B, C or D).", "o": ["have", "has", "had", "am"], "p": null}, {"u": 5, "q": "______ you ever explored a coral reef?", "i": "Choose the best answer (A, B, C or D).", "o": ["Have", "Has", "Did", "Do"], "p": null}, {"u": 5, "q": "She has ______ come back from her eco-tour.", "i": "Choose the best answer (A, B, C or D).", "o": ["just", "yet", "ago", "since"], "p": null}, {"u": 5, "q": "They have lived on this campus ______ three years.", "i": "Choose the best answer (A, B, C or D).", "o": ["for", "since", "ago", "yet"], "p": null}, {"u": 5, "q": "The trip to the mountains was truly ______; I'll never forget it.", "i": "Choose the best answer (A, B, C or D).", "o": ["memorable", "unpleasant", "embarrassing", "lacking"], "p": null}, {"u": 5, "q": "Diving near the ______ was the best part of our holiday.", "i": "Choose the best answer (A, B, C or D).", "o": ["coral reef", "campus", "seabed", "fauna"], "p": null}, {"u": 5, "q": "It felt ______ when I forgot my speech in front of everyone.", "i": "Choose the best answer (A, B, C or D).", "o": ["embarrassing", "thrilling", "brilliant", "amazing"], "p": null}, {"u": 6, "q": "Young people today want ______ their own careers.", "i": "Choose the best answer (A, B, C or D).", "o": ["to pursue", "pursue", "pursuing", "pursued"], "p": null}, {"u": 6, "q": "My grandmother enjoys ______ old stories about the past.", "i": "Choose the best answer (A, B, C or D).", "o": ["telling", "to tell", "tell", "told"], "p": null}, {"u": 6, "q": "He decided ______ in the city instead of the countryside.", "i": "Choose the best answer (A, B, C or D).", "o": ["to live", "living", "live", "lived"], "p": null}, {"u": 6, "q": "Many families avoid ______ their traditions.", "i": "Choose the best answer (A, B, C or D).", "o": ["losing", "to lose", "lose", "lost"], "p": null}, {"u": 6, "q": "In the past, many people lived in ______ families with grandparents, parents and children together.", "i": "Choose the best answer (A, B, C or D).", "o": ["extended", "nuclear", "democratic", "dependent"], "p": null}, {"u": 6, "q": "Today, more people prefer smaller, ______ families.", "i": "Choose the best answer (A, B, C or D).", "o": ["nuclear", "extended", "family-oriented", "western"], "p": null}, {"u": 6, "q": "There is often a generation ______ between old and young family members.", "i": "Choose the best answer (A, B, C or D).", "o": ["gap", "trend", "privacy", "opportunity"], "p": null}, {"u": 7, "q": "Do you know ______ this cave is open to visitors?", "i": "Choose the best answer (A, B, C or D).", "o": ["if", "what", "how", "who"], "p": null}, {"u": 7, "q": "Can you tell me ______ we need permission to enter?", "i": "Choose the best answer (A, B, C or D).", "o": ["whether", "what", "who", "how much"], "p": null}, {"u": 7, "q": "I'd like to know ______ the reef is far from the shore.", "i": "Choose the best answer (A, B, C or D).", "o": ["if", "that", "which", "who"], "p": null}, {"u": 7, "q": "Ha Long Bay is famous for its ______ landscape of limestone islands.", "i": "Choose the best answer (A, B, C or D).", "o": ["majestic", "urgent", "annual", "occurring"], "p": null}, {"u": 7, "q": "This national park has rich ______, with many rare plants and animals.", "i": "Choose the best answer (A, B, C or D).", "o": ["biodiversity", "permission", "destination", "peak"], "p": null}, {"u": 7, "q": "We must protect this fragile ______ before it is too late.", "i": "Choose the best answer (A, B, C or D).", "o": ["ecosystem", "peak", "paradise", "feature"], "p": null}, {"u": 7, "q": "It is ______ that we act now to save the coral reefs.", "i": "Choose the best answer (A, B, C or D).", "o": ["urgent", "majestic", "annual", "sustainable"], "p": null}, {"u": 8, "q": "The tour guide ______ took us around was very knowledgeable.", "i": "Choose the best answer (A, B, C or D).", "o": ["who", "which", "whose", "where"], "p": null}, {"u": 8, "q": "This is the homestay ______ we stayed in last summer.", "i": "Choose the best answer (A, B, C or D).", "o": ["which", "who", "whose", "when"], "p": null}, {"u": 8, "q": "That's the family ______ house we visited during our trip.", "i": "Choose the best answer (A, B, C or D).", "o": ["whose", "who", "which", "that"], "p": null}, {"u": 8, "q": "We booked our tour through a travel ______.", "i": "Choose the best answer (A, B, C or D).", "o": ["agency", "brochure", "itinerary", "homestay"], "p": null}, {"u": 8, "q": "Our ______ includes visits to three different cities.", "i": "Choose the best answer (A, B, C or D).", "o": ["itinerary", "agency", "brochure", "season"], "p": null}, {"u": 8, "q": "Prices are usually cheaper during the ______ season.", "i": "Choose the best answer (A, B, C or D).", "o": ["low", "high", "world-famous", "self-guided"], "p": null}, {"u": 8, "q": "We enjoyed a ______ tour without a guide, exploring at our own pace.", "i": "Choose the best answer (A, B, C or D).", "o": ["self-guided", "package", "domestic", "food"], "p": null}, {"u": 9, "q": "People ______ speak two languages are called bilingual.", "i": "Choose the best answer (A, B, C or D).", "o": ["who", "which", "whose", "where"], "p": null}, {"u": 9, "q": "English is a language ______ many countries use as an official language.", "i": "Choose the best answer (A, B, C or D).", "o": ["that", "who", "whose", "when"], "p": null}, {"u": 9, "q": "\"Cafe\" is a word ______ English borrowed from French.", "i": "Choose the best answer (A, B, C or D).", "o": ["that", "who", "whose", "where"], "p": null}, {"u": 9, "q": "She grew up speaking two languages, so she is ______.", "i": "Choose the best answer (A, B, C or D).", "o": ["bilingual", "immigrant", "official", "borrowed"], "p": null}, {"u": 9, "q": "Many words in English were ______ from other languages.", "i": "Choose the best answer (A, B, C or D).", "o": ["borrowed", "established", "proposed", "consisted"], "p": null}, {"u": 9, "q": "I don't know this word; let me ______ it in a dictionary.", "i": "Choose the best answer (A, B, C or D).", "o": ["look up", "go over", "pick up", "carry out"], "p": null}, {"u": 9, "q": "Children often ______ a new language quickly just by listening.", "i": "Choose the best answer (A, B, C or D).", "o": ["pick up", "look up", "go over", "work out"], "p": null}, {"u": 10, "q": "The Earth, ______ orbits the Sun, is the only planet known to have life.", "i": "Choose the best answer (A, B, C or D).", "o": ["which", "that", "who", "whose"], "p": null}, {"u": 10, "q": "Polar bears, ______ live near the North Pole, are losing their habitat.", "i": "Choose the best answer (A, B, C or D).", "o": ["which", "that", "who", "whom"], "p": null}, {"u": 10, "q": "My teacher, ______ studies climate change, gave a talk yesterday.", "i": "Choose the best answer (A, B, C or D).", "o": ["who", "which", "that", "whom"], "p": null}, {"u": 10, "q": "Climate change is having a serious ______ on wildlife around the world.", "i": "Choose the best answer (A, B, C or D).", "o": ["effect", "threat", "pole", "chain"], "p": null}, {"u": 10, "q": "Melting ice at the ______ is a sign of climate change.", "i": "Choose the best answer (A, B, C or D).", "o": ["poles", "grasslands", "reserves", "habitats"], "p": null}, {"u": 10, "q": "Clean air and water are ______ for all living things.", "i": "Choose the best answer (A, B, C or D).", "o": ["vital", "fascinating", "outer", "harmful"], "p": null}, {"u": 10, "q": "Cutting down forests destroys the natural ______ of many animals.", "i": "Choose the best answer (A, B, C or D).", "o": ["habitat", "threat", "pole", "orbit"], "p": null}, {"u": 11, "q": "I suggest ______ old phones instead of throwing them away.", "i": "Choose the best answer (A, B, C or D).", "o": ["recycling", "to recycle", "recycle", "recycled"], "p": null}, {"u": 11, "q": "The shop assistant advised me ______ a wireless charger.", "i": "Choose the best answer (A, B, C or D).", "o": ["to buy", "buying", "buy", "bought"], "p": null}, {"u": 11, "q": "Experts recommend that we ______ reduce electronic waste.", "i": "Choose the best answer (A, B, C or D).", "o": ["should", "will", "are", "to"], "p": null}, {"u": 11, "q": "This phone case is made of ______, which is very light and strong.", "i": "Choose the best answer (A, B, C or D).", "o": ["aluminium", "cardboard", "rubber", "plastic"], "p": null}, {"u": 11, "q": "My new headphones are ______, so there are no cables at all.", "i": "Choose the best answer (A, B, C or D).", "o": ["wireless", "portable", "stylish", "virtual"], "p": null}, {"u": 11, "q": "I read most of my books on an ______ now.", "i": "Choose the best answer (A, B, C or D).", "o": ["e-reader", "aluminium", "leaflet", "camcorder"], "p": null}, {"u": 11, "q": "The old phones can be recycled to get useful metals like ______ and steel.", "i": "Choose the best answer (A, B, C or D).", "o": ["copper", "cardboard", "plastic", "rubber"], "p": null}, {"u": 12, "q": "______ the job is demanding, she really enjoys it.", "i": "Choose the best answer (A, B, C or D).", "o": ["Although", "Because", "So", "Such"], "p": null}, {"u": 12, "q": "The task was ______ repetitive that he lost interest.", "i": "Choose the best answer (A, B, C or D).", "o": ["so", "such", "although", "because"], "p": null}, {"u": 12, "q": "She became a doctor ______ she wanted to help people.", "i": "Choose the best answer (A, B, C or D).", "o": ["because", "although", "so", "such"], "p": null}, {"u": 12, "q": "A good mechanic needs strong ______ to fix small parts.", "i": "Choose the best answer (A, B, C or D).", "o": ["hand-eye coordination", "career", "fabric", "orientation"], "p": null}, {"u": 12, "q": "Being a nurse is ______, but many find it very rewarding.", "i": "Choose the best answer (A, B, C or D).", "o": ["demanding", "well-paid", "repetitive", "decisive"], "p": null}, {"u": 12, "q": "Scientists usually have a very ______ mind, always asking questions.", "i": "Choose the best answer (A, B, C or D).", "o": ["inquiring", "repetitive", "demanding", "decisive"], "p": null}, {"u": 12, "q": "My cousin studies at a ______ school to become a mechanic.", "i": "Choose the best answer (A, B, C or D).", "o": ["vocational", "well-paid", "rewarding", "inquiring"], "p": null}], "type": [{"u": 1, "q": "The village keeps many ______ traditions from the past. (ORIGINAL)", "a": "original"}, {"u": 1, "q": "Local people want to ______ their old craft. (PRESERVE - noun form: preservation, but keep verb) Rewrite the sentence keeping the meaning with PRESERVATION: 'Local people care about the ______ of their old craft.'", "a": "preservation"}, {"u": 1, "q": "She is a skilled ______, known for her handmade pottery. (ARTISAN)", "a": "artisan"}, {"u": 2, "q": "The city is becoming more ______ to live in. (LIVE)", "a": "liveable"}, {"u": 2, "q": "Rush hour makes the roads very ______. (CONGEST)", "a": "congested"}, {"u": 2, "q": "Downtown flats are quite ______ these days. (PRICE)", "a": "pricey"}, {"u": 3, "q": "Good sleep supports both physical and ______ health. (MENTAL)", "a": "mental"}, {"u": 3, "q": "She always stays ______ even in difficult times. (OPTIMISM)", "a": "optimistic"}, {"u": 3, "q": "Too much homework can cause ______ in students. (ANXIOUS)", "a": "anxiety"}, {"u": 4, "q": "This ______ tradition goes back hundreds of years. (ANCIENT)", "a": "ancient"}, {"u": 4, "q": "The festival helps to ______ our local culture. (PROMOTION)", "a": "promote"}, {"u": 4, "q": "The old citadel is still ______ by a few families. (OCCUPY)", "a": "occupied"}, {"u": 5, "q": "The trip was an ______ experience for all of us. (EXHILARATE)", "a": "exhilarating"}, {"u": 5, "q": "The park protects its unique ______ and fauna. (FLORA)", "a": "flora"}, {"u": 5, "q": "I felt much more ______ after finishing the challenge. (CONFIDENCE)", "a": "confident"}, {"u": 6, "q": "Living in small families is a modern ______. (TREND)", "a": "trend"}, {"u": 6, "q": "Many young people today ______ careers far from home. (PURSUIT)", "a": "pursue"}, {"u": 6, "q": "Teenagers today value their ______ more than before. (PRIVATE)", "a": "privacy"}, {"u": 7, "q": "The cave ______ a unique underground river. (POSSESS)", "a": "possesses"}, {"u": 7, "q": "Only a few visitors are ______ to enter each year. (PERMISSION)", "a": "permitted"}, {"u": 7, "q": "We need more ______ tourism to protect this area. (SUSTAIN)", "a": "sustainable"}, {"u": 8, "q": "We compared several travel ______ before booking. (ITINERARY - plural)", "a": "itineraries"}, {"u": 8, "q": "The company ______ that the tour would take six days. (ESTIMATE)", "a": "estimated"}, {"u": 8, "q": "This beach is ______, attracting visitors from every country. (FAMOUS)", "a": "world-famous"}, {"u": 9, "q": "Growing up abroad made her fully ______. (BILINGUAL)", "a": "bilingual"}, {"u": 9, "q": "He can speak English very ______, without hesitating. (FLUENT - adverb)", "a": "fluently"}, {"u": 9, "q": "This class ______ of students from five countries. (CONSIST)", "a": "consists"}, {"u": 10, "q": "Deforestation ______ many animal habitats. (HARM)", "a": "harms"}, {"u": 10, "q": "The Earth ______ around the Sun once a year. (ORBIT)", "a": "orbits"}, {"u": 10, "q": "This forest is a ______ home to rare birds. (FASCINATE)", "a": "fascinating"}, {"u": 11, "q": "The tiny speaker is very ______ and fits in a bag. (PORTABLE)", "a": "portable"}, {"u": 11, "q": "Please ______ your old device before buying a new one. (RECYCLING - verb form)", "a": "recycle"}, {"u": 11, "q": "This smartwatch looks very ______ with its metal frame. (STYLE)", "a": "stylish"}, {"u": 12, "q": "She is very ______ and always makes quick choices. (DECIDE)", "a": "decisive"}, {"u": 12, "q": "Many factory jobs can be quite ______ and boring. (REPEAT)", "a": "repetitive"}, {"u": 12, "q": "Teaching is a ______ career for many people. (REWARD)", "a": "rewarding"}], "err": [{"u": 1, "q": "I don't know <u>what</u><super>A</super> <u>to</u><super>B</super> <u>says</u><super>C</super> <u>to</u><super>D</super> her.", "a": "C → say"}, {"u": 1, "q": "She <u>showed</u><super>A</super> me <u>where</u><super>B</super> <u>find</u><super>C</super> the <u>market</u><super>D</super>.", "a": "C → to find"}, {"u": 2, "q": "The <u>more</u><super>A</super> people move to <u>the</u><super>B</super> city, <u>busy</u><super>C</super> it <u>gets</u><super>D</super>.", "a": "C → the busier"}, {"u": 2, "q": "She <u>came down</u><super>A</super> <u>at</u><super>B</super> a fever <u>after</u><super>C</super> the <u>trip</u><super>D</super>.", "a": "B → with"}, {"u": 3, "q": "If you <u>study</u><super>A</super> hard, you <u>will</u><super>B</super> <u>passing</u><super>C</super> the <u>exam</u><super>D</super>.", "a": "C → pass"}, {"u": 3, "q": "You <u>should</u><super>A</super> <u>to</u><super>B</super> <u>take</u><super>C</super> a break <u>now</u><super>D</super>.", "a": "B → (remove 'to')"}, {"u": 4, "q": "While we <u>were</u><super>A</super> <u>visit</u><super>B</super> the temple, <u>it</u><super>C</super> <u>started</u><super>D</super> to rain.", "a": "B → visiting"}, {"u": 4, "q": "I <u>wish</u><super>A</super> I <u>know</u><super>B</super> <u>more</u><super>C</super> about <u>history</u><super>D</super>.", "a": "B → knew"}, {"u": 5, "q": "I <u>have</u><super>A</super> <u>never</u><super>B</super> <u>saw</u><super>C</super> a coral reef <u>before</u><super>D</super>.", "a": "C → seen"}, {"u": 5, "q": "<u>Has</u><super>A</super> you <u>ever</u><super>B</super> <u>been</u><super>C</super> <u>snorkelling</u><super>D</super>?", "a": "A → Have"}, {"u": 6, "q": "She <u>decided</u><super>A</super> <u>living</u><super>B</super> <u>in</u><super>C</super> the <u>city</u><super>D</super>.", "a": "B → to live"}, {"u": 6, "q": "My father <u>enjoys</u><super>A</super> <u>to tell</u><super>B</super> <u>stories</u><super>C</super> <u>about</u><super>D</super> the past.", "a": "B → telling"}, {"u": 7, "q": "Do you know <u>if</u><super>A</super> <u>does</u><super>B</super> the park <u>close</u><super>C</super> <u>today</u><super>D</super>?", "a": "B → (remove 'does') → 'if the park closes'"}, {"u": 7, "q": "Can you tell me <u>whether</u><super>A</super> <u>we</u><super>B</super> <u>need</u><super>C</super> <u>a</u><super>D</super> permission?", "a": "D → (remove 'a')"}, {"u": 8, "q": "The guide <u>which</u><super>A</super> <u>showed</u><super>B</super> us <u>around</u><super>C</super> was <u>friendly</u><super>D</super>.", "a": "A → who"}, {"u": 8, "q": "That's the family <u>who</u><super>A</super> <u>house</u><super>B</super> <u>we</u><super>C</super> <u>visited</u><super>D</super>.", "a": "A → whose"}, {"u": 9, "q": "People <u>which</u><super>A</super> <u>speak</u><super>B</super> <u>two</u><super>C</super> <u>languages</u><super>D</super> are bilingual.", "a": "A → who"}, {"u": 9, "q": "This is a word <u>who</u><super>A</super> <u>English</u><super>B</super> <u>borrowed</u><super>C</super> <u>from</u><super>D</super> French.", "a": "A → that/which"}, {"u": 10, "q": "The Earth<u>,</u><super>A</super> <u>that</u><super>B</super> orbits <u>the</u><super>C</super> <u>Sun,</u><super>D</super> supports life.", "a": "B → which"}, {"u": 10, "q": "Polar bears<u>,</u><super>A</super> <u>which</u><super>B</super> <u>live</u><super>C</super> near the pole<u>.</u><super>D</super>", "a": "D → , are losing their habitat"}, {"u": 11, "q": "I <u>suggest</u><super>A</super> <u>to recycle</u><super>B</super> <u>old</u><super>C</super> <u>phones</u><super>D</super>.", "a": "B → recycling"}, {"u": 11, "q": "She <u>advised</u><super>A</super> <u>me</u><super>B</super> <u>buying</u><super>C</super> a <u>new</u><super>D</super> charger.", "a": "C → to buy"}, {"u": 12, "q": "<u>Because</u><super>A</super> the job <u>is</u><super>B</super> demanding, <u>but</u><super>C</super> she <u>enjoys</u><super>D</super> it.", "a": "C → (remove 'but')"}, {"u": 12, "q": "The work was <u>such</u><super>A</super> <u>repetitive</u><super>B</super> <u>that</u><super>C</super> he <u>felt</u><super>D</super> bored.", "a": "A → so"}], "order": [{"u": 1, "a": "I don't know what to do next."}, {"u": 1, "a": "Can you tell me how to get there?"}, {"u": 1, "a": "This village is famous for its pottery."}, {"u": 2, "a": "The bigger the city, the busier the streets."}, {"u": 2, "a": "Traffic in the city is getting worse and worse."}, {"u": 2, "a": "It's easy to get around by metro."}, {"u": 3, "a": "If you feel stressed, you should take a break."}, {"u": 3, "a": "You shouldn't skip breakfast every morning."}, {"u": 3, "a": "Exercise helps to minimise anxiety."}, {"u": 4, "a": "At 8 p.m. yesterday, people were celebrating the festival."}, {"u": 4, "a": "I wish I knew more about our local history."}, {"u": 4, "a": "This custom has lasted for many generations."}, {"u": 5, "a": "I have never been snorkelling before."}, {"u": 5, "a": "Have you ever explored a coral reef?"}, {"u": 5, "a": "It was the most memorable trip of my life."}, {"u": 6, "a": "Young people today want to pursue their own careers."}, {"u": 6, "a": "My grandmother enjoys telling old stories."}, {"u": 6, "a": "There is a generation gap in many families."}, {"u": 7, "a": "Do you know if this park is open today?"}, {"u": 7, "a": "Can you tell me whether the peak is far from here?"}, {"u": 7, "a": "This region possesses rich biodiversity."}, {"u": 8, "a": "The tour guide who showed us around was very friendly."}, {"u": 8, "a": "This is the homestay which we stayed in."}, {"u": 8, "a": "We worked out our travel plan together."}, {"u": 9, "a": "People who speak two languages are called bilingual."}, {"u": 9, "a": "English is a language that many countries use."}, {"u": 9, "a": "Children pick up new languages quickly."}, {"u": 10, "a": "The Earth orbits the Sun once a year."}, {"u": 10, "a": "Polar bears are losing their natural habitat."}, {"u": 10, "a": "We must preserve our forests and rivers."}, {"u": 11, "a": "I suggest recycling old electronic devices."}, {"u": 11, "a": "The shop assistant advised me to buy a wireless charger."}, {"u": 11, "a": "These headphones are small and portable."}, {"u": 12, "a": "Although the job is demanding, she loves it."}, {"u": 12, "a": "She chose this career because it is rewarding."}, {"u": 12, "a": "A good mechanic needs hand-eye coordination."}], "tf": [{"u": 1, "p": "Duong Lam is an ancient village near Ha Noi. It is famous for its old houses, temples, and its speciality, a kind of soy sauce. Local artisans still make traditional handicrafts there, and many skills have been passed down for generations. The village has become a popular tourist attraction, but local people work hard to preserve its original character.", "q": "Duong Lam is famous for modern buildings.", "a": "F"}, {"u": 1, "p": "Duong Lam is an ancient village near Ha Noi. It is famous for its old houses, temples, and its speciality, a kind of soy sauce. Local artisans still make traditional handicrafts there, and many skills have been passed down for generations. The village has become a popular tourist attraction, but local people work hard to preserve its original character.", "q": "Some skills in the village have been passed down for generations.", "a": "T"}, {"u": 1, "p": "Duong Lam is an ancient village near Ha Noi. It is famous for its old houses, temples, and its speciality, a kind of soy sauce. Local artisans still make traditional handicrafts there, and many skills have been passed down for generations. The village has become a popular tourist attraction, but local people work hard to preserve its original character.", "q": "Local people want to preserve the village's original character.", "a": "T"}, {"u": 2, "p": "Many young people love living in big cities because life there is exciting and bustling. However, city life also has problems. Streets are often congested during rush hour, and rent can be very pricey. Some cities are trying to become more liveable by building more parks and better public transport, such as metro lines and sky trains.", "q": "Life in big cities is always calm and quiet.", "a": "F"}, {"u": 2, "p": "Many young people love living in big cities because life there is exciting and bustling. However, city life also has problems. Streets are often congested during rush hour, and rent can be very pricey. Some cities are trying to become more liveable by building more parks and better public transport, such as metro lines and sky trains.", "q": "Rent in the city can be expensive.", "a": "T"}, {"u": 2, "p": "Many young people love living in big cities because life there is exciting and bustling. However, city life also has problems. Streets are often congested during rush hour, and rent can be very pricey. Some cities are trying to become more liveable by building more parks and better public transport, such as metro lines and sky trains.", "q": "Cities are building more parks and public transport to become more liveable.", "a": "T"}, {"u": 3, "p": "Many teenagers feel stressed because of assignments, deadlines and exams. Doctors say that regular exercise, enough sleep and a well-balanced diet can help reduce anxiety. It also helps to take short breaks while studying and to talk to a counsellor or a friend when feeling down. Staying optimistic can also improve your mental health.", "q": "Exams and deadlines can make teenagers feel stressed.", "a": "T"}, {"u": 3, "p": "Many teenagers feel stressed because of assignments, deadlines and exams. Doctors say that regular exercise, enough sleep and a well-balanced diet can help reduce anxiety. It also helps to take short breaks while studying and to talk to a counsellor or a friend when feeling down. Staying optimistic can also improve your mental health.", "q": "Doctors say sleep has no effect on anxiety.", "a": "F"}, {"u": 3, "p": "Many teenagers feel stressed because of assignments, deadlines and exams. Doctors say that regular exercise, enough sleep and a well-balanced diet can help reduce anxiety. It also helps to take short breaks while studying and to talk to a counsellor or a friend when feeling down. Staying optimistic can also improve your mental health.", "q": "Talking to a counsellor can help students feel better.", "a": "T"}, {"u": 4, "p": "The Temple of Literature in Ha Noi is an ancient complex that was founded almost 1,000 years ago. It was Viet Nam's first national university. Today, many students visit the temple before exams because they wish for good luck. Local people still observe old customs here, and the site has been recognised as a national monument.", "q": "The Temple of Literature was founded very recently.", "a": "F"}, {"u": 4, "p": "The Temple of Literature in Ha Noi is an ancient complex that was founded almost 1,000 years ago. It was Viet Nam's first national university. Today, many students visit the temple before exams because they wish for good luck. Local people still observe old customs here, and the site has been recognised as a national monument.", "q": "It was Viet Nam's first national university.", "a": "T"}, {"u": 4, "p": "The Temple of Literature in Ha Noi is an ancient complex that was founded almost 1,000 years ago. It was Viet Nam's first national university. Today, many students visit the temple before exams because they wish for good luck. Local people still observe old customs here, and the site has been recognised as a national monument.", "q": "Students visit the temple before exams for good luck.", "a": "T"}, {"u": 5, "p": "Last summer, our class went on an eco-tour to a national park. We explored the forest and learnt about its rich flora and fauna. On the second day, we went snorkelling near a coral reef, which was an exhilarating experience for everyone. Some students felt more confident after the trip, and many said it was the most memorable experience of the year.", "q": "The class went on an eco-tour to a beach resort.", "a": "F"}, {"u": 5, "p": "Last summer, our class went on an eco-tour to a national park. We explored the forest and learnt about its rich flora and fauna. On the second day, we went snorkelling near a coral reef, which was an exhilarating experience for everyone. Some students felt more confident after the trip, and many said it was the most memorable experience of the year.", "q": "The students went snorkelling near a coral reef.", "a": "T"}, {"u": 5, "p": "Last summer, our class went on an eco-tour to a national park. We explored the forest and learnt about its rich flora and fauna. On the second day, we went snorkelling near a coral reef, which was an exhilarating experience for everyone. Some students felt more confident after the trip, and many said it was the most memorable experience of the year.", "q": "Some students felt more confident after the trip.", "a": "T"}, {"u": 6, "p": "Family life in Viet Nam has changed a lot. In the past, many people lived in extended families with grandparents, parents and children under one roof, and children were expected to obey their parents' decisions. Today, more families are nuclear, with only parents and children living together. Young people now have more privacy and more opportunities to pursue their own careers, but some worry that traditional family values are becoming less important.", "q": "In the past, most Vietnamese families were nuclear families.", "a": "F"}, {"u": 6, "p": "Family life in Viet Nam has changed a lot. In the past, many people lived in extended families with grandparents, parents and children under one roof, and children were expected to obey their parents' decisions. Today, more families are nuclear, with only parents and children living together. Young people now have more privacy and more opportunities to pursue their own careers, but some worry that traditional family values are becoming less important.", "q": "Young people today have more privacy than in the past.", "a": "T"}, {"u": 6, "p": "Family life in Viet Nam has changed a lot. In the past, many people lived in extended families with grandparents, parents and children under one roof, and children were expected to obey their parents' decisions. Today, more families are nuclear, with only parents and children living together. Young people now have more privacy and more opportunities to pursue their own careers, but some worry that traditional family values are becoming less important.", "q": "Some people worry that traditional family values are weakening.", "a": "T"}, {"u": 7, "p": "Son Doong is one of the largest caves in the world. It is located in Phong Nha-Ke Bang National Park in Viet Nam. The cave has its own ecosystem, with a river, a forest and even its own weather. Because it is so fragile, visitors need special permission to enter, and only a limited number of tourists are permitted each year to protect its biodiversity.", "q": "Son Doong is one of the smallest caves in the world.", "a": "F"}, {"u": 7, "p": "Son Doong is one of the largest caves in the world. It is located in Phong Nha-Ke Bang National Park in Viet Nam. The cave has its own ecosystem, with a river, a forest and even its own weather. Because it is so fragile, visitors need special permission to enter, and only a limited number of tourists are permitted each year to protect its biodiversity.", "q": "The cave has its own ecosystem, including a river and a forest.", "a": "T"}, {"u": 7, "p": "Son Doong is one of the largest caves in the world. It is located in Phong Nha-Ke Bang National Park in Viet Nam. The cave has its own ecosystem, with a river, a forest and even its own weather. Because it is so fragile, visitors need special permission to enter, and only a limited number of tourists are permitted each year to protect its biodiversity.", "q": "Anyone can visit Son Doong without permission.", "a": "F"}, {"u": 8, "p": "Homestays have become very popular with tourists who want to experience local life. Instead of staying in a hotel, visitors live with a local family, whose daily routines and customs they can learn about first-hand. Many travel agencies now offer homestay packages, and some tourists say that this kind of trip, which mixes travel with real cultural exchange, is more memorable than a normal holiday.", "q": "In a homestay, tourists live in a big hotel.", "a": "F"}, {"u": 8, "p": "Homestays have become very popular with tourists who want to experience local life. Instead of staying in a hotel, visitors live with a local family, whose daily routines and customs they can learn about first-hand. Many travel agencies now offer homestay packages, and some tourists say that this kind of trip, which mixes travel with real cultural exchange, is more memorable than a normal holiday.", "q": "Homestays let tourists learn about local customs.", "a": "T"}, {"u": 8, "p": "Homestays have become very popular with tourists who want to experience local life. Instead of staying in a hotel, visitors live with a local family, whose daily routines and customs they can learn about first-hand. Many travel agencies now offer homestay packages, and some tourists say that this kind of trip, which mixes travel with real cultural exchange, is more memorable than a normal holiday.", "q": "Some tourists find homestay trips more memorable than normal holidays.", "a": "T"}, {"u": 9, "p": "English is spoken in many different varieties around the world, from British English to Singaporean English. People who use English as a second language often mix in words from their first language, creating new varieties. Many English words that we use today, such as \"cafe\" and \"pizza\", were originally borrowed from other languages.", "q": "English is spoken the same way in every country.", "a": "F"}, {"u": 9, "p": "English is spoken in many different varieties around the world, from British English to Singaporean English. People who use English as a second language often mix in words from their first language, creating new varieties. Many English words that we use today, such as \"cafe\" and \"pizza\", were originally borrowed from other languages.", "q": "Some English words were borrowed from other languages.", "a": "T"}, {"u": 9, "p": "English is spoken in many different varieties around the world, from British English to Singaporean English. People who use English as a second language often mix in words from their first language, creating new varieties. Many English words that we use today, such as \"cafe\" and \"pizza\", were originally borrowed from other languages.", "q": "People who speak English as a second language may mix in words from their first language.", "a": "T"}, {"u": 10, "p": "Climate change is one of the biggest threats to our planet. Rising temperatures are affecting habitats all over the world, from grasslands to the poles, where ice is melting fast. Scientists observe that many animals are losing their homes because of these changes. Protecting nature reserves and preserving natural habitats can help keep the ecological balance of the planet.", "q": "Climate change only affects the poles.", "a": "F"}, {"u": 10, "p": "Climate change is one of the biggest threats to our planet. Rising temperatures are affecting habitats all over the world, from grasslands to the poles, where ice is melting fast. Scientists observe that many animals are losing their homes because of these changes. Protecting nature reserves and preserving natural habitats can help keep the ecological balance of the planet.", "q": "Ice at the poles is melting because of rising temperatures.", "a": "T"}, {"u": 10, "p": "Climate change is one of the biggest threats to our planet. Rising temperatures are affecting habitats all over the world, from grasslands to the poles, where ice is melting fast. Scientists observe that many animals are losing their homes because of these changes. Protecting nature reserves and preserving natural habitats can help keep the ecological balance of the planet.", "q": "Nature reserves can help protect the ecological balance.", "a": "T"}, {"u": 11, "p": "Electronic waste, or e-waste, is a growing problem around the world. Old phones, laptops and smartwatches contain useful materials such as copper, aluminium and steel, but they also contain harmful chemicals. Experts recommend that we recycle old devices instead of throwing them away. Many shops now advise customers to bring in their old electronics when buying new ones.", "q": "E-waste contains only harmless materials.", "a": "F"}, {"u": 11, "p": "Electronic waste, or e-waste, is a growing problem around the world. Old phones, laptops and smartwatches contain useful materials such as copper, aluminium and steel, but they also contain harmful chemicals. Experts recommend that we recycle old devices instead of throwing them away. Many shops now advise customers to bring in their old electronics when buying new ones.", "q": "Old electronic devices contain useful metals like copper and aluminium.", "a": "T"}, {"u": 11, "p": "Electronic waste, or e-waste, is a growing problem around the world. Old phones, laptops and smartwatches contain useful materials such as copper, aluminium and steel, but they also contain harmful chemicals. Experts recommend that we recycle old devices instead of throwing them away. Many shops now advise customers to bring in their old electronics when buying new ones.", "q": "Experts recommend recycling old devices.", "a": "T"}, {"u": 12, "p": "Choosing a career is an important decision for every teenager. Some students prefer hands-on jobs, such as being a mechanic or a chef, because they enjoy practical work. Others want a well-paid career, such as being a software engineer, even though it can be demanding. Career counsellors say that although money is important, job satisfaction matters just as much.", "q": "All students want the same kind of career.", "a": "F"}, {"u": 12, "p": "Choosing a career is an important decision for every teenager. Some students prefer hands-on jobs, such as being a mechanic or a chef, because they enjoy practical work. Others want a well-paid career, such as being a software engineer, even though it can be demanding. Career counsellors say that although money is important, job satisfaction matters just as much.", "q": "Some students prefer hands-on jobs because they enjoy practical work.", "a": "T"}, {"u": 12, "p": "Choosing a career is an important decision for every teenager. Some students prefer hands-on jobs, such as being a mechanic or a chef, because they enjoy practical work. Others want a well-paid career, such as being a software engineer, even though it can be demanding. Career counsellors say that although money is important, job satisfaction matters just as much.", "q": "Career counsellors say job satisfaction is also important, not just money.", "a": "T"}], "gex": [{"u": 1, "s": "I don't know what to do next."}, {"u": 1, "s": "Can you tell me how to get to the museum?"}, {"u": 1, "s": "She showed me where to find the craft village."}, {"u": 1, "s": "We get on well with our neighbours."}, {"u": 1, "s": "The village handed down this skill for years."}, {"u": 2, "s": "The bigger the city, the more crowded it becomes."}, {"u": 2, "s": "Traffic in the city is getting worse and worse."}, {"u": 2, "s": "We carried out a survey about city life."}, {"u": 2, "s": "He came down with a fever after the trip."}, {"u": 3, "s": "You should take a break every hour."}, {"u": 3, "s": "You must not skip meals."}, {"u": 3, "s": "Teenagers ought to sleep at least eight hours."}, {"u": 3, "s": "If you feel stressed, you should talk to a counsellor."}, {"u": 3, "s": "If you sleep enough, you will feel more energetic."}, {"u": 4, "s": "At 8 p.m. yesterday, people were celebrating the festival."}, {"u": 4, "s": "While we were visiting the temple, it started to rain."}, {"u": 4, "s": "I wish I knew more about our local history."}, {"u": 4, "s": "She wishes she lived near the old town."}, {"u": 5, "s": "I have never been snorkelling before."}, {"u": 5, "s": "She has just come back from an eco-tour."}, {"u": 5, "s": "Have you ever visited a coral reef?"}, {"u": 6, "s": "Young people today want to pursue their own careers."}, {"u": 6, "s": "My grandmother enjoys telling old stories."}, {"u": 7, "s": "Do you know if this park is open today?"}, {"u": 7, "s": "Can you tell me whether the peak is far from here?"}, {"u": 8, "s": "The guide who showed us around was very friendly."}, {"u": 8, "s": "This is the homestay which we stayed in."}, {"u": 8, "s": "That's the family whose house we visited."}, {"u": 9, "s": "People who speak more than one language are called bilingual."}, {"u": 9, "s": "English is a language that many countries use officially."}, {"u": 10, "s": "The Earth, which orbits the Sun, is the only planet with known life."}, {"u": 10, "s": "Polar bears, which live near the North Pole, are losing their habitat."}, {"u": 11, "s": "I suggest recycling old electronic devices."}, {"u": 11, "s": "The shop assistant advised me to buy a wireless charger."}, {"u": 11, "s": "Experts recommend that we should reduce e-waste."}, {"u": 12, "s": "Although the job is demanding, she loves it."}, {"u": 12, "s": "The work was so repetitive that he felt bored."}, {"u": 12, "s": "She chose this career because it is rewarding."}], "pron": [{"instr": "Choose the word whose -ed ending is pronounced differently.", "w": ["worked", "watched", "played", "washed"], "a": 2}, {"instr": "Choose the word whose -ed ending is pronounced differently.", "w": ["cleaned", "opened", "stopped", "listened"], "a": 2}, {"instr": "Choose the word whose -ed ending is pronounced differently.", "w": ["wanted", "needed", "looked", "started"], "a": 2}, {"instr": "Choose the word whose -ed ending is pronounced differently.", "w": ["helped", "talked", "cooked", "arrived"], "a": 3}, {"instr": "Choose the word whose -ed ending is pronounced differently.", "w": ["decided", "visited", "enjoyed", "painted"], "a": 2}, {"instr": "Choose the word whose -ed ending is pronounced differently.", "w": ["loved", "lived", "liked", "cleaned"], "a": 2}, {"instr": "Choose the word whose -ed ending is pronounced differently.", "w": ["finished", "laughed", "passed", "changed"], "a": 3}, {"instr": "Choose the word whose -ed ending is pronounced differently.", "w": ["studied", "carried", "stopped", "married"], "a": 2}, {"instr": "Choose the word whose -s/-es ending is pronounced differently.", "w": ["books", "cats", "dogs", "maps"], "a": 2}, {"instr": "Choose the word whose -s/-es ending is pronounced differently.", "w": ["buses", "boxes", "cars", "watches"], "a": 2}, {"instr": "Choose the word whose -s/-es ending is pronounced differently.", "w": ["plays", "opens", "stops", "runs"], "a": 2}, {"instr": "Choose the word whose -s/-es ending is pronounced differently.", "w": ["classes", "changes", "bridges", "books"], "a": 3}, {"instr": "Choose the word whose -s/-es ending is pronounced differently.", "w": ["laughs", "works", "lives", "stops"], "a": 2}, {"instr": "Choose the word whose -s/-es ending is pronounced differently.", "w": ["wishes", "watches", "dogs", "boxes"], "a": 2}, {"instr": "Choose the word with a different stress pattern.", "w": ["happy", "open", "water", "before"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["table", "yellow", "window", "begin"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["lucky", "better", "comfort", "agree"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["normal", "travel", "student", "suggest"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["moment", "garden", "picture", "complete"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["about", "begin", "reply", "open"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["decide", "forget", "prefer", "water"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["arrive", "believe", "collect", "lucky"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["family", "holiday", "exercise", "important"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["difficult", "dangerous", "popular", "computer"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["hospital", "animal", "wonderful", "November"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["important", "together", "remember", "difficult"], "a": 3}, {"instr": "Choose the word with a different stress pattern.", "w": ["computer", "November", "tomorrow", "holiday"], "a": 3}]};
+const $ = s => document.querySelector(s);
+const app = $("#app");
+const LS = {
+  get(k, d){ try{ const v = localStorage.getItem("gs10:"+k); return v===null? d : JSON.parse(v);}catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem("gs10:"+k, JSON.stringify(v)); }catch(e){} }
+};
+const state = {
+  unit: LS.get("unit", 0),
+  xp: LS.get("xp", 0),
+  best: LS.get("best", {}),
+  known: new Set(LS.get("known", [])),
+  unitStats: LS.get("unitStats", {}),   // unit -> {c, t}
+  sound: LS.get("sound", true),
+};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const shuffle = a => { a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const sample = (a, n) => shuffle(a).slice(0, n);
+const strip = h => h.replace(/<[^>]+>/g, "");
+const headword = w => w.split(" / ")[0].replace(/\s*\([^)]*\)/g, "").trim();
+
+/* ---------- sound ---------- */
+let actx = null;
+function tone(freqs, dur=0.12, type="triangle", gap=0.09){
+  if(!state.sound) return;
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    freqs.forEach((f,i)=>{
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = type; o.frequency.value = f;
+      const t = actx.currentTime + i*gap;
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.18, t+0.01); g.gain.exponentialRampToValueAtTime(0.0001, t+dur);
+      o.connect(g).connect(actx.destination); o.start(t); o.stop(t+dur+0.02);
+    });
+  }catch(e){}
+}
+const sfx = {
+  ok(){ tone([660, 880]); }, no(){ tone([220, 170], .18, "sawtooth"); },
+  tap(){ tone([520], .05, "sine"); }, win(){ tone([523,659,784,1046], .18, "triangle", .11); },
+  flip(){ tone([400], .05, "sine"); }
+};
+function speak(text){
+  try{
+    if(!("speechSynthesis" in window)) return toast("Speech is not available in this browser");
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text); u.lang = "en-GB"; u.rate = .9;
+    speechSynthesis.speak(u);
+  }catch(e){ toast("Speech is not available in this browser"); }
+}
+function toast(msg){
+  const t = document.createElement("div"); t.className = "toast"; t.textContent = msg;
+  document.body.appendChild(t); setTimeout(()=>t.remove(), 1800);
+}
+const ICON = {
+  on:'<svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>',
+  off:'<svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>',
+  speak:'<svg viewBox="0 0 24 24" width="18" height="18" style="stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>',
+  back:'<svg viewBox="0 0 24 24" width="18" height="18" style="stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round"><path d="M15 18l-6-6 6-6"/></svg>',
+};
+function renderSoundBtn(){ $("#sound").innerHTML = state.sound ? ICON.on : ICON.off; }
+$("#sound").onclick = () => { state.sound = !state.sound; LS.set("sound", state.sound); renderSoundBtn(); if(state.sound) sfx.tap(); };
+
+const UCOL = ["#0F7A6B","#E8543D","#2E86C1","#C2554E","#3E9142","#F2A93B","#1DA36B","#8A5A44","#6A8CAA","#D9722C","#4C8C72","#B08900","#7A5C3E"];
+function pop(text, el){
+  try{ const r = el.getBoundingClientRect(); const p = document.createElement("div"); p.className = "pop"; p.textContent = text;
+    p.style.left = (r.left + r.width/2) + "px"; p.style.top = (r.top) + "px"; document.body.appendChild(p); setTimeout(()=>p.remove(), 1000); }catch(e){}
+}
+function starsHTML(m){ const n = m>=9?3 : m>=7?2 : m>=5?1 : 0; return `<span class="bigstars" aria-label="${n} of 3 stars">${[0,1,2].map(i=>`<span class="${i<n?"":"off"}">★</span>`).join("")}</span>`; }
+function confetti(){
+  if(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const cv = document.getElementById("confetti"), ctx = cv.getContext("2d");
+  cv.width = innerWidth; cv.height = innerHeight;
+  const C = ["#FF5A5F","#FFD23F","#16A34A","#0EA5E9","#7C5CFF","#EC4899","#FF9500"];
+  const ps = Array.from({length:160}, () => ({x: innerWidth/2 + (Math.random()-.5)*200, y: innerHeight*0.35, vx:(Math.random()-.5)*14, vy: -Math.random()*14-4, s: 5+Math.random()*7, r: Math.random()*6, vr:(Math.random()-.5)*.4, c: C[Math.random()*C.length|0]}));
+  let f = 0;
+  (function step(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    ps.forEach(p => { p.vy += .35; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.fillRect(-p.s/2,-p.s/3,p.s,p.s*.66); ctx.restore(); });
+    if(++f < 150) requestAnimationFrame(step); else ctx.clearRect(0,0,cv.width,cv.height);
+  })();
+}
+
+/* ---------- pools ---------- */
+function byUnit(arr, allowMixed=true){
+  if(state.unit === 0) return arr;
+  return arr.filter(x => x.u === state.unit);
+}
+function unitTitle(n){ const u = DATA.units.find(x=>x.n===n); return u? u.t : "Mixed review"; }
+const orderPool = () => {
+  const out = [];
+  byUnit(DATA.order).forEach(o => out.push({u:o.u, s:o.a, hint:"Put the words in order."}));
+  byUnit(DATA.type).filter(t => t.long && !/[\/()]/.test(t.a)).forEach(t => out.push({u:t.u, s:t.a, hint:strip(t.q)}));
+  byUnit(DATA.vocab).forEach(v => { const w = v.ex.split(" ").length; if(w>=4 && w<=11) out.push({u:v.u, s:v.ex, hint:"Example for: "+v.w}); });
+  byUnit(DATA.gex).filter(g => !/[→"(]/.test(g.s) && g.s.split(" ").length<=12).forEach(g => out.push({u:g.u, s:g.s, hint:"Grammar example"}));
+  return out;
+};
+const quizPool = () => {
+  const mc = byUnit(DATA.mc).map(m => ({kind:"mc", u:m.u, q:m.q, instr:m.i, opts:m.o, passage:m.p}));
+  const tf = byUnit(DATA.tf).map(t => ({kind:"tf", u:t.u, q:t.q, instr:"True or False?", opts: t.a==="T"? ["True","False"] : ["False","True"], passage:t.p}));
+  return mc.concat(tf);
+};
+
+/* ---------- XP / scores ---------- */
+function addXP(n){ n = Math.max(0, Math.round(n)); state.xp += n; LS.set("xp", state.xp); renderStats(); }
+function renderStats(){
+  const lvl = Math.floor(state.xp/300)+1, pct = (state.xp%300)/3;
+  $("#lvl").textContent = lvl; $("#lvlbar").style.width = pct+"%";
+  $("#xp").textContent = state.xp; $("#known").textContent = state.known.size;
+}
+function recordUnit(u, correct){
+  const k = String(u); const s = state.unitStats[k] || {c:0,t:0};
+  s.t++; if(correct) s.c++; state.unitStats[k] = s; LS.set("unitStats", state.unitStats);
+}
+const markOf = (c, t) => t ? Math.round(c/t*20)/2 : 0;
+const comment = m => m>=9 ? "Xuất sắc!" : m>=8 ? "Giỏi lắm!" : m>=6.5 ? "Khá tốt" : m>=5 ? "Đạt yêu cầu" : "Cố gắng thêm nhé!";
+
+/* ---------- games registry ---------- */
+const GAMES = [
+  {id:"mock", c:"#1E293B", name:"Mock Test", tag:"Full exam practice", desc:"A full 5-part practice test — pronunciation &amp; stress, grammar, error hunt, reading and sentence order — in the same style as the real school exam.", icon:'<svg viewBox="0 0 24 24"><path d="M9 2h6l1 4h4v4l-4 1v9a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-9l-4-1V6h4z"/><path d="M9 12l2 2 4-4"/></svg>', run:gameMock},
+  {id:"pron", c:"#8B5CF6", name:"Pronunciation &amp; Stress", tag:"Speaking", desc:"Spot the word with a different sound or a different stress pattern.", icon:'<svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>', run:gamePron},
+  {id:"flash", c:"#E8543D", name:"Flashcards", tag:"Learn", desc:"20 cards per round. Flip, listen and sort the words you know.", icon:'<svg viewBox="0 0 24 24"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="M7 3h12a2 2 0 0 1 2 2v10"/></svg>', run:gameFlash},
+  {id:"memory", c:"#0F7A6B", name:"Memory Match", tag:"Vocabulary", desc:"Pair each English word with its Vietnamese meaning.", icon:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>', run:gameMemory},
+  {id:"quiz", c:"#F2A93B", name:"Quiz Blitz", tag:"Grammar + vocab", desc:"10 timed questions. Keep your hearts for bonus points. Keys 1–4.", icon:'<svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>', run:gameQuiz},
+  {id:"fall", c:"#2E86C1", name:"Word Rain", tag:"Arcade", desc:"Catch the English word that matches the meaning before it lands.", icon:'<svg viewBox="0 0 24 24"><path d="M8 3v6M16 6v6M12 12v6M5 20h14"/></svg>', run:gameFall},
+  {id:"scramble", c:"#C2554E", name:"Word Scramble", tag:"Spelling", desc:"Rebuild the word from mixed-up letters.", icon:'<svg viewBox="0 0 24 24"><path d="M4 7h4l8 10h4M4 17h4l2.5-3M14 10l2-3h4M18 4l2 3-2 3M18 14l2 3-2 3"/></svg>', run:gameScramble},
+  {id:"form", c:"#3E9142", name:"Word Form", tag:"Word building", desc:"Type the right form: responsible, pollution, equally…", icon:'<svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg>', run:gameForm},
+  {id:"order", c:"#1DA36B", name:"Sentence Builder", tag:"Grammar", desc:"Tap the word tiles into the right order.", icon:'<svg viewBox="0 0 24 24"><rect x="2" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/><rect x="16" y="9" width="6" height="6" rx="1"/></svg>', run:gameOrder},
+  {id:"error", c:"#D9722C", name:"Error Hunter", tag:"Accuracy", desc:"Find the underlined part that is wrong.", icon:'<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4M8.5 8.5l5 5M13.5 8.5l-5 5"/></svg>', run:gameError},
+];
+
+/* ---------- home ---------- */
+function home(){
+  cleanup(); app.style.removeProperty("--gc");
+  const chips = [{n:0,t:"All units"}].concat(DATA.units).map(u =>
+    `<button class="chip" data-u="${u.n}" style="--uc:${UCOL[u.n]}" aria-pressed="${state.unit===u.n}">${u.n? "Unit "+u.n : "All units"}</button>`).join("");
+  const cards = GAMES.map(g => {
+    const b = state.best[g.id+"|"+state.unit];
+    return `<button class="gcard" data-g="${g.id}" style="--gc:${g.c}">
+      <span class="ic">${g.icon}</span>
+      <span class="tag">${g.tag}</span>
+      <h3>${g.name}</h3><p>${g.desc}</p>
+      <span class="best"><span>${b!=null? `<span class="stars">${"★".repeat(b>=9?3:b>=7?2:b>=5?1:0)}${"☆".repeat(3-(b>=9?3:b>=7?2:b>=5?1:0))}</span> Best` : "Tap to play!"}</span>${b!=null? `<span class="mk">${b}/10</span>`:""}</span>
+    </button>`;}).join("");
+  const rows = DATA.units.map(u => {
+    const words = DATA.vocab.filter(v=>v.u===u.n); const k = words.filter(v=>state.known.has(v.u+"|"+v.w)).length;
+    const s = state.unitStats[String(u.n)] || {c:0,t:0}; const acc = s.t? Math.round(s.c/s.t*100) : null;
+    return `<tr><td class="num">${u.n}</td><td>${esc(u.t)}</td>
+      <td><div class="row" style="gap:8px"><div class="bar" style="flex:1"><i style="width:${k/words.length*100}%"></i></div><span class="num small">${k}/${words.length}</span></div></td>
+      <td class="num">${s.t? s.t : "–"}</td><td class="num">${acc===null? "–" : acc+"%"}</td></tr>`;}).join("");
+  app.innerHTML = `
+    <nav class="unitbar" aria-label="Choose unit">${chips}</nav>
+    <div class="homebar"><div class="unitname" style="--uc:${UCOL[state.unit]}">${state.unit? "Unit "+state.unit+": "+esc(unitTitle(state.unit)) : "All units · mixed review"}</div><button class="surprise" id="surprise"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8" cy="8" r="1.3"/><circle cx="16" cy="16" r="1.3"/><circle cx="12" cy="12" r="1.3"/></svg>Surprise me!</button></div>
+    <div class="grid">${cards}</div>
+    <h2 class="section-title">My progress</h2>
+    <div class="progress-table"><table>
+      <thead><tr><th>Unit</th><th>Topic</th><th>Words known</th><th>Answers</th><th>Accuracy</th></tr></thead>
+      <tbody>${rows}</tbody></table></div>
+    <p class="small" style="margin-top:10px">Progress is saved in this browser only. <button class="back" id="reset" style="display:inline;color:var(--red)">Reset progress</button></p>`;
+  app.querySelectorAll(".chip").forEach(c => c.onclick = () => { state.unit = +c.dataset.u; LS.set("unit", state.unit); sfx.tap(); home(); });
+  app.querySelectorAll(".gcard").forEach(c => c.onclick = () => { sfx.tap(); open(c.dataset.g); });
+  $("#surprise").onclick = () => { sfx.win(); const g = GAMES[Math.random()*GAMES.length|0]; toast("Let's play " + g.name + "!"); open(g.id); };
+  $("#reset").onclick = () => {
+    const r = $("#reset");
+    if(r.dataset.confirm){ state.xp=0; state.best={}; state.known=new Set(); state.unitStats={};
+      ["xp","best","known","unitStats"].forEach(k=>LS.set(k, k==="known"?[]:(k==="xp"?0:{}))); renderStats(); home(); toast("Progress reset"); }
+    else { r.dataset.confirm = 1; r.textContent = "Tap again to confirm reset"; }
+  };
+}
+
+let current = null, timers = [], keyHandler = null;
+function cleanup(){ timers.forEach(t=>{clearInterval(t); clearTimeout(t); cancelAnimationFrame(t);}); timers=[]; if(keyHandler){ document.removeEventListener("keydown", keyHandler); keyHandler=null; } try{speechSynthesis.cancel();}catch(e){} }
+function onKey(fn){ if(keyHandler) document.removeEventListener("keydown", keyHandler); keyHandler = fn; document.addEventListener("keydown", fn); }
+function open(id){
+  cleanup(); current = GAMES.find(g=>g.id===id); app.style.setProperty("--gc", current.c);
+  app.innerHTML = `<div class="stagehead"><div class="row"><button class="back" id="back">${ICON.back} Games</button><h2>${current.name}</h2></div><div class="hud" id="hud"></div></div><div id="stage"></div>`;
+  $("#back").onclick = () => { sfx.tap(); home(); };
+  window.scrollTo({top:0});
+  current.run($("#stage"), $("#hud"));
+}
+function empty(stage){ stage.innerHTML = `<div class="panel center"><p class="qtext">There is not enough material in this unit for this game.</p><button class="btn" onclick="state.unit=0;LS.set('unit',0);home()">Play with all units</button></div>`; }
+
+function finish(stage, {correct, total, xp, review=[], extra=""}){
+  cleanup();
+  const m = markOf(correct, total);
+  const key = current.id+"|"+state.unit;
+  const prev = state.best[key]; const newBest = prev==null || m > prev;
+  if(newBest){ state.best[key] = m; LS.set("best", state.best); }
+  addXP(xp);
+  xp = Math.max(0, Math.round(xp)); m>=5 ? sfx.win() : sfx.no(); if(m>=6.5) confetti();
+  stage.innerHTML = `<div class="panel">
+    <div class="result">
+      <div class="stamp" aria-label="Mark ${m} out of 10"><span class="m">${m}</span><span class="c">/10</span></div>
+      <div>
+        ${starsHTML(m)}<p style="font-family:var(--display);font-weight:800;font-size:32px;color:var(--gc);margin:0;line-height:1.1">${comment(m)}</p>
+        <p class="qtext" style="margin:4px 0">${current.id==="memory"? "All pairs found" : `${correct} of ${total} correct`} · +${xp} XP</p>
+        <p class="small">${newBest && prev!=null ? "New best mark!" : prev!=null ? "Best mark: "+prev : "First score saved."} ${extra}</p>
+        <div class="row" style="margin-top:12px"><button class="btn" id="again">Play again</button><button class="btn ghost" id="home2">All games</button></div>
+      </div>
+    </div>
+    ${review.length? `<div class="review"><h3 class="tag" style="font-size:12px">Review your mistakes</h3><ol>${review.map(r=>`<li>${r}</li>`).join("")}</ol></div>`:""}
+  </div>`;
+  $("#again").onclick = () => open(current.id);
+  $("#home2").onclick = home;
+}
+
+/* ================= 1. FLASHCARDS ================= */
+function gameFlash(stage, hud){
+  const SESSION = 20;
+  let deck = shuffle(byUnit(DATA.vocab)).slice(0, SESSION);
+  let onlyNew = false, i = 0, flipped = false, knownNow = 0, seen = 0;
+  function render(){
+    if(i >= deck.length){
+      finish(stage, {correct:knownNow, total:seen||1, xp:knownNow*5, extra:"Cards you marked “I know it” count toward your words known."});
+      return;
+    }
+    const v = deck[i]; flipped = false;
+    hud.innerHTML = `<span class="pill">Card <b>${i+1}</b>/${deck.length}</span><span class="pill">Known <b>${knownNow}</b></span>`;
+    stage.innerHTML = `
+      <div class="progress"><i style="width:${i/deck.length*100}%"></i></div>
+      <div class="row" style="justify-content:space-between;margin-bottom:12px">
+        <label class="small row" style="gap:6px"><input type="checkbox" id="onlynew" ${onlyNew?"checked":""}> Only words I don't know yet</label>
+        <span class="small">Unit ${v.u} · <kbd>Space</kbd> flip · <kbd>←</kbd> learning · <kbd>→</kbd> know</span>
+      </div>
+      <div class="flash"><div class="fcard" id="fc" tabindex="0" role="button" aria-label="Flip card">
+        <div class="face"><span class="pos">${esc(v.p)}</span><span class="w">${esc(v.w)}</span>${state.known.has(v.u+"|"+v.w)?'<span class="small" style="color:var(--ok)">Known</span>':""}<span class="hint">Tap to see the meaning</span></div>
+        <div class="face back"><span class="vi">${esc(v.vi)}</span><span class="ex">${esc(v.ex)}</span><span class="hint">Tap to flip back</span></div>
+      </div></div>
+      <div class="row" style="justify-content:center;margin-top:18px">
+        <button class="btn ghost" id="say">${ICON.speak} Listen</button>
+        <button class="btn warn" id="learn">Still learning</button>
+        <button class="btn" id="know">I know it</button>
+      </div>`;
+    const fc = $("#fc");
+    const flip = () => { flipped = !flipped; fc.classList.toggle("flip", flipped); sfx.flip(); };
+    fc.onclick = flip;
+    $("#say").onclick = () => speak(headword(v.w) + ". " + v.ex);
+    $("#learn").onclick = () => { state.known.delete(v.u+"|"+v.w); LS.set("known",[...state.known]); seen++; i++; renderStats(); render(); };
+    $("#know").onclick = () => { state.known.add(v.u+"|"+v.w); LS.set("known",[...state.known]); knownNow++; seen++; i++; sfx.ok(); renderStats(); render(); };
+    $("#onlynew").onchange = e => { onlyNew = e.target.checked; deck = shuffle(byUnit(DATA.vocab).filter(x => !onlyNew || !state.known.has(x.u+"|"+x.w))).slice(0, SESSION); i=0; knownNow=0; seen=0;
+      if(!deck.length){ stage.innerHTML = `<div class="panel center"><p class="qtext">You know every word here. Well done!</p><button class="btn" id="all">Show all cards</button></div>`; $("#all").onclick=()=>{onlyNew=false; deck=shuffle(byUnit(DATA.vocab)).slice(0, SESSION); render();}; return; }
+      render(); };
+  }
+  onKey(e => { if(e.target.tagName==="INPUT") return;
+    if(e.code==="Space"){ e.preventDefault(); $("#fc")&&$("#fc").click(); }
+    if(e.key==="ArrowRight") $("#know")&&$("#know").click();
+    if(e.key==="ArrowLeft") $("#learn")&&$("#learn").click(); });
+  if(!deck.length) return empty(stage);
+  render();
+}
+
+/* ================= 2. MEMORY ================= */
+function gameMemory(stage, hud){
+  const pool = byUnit(DATA.vocab); if(pool.length < 6) return empty(stage);
+  const pick = sample(pool, 6);
+  let cards = [];
+  pick.forEach((v, k) => { cards.push({id:k, side:"en", text:headword(v.w), v}); cards.push({id:k, side:"vi", text:v.vi, v}); });
+  cards = shuffle(cards);
+  let open1 = null, lock = false, moves = 0, matched = 0, secs = 0;
+  stage.innerHTML = `<p class="instr">Flip two cards. Match the English word with its Vietnamese meaning.</p><div class="mem" id="mem"></div>`;
+  const mem = $("#mem");
+  cards.forEach((c, idx) => {
+    const b = document.createElement("button"); b.className = "mcard" + (c.side==="vi"?" vi-side":"");
+    b.innerHTML = `<span class="back-logo">G9Q</span><span class="inner">${esc(c.text)}</span>`;
+    b.setAttribute("aria-label", "Hidden card"); b.onclick = () => flip(b, c); mem.appendChild(b);
+  });
+  const hudR = () => hud.innerHTML = `<span class="pill">Moves <b>${moves}</b></span><span class="pill">Pairs <b>${matched}</b>/6</span><span class="pill">Time <b>${secs}s</b></span>`;
+  hudR(); timers.push(setInterval(()=>{ secs++; hudR(); }, 1000));
+  function flip(b, c){
+    if(lock || b.classList.contains("open") || b.classList.contains("done")) return;
+    b.classList.add("open"); b.setAttribute("aria-label", c.text); sfx.flip();
+    if(!open1){ open1 = {b, c}; return; }
+    moves++; hudR();
+    if(open1.c.id === c.id && open1.c.side !== c.side){
+      b.classList.add("done"); open1.b.classList.add("done"); matched++; sfx.ok(); pop("Match!", b); open1 = null; hudR();
+      recordUnit(c.v.u, true);
+      if(matched === 6){
+        // 8 moves or fewer = 10/10; each extra move costs half a point; finishing always earns at least 4
+        const correct = Math.max(4, Math.min(10, 10 - Math.max(0, moves - 8) * 0.5));
+        setTimeout(()=>finish(stage, {correct, total:10, xp: 30 + Math.max(0, 60 - moves*2), extra:`All 6 pairs in ${moves} moves and ${secs} seconds. Fewer moves = higher mark.`}), 600);
+      }
+    } else {
+      lock = true; sfx.no(); const a = open1; open1 = null;
+      setTimeout(()=>{ a.b.classList.remove("open"); b.classList.remove("open"); a.b.setAttribute("aria-label","Hidden card"); b.setAttribute("aria-label","Hidden card"); lock = false; }, 850);
+    }
+  }
+}
+
+/* ================= 3. QUIZ BLITZ ================= */
+function gameQuiz(stage, hud){
+  const pool = quizPool(); if(pool.length < 4) return empty(stage);
+  const qs = sample(pool, Math.min(10, pool.length));
+  let i = 0, lives = 3, score = 0, streak = 0, correct = 0, review = [], t0 = 0, answered = false;
+  const LIMIT = 20;
+  function hudR(){ hud.innerHTML = `<span class="pill">Q <b>${Math.min(i+1,qs.length)}</b>/${qs.length}</span><span class="pill">Score <b>${score}</b></span><span class="pill">Streak <b>${streak}</b></span><span class="pill hearts" aria-label="${lives} lives">${"♥".repeat(lives)}${"♡".repeat(3-lives)}</span>`; }
+  function render(){
+    if(i >= qs.length){
+      const bonus = lives*100; score += bonus;
+      finish(stage, {correct, total: qs.length, xp: Math.round(score/10), review, extra: `Score: ${score} points${bonus? ` (includes +${bonus} for ${lives} heart${lives>1?"s":""} left)`:""}.`}); return;
+    }
+    const q = qs[i]; answered = false; hudR();
+    const opts = shuffle(q.opts.map((o, k) => ({o, right: k===0})));
+    const label = q.kind==="tf" ? q.q : (q.q || "");
+    stage.innerHTML = `<div class="panel">
+      <div class="progress"><i style="width:${i/qs.length*100}%"></i></div>
+      <p class="tag">${q.u? "Unit "+q.u : "Final review"}</p>
+      ${q.passage? `<details class="passage" ${q.kind==="tf"?"open":""}><summary class="small" style="cursor:pointer">Reading text</summary>${esc(q.passage)}</details>`:""}
+      <p class="instr">${esc(q.instr)}</p>
+      ${label? `<p class="qtext">${label}</p>`:""}
+      <div class="timer"><i id="tbar" style="width:100%"></i></div>
+      <div class="opts">${opts.map((x,k)=>`<button class="opt" data-k="${k}"><span class="k">${k+1}</span><span>${x.o}</span></button>`).join("")}</div>
+      <div class="feedback" id="fb" aria-live="polite"></div></div>`;
+    const btns = [...stage.querySelectorAll(".opt")];
+    t0 = performance.now();
+    const tick = setInterval(()=>{
+      const left = LIMIT - (performance.now()-t0)/1000;
+      const bar = $("#tbar"); if(bar) bar.style.width = Math.max(0,left/LIMIT*100)+"%";
+      if(left <= 0 && !answered){ clearInterval(tick); choose(-1); }
+    }, 100); timers.push(tick);
+    function choose(k){
+      if(answered) return; answered = true; clearInterval(tick);
+      const ok = k>=0 && opts[k].right;
+      btns.forEach((b, j) => { b.disabled = true; if(opts[j].right) b.classList.add("right"); else if(j===k) b.classList.add("wrong"); });
+      const fb = $("#fb");
+      recordUnit(q.u, ok);
+      const rightText = opts.find(x=>x.right).o;
+      if(ok){
+        streak++; correct++;
+        const left = Math.max(0, LIMIT - (performance.now()-t0)/1000);
+        const pts = Math.round((100 + left*5) * (1 + Math.min(streak-1,4)*0.25));
+        score += pts; fb.className = "feedback ok"; fb.innerHTML = `Correct! +${pts} ${streak>1? `<span class="combo">Combo ×${1+Math.min(streak-1,4)*0.25}</span>`:""}`; sfx.ok(); pop("+"+pts, btns[k]);
+      } else {
+        streak = 0; lives = Math.max(0, lives-1); fb.className = "feedback no";
+        fb.innerHTML = (k<0? "Time's up! " : "Not quite. ") + "Answer: " + rightText; sfx.no();
+        review.push(`${label? label+" " : strip(q.instr)+" "}<span class="corr">${rightText}</span>${k>=0? ` <span class="yours">${opts[k].o}</span>`:""}`);
+      }
+      hudR();
+      const nx = setTimeout(()=>{ i++; render(); }, ok? 900 : 1900); timers.push(nx);
+    }
+    btns.forEach((b, k) => b.onclick = () => choose(k));
+  }
+  onKey(e => { const n = parseInt(e.key); if(n>=1 && n<=4){ const b = stage.querySelectorAll(".opt")[n-1]; if(b && !b.disabled) b.click(); } });
+  render();
+}
+
+/* ================= 4. WORD RAIN ================= */
+function gameFall(stage, hud){
+  const pool = byUnit(DATA.vocab).map(v => ({...v, h: headword(v.w)})).filter(v => v.h.length <= 22);
+  const all = DATA.vocab.map(v => ({...v, h: headword(v.w)})).filter(v => v.h.length <= 22);
+  if(pool.length < 4) return empty(stage);
+  let lives = 3, score = 0, hits = 0, rounds = 0, speed = 55, running = false, drops = [], target = null, last = 0, review = [], raf = 0;
+  stage.innerHTML = `<div class="target" id="tg">Get ready…</div>
+    <div class="arena" id="arena"><div class="ground"></div>
+      <div class="overlay" id="ov"><div><p class="qtext">Words fall from the sky.</p><p class="small">Tap the English word that matches the Vietnamese meaning.<br>Miss the right word or tap a wrong one and you lose a heart.</p><button class="btn" id="go">Start</button></div></div>
+    </div>`;
+  const arena = $("#arena"), tg = $("#tg");
+  const hudR = () => hud.innerHTML = `<span class="pill">Score <b>${score}</b></span><span class="pill">Caught <b>${hits}</b></span><span class="pill hearts">${"♥".repeat(Math.max(0,lives))}${"♡".repeat(3-Math.max(0,lives))}</span>`;
+  hudR();
+  $("#go").onclick = () => { $("#ov").remove(); running = true; next(); last = performance.now(); raf = requestAnimationFrame(loop); timers.push(raf); };
+  function next(){
+    drops.forEach(d => d.el.remove()); drops = [];
+    if(lives <= 0 || rounds >= 15){ end(); return; }
+    rounds++;
+    target = pool[Math.floor(Math.random()*pool.length)];
+    tg.innerHTML = `${esc(target.vi)}<small>Round ${rounds}/15 · ${esc(target.p)}</small>`;
+    const distract = sample(all.filter(v => v.h !== target.h), 3);
+    const words = shuffle([target, ...distract]);
+    const W = arena.clientWidth;
+    const lanes = shuffle([0.14, 0.38, 0.62, 0.86]);
+    words.forEach((w, k) => {
+      const el = document.createElement("button"); el.className = "drop"; el.textContent = w.h;
+      el.style.left = (lanes[k]*100) + "%";
+      const d = {el, y: -40 - k*55 - Math.random()*30, right: w.h === target.h, done:false};
+      el.onclick = () => tapDrop(d);
+      arena.appendChild(el); drops.push(d);
+    });
+  }
+  function tapDrop(d){
+    if(!running || d.done) return;
+    if(d.right){ d.done = true; d.el.classList.add("hit"); pop("+"+(10 + Math.round(speed/10)), d.el); hits++; score += 10 + Math.round(speed/10); sfx.ok(); recordUnit(target.u, true); speed += 6; hudR(); pause(next, 450); }
+    else { d.done = true; d.el.classList.add("miss"); lives--; sfx.no(); recordUnit(target.u, false); review.push(`${esc(target.vi)} → <span class="corr">${esc(target.h)}</span> <span class="yours">${esc(d.el.textContent)}</span>`); hudR(); if(lives<=0) pause(end, 500); }
+  }
+  let paused = false;
+  function pause(fn, ms){ paused = true; const t = setTimeout(()=>{ paused = false; fn(); }, ms); timers.push(t); }
+  function loop(ts){
+    if(!running) return;
+    const dt = Math.min(0.05, (ts-last)/1000); last = ts;
+    if(!paused){
+      const H = arena.clientHeight;
+      drops.forEach(d => {
+        if(d.done) return;
+        d.y += speed*dt; d.el.style.top = d.y + "px";
+        if(d.y > H - 40){
+          d.done = true;
+          if(d.right){ d.el.classList.add("miss"); lives--; sfx.no(); recordUnit(target.u, false); review.push(`${esc(target.vi)} → <span class="corr">${esc(target.h)}</span> (missed)`); hudR(); pause(lives<=0? end : next, 600); }
+          else d.el.style.opacity = .25;
+        }
+      });
+    }
+    raf = requestAnimationFrame(loop); timers.push(raf);
+  }
+  function end(){ running = false; finish(stage, {correct: hits, total: rounds || 1, xp: score/2|0, review, extra:`Score: ${score}.`}); }
+}
+
+/* ================= 5. SCRAMBLE ================= */
+function gameScramble(stage, hud){
+  const pool = byUnit(DATA.vocab).map(v => ({...v, h: headword(v.w)})).filter(v => /^[a-z\- ]+$/i.test(v.h) && v.h !== v.h.toUpperCase() && v.h.replace(/[ \-]/g,"").length <= 14 && v.h.split(" ").length <= 3);
+  if(pool.length < 3) return empty(stage);
+  const items = sample(pool, Math.min(8, pool.length));
+  let i = 0, correct = 0, review = [], hintsUsed = 0;
+  function render(){
+    if(i >= items.length){ finish(stage, {correct, total: items.length, xp: correct*12 - hintsUsed*2, review}); return; }
+    const v = items[i]; const target = v.h.toLowerCase();
+    const letters = [...target].map((ch, k) => ({ch, k})).filter(x => x.ch !== " " && x.ch !== "-");
+    let bank = shuffle(letters); if(letters.length>1 && bank.map(x=>x.ch).join("") === letters.map(x=>x.ch).join("")) bank = bank.reverse();
+    const filled = []; // indexes into letters (answer order)
+    let hinted = 0, done = false;
+    hud.innerHTML = `<span class="pill">Word <b>${i+1}</b>/${items.length}</span><span class="pill">Correct <b>${correct}</b></span>`;
+    const blanked = v.ex.replace(new RegExp(v.h.replace(/[-]/g,"\\-"), "i"), "_____");
+    stage.innerHTML = `<div class="panel">
+      <div class="progress"><i style="width:${i/items.length*100}%"></i></div>
+      <p class="tag">Unit ${v.u} · ${esc(v.p)}</p>
+      <p class="qtext">${esc(v.vi)}</p>
+      <p class="instr">${esc(blanked)}</p>
+      <div class="slots" id="slots"></div>
+      <div class="bank" id="bank"></div>
+      <div class="row" style="margin-top:14px"><button class="btn ghost" id="undo">Undo</button><button class="btn ghost" id="hint">Hint</button><button class="btn ghost" id="say">${ICON.speak} Listen</button><button class="btn warn" id="skip">Skip</button></div>
+      <div class="feedback" id="fb" aria-live="polite"></div></div>`;
+    const slots = $("#slots"), bankEl = $("#bank");
+    function draw(){
+      let html = "", li = 0;
+      for(const ch of target){
+        if(ch === " "){ html += '<span class="gap-space"></span>'; continue; }
+        if(ch === "-"){ html += '<span class="lslot fixed">-</span>'; continue; }
+        const f = filled[li]; html += `<span class="lslot ${li < hinted ? "hinted":""}">${f!=null? letters[f].ch : ""}</span>`; li++;
+      }
+      slots.innerHTML = html;
+      bankEl.innerHTML = bank.map((b, j) => b.used? "" : `<button class="tile letter" data-j="${j}">${b.ch}</button>`).join("");
+      bankEl.querySelectorAll(".tile").forEach(t => t.onclick = () => place(+t.dataset.j));
+    }
+    function place(j){
+      if(done) return; const b = bank[j]; b.used = true; filled.push(letters.findIndex((x)=>x===b)); sfx.tap(); draw();
+      if(filled.length === letters.length) check();
+    }
+    function check(){
+      const got = filled.map(f => letters[f].ch).join(""), want = letters.map(x=>x.ch).join("");
+      const fb = $("#fb"); done = true; recordUnit(v.u, got===want);
+      if(got === want){ slots.classList.add("ok"); fb.className="feedback ok"; fb.textContent = "Correct: " + v.h; correct++; sfx.ok(); pop("Great!", slots); timers.push(setTimeout(()=>{i++; render();}, 1100)); }
+      else { slots.classList.add("no"); fb.className="feedback no"; fb.innerHTML = "Not quite. Try again or skip."; sfx.no();
+        timers.push(setTimeout(()=>{ slots.classList.remove("no"); fb.textContent=""; done=false; while(filled.length>hinted){ const f=filled.pop(); bank.find(b=>b===letters[f]).used=false; } draw(); }, 1100)); }
+    }
+    $("#undo").onclick = () => { if(done || filled.length<=hinted) return; const f = filled.pop(); letters[f].used = false; draw(); };
+    $("#hint").onclick = () => {
+      if(done) return;
+      while(filled.length > hinted){ const f = filled.pop(); letters[f].used = false; }
+      if(hinted >= letters.length-1) return;
+      const need = letters[hinted]; need.used = true; filled.push(hinted); hinted++; hintsUsed++; draw();
+    };
+    $("#say").onclick = () => speak(v.h);
+    $("#skip").onclick = () => { if(done) return; done = true; recordUnit(v.u, false); review.push(`${esc(v.vi)} → <span class="corr">${esc(v.h)}</span>`); const fb=$("#fb"); fb.className="feedback no"; fb.textContent = "Answer: "+v.h; sfx.no(); timers.push(setTimeout(()=>{i++; render();}, 1300)); };
+    draw();
+  }
+  onKey(e => {
+    if(!/^[a-z]$/i.test(e.key)) { if(e.key==="Backspace") $("#undo")&&$("#undo").click(); return; }
+    const t = [...document.querySelectorAll("#bank .tile")].find(b => b.textContent === e.key.toLowerCase()); if(t) t.click();
+  });
+  render();
+}
+
+/* ================= 6. WORD FORM ================= */
+function gameForm(stage, hud){
+  const pool = byUnit(DATA.type).filter(t => !t.long);
+  if(pool.length < 3) return empty(stage);
+  const items = sample(pool, Math.min(8, pool.length));
+  let i = 0, correct = 0, review = [], hints = 0;
+  function render(){
+    if(i >= items.length){ finish(stage, {correct, total: items.length, xp: correct*12 - hints*3, review}); return; }
+    const it = items[i]; const ans = it.a.trim(); let hintN = 0, done = false, tries = 0;
+    hud.innerHTML = `<span class="pill">Item <b>${i+1}</b>/${items.length}</span><span class="pill">Correct <b>${correct}</b></span>`;
+    const q = it.q.replace(/\(([^)]+)\)\s*$/, '<mark style="background:var(--hl);color:#1F2433;border-radius:4px;padding:0 5px">$1</mark>');
+    stage.innerHTML = `<div class="panel">
+      <div class="progress"><i style="width:${i/items.length*100}%"></i></div>
+      <p class="tag">${it.u? "Unit "+it.u : "Final review"}</p>
+      <p class="instr">Write the correct form of the highlighted word.</p>
+      <p class="qtext">${q}</p>
+      <form id="f" class="row" style="margin-top:12px" autocomplete="off">
+        <input class="typein" id="inp" aria-label="Your answer" placeholder="Type here…" spellcheck="false">
+        <button class="btn" type="submit">Check</button>
+        <button class="btn ghost" type="button" id="hint">Hint</button>
+      </form>
+      <div class="feedback" id="fb" aria-live="polite"></div></div>`;
+    const inp = $("#inp"), fb = $("#fb"); inp.focus();
+    $("#hint").onclick = () => { if(done) return; hintN = Math.min(hintN+1, ans.length-1); hints++; inp.value = ans.slice(0, hintN); inp.focus(); fb.className="feedback"; fb.textContent = `Starts with “${ans.slice(0,hintN)}” · ${ans.length} letters`; };
+    $("#f").onsubmit = e => {
+      e.preventDefault(); if(done) return;
+      const v = inp.value.trim().toLowerCase(); if(!v) return;
+      tries++;
+      if(v === ans.toLowerCase()){ done = true; inp.classList.add("ok"); fb.className="feedback ok"; fb.textContent = "Correct!"; if(tries===1) correct++; else correct += .5; recordUnit(it.u, true); sfx.ok(); pop("Correct!", inp); timers.push(setTimeout(()=>{i++; render();}, 900)); }
+      else if(tries < 2){ inp.classList.add("no"); fb.className="feedback no"; fb.textContent = "Not quite. One more try (half point)."; sfx.no(); timers.push(setTimeout(()=>inp.classList.remove("no"), 600)); inp.select(); }
+      else { done = true; inp.classList.add("no"); fb.className="feedback no"; fb.innerHTML = `Answer: <b>${esc(ans)}</b>`; recordUnit(it.u, false); review.push(`${strip(it.q)} → <span class="corr">${esc(ans)}</span> <span class="yours">${esc(inp.value)}</span>`); sfx.no(); timers.push(setTimeout(()=>{i++; render();}, 1800)); }
+    };
+  }
+  render();
+}
+
+/* ================= 7. SENTENCE BUILDER ================= */
+function gameOrder(stage, hud){
+  const pool = orderPool(); if(pool.length < 3) return empty(stage);
+  const items = sample(pool, Math.min(6, pool.length));
+  let i = 0, correct = 0, review = [];
+  function render(){
+    if(i >= items.length){ finish(stage, {correct, total: items.length, xp: correct*15, review}); return; }
+    const it = items[i]; const words = it.s.split(/\s+/);
+    let bank = shuffle(words.map((w,k)=>({w,k}))); if(bank.every((b,k)=>b.k===k) && bank.length>1) bank.reverse();
+    const line = []; let tries = 0, done = false;
+    hud.innerHTML = `<span class="pill">Sentence <b>${i+1}</b>/${items.length}</span><span class="pill">Correct <b>${correct}</b></span>`;
+    stage.innerHTML = `<div class="panel">
+      <div class="progress"><i style="width:${i/items.length*100}%"></i></div>
+      <p class="tag">${it.u? "Unit "+it.u : "Final review"}</p>
+      <p class="instr">${esc(it.hint)}</p>
+      <div class="slots" id="line" aria-label="Your sentence"></div>
+      <div class="bank" id="bank"></div>
+      <div class="row" style="margin-top:14px"><button class="btn" id="check">Check</button><button class="btn ghost" id="clear">Clear</button><button class="btn ghost" id="say">${ICON.speak} Listen</button><button class="btn warn" id="skip">Show answer</button></div>
+      <div class="feedback" id="fb" aria-live="polite"></div></div>`;
+    const lineEl = $("#line"), bankEl = $("#bank"), fb = $("#fb");
+    function draw(){
+      lineEl.innerHTML = line.length? line.map((b,j)=>`<button class="tile" data-j="${j}">${esc(b.w)}</button>`).join("") : '<span class="small">Tap the words below…</span>';
+      bankEl.innerHTML = bank.map((b,j)=> b.used? "" : `<button class="tile" data-j="${j}">${esc(b.w)}</button>`).join("");
+      lineEl.querySelectorAll(".tile").forEach(t => t.onclick = () => { if(done) return; const b = line.splice(+t.dataset.j,1)[0]; b.used=false; sfx.tap(); draw(); });
+      bankEl.querySelectorAll(".tile").forEach(t => t.onclick = () => { if(done) return; const b = bank[+t.dataset.j]; b.used = true; line.push(b); sfx.tap(); draw(); });
+    }
+    draw();
+    $("#clear").onclick = () => { if(done) return; line.splice(0).forEach(b=>b.used=false); draw(); };
+    $("#say").onclick = () => speak(it.s);
+    $("#check").onclick = () => {
+      if(done || line.length < words.length){ if(!done){ fb.className="feedback no"; fb.textContent = "Use all the words first."; } return; }
+      const got = line.map(b=>b.w).join(" ");
+      if(got === it.s){ done = true; lineEl.classList.add("ok"); fb.className="feedback ok"; fb.textContent = "Correct!"; correct += tries? .5 : 1; recordUnit(it.u, true); sfx.ok(); pop("Perfect!", lineEl); timers.push(setTimeout(()=>{i++; render();}, 1000)); }
+      else { tries++; lineEl.classList.add("no"); sfx.no(); fb.className="feedback no"; fb.textContent = tries<2? "Not yet. Move some words and check again (half point)." : "";
+        timers.push(setTimeout(()=>lineEl.classList.remove("no"), 700)); if(tries>=2) reveal(got); }
+    };
+    $("#skip").onclick = () => { if(!done) reveal(line.map(b=>b.w).join(" ")); };
+    function reveal(got){ done = true; recordUnit(it.u, false); fb.className="feedback no"; fb.innerHTML = `Answer: <b>${esc(it.s)}</b>`; review.push(`<span class="corr">${esc(it.s)}</span>${got? ` <span class="yours">${esc(got)}</span>`:""}`); timers.push(setTimeout(()=>{i++; render();}, 2200)); }
+  }
+  render();
+}
+
+/* ================= 8. ERROR HUNTER ================= */
+function gameError(stage, hud){
+  const pool = byUnit(DATA.err); if(pool.length < 2) return empty(stage);
+  const items = sample(pool, Math.min(8, pool.length));
+  let i = 0, correct = 0, review = [];
+  function render(){
+    if(i >= items.length){ finish(stage, {correct, total: items.length, xp: correct*12, review}); return; }
+    const it = items[i]; const letter = it.a.trim()[0]; const fix = it.a.split("→")[1]?.trim() || "";
+    const html = it.q.replace(/<u>(.*?)<\/u><super>([A-D])<\/super>/g, (m, t, l) => `<button class="seg" data-l="${l}">${t}<sup>${l}</sup></button>`);
+    hud.innerHTML = `<span class="pill">Sentence <b>${i+1}</b>/${items.length}</span><span class="pill">Correct <b>${correct}</b></span>`;
+    stage.innerHTML = `<div class="panel">
+      <div class="progress"><i style="width:${i/items.length*100}%"></i></div>
+      <p class="tag">${it.u? "Unit "+it.u : "Final review"}</p>
+      <p class="instr">One underlined part is wrong. Tap it.</p>
+      <p class="err-sent">${html}</p>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <div class="row" id="nx" hidden><button class="btn" id="next">Next</button></div></div>`;
+    const segs = [...stage.querySelectorAll(".seg")];
+    segs.forEach(s => s.onclick = () => {
+      const ok = s.dataset.l === letter; segs.forEach(x => { x.disabled = true; if(x.dataset.l===letter) x.classList.add("right"); });
+      if(!ok) s.classList.add("wrong");
+      const fb = $("#fb"); fb.className = "feedback " + (ok? "ok":"no");
+      fb.innerHTML = (ok? "Well spotted! " : `The mistake is <b>${letter}</b>. `) + `Correction: <b>${esc(fix)}</b>`;
+      recordUnit(it.u, ok); ok ? (correct++, sfx.ok(), pop("Found it!", s)) : sfx.no();
+      if(!ok) review.push(`${strip(it.q.replace(/<super>([A-D])<\/super>/g,"($1)"))} → <span class="corr">${esc(it.a)}</span>`);
+      $("#nx").hidden = false; $("#next").focus();
+    });
+    $("#next").onclick = () => { i++; render(); };
+  }
+  onKey(e => { const k = e.key.toUpperCase(); if("ABCD".includes(k) && k.length===1){ const s = [...stage.querySelectorAll(".seg")].find(x=>x.dataset.l===k); if(s && !s.disabled) s.click(); } if(e.key==="Enter"){ const n=$("#next"); if(n && !$("#nx").hidden){ e.preventDefault(); n.click(); } } });
+  render();
+}
+
+
+/* ================= 9. PRONUNCIATION & STRESS ================= */
+function gamePron(stage, hud){
+  const pool = DATA.pron; if(pool.length < 3) return empty(stage);
+  const items = sample(pool, Math.min(10, pool.length));
+  let i = 0, correct = 0, review = [];
+  function render(){
+    if(i >= items.length){ finish(stage, {correct, total: items.length, xp: correct*10, review}); return; }
+    const it = items[i];
+    hud.innerHTML = `<span class="pill">Item <b>${i+1}</b>/${items.length}</span><span class="pill">Correct <b>${correct}</b></span>`;
+    stage.innerHTML = `<div class="panel">
+      <div class="progress"><i style="width:${i/items.length*100}%"></i></div>
+      <p class="tag">Pronunciation &amp; Stress</p>
+      <p class="instr">${esc(it.instr)}</p>
+      <div class="opts">${it.w.map((w,k)=>`<button class="opt" data-k="${k}"><span class="k">${k+1}</span><span>${esc(w)}</span></button>`).join("")}</div>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <div class="row" id="nx" hidden><button class="btn" id="next">Next</button></div></div>`;
+    const btns = [...stage.querySelectorAll(".opt")];
+    btns.forEach((b,k) => b.onclick = () => {
+      const ok = k===it.a; btns.forEach((x,j) => { x.disabled = true; if(j===it.a) x.classList.add("right"); else if(j===k) x.classList.add("wrong"); });
+      ok ? (correct++, sfx.ok(), pop("Correct!", b)) : sfx.no();
+      const fb = $("#fb"); fb.className = "feedback " + (ok?"ok":"no"); fb.innerHTML = ok? "Correct!" : `The odd one out is <b>${esc(it.w[it.a])}</b>.`;
+      if(!ok) review.push(`${it.w.join(", ")} → <span class="corr">${esc(it.w[it.a])}</span>`);
+      $("#nx").hidden = false; $("#next").onclick = () => {i++; render();}; $("#next").focus();
+    });
+  }
+  onKey(e => { const n = parseInt(e.key); if(n>=1 && n<=4){ const b = stage.querySelectorAll(".opt")[n-1]; if(b && !b.disabled) b.click(); } if(e.key==="Enter"){ const nx=$("#next"); if(nx && !$("#nx").hidden){ e.preventDefault(); nx.click(); } } });
+  render();
+}
+
+/* ================= 10. MOCK TEST ================= */
+function gameMock(stage, hud){
+  if(DATA.pron.length<4 || DATA.mc.length<4 || DATA.err.length<2 || DATA.tf.length<2 || DATA.order===undefined) {}
+  const orderSrc = orderPool();
+  if(DATA.pron.length<4 || DATA.mc.length<4 || DATA.err.length<2 || DATA.tf.length<2 || orderSrc.length<2) return empty(stage);
+
+  const pronItems = sample(DATA.pron, Math.min(5, DATA.pron.length));
+  const mcItems = sample(DATA.mc, Math.min(8, DATA.mc.length));
+  const errItems = sample(DATA.err, Math.min(5, DATA.err.length));
+  const tfByPassage = {};
+  DATA.tf.forEach(t => { (tfByPassage[t.p] = tfByPassage[t.p] || []).push(t); });
+  const groups = Object.entries(tfByPassage);
+  groups.sort((a,b) => b[1].length - a[1].length);
+  const bestLen = groups[0][1].length;
+  const topGroups = groups.filter(g => g[1].length === bestLen);
+  const chosen = topGroups[Math.random()*topGroups.length|0];
+  const passageText = chosen[0];
+  const tfItems = sample(chosen[1], Math.min(5, chosen[1].length));
+  const orderItems = sample(orderSrc, Math.min(5, orderSrc.length));
+
+  const parts = [
+    {label:"Part 1 · Pronunciation &amp; word stress", items: pronItems.map(o => ({kind:"pron", instr:o.instr, w:o.w, a:o.a}))},
+    {label:"Part 2 · Choose the correct answer", items: mcItems.map(m => ({kind:"mc", u:m.u, q:m.q, instr:m.i, opts:m.o, passage:m.p}))},
+    {label:"Part 3 · Find and correct the mistake", items: errItems.map(e => ({kind:"err", u:e.u, q:e.q, a:e.a}))},
+    {label:"Part 4 · Read and decide True or False", items: tfItems.map(t => ({kind:"tf", u:t.u, q:t.q, a:t.a, passage:passageText}))},
+    {label:"Part 5 · Put the words in order", items: orderItems.map(o => ({kind:"order", u:o.u, a:o.s}))},
+  ];
+  const steps = [];
+  parts.forEach((p,pi) => p.items.forEach((it,ii) => steps.push({...it, part:pi, partLabel:p.label, partLen:p.items.length, partPos:ii})));
+
+  let i = 0, correct = 0, review = [];
+
+  function next(){ i++; render(); }
+
+  function render(){
+    if(i >= steps.length){
+      finish(stage, {correct, total: steps.length, xp: correct*10, review, extra: `Full mock exam: ${parts.map(p=>p.label.split("· ")[1]).join(" · ")}.`}); return;
+    }
+    const st = steps[i];
+    hud.innerHTML = `<span class="pill">${st.partLabel}</span><span class="pill">Item <b>${st.partPos+1}</b>/${st.partLen}</span><span class="pill">Score <b>${correct}</b>/${steps.length}</span>`;
+    if(st.kind==="pron") renderPron(st);
+    else if(st.kind==="mc") renderMC(st);
+    else if(st.kind==="err") renderErr(st);
+    else if(st.kind==="tf") renderTF(st);
+    else renderOrder(st);
+  }
+
+  function progressBar(){ return `<div class="progress"><i style="width:${i/steps.length*100}%"></i></div>`; }
+
+  function renderPron(st){
+    stage.innerHTML = `<div class="panel">${progressBar()}
+      <p class="tag">${st.partLabel}</p>
+      <p class="instr">${esc(st.instr)}</p>
+      <div class="opts">${st.w.map((w,k)=>`<button class="opt" data-k="${k}"><span class="k">${k+1}</span><span>${esc(w)}</span></button>`).join("")}</div>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <div class="row" id="nx" hidden><button class="btn" id="next">Next</button></div></div>`;
+    const btns = [...stage.querySelectorAll(".opt")];
+    btns.forEach((b,k) => b.onclick = () => {
+      const ok = k===st.a; btns.forEach((x,j) => { x.disabled = true; if(j===st.a) x.classList.add("right"); else if(j===k) x.classList.add("wrong"); });
+      ok ? (correct++, sfx.ok(), pop("Correct!", b)) : sfx.no();
+      const fb = $("#fb"); fb.className = "feedback " + (ok?"ok":"no"); fb.innerHTML = ok? "Correct!" : `The odd one out is <b>${esc(st.w[st.a])}</b>.`;
+      if(!ok) review.push(`${st.w.join(", ")} → <span class="corr">${esc(st.w[st.a])}</span>`);
+      $("#nx").hidden = false; $("#next").onclick = next; $("#next").focus();
+    });
+  }
+
+  function renderMC(st){
+    const opts = shuffle(st.opts.map((o,k) => ({o, right:k===0})));
+    stage.innerHTML = `<div class="panel">${progressBar()}
+      <p class="tag">${st.partLabel}</p>
+      ${st.passage? `<details class="passage"><summary class="small" style="cursor:pointer">Reading text</summary>${esc(st.passage)}</details>`:""}
+      <p class="instr">${esc(st.instr)}</p>
+      <p class="qtext">${st.q}</p>
+      <div class="opts">${opts.map((x,k)=>`<button class="opt" data-k="${k}"><span class="k">${k+1}</span><span>${x.o}</span></button>`).join("")}</div>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <div class="row" id="nx" hidden><button class="btn" id="next">Next</button></div></div>`;
+    const btns = [...stage.querySelectorAll(".opt")];
+    btns.forEach((b,k) => b.onclick = () => {
+      const ok = opts[k].right; btns.forEach((x,j) => { x.disabled = true; if(opts[j].right) x.classList.add("right"); else if(j===k) x.classList.add("wrong"); });
+      recordUnit(st.u, ok); ok ? (correct++, sfx.ok(), pop("Correct!", b)) : sfx.no();
+      const rightText = opts.find(x=>x.right).o;
+      const fb = $("#fb"); fb.className = "feedback " + (ok?"ok":"no"); fb.innerHTML = ok? "Correct!" : `Answer: <b>${esc(rightText)}</b>`;
+      if(!ok) review.push(`${esc(st.q)} → <span class="corr">${esc(rightText)}</span>`);
+      $("#nx").hidden = false; $("#next").onclick = next; $("#next").focus();
+    });
+  }
+
+  function renderErr(st){
+    const letter = st.a.trim()[0]; const fix = st.a.split("→")[1]?.trim() || "";
+    const html = st.q.replace(/<u>(.*?)<\/u><super>([A-D])<\/super>/g, (m,t,l) => `<button class="seg" data-l="${l}">${t}<sup>${l}</sup></button>`);
+    stage.innerHTML = `<div class="panel">${progressBar()}
+      <p class="tag">${st.partLabel}</p>
+      <p class="instr">One underlined part is wrong. Tap it.</p>
+      <p class="err-sent">${html}</p>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <div class="row" id="nx" hidden><button class="btn" id="next">Next</button></div></div>`;
+    const segs = [...stage.querySelectorAll(".seg")];
+    segs.forEach(s => s.onclick = () => {
+      const ok = s.dataset.l === letter; segs.forEach(x => { x.disabled = true; if(x.dataset.l===letter) x.classList.add("right"); });
+      if(!ok) s.classList.add("wrong");
+      recordUnit(st.u, ok); ok ? (correct++, sfx.ok(), pop("Found it!", s)) : sfx.no();
+      const fb = $("#fb"); fb.className = "feedback " + (ok?"ok":"no"); fb.innerHTML = (ok? "Well spotted! " : `The mistake is <b>${letter}</b>. `) + `Correction: <b>${esc(fix)}</b>`;
+      if(!ok) review.push(`${strip(st.q.replace(/<super>([A-D])<\/super>/g,"($1)"))} → <span class="corr">${esc(st.a)}</span>`);
+      $("#nx").hidden = false; $("#next").onclick = next; $("#next").focus();
+    });
+  }
+
+  function renderTF(st){
+    stage.innerHTML = `<div class="panel">${progressBar()}
+      <p class="tag">${st.partLabel}</p>
+      <details class="passage" open><summary class="small" style="cursor:pointer">Reading text</summary>${esc(st.passage)}</details>
+      <p class="instr">True or False?</p>
+      <p class="qtext">${esc(st.q)}</p>
+      <div class="opts">${["True","False"].map((o,k)=>`<button class="opt" data-k="${k}"><span class="k">${k+1}</span><span>${o}</span></button>`).join("")}</div>
+      <div class="feedback" id="fb" aria-live="polite"></div>
+      <div class="row" id="nx" hidden><button class="btn" id="next">Next</button></div></div>`;
+    const btns = [...stage.querySelectorAll(".opt")]; const rightIdx = st.a==="T"? 0 : 1;
+    btns.forEach((b,k) => b.onclick = () => {
+      const ok = k===rightIdx; btns.forEach((x,j) => { x.disabled = true; if(j===rightIdx) x.classList.add("right"); else if(j===k) x.classList.add("wrong"); });
+      recordUnit(st.u, ok); ok ? (correct++, sfx.ok(), pop("Correct!", b)) : sfx.no();
+      const fb = $("#fb"); fb.className = "feedback " + (ok?"ok":"no"); fb.innerHTML = ok? "Correct!" : `Answer: <b>${st.a==="T"?"True":"False"}</b>`;
+      if(!ok) review.push(`${esc(st.q)} → <span class="corr">${st.a==="T"?"True":"False"}</span>`);
+      $("#nx").hidden = false; $("#next").onclick = next; $("#next").focus();
+    });
+  }
+
+  function renderOrder(st){
+    const words = st.a.split(/\s+/);
+    let bank = shuffle(words.map((w,k)=>({w,k}))); if(bank.every((b,k)=>b.k===k) && bank.length>1) bank.reverse();
+    const line = []; let tries = 0, done = false;
+    stage.innerHTML = `<div class="panel">${progressBar()}
+      <p class="tag">${st.partLabel}</p>
+      <p class="instr">Put the words in order.</p>
+      <div class="slots" id="line" aria-label="Your sentence"></div>
+      <div class="bank" id="bank"></div>
+      <div class="row" style="margin-top:14px"><button class="btn" id="check">Check</button><button class="btn ghost" id="clear">Clear</button><button class="btn warn" id="skip">Show answer</button></div>
+      <div class="feedback" id="fb" aria-live="polite"></div></div>`;
+    const lineEl = $("#line"), bankEl = $("#bank"), fb = $("#fb");
+    function draw(){
+      lineEl.innerHTML = line.length? line.map((b,j)=>`<button class="tile" data-j="${j}">${esc(b.w)}</button>`).join("") : '<span class="small">Tap the words below…</span>';
+      bankEl.innerHTML = bank.map((b,j)=> b.used? "" : `<button class="tile" data-j="${j}">${esc(b.w)}</button>`).join("");
+      lineEl.querySelectorAll(".tile").forEach(t => t.onclick = () => { if(done) return; const b = line.splice(+t.dataset.j,1)[0]; b.used=false; sfx.tap(); draw(); });
+      bankEl.querySelectorAll(".tile").forEach(t => t.onclick = () => { if(done) return; const b = bank[+t.dataset.j]; b.used = true; line.push(b); sfx.tap(); draw(); });
+    }
+    draw();
+    $("#clear").onclick = () => { if(done) return; line.splice(0).forEach(b=>b.used=false); draw(); };
+    $("#check").onclick = () => {
+      if(done || line.length < words.length){ if(!done){ fb.className="feedback no"; fb.textContent = "Use all the words first."; } return; }
+      const got = line.map(b=>b.w).join(" ");
+      if(got === st.a){ done = true; lineEl.classList.add("ok"); fb.className="feedback ok"; fb.textContent = "Correct!"; correct += tries? .5 : 1; recordUnit(st.u, true); sfx.ok(); pop("Correct!", lineEl); timers.push(setTimeout(next, 900)); }
+      else { tries++; lineEl.classList.add("no"); sfx.no(); fb.className="feedback no"; fb.textContent = tries<2? "Not yet. Try again.":"";
+        timers.push(setTimeout(()=>lineEl.classList.remove("no"), 700)); if(tries>=2) reveal(got); }
+    };
+    $("#skip").onclick = () => { if(!done) reveal(line.map(b=>b.w).join(" ")); };
+    function reveal(got){ done = true; recordUnit(st.u, false); fb.className="feedback no"; fb.innerHTML = `Answer: <b>${esc(st.a)}</b>`; review.push(`<span class="corr">${esc(st.a)}</span>${got? ` <span class="yours">${esc(got)}</span>`:""}`); timers.push(setTimeout(next, 2200)); }
+  }
+
+  onKey(e => { if(e.key==="Enter"){ const nx=$("#next"); if(nx && !$("#nx").hidden){ e.preventDefault(); nx.click(); } } else { const n = parseInt(e.key); if(n>=1 && n<=4){ const b = stage.querySelectorAll(".opt")[n-1]; if(b && !b.disabled) b.click(); } } });
+  render();
+}
+
+renderSoundBtn(); renderStats(); home();
+</script>
+
+</body></html>
