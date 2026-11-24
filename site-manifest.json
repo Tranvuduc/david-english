@@ -1,0 +1,113 @@
+{
+  "site": "David English",
+  "sections": [
+    {
+      "name": "Trang chủ",
+      "url": "/",
+      "status": "available"
+    },
+    {
+      "name": "Bài xếp lớp (bản demo 3 câu mẫu)",
+      "url": "/bai-xep-lop.html",
+      "status": "available",
+      "note": "demo, không phải bài kiểm tra thật"
+    },
+    {
+      "name": "English Level Check — kiểm tra trình độ",
+      "url": "/tro-choi/english-level-check.html",
+      "status": "available"
+    },
+    {
+      "name": "Trình độ A1",
+      "url": "/trinh-do/a1.html",
+      "status": "available",
+      "lessons": 5
+    },
+    {
+      "name": "Trình độ A2",
+      "url": "/trinh-do/a2.html",
+      "status": "available",
+      "lessons": 5
+    },
+    {
+      "name": "Trình độ B1",
+      "url": "/trinh-do/b1.html",
+      "status": "available",
+      "lessons": 12
+    },
+    {
+      "name": "Trình độ B2",
+      "url": "/trinh-do/b2.html",
+      "status": "available",
+      "lessons": 6
+    },
+    {
+      "name": "Trình độ C1 (hướng dẫn học)",
+      "url": "/trinh-do/c1.html",
+      "status": "available",
+      "note": "hướng dẫn học, chưa có bài học theo bài"
+    },
+    {
+      "name": "Trình độ C2 (hướng dẫn học)",
+      "url": "/trinh-do/c2.html",
+      "status": "available",
+      "note": "hướng dẫn học, chưa có bài học theo bài"
+    },
+    {
+      "name": "Theo kỹ năng (Nghe, Nói, Đọc, Viết)",
+      "url": "/ky-nang/",
+      "status": "available"
+    },
+    {
+      "name": "Luyện thi (IELTS, TOEIC, PTE, TOEFL, VSTEP)",
+      "url": "/luyen-thi/",
+      "status": "available"
+    },
+    {
+      "name": "Trẻ em",
+      "url": "/tre-em.html",
+      "status": "available"
+    },
+    {
+      "name": "Tiếng Anh công việc",
+      "url": "/cong-viec.html",
+      "status": "available"
+    },
+    {
+      "name": "Du học",
+      "url": "/du-hoc.html",
+      "status": "available"
+    },
+    {
+      "name": "Tài nguyên miễn phí",
+      "url": "/tai-nguyen.html",
+      "status": "available"
+    },
+    {
+      "name": "Sách học",
+      "url": "/sach/",
+      "status": "available"
+    },
+    {
+      "name": "Trò chơi & Công cụ",
+      "url": "/tro-choi/",
+      "status": "available",
+      "tools": 18
+    },
+    {
+      "name": "Trò chuyện AI",
+      "url": "/tro-chuyen-ai.html",
+      "status": "available"
+    },
+    {
+      "name": "Tra từ bằng AI",
+      "url": "/cong-cu/tu-vung.html",
+      "status": "available"
+    },
+    {
+      "name": "Chữa bài viết bằng AI",
+      "url": "/cong-cu/viet.html",
+      "status": "available"
+    }
+  ]
+}

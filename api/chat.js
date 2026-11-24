@@ -46,29 +46,17 @@ const MSG_TOO_FAST = 'Bạn hỏi hơi nhanh, mời thử lại sau ít phút nh
 const MSG_NOT_READY = 'Tính năng chat AI đang được chuẩn bị, mời bạn quay lại sau.';
 const MSG_ERROR = 'Có lỗi xảy ra, mời thử lại sau.';
 
-// Các mục của trang — LLM CHỈ được dẫn link trong danh sách này, tuyệt đối
-// không bịa URL hay đoán slug. Trang đang là khung sườn v1 nên nhiều mục
-// còn là "Sắp có"; LLM phải nói rõ điều đó thay vì giả vờ nội dung đã có.
-const SITE_SECTIONS = [
-  ['Trang chủ', '/'],
-  ['Bài xếp lớp', '/bai-xep-lop.html'],
-  ['Theo trình độ (A1–C2)', '/trinh-do/'],
-  ['Theo kỹ năng (Nghe, Nói, Đọc, Viết)', '/ky-nang/'],
-  ['Luyện thi (IELTS, TOEIC, PTE, TOEFL, VSTEP)', '/luyen-thi/'],
-  ['Trẻ em', '/tre-em.html'],
-  ['Tiếng Anh công việc', '/cong-viec.html'],
-  ['Du học', '/du-hoc.html'],
-  ['Tài nguyên miễn phí', '/tai-nguyen.html'],
-  ['Trò chuyện AI', '/tro-chuyen-ai.html'],
-  ['Tra từ bằng AI', '/cong-cu/tu-vung.html'],
-  ['Chữa bài viết bằng AI', '/cong-cu/viet.html'],
-];
+// Các mục của trang — SINH TỰ ĐỘNG bởi _build.py (api/site-context.js,
+// từ dữ liệu thật: sitemap + số bài học). LLM CHỈ được dẫn link trong
+// danh sách này, tuyệt đối không bịa URL hay đoán slug. KHÔNG sửa tay ở
+// đây — sửa _build.py rồi chạy lại để tái sinh site-context.js.
+import { SITE_SECTIONS } from './site-context.js';
 
 const SYSTEM_PROMPT = [
   'Bạn là trợ lý AI của David English — trang học tiếng Anh miễn phí cho người Việt.',
   'Trả lời bằng tiếng Việt, ngắn gọn (tối đa khoảng 250 từ), giọng ấm áp, rõ ràng, dễ hiểu cho người đang học tiếng Anh.',
   'Giải thích ngữ pháp và từ vựng bằng tiếng Việt, kèm ví dụ tiếng Anh ngắn và dịch nghĩa. Khi giải thích phát âm, dùng phiên âm đơn giản mà người Việt đọc được.',
-  'Khi người dùng hỏi về bài học, đề thi thử hay tài liệu trên trang: chỉ dẫn tới các mục trong TÀI LIỆU TRÊN TRANG (đường dẫn bắt đầu bằng "/"). Trang đang là khung sườn — nhiều mục còn ghi "Sắp có"; nếu nội dung họ hỏi chưa có trên trang, nói thẳng "chưa có trên trang, sắp có" rồi gợi ý mục phù hợp nhất, tuyệt đối không bịa ra bài học hay link không có thật.',
+  'Khi người dùng hỏi về bài học, đề thi thử hay tài liệu trên trang: chỉ dẫn tới các mục trong TÀI LIỆU TRÊN TRANG (đường dẫn bắt đầu bằng "/"). Nếu nội dung họ hỏi chưa có trên trang, nói thẳng là chưa có rồi gợi ý mục phù hợp nhất; tuyệt đối không bịa ra bài học hay link không có thật.',
   'Không dùng dấu ** trong câu trả lời (không in đậm bằng markdown).',
   'Không bao giờ nói câu trả lời đã được giáo viên duyệt — mọi câu trả lời đều là AI soạn, chưa duyệt.',
   'Không trả lời về chính trị hay các chủ đề ngoài việc học tiếng Anh.',
@@ -82,8 +70,14 @@ const MODE_PROMPTS = {
 
 function siteContextText() {
   const lines = ['TÀI LIỆU TRÊN TRANG David English — chỉ dùng những mục dưới đây, tuyệt đối không bịa link hay đoán slug:'];
-  for (const [label, url] of SITE_SECTIONS) lines.push(`- ${label}: ${url}`);
-  lines.push('Lưu ý: trang đang là khung sườn v1, các mục bài học còn ghi "Sắp có" — đừng nói nội dung đã có khi chưa có.');
+  for (const s of SITE_SECTIONS) {
+    let line = `- ${s.name}: ${s.url} (trạng thái: ${s.status || 'available'}`;
+    if (s.lessons) line += `, ${s.lessons} bài học`;
+    if (s.tools) line += `, ${s.tools} công cụ`;
+    if (s.note) line += ` — ${s.note}`;
+    lines.push(line + ')');
+  }
+  lines.push('Lưu ý: mục ghi "demo" chỉ là bản demo, không phải bài kiểm tra thật — hướng người dùng tới English Level Check (/tro-choi/english-level-check.html) khi họ muốn kiểm tra trình độ thật. Mục ghi "hướng dẫn học" có nội dung hướng dẫn, chưa có bài học theo bài.');
   return lines.join('\n');
 }
 
@@ -97,8 +91,10 @@ function json(res, status, obj) {
 // ---------------------------------------------------------------- rate limit
 // GHI CHÚ TRUNG THỰC: Vercel serverless có thể chạy nhiều instance song song,
 // mỗi instance có bộ nhớ riêng, nên giới hạn này chỉ là "phanh" chống spam
-// trong từng instance — không phải giới hạn toàn cục tuyệt đối. Lớp bảo vệ
-// $0 thật sự là quota free tier của chính Groq/Gemini (429 -> tạm nghỉ).
+// trong từng instance — không phải giới hạn toàn cục tuyệt đối. Giới hạn
+// 10 tin/giờ và 50 tin/ngày là XẤP XỈ: một IP có thể vượt nhẹ khi các yêu
+// cầu rơi vào nhiều instance khác nhau. Lớp bảo vệ $0 thật sự là quota
+// free tier của chính Groq/Gemini (429 -> tạm nghỉ).
 const _hits = new Map(); // hashIP -> [timestampMs, ...]
 const _salt = Math.random().toString(36).slice(2);
 function clientIp(req) {

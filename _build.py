@@ -401,11 +401,11 @@ def add(path, title, h1, body, active="/", desc=None, eyebrow=None, hero=None, n
 # ---------------- Trang chủ ----------------
 add("/", "Học tiếng Anh miễn phí", "Học tiếng Anh miễn phí, từ đầu tới giỏi",
     f"""
-<p>Trang đang được xây dựng dần: bài học A1–B1, trò chơi và sách học đã có — các mục còn lại sẽ thêm sau.</p>
+<p>Trang đang được xây dựng dần: bài học A1–B2, trò chơi và sách học đã có — các mục còn lại sẽ thêm sau.</p>
 <section class="section">
 <div class="cards">
   <article class="card card-tool">{card_icon("place")}<h2><a href="/bai-xep-lop.html">Bài xếp lớp</a></h2><p>Bản demo với 3 câu mẫu — thử giao diện xếp lớp rồi gợi ý lộ trình học phù hợp.</p></article>
-  <article class="card card-level">{card_icon("level")}<h2><a href="/trinh-do/">Theo trình độ (A1–C2)</a></h2><p>Đã có bài học A1, A2 và B1 (Kingdom English) kèm PDF + audio miễn phí, cùng hướng dẫn học cho các cấp B2–C2.</p></article>
+  <article class="card card-level">{card_icon("level")}<h2><a href="/trinh-do/">Theo trình độ (A1–C2)</a></h2><p>Đã có bài học A1, A2, B1 và B2 (Kingdom English) kèm PDF + audio miễn phí, cùng hướng dẫn học cho các cấp C1–C2.</p></article>
   <article class="card card-skill">{card_icon("skill")}<h2><a href="/ky-nang/">Theo kỹ năng</a></h2><p>Nghe, nói, đọc, viết — luyện từng kỹ năng riêng, có giải thích tiếng Việt.</p></article>
   <article class="card card-exam">{card_icon("exam")}<h2><a href="/luyen-thi/">Luyện thi</a></h2><p>IELTS · TOEIC · PTE · TOEFL · VSTEP — cấu trúc bài thi, mẹo làm bài từng phần và bài luyện.</p></article>
   <article class="card card-kids">{card_icon("kids")}<h2><a href="/tre-em.html">Trẻ em</a></h2><p>Tiếng Anh cho trẻ em: từ vựng theo chủ đề, bài hát, trò chơi, truyện ngắn.</p></article>
@@ -425,19 +425,20 @@ add("/", "Học tiếng Anh miễn phí", "Học tiếng Anh miễn phí, từ �
 </div>
 </section>
 <p class="muted">Mọi câu trả lời của AI đều ghi rõ “AI, chưa duyệt”.</p>
-""", desc="David English đang xây dựng thư viện học tiếng Anh miễn phí cho người Việt, giải thích bằng tiếng Việt — đã có bài học A1–B1, trò chơi và sách học; các mục còn lại đang được xây dựng dần.",
+""", desc="David English đang xây dựng thư viện học tiếng Anh miễn phí cho người Việt, giải thích bằng tiếng Việt — đã có bài học A1–B2, trò chơi và sách học; các mục còn lại đang được xây dựng dần.",
     hero={
         "eyebrow": TAGLINE,
         "title_html": "Học tiếng Anh <strong>miễn phí</strong>, từ đầu tới giỏi",
-        "lead": "David English đang xây dựng thư viện học tiếng Anh miễn phí cho người Việt — không cần đăng ký, giải thích bằng tiếng Việt. Đã có bài học A1–B1, trò chơi và sách học; các mục còn lại đang được xây dựng dần.",
-        "cta_primary": ("Bài xếp lớp", "/bai-xep-lop.html"),
-        "cta_secondary": ("Theo trình độ", "/trinh-do/"),
+        "lead": "David English đang xây dựng thư viện học tiếng Anh miễn phí cho người Việt — không cần đăng ký, giải thích bằng tiếng Việt. Đã có bài học A1–B2, trò chơi và sách học; các mục còn lại đang được xây dựng dần.",
+        "cta_primary": ("Bắt đầu học", "/trinh-do/"),
+        "cta_secondary": ("Kiểm tra trình độ", "/tro-choi/english-level-check.html"),
     })
 
 # ---------------- Bài xếp lớp (stub tương tác) ----------------
 add("/bai-xep-lop.html", "Bài xếp lớp", "Bài xếp lớp",
     """
 <p class="lead">Bản demo giao diện bài xếp lớp — 3 câu mẫu để thử, chưa phải bài kiểm tra thật. 3 câu hỏi không thể đo trình độ của bạn, vì vậy trang này không đưa ra kết quả xếp lớp.</p>
+<p>Muốn kiểm tra thật? Làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> — bài kiểm tra trình độ có chấm điểm (nghe, đọc, viết) và gợi ý lộ trình học phù hợp.</p>
 <p><span class="badge">Đang hoàn thiện</span> Đây là bản demo giao diện — bộ câu hỏi chính thức và cách chấm điểm thật chưa có. Kết quả dưới đây chỉ để thử giao diện, chưa dùng để xếp lớp thật.</p>
 <section class="section">
 <form id="placementForm">
@@ -1182,7 +1183,7 @@ LEVEL_BODIES = {
 <p><strong>Từ vựng.</strong> Ở B1, bạn mở rộng từ vựng theo chủ đề thay vì học từ rời rạc: du lịch và giao thông, sức khỏe, công việc, giáo dục, môi trường, công nghệ, tiền bạc và mua sắm. Với mỗi chủ đề, học cả cụm từ (collocation) — ví dụ không học riêng từ <em>decision</em> mà học <em>make a decision</em>; không học riêng <em>mistake</em> mà học <em>make a mistake</em>. Học từ theo cụm giúp bạn nói tự nhiên hơn nhiều so với việc ghép từng từ đơn lại.</p>
 <p><strong>Bốn kỹ năng.</strong> Nghe: hiểu được hội thoại hằng ngày ở tốc độ gần tự nhiên và nắm ý chính của bản tin ngắn. Nói: kể một câu chuyện có đầu có cuối, diễn đạt ý kiến trong 1–2 phút mà không cần chuẩn bị quá lâu. Đọc: đọc được truyện ngắn, email, bài báo đơn giản và tìm được thông tin cụ thể. Viết: viết được email, đoạn văn 120–150 từ có mở bài, thân bài, kết bài rõ ràng.</p>
 <h2>Checklist: bạn đã đạt B1 chưa?</h2>
-<p>Tự đánh dấu những điều bạn làm được. Nếu làm được ít nhất 8/10, bạn đang ở B1 vững:</p>
+<p>Tự đánh dấu những điều bạn làm được. Nếu làm được ít nhất 8/9, bạn đang ở B1 vững:</p>
 <ul>
 <li>☐ Kể lại một bộ phim hoặc chuyến đi trong 2 phút bằng tiếng Anh, người nghe hiểu được cốt truyện.</li>
 <li>☐ Viết email xin nghỉ phép hoặc hỏi thông tin mà không cần tra từ điển từng câu.</li>
@@ -2570,6 +2571,13 @@ add("/quyen-rieng-tu.html", "Quyền riêng tư", "Quyền riêng tư",
 <p>Dữ liệu phân tích trong GA4 được lưu tối đa 14 tháng rồi tự xóa. Cookie GA4 trên trình duyệt của bạn (_ga) có hạn tối đa 2 năm, nhưng sẽ bị xóa ngay khi bạn rút lại sự đồng ý (xem bên dưới).</p>
 </section>
 <section class="section">
+<div class="section-head"><h2>Trò chuyện AI và chữa bài viết: dữ liệu gửi cho nhà cung cấp AI</h2></div>
+<p>Khi bạn dùng Trò chuyện AI, Tra từ bằng AI, Chữa bài viết bằng AI hoặc bài kiểm tra English Level Check, nội dung bạn gửi được chuyển tới nhà cung cấp AI để tạo câu trả lời: câu hỏi của bạn, đoạn văn bạn gửi để chữa, và tối đa 2 lượt trao đổi gần nhất (lịch sử trò chuyện) để AI trả lời đúng ngữ cảnh. Bài viết gửi để chấm có thể dài tới 3.000 ký tự.</p>
+<p>Nhà cung cấp là <strong>Groq</strong> (chính) và <strong>Google Gemini</strong> (dự phòng khi Groq hết lượt miễn phí). Dữ liệu chỉ dùng để tạo câu trả lời hoặc chấm bài — không dùng để quảng cáo. Cách các nhà cung cấp xử lý và lưu dữ liệu này tuân theo chính sách riêng của họ (Groq, Google), không thuộc chính sách này.</p>
+<p>Để chống lạm dụng, địa chỉ IP của bạn được xử lý (băm một chiều, không lưu địa chỉ gốc) nhằm giới hạn lượt dùng: tối đa khoảng 10 tin/giờ và 50 tin/ngày cho mỗi IP. Giới hạn này là xấp xỉ — máy chủ chạy nhiều phiên bản song song, mỗi phiên bản đếm riêng, nên một IP có thể vượt nhẹ giới hạn khi các yêu cầu rơi vào nhiều phiên bản khác nhau.</p>
+<p>Trang không ghi lại (không log) câu hỏi hay bài viết của bạn trên máy chủ của mình. Mọi câu trả lời của AI đều ghi rõ “AI, chưa duyệt” — chưa được giáo viên duyệt.</p>
+</section>
+<section class="section section-alt">
 <div class="section-head"><h2>Rút lại sự đồng ý và xóa dữ liệu</h2></div>
 <p>Bạn có thể rút lại sự đồng ý bất cứ lúc nào: bấm liên kết “Cài đặt cookie” ở chân trang, rồi bấm “Từ chối”. Thao tác này xóa cookie Google Analytics khỏi trình duyệt của bạn và dừng mọi thu thập tiếp theo ngay lập tức. Dữ liệu đã gửi trước đó được ẩn danh và tự xóa sau tối đa 14 tháng.</p>
 <p>Ngoài GA4, trang chỉ lưu dữ liệu trên chính máy của bạn: tiến độ trò chơi và bài kiểm tra được lưu trong trình duyệt của bạn (localStorage), không gửi về máy chủ của chúng tôi. Xóa dữ liệu trình duyệt là xóa luôn các dữ liệu này.</p>
@@ -2579,7 +2587,7 @@ add("/quyen-rieng-tu.html", "Quyền riêng tư", "Quyền riêng tư",
 <p>Hiện trang chưa có hộp thư liên hệ riêng, nên cách nhanh nhất để yêu cầu dừng và xóa dữ liệu phân tích liên quan tới bạn là dùng liên kết “Cài đặt cookie” ở chân trang như hướng dẫn ở trên — có hiệu lực ngay, không cần chờ ai xử lý. Địa chỉ liên hệ để gửi yêu cầu xóa dữ liệu sẽ được bổ sung tại đây khi trang có hộp thư liên hệ chính thức.</p>
 </section>
 """, active="/", eyebrow="David English",
-    desc="Chính sách quyền riêng tư của David English: Google Analytics thu thập gì, dùng để làm gì, lưu bao lâu, và cách rút lại sự đồng ý.")
+    desc="Chính sách quyền riêng tư của David English: Google Analytics thu thập gì, dữ liệu gửi cho nhà cung cấp AI (Groq, Google Gemini) gồm những gì, lưu bao lâu, và cách rút lại sự đồng ý.")
 
 if __name__ == "__main__":
     for path, title, h1, body, active, desc, eyebrow, hero, noindex in PAGES:
@@ -2600,3 +2608,38 @@ if __name__ == "__main__":
         f.write("\n".join(lines) + "\n")
     print("sitemap urls:", len(indexed),
           "(noindex excluded:", sum(1 for p in PAGES if p[8]), ")")
+    # site-manifest.json + api/site-context.js: nguồn dữ liệu chung về các mục
+    # của trang, sinh từ dữ liệu thật (sitemap + số bài học) để AI chat
+    # (api/chat.js) luôn biết mục nào đã có, mục nào chỉ là demo/hướng dẫn.
+    # KHÔNG ghi tay số bài học ở đây — lấy từ LESSONS_BY_LEVEL / B1 / B2.
+    manifest_sections = [
+        {"name": "Trang chủ", "url": "/", "status": "available"},
+        {"name": "Bài xếp lớp (bản demo 3 câu mẫu)", "url": "/bai-xep-lop.html", "status": "available", "note": "demo, không phải bài kiểm tra thật"},
+        {"name": "English Level Check — kiểm tra trình độ", "url": "/tro-choi/english-level-check.html", "status": "available"},
+        {"name": "Trình độ A1", "url": "/trinh-do/a1.html", "status": "available", "lessons": len(LESSONS_BY_LEVEL["a1"])},
+        {"name": "Trình độ A2", "url": "/trinh-do/a2.html", "status": "available", "lessons": len(LESSONS_BY_LEVEL["a2"])},
+        {"name": "Trình độ B1", "url": "/trinh-do/b1.html", "status": "available", "lessons": len(B1_LESSONS)},
+        {"name": "Trình độ B2", "url": "/trinh-do/b2.html", "status": "available", "lessons": len(B2_LESSONS)},
+        {"name": "Trình độ C1 (hướng dẫn học)", "url": "/trinh-do/c1.html", "status": "available", "note": "hướng dẫn học, chưa có bài học theo bài"},
+        {"name": "Trình độ C2 (hướng dẫn học)", "url": "/trinh-do/c2.html", "status": "available", "note": "hướng dẫn học, chưa có bài học theo bài"},
+        {"name": "Theo kỹ năng (Nghe, Nói, Đọc, Viết)", "url": "/ky-nang/", "status": "available"},
+        {"name": "Luyện thi (IELTS, TOEIC, PTE, TOEFL, VSTEP)", "url": "/luyen-thi/", "status": "available"},
+        {"name": "Trẻ em", "url": "/tre-em.html", "status": "available"},
+        {"name": "Tiếng Anh công việc", "url": "/cong-viec.html", "status": "available"},
+        {"name": "Du học", "url": "/du-hoc.html", "status": "available"},
+        {"name": "Tài nguyên miễn phí", "url": "/tai-nguyen.html", "status": "available"},
+        {"name": "Sách học", "url": "/sach/", "status": "available"},
+        {"name": "Trò chơi & Công cụ", "url": "/tro-choi/", "status": "available", "tools": len(TRO_CHOI)},
+        {"name": "Trò chuyện AI", "url": "/tro-chuyen-ai.html", "status": "available"},
+        {"name": "Tra từ bằng AI", "url": "/cong-cu/tu-vung.html", "status": "available"},
+        {"name": "Chữa bài viết bằng AI", "url": "/cong-cu/viet.html", "status": "available"},
+    ]
+    manifest = {"site": "David English", "sections": manifest_sections}
+    with open(os.path.join(ROOT, "site-manifest.json"), "w", encoding="utf-8") as f:
+        f.write(_json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
+    with open(os.path.join(ROOT, "api", "site-context.js"), "w", encoding="utf-8") as f:
+        f.write("// api/site-context.js — SINH TỰ ĐỘNG bởi _build.py từ dữ liệu thật\n"
+                "// (sitemap + số bài học). KHÔNG sửa tay — sửa _build.py rồi chạy lại.\n"
+                "// chat.js import danh sách này để AI luôn biết mục nào đã có.\n"
+                "export const SITE_SECTIONS = " + _json.dumps(manifest_sections, ensure_ascii=False, indent=2) + ";\n")
+    print("site-manifest sections:", len(manifest_sections))

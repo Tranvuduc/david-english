@@ -605,21 +605,21 @@ function heuristicBand(t){
   var s=Math.min(n/120,1)*.3+Math.min(Math.max((ttr-.45)/.25,0),1)*.2+Math.min(Math.max((avg-3.9)/1.2,0),1)*.15+c1*.15+c2*.1+Math.min(Math.max((n/sents-9)/10,0),1)*.1;
   return 4+s*3;
 }
-/* Writing marking via the site's own /api/chat (Groq primary, Gemini
-   fallback). The old Claude sample API never works on the live site.
-   Every AI answer is labelled "AI, chưa duyệt". 429 = out of free turns
-   today, 503 = not ready. The API takes at most 500 characters per
-   question, so the candidate text is excerpted; if the AI answer cannot
-   be parsed, the local automatic check is used instead. */
-function askChatAI(question){
-  return fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({question:String(question).slice(0,500),history:[],mode:"chat"})})
+/* Writing marking via the site's own /api/grade-writing (Groq primary,
+   Gemini fallback). The endpoint takes the full essay (up to 3,000
+   characters) and returns the four criterion scores plus strengths and
+   improvements, or a local automatic check (graded_by "fallback") when
+   the AI cannot mark it. 429 = out of free turns today, 503 = not ready.
+   Every AI mark is labelled "AI, chưa duyệt". */
+function askGradeWriting(essay, prompt, context){
+  return fetch("/api/grade-writing",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({essay:String(essay).slice(0,3000),prompt:String(prompt||"").slice(0,200),context:String(context||"").slice(0,200)})})
     .then(function(r){return r.json().then(function(d){return {status:r.status,d:d};});})
     .then(function(res){
       var d=res.d||{};
-      if(res.status===200&&d.answer)return {ok:true,answer:d.answer};
-      if(res.status===429)return {ok:false,msg:d.message||"Hôm nay đã hết lượt trả lời miễn phí, mời bạn quay lại sau 0:00 giờ."};
-      if(res.status===503)return {ok:false,msg:d.message||"Tính năng chat AI đang được chuẩn bị, mời bạn quay lại sau."};
+      if(res.status===200&&d.graded_by)return {ok:true,d:d};
+      if(res.status===429)return {ok:false,msg:d.message||"Hôm nay đã hết lượt chấm bài miễn phí, mời bạn quay lại sau 0:00 giờ."};
+      if(res.status===503)return {ok:false,msg:d.message||"Tính năng chấm bài AI đang được chuẩn bị, mời bạn quay lại sau."};
       return {ok:false,msg:(d&&d.message)||"Có lỗi xảy ra, mời thử lại sau."};
     })
     .catch(function(){return {ok:false,msg:"Không kết nối được, thử lại sau."};});
@@ -629,19 +629,17 @@ function gradeWriting(){
   if(n<20){st.wres={skip:true};showResult();return}
   var done=function(r){st.wres=r;showResult()};
   var fallback=function(){done({h:true,overall:Math.min(7,heuristicBand(text)||4)})};
-  var head="Chấm bài viết này cho "+T.writingCtx+". 4 tiêu chí, thang 3.0-9.0: task, coherence, lexical, grammar. Lạc đề/chép đề: task 4.0 trở xuống. Trả lời đúng dạng: Task 6.0, Coherence 6.5, Lexical 6.0, Grammar 6.5, Điểm mạnh: ..., Cần cải thiện: ...\nĐề: "+prompt.slice(0,60)+"\nTrích: ";
-  var ask=head+text.slice(0,Math.max(0,480-head.length));
-  askChatAI(ask).then(function(res){
+  askGradeWriting(text,prompt,T.writingCtx).then(function(res){
     if(!res.ok){fallback();return}
-    var a=res.answer;
-    var num=function(k){var m=a.match(new RegExp(k+"\\s*:\\s*([0-9]+(?:\\.[05])?)"));return m?parseFloat(m[1]):null};
-    var grab=function(k){var m=a.match(new RegExp(k+"\\s*:\\s*([^\\n;]+)"));return m?m[1].trim():""};
-    var t=num("Task"),c=num("Coherence"),l=num("Lexical"),g=num("Grammar");
-    if(t==null||c==null||l==null||g==null){fallback();return}
-    var f=function(x){x=parseFloat(x);return isFinite(x)?Math.max(3,Math.min(9,Math.round(x*2)/2)):null};
-    t=f(t);c=f(c);l=f(l);g=f(g);
-    if(t==null||c==null||l==null||g==null){fallback();return}
-    done({task:t,coherence:c,lexical:l,grammar:g,overall:(t+c+l+g)/4,strengths:grab("Điểm mạnh"),improve:grab("Cần cải thiện"),ai:true});
+    var d=res.d;
+    if(d.graded_by==="ai"&&d.task!=null&&d.coherence!=null&&d.lexical!=null&&d.grammar!=null){
+      var f=function(x){x=parseFloat(x);return isFinite(x)?Math.max(3,Math.min(9,Math.round(x*2)/2)):null};
+      var t=f(d.task),c=f(d.coherence),l=f(d.lexical),g=f(d.grammar);
+      if(t==null||c==null||l==null||g==null){fallback();return}
+      done({task:t,coherence:c,lexical:l,grammar:g,overall:(t+c+l+g)/4,strengths:d.strengths||"",improve:d.improvements||"",ai:true});
+    }else if(d.graded_by==="fallback"&&d.overall!=null){
+      done({h:true,overall:Math.min(7,d.overall)});
+    }else{fallback();}
   });
 }
 
@@ -694,7 +692,7 @@ function showResult(){
     h+='<div style="display:flex;flex-direction:column;gap:10px"><b>Writing, marked by AI (about '+wr.overall.toFixed(1)+'/9)</b>'+
       bar("Task",(wr.task-3)/6,wr.task.toFixed(1))+bar("Coherence",(wr.coherence-3)/6,wr.coherence.toFixed(1))+bar("Vocabulary",(wr.lexical-3)/6,wr.lexical.toFixed(1))+bar("Grammar",(wr.grammar-3)/6,wr.grammar.toFixed(1))+'</div>'+
       '<div class="fb">'+(wr.strengths?'<span><b>Good:</b> '+esc(wr.strengths)+'</span>':'')+(wr.improve?'<span><b>Improve:</b> '+esc(wr.improve)+'</span>':'')+'</div>'+
-      (wr.ai?'<div class="note">AI đã chấm đoạn trích đầu bài viết (giới hạn 500 ký tự mỗi câu hỏi) — AI, chưa duyệt.</div>':'');
+      (wr.ai?'<div class="note">AI đã chấm toàn bộ bài viết của bạn (tối đa 3.000 ký tự) — AI, chưa duyệt.</div>':'');
   }
   h+='<p>'+esc(T.advice(pending?f.theta:f.comb))+'</p>';
   var links=T.links(f.comb);
