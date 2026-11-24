@@ -611,9 +611,9 @@ function heuristicBand(t){
    today, 503 = not ready. The API takes at most 500 characters per
    question, so the candidate text is excerpted; if the AI answer cannot
    be parsed, the local automatic check is used instead. */
-function askChatAI(question){
+function askChatAI(question,mode){
   return fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({question:String(question).slice(0,500),history:[],mode:"chat"})})
+    body:JSON.stringify({question:String(question).slice(0,4500),history:[],mode:mode||"chat"})})
     .then(function(r){return r.json().then(function(d){return {status:r.status,d:d};});})
     .then(function(res){
       var d=res.d||{};
@@ -630,8 +630,8 @@ function gradeWriting(){
   var done=function(r){st.wres=r;showResult()};
   var fallback=function(){done({h:true,overall:Math.min(7,heuristicBand(text)||4)})};
   var head="Chấm bài viết này cho "+T.writingCtx+". 4 tiêu chí, thang 3.0-9.0: task, coherence, lexical, grammar. Lạc đề/chép đề: task 4.0 trở xuống. Trả lời đúng dạng: Task 6.0, Coherence 6.5, Lexical 6.0, Grammar 6.5, Điểm mạnh: ..., Cần cải thiện: ...\nĐề: "+prompt.slice(0,60)+"\nTrích: ";
-  var ask=head+text.slice(0,Math.max(0,480-head.length));
-  askChatAI(ask).then(function(res){
+  var ask=head+text.slice(0,Math.max(0,4500-head.length));
+  askChatAI(ask,"assessment").then(function(res){
     if(!res.ok){fallback();return}
     var a=res.answer;
     var num=function(k){var m=a.match(new RegExp(k+"\\s*:\\s*([0-9]+(?:\\.[05])?)"));return m?parseFloat(m[1]):null};
@@ -694,7 +694,7 @@ function showResult(){
     h+='<div style="display:flex;flex-direction:column;gap:10px"><b>Writing, marked by AI (about '+wr.overall.toFixed(1)+'/9)</b>'+
       bar("Task",(wr.task-3)/6,wr.task.toFixed(1))+bar("Coherence",(wr.coherence-3)/6,wr.coherence.toFixed(1))+bar("Vocabulary",(wr.lexical-3)/6,wr.lexical.toFixed(1))+bar("Grammar",(wr.grammar-3)/6,wr.grammar.toFixed(1))+'</div>'+
       '<div class="fb">'+(wr.strengths?'<span><b>Good:</b> '+esc(wr.strengths)+'</span>':'')+(wr.improve?'<span><b>Improve:</b> '+esc(wr.improve)+'</span>':'')+'</div>'+
-      (wr.ai?'<div class="note">AI đã chấm đoạn trích đầu bài viết (giới hạn 500 ký tự mỗi câu hỏi) — AI, chưa duyệt.</div>':'');
+      (wr.ai?'<div class="note">AI đã chấm tối đa 4.500 ký tự đầu của bài viết — AI, chưa duyệt.</div>':'');
   }
   h+='<p>'+esc(T.advice(pending?f.theta:f.comb))+'</p>';
   var links=T.links(f.comb);
