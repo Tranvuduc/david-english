@@ -605,12 +605,9 @@ function heuristicBand(t){
   var s=Math.min(n/120,1)*.3+Math.min(Math.max((ttr-.45)/.25,0),1)*.2+Math.min(Math.max((avg-3.9)/1.2,0),1)*.15+c1*.15+c2*.1+Math.min(Math.max((n/sents-9)/10,0),1)*.1;
   return 4+s*3;
 }
-/* Writing marking via the site's own /api/chat (Groq primary, Gemini
-   fallback). The old Claude sample API never works on the live site.
-   Every AI answer is labelled "AI, chưa duyệt". 429 = out of free turns
-   today, 503 = not ready. The API takes at most 500 characters per
-   question, so the candidate text is excerpted; if the AI answer cannot
-   be parsed, the local automatic check is used instead. */
+/* Writing marking via /api/chat (Groq primary, Gemini fallback).
+   Assessment mode accepts up to 4,500 characters; general chat remains
+   limited to 500 characters in its UI. AI estimates are not official scores. */
 function askChatAI(question,mode){
   return fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},
     body:JSON.stringify({question:String(question).slice(0,4500),history:[],mode:mode||"chat"})})
