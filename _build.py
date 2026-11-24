@@ -4,6 +4,7 @@
 # Markup theo design system v2 (xem DESIGN-SYSTEM.md): hero, page-head,
 # section/section-alt, card theo loại + icon SVG, badge-soon, level-chip.
 # Chỉ đổi markup trình bày — không đổi chữ, link hay cấu trúc nội dung.
+import datetime
 import html as htmlmod
 import json
 import os
@@ -129,6 +130,35 @@ def derive_desc(body_html):
     return _short(text)
 
 
+def _fmt_vn_date(ts):
+    """Định dạng timestamp (giây) thành dd/mm/yyyy theo giờ Việt Nam (+07).
+    Dùng offset cố định thay vì zoneinfo để không phụ thuộc tzdata trên máy build."""
+    tz7 = datetime.timezone(datetime.timedelta(hours=7))
+    return datetime.datetime.fromtimestamp(ts, tz=tz7).strftime("%d/%m/%Y")
+
+
+def _date_vn(path):
+    """Ngày cập nhật (dd/mm/yyyy) từ mtime của file nguồn, hoặc None nếu
+    file không tồn tại — trang đó không hiện ngày (không bịa ngày)."""
+    try:
+        return _fmt_vn_date(os.path.getmtime(path))
+    except OSError:
+        return None
+
+
+def _newest_date(paths):
+    """Ngày mới nhất (dd/mm/yyyy) trong các file nguồn, hoặc None."""
+    best = None
+    for p in paths:
+        try:
+            ts = os.path.getmtime(p)
+        except OSError:
+            continue
+        if best is None or ts > best:
+            best = ts
+    return _fmt_vn_date(best) if best is not None else None
+
+
 def _pretty_url(path):
     """Dạng URL đẹp dùng cho canonical / og:url / sitemap: bỏ hậu tố
     '/index.html' (giữ '/' cho trang chủ, giữ nguyên .html còn lại)."""
@@ -152,7 +182,10 @@ def _breadcrumb_jsonld(path, title, active):
     """BreadcrumbList JSON-LD: Trang chủ → hub (theo nav active) →
     trang trung gian (nếu có) → trang hiện tại. Trang chủ không cần."""
     if path == "/":
-        return ""
+        data = {"@context": "https://schema.org", "@type": "WebSite",
+                "name": "David English", "url": SITE_URL, "inLanguage": "vi"}
+        return ('<script type="application/ld+json">\n'
+                + json.dumps(data, ensure_ascii=False) + '\n</script>')
     pretty = _pretty_url(path)
     items = [("Trang chủ", "/")]
     for label, href in NAV:
@@ -251,13 +284,15 @@ COOKIE_SCRIPT = """<script>
 </script>"""
 
 
-def page(path, title, h1, body_html, active="/", desc=None, eyebrow=None, hero=None, noindex=False):
+def page(path, title, h1, body_html, active="/", desc=None, eyebrow=None, hero=None, noindex=False, updated=None):
     d = desc or derive_desc(body_html)
     desc_esc = htmlmod.escape(d, quote=True)
     title_esc = htmlmod.escape(title, quote=True)
     pretty = _pretty_url(path)
     robots_meta = ('<meta name="robots" content="noindex, follow">\n'
                    if noindex else "")
+    updated_html = (f'    <p class="muted">Cập nhật lần cuối: {updated}</p>\n'
+                    if updated else "")
     breadcrumb = _breadcrumb_jsonld(path, title, active)
     cookie_script = COOKIE_SCRIPT.replace("__GA4_ID__", GA4_ID)
     if hero is not None:
@@ -306,6 +341,8 @@ def page(path, title, h1, body_html, active="/", desc=None, eyebrow=None, hero=N
 <meta property="og:url" content="{SITE_URL}{pretty}">
 <meta property="og:image" content="{SITE_URL}/assets/og-default.png">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{title_esc} | David English">
+<meta name="twitter:image" content="{SITE_URL}/assets/og-default.png">
 <link rel="canonical" href="{SITE_URL}{pretty}">
 <meta name="theme-color" content="#123a6d">
 <link rel="icon" href="/favicon.svg">
@@ -338,7 +375,7 @@ def page(path, title, h1, body_html, active="/", desc=None, eyebrow=None, hero=N
     <p>Mọi câu trả lời của AI đều ghi rõ “AI, chưa duyệt” — chưa được giáo viên duyệt.</p>
     <p><a href="/">Trang chủ</a> · <a href="/tro-chuyen-ai.html">Trò chuyện AI</a> · <a href="/bai-xep-lop.html">Bài xếp lớp</a> · <a href="/tai-nguyen.html">Tài nguyên miễn phí</a> · <a href="/cong-cu/tu-vung.html">Tra từ</a> · <a href="/cong-cu/viet.html">Chữa bài viết</a> · <a href="/quyen-rieng-tu.html">Quyền riêng tư</a> · <a href="#" id="cookie-settings">Cài đặt cookie</a></p>
     <p class="muted">Bài học, trò chơi và sách học miễn phí — nội dung mới thêm dần.</p>
-  </div>
+{updated_html}  </div>
 </footer>
 <script src="{CHAT_JS}" defer></script>
 {COOKIE_BANNER}
@@ -394,8 +431,8 @@ def soon(title, lines, extra="", parent=None, prev=None, next=None, ai_question=
 PAGES = []
 
 
-def add(path, title, h1, body, active="/", desc=None, eyebrow=None, hero=None, noindex=False):
-    PAGES.append((path, title, h1, body, active, desc, eyebrow, hero, noindex))
+def add(path, title, h1, body, active="/", desc=None, eyebrow=None, hero=None, noindex=False, updated=None):
+    PAGES.append((path, title, h1, body, active, desc, eyebrow, hero, noindex, updated))
 
 
 # ---------------- Trang chủ ----------------
@@ -405,7 +442,7 @@ add("/", "Học tiếng Anh miễn phí", "Học tiếng Anh miễn phí, từ �
 <section class="section">
 <div class="cards">
   <article class="card card-tool">{card_icon("place")}<h2><a href="/bai-xep-lop.html">Bài xếp lớp</a></h2><p>Bản demo với 3 câu mẫu — thử giao diện xếp lớp rồi gợi ý lộ trình học phù hợp.</p></article>
-  <article class="card card-level">{card_icon("level")}<h2><a href="/trinh-do/">Theo trình độ (A1–C2)</a></h2><p>Đã có bài học A1, A2, B1 và B2 (Kingdom English) kèm PDF + audio miễn phí, cùng hướng dẫn học cho các cấp C1–C2.</p></article>
+  <article class="card card-level">{card_icon("level")}<h2><a href="/trinh-do/">Theo trình độ (A1–C2)</a></h2><p>Đã có bài học A1, A2 kèm PDF + audio miễn phí, và B1, B2 (Kingdom English) kèm PDF + audio miễn phí, cùng hướng dẫn học cho các cấp C1–C2.</p></article>
   <article class="card card-skill">{card_icon("skill")}<h2><a href="/ky-nang/">Theo kỹ năng</a></h2><p>Nghe, nói, đọc, viết — luyện từng kỹ năng riêng, có giải thích tiếng Việt.</p></article>
   <article class="card card-exam">{card_icon("exam")}<h2><a href="/luyen-thi/">Luyện thi</a></h2><p>IELTS · TOEIC · PTE · TOEFL · VSTEP — cấu trúc bài thi, mẹo làm bài từng phần và bài luyện.</p></article>
   <article class="card card-kids">{card_icon("kids")}<h2><a href="/tre-em.html">Trẻ em</a></h2><p>Tiếng Anh cho trẻ em: từ vựng theo chủ đề, bài hát, trò chơi, truyện ngắn.</p></article>
@@ -566,6 +603,7 @@ for _lv, _fn in LESSON_FILES:
     _d["_level"] = _lv
     _d["_path"] = f"/trinh-do/{_lv}/{_d['slug']}.html"
     _d["_pdf"] = f"/tai-lieu/{_lv}/{_d['slug']}.pdf"
+    _d["_src"] = os.path.join(ROOT, "tai-lieu", "src", _fn)
     LESSONS.append(_d)
     LESSONS_BY_LEVEL[_lv].append(_d)
 
@@ -575,6 +613,10 @@ AI_NOTE = ('<p><span class="badge">AI, chưa duyệt</span> Bài học do AI so�
 
 def _esc(s):
     return htmlmod.escape(str(s), quote=False)
+
+
+def _mmss(secs):
+    return f"{int(secs) // 60}:{int(secs) % 60:02d}"
 
 
 def lesson_body(d, prev_lesson, next_lesson):
@@ -595,10 +637,14 @@ def lesson_body(d, prev_lesson, next_lesson):
     if dlg:
         lines = "".join(f"<p><strong>{_esc(w)}:</strong> {_esc(t)}</p>"
                         for w, t in dlg.get("lines", []))
+        dlg_audio = ""
+        if d.get("audio"):
+            dlg_audio = (f'<p>Nghe hội thoại ({_mmss(d.get("audio_duration_secs", 0))}):</p>\n'
+                         f'<audio controls preload="none" src="{d["audio"]}"></audio>\n')
         dlg_html = (f'<section class="section section-alt">\n'
                     f"<div class=\"section-head\"><h2>Hội thoại mẫu</h2>"
                     f"<p class=\"section-sub\">{_esc(dlg.get('title', ''))}</p></div>\n"
-                    f"{lines}</section>\n")
+                    f"{dlg_audio}{lines}</section>\n")
     quiz = d.get("quiz", [])[:3]
     practice = ""
     for i, q in enumerate(quiz, 1):
@@ -616,6 +662,10 @@ def lesson_body(d, prev_lesson, next_lesson):
         nav.append(f'<a href="{next_lesson["_path"]}">{next_lesson["title"]} →</a>')
     nav.append(f'<a href="/trinh-do/{d["_level"]}.html">← Về trình độ {d["_level"].upper()}</a>')
     nav.append('<a href="/">← Về trang chủ</a>')
+    vocab_audio_html = ""
+    if d.get("vocab_audio"):
+        vocab_audio_html = (f'<p>Nghe phát âm từ vựng ({_mmss(d.get("vocab_audio_duration_secs", 0))}):</p>\n'
+                            f'<audio controls preload="none" src="{d["vocab_audio"]}"></audio>\n')
     return f"""
 <p class="lead">{_esc(d.get("subtitle", ""))}</p>
 {AI_NOTE}
@@ -625,7 +675,7 @@ def lesson_body(d, prev_lesson, next_lesson):
 </section>
 <section class="section section-alt">
 <div class="section-head"><h2>Từ vựng</h2><p class="section-sub">Học thuộc các từ dưới đây trước khi đọc phần ngữ pháp — mỗi từ có phiên âm IPA, nghĩa tiếng Việt và câu ví dụ.</p></div>
-<div class="table-wrap"><table><thead><tr><th>Từ</th><th>Loại</th><th>IPA</th><th>Nghĩa</th><th>Ví dụ</th></tr></thead><tbody>{vocab_rows}</tbody></table></div>
+{vocab_audio_html}<div class="table-wrap"><table><thead><tr><th>Từ</th><th>Loại</th><th>IPA</th><th>Nghĩa</th><th>Ví dụ</th></tr></thead><tbody>{vocab_rows}</tbody></table></div>
 </section>
 <section class="section">
 <div class="section-head"><h2>Ngữ pháp</h2><p class="section-sub">Giải thích bằng tiếng Việt, ví dụ song ngữ Anh – Việt.</p></div>
@@ -648,7 +698,7 @@ for _i, _d in enumerate(LESSONS):
     add(_d["_path"], _d["title"], _d["title"],
         lesson_body(_d, _prev, _next),
         active="/trinh-do/", eyebrow=f"Trình độ {_d['_level'].upper()}",
-        desc=_d.get("subtitle", ""))
+        desc=_d.get("subtitle", ""), updated=_date_vn(_d["_src"]))
 
 
 # ---------------- Bài học B1 — Kingdom English (tạo từ tai-lieu/src/b1-*.json) ----------------
@@ -669,12 +719,9 @@ for _fn in B1_FILES:
     _d["_level"] = "b1"
     _d["_path"] = f"/trinh-do/b1/{_d['slug']}.html"
     _d["_pdf"] = f"/tai-lieu/b1/{_d['slug']}.pdf"
+    _d["_src"] = os.path.join(ROOT, "tai-lieu", "src", _fn)
     B1_LESSONS.append(_d)
     LESSONS_BY_LEVEL["b1"].append(_d)
-
-
-def _mmss(secs):
-    return f"{int(secs) // 60}:{int(secs) % 60:02d}"
 
 
 def _paras(text):
@@ -845,7 +892,7 @@ for _i, _d in enumerate(B1_LESSONS):
     add(_d["_path"], _d["title"], _d["title"],
         b1_lesson_body(_d, _prev, _next),
         active="/trinh-do/", eyebrow="Trình độ B1 — Kingdom English",
-        desc=_d.get("subtitle", ""))
+        desc=_d.get("subtitle", ""), updated=_date_vn(_d["_src"]))
 
 # ---------------- Bài học B2 — Kingdom English (tạo từ tai-lieu/src/b2-*.json) ----------------
 # JSON do convert_b2.py sinh từ teaching/b2/content/*.json (nguồn duy nhất).
@@ -862,6 +909,7 @@ for _fn in B2_FILES:
     _d["_level"] = "b2"
     _d["_path"] = f"/trinh-do/b2/{_d['slug']}.html"
     _d["_pdf"] = f"/tai-lieu/b2/{_d['slug']}.pdf"
+    _d["_src"] = os.path.join(ROOT, "tai-lieu", "src", _fn)
     B2_LESSONS.append(_d)
     LESSONS_BY_LEVEL["b2"].append(_d)
 
@@ -1001,7 +1049,7 @@ for _i, _d in enumerate(B2_LESSONS):
     add(_d["_path"], _d["title"], _d["title"],
         b2_lesson_body(_d, _prev, _next),
         active="/trinh-do/", eyebrow="Trình độ B2 — Kingdom English",
-        desc=_d.get("subtitle", ""))
+        desc=_d.get("subtitle", ""), updated=_date_vn(_d["_src"]))
 
 
 def b2_hub_lessons_html():
@@ -1139,7 +1187,7 @@ add("/trinh-do/index.html", "Theo trình độ", "Học theo trình độ (A1–
 </ul>
 <p><a href="/sach/">Xem tất cả sách học →</a></p>
 </section>
-""", active="/trinh-do/", eyebrow="Theo trình độ", desc="Học tiếng Anh theo trình độ A1–C2: chọn cấp độ của bạn để xem lộ trình, từ vựng, ngữ pháp và bài tập — đã có bài học A1, A2 và B1 kèm PDF + audio miễn phí.")
+""", active="/trinh-do/", eyebrow="Theo trình độ", desc="Học tiếng Anh theo trình độ A1–C2: chọn cấp độ của bạn để xem lộ trình, từ vựng, ngữ pháp và bài tập — đã có bài học A1, A2, B1 và B2 kèm PDF + audio miễn phí.")
 # ---------------- Nội dung đầy đủ cho B1–C2, kỹ năng, luyện thi, trẻ em, công việc, du học ----------------
 # Các trang dưới đây từng là stub "Sắp có" (noindex). Nội dung do AI soạn, gắn nhãn
 # "AI, chưa duyệt" (AI_NOTE) — chưa được giáo viên duyệt. Bài tập là câu hỏi tự biên
@@ -1397,9 +1445,11 @@ for i, (slug, name, desc) in enumerate(LEVELS):
     next_ = (LEVELS[i + 1][0].upper(), f"/trinh-do/{LEVELS[i + 1][0]}.html") if i < len(LEVELS) - 1 else None
     if slug in ("a1", "a2"):
         # Đã có nội dung thật: hub bài học + PDF, không còn là stub.
+        # Ngày cập nhật = ngày mới nhất của các JSON bài học trong cấp độ.
         add(f"/trinh-do/{slug}.html", name, name,
             level_hub_body(slug, name, desc),
-            active="/trinh-do/", eyebrow="Theo trình độ", desc=desc)
+            active="/trinh-do/", eyebrow="Theo trình độ", desc=desc,
+            updated=_newest_date([_d["_src"] for _d in LESSONS_BY_LEVEL[slug]]))
         continue
     _body = guide_sections(LEVEL_BODIES[slug])
     if slug == "b1":
@@ -1412,7 +1462,9 @@ for i, (slug, name, desc) in enumerate(LEVELS):
         _body + _eta_html(f"/trinh-do/{slug}.html") + _guide_nav(
             prev, next_, ("Tất cả trình độ", "/trinh-do/"),
             f"Cho tôi lộ trình học tiếng Anh trình độ {slug.upper()}."),
-        active="/trinh-do/", eyebrow="Theo trình độ", desc=desc)
+        active="/trinh-do/", eyebrow="Theo trình độ", desc=desc,
+        updated=_newest_date([_d["_src"] for _d in LESSONS_BY_LEVEL[slug]])
+        if slug in ("b1", "b2") else None)
 
 # ---------------- Theo kỹ năng ----------------
 SKILLS = [
@@ -2590,8 +2642,8 @@ add("/quyen-rieng-tu.html", "Quyền riêng tư", "Quyền riêng tư",
     desc="Chính sách quyền riêng tư của David English: Google Analytics thu thập gì, dữ liệu gửi cho nhà cung cấp AI (Groq, Google Gemini) gồm những gì, lưu bao lâu, và cách rút lại sự đồng ý.")
 
 if __name__ == "__main__":
-    for path, title, h1, body, active, desc, eyebrow, hero, noindex in PAGES:
-        full = page(path, title, h1, body, active, desc, eyebrow, hero, noindex)
+    for path, title, h1, body, active, desc, eyebrow, hero, noindex, updated in PAGES:
+        full = page(path, title, h1, body, active, desc, eyebrow, hero, noindex, updated)
         print("wrote", path, os.path.getsize(full), "B")
     print("total pages:", len(PAGES))
     # Sitemap: chỉ các trang được index (không noindex), trang chủ trước.

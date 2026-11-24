@@ -1,4 +1,4 @@
-<!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Bản đồ trình độ</title>
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Bản đồ trình độ | David English</title>
 <meta name="description" content="Danh mục các công cụ luyện tiếng Anh, xếp theo trình độ và kỳ thi.">
 <meta property="og:title" content="Bản đồ trình độ">
 <meta property="og:description" content="Danh mục các công cụ luyện tiếng Anh, xếp theo trình độ và kỳ thi.">
@@ -8,6 +8,17 @@
 <link rel="canonical" href="https://davidenglish.vercel.app/tro-choi/level-map.html">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {'analytics_storage': 'denied'});
+</script>
+<style>
+.cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:100;background:#fff;color:#1a1a1a;border-top:3px solid #123a6d;box-shadow:0 -4px 24px rgba(0,0,0,.18);padding:16px 0}
+.cookie-banner p{margin:0 0 12px}
+.cookie-actions{display:flex;gap:12px;flex-wrap:wrap}
+.cookie-actions .btn{flex:1 1 160px;margin-top:0}
+</style>
 </head><body><style>.de-back{margin:0;text-align:left;background:#123a6d;color:#fff;padding:0 16px}.de-back a{display:inline-flex;align-items:center;min-height:44px;color:#fff;font:600 15px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;text-decoration:none}.de-back a:hover{color:#e8a020;text-decoration:underline}.de-back a:focus-visible{outline:3px solid #e8a020;outline-offset:2px}</style><header class="de-back"><a href="/">← David English</a></header>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -142,4 +153,64 @@ el.innerHTML=SECTIONS.map(function(s){
 }).join('');
 </script>
 
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Thông báo về cookie" hidden>
+  <div class="wrap">
+    <p>Trang này dùng Google Analytics để biết nội dung nào hữu ích cho bạn — chỉ khi bạn đồng ý. Không có cookie quảng cáo, không bán dữ liệu. Bạn có thể đổi ý bất cứ lúc nào qua “Cài đặt cookie” ở chân trang. Xem <a href="/quyen-rieng-tu.html">Chính sách quyền riêng tư</a>.</p>
+    <div class="cookie-actions">
+      <button type="button" id="cookie-accept" class="btn">Đồng ý</button>
+      <button type="button" id="cookie-decline" class="btn">Từ chối</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY='de-consent';
+  var banner=document.getElementById('cookie-banner');
+  function loadGA(){
+    if(document.querySelector('script[src*="googletagmanager.com/gtag/js"]')){return;}
+    var s=document.createElement('script');
+    s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id=G-6WKB00FR9G';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-6WKB00FR9G');
+  }
+  function eraseGaCookies(){
+    document.cookie.split(';').forEach(function(c){
+      var name=c.split('=')[0].trim();
+      if(name.indexOf('_ga')===0){
+        document.cookie=name+'=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+      }
+    });
+  }
+  function showBanner(){banner.hidden=false;}
+  function hideBanner(){banner.hidden=true;}
+  function accept(){
+    try{localStorage.setItem(KEY,'granted');}catch(e){}
+    gtag('consent','update',{'analytics_storage':'granted'});
+    loadGA();
+    hideBanner();
+  }
+  function decline(){
+    try{localStorage.setItem(KEY,'denied');}catch(e){}
+    gtag('consent','update',{'analytics_storage':'denied'});
+    eraseGaCookies();
+    hideBanner();
+  }
+  document.getElementById('cookie-accept').addEventListener('click',accept);
+  document.getElementById('cookie-decline').addEventListener('click',decline);
+  var settings=document.getElementById('cookie-settings');
+  if(settings){settings.addEventListener('click',function(e){e.preventDefault();showBanner();});}
+  var stored=null;
+  try{stored=localStorage.getItem(KEY);}catch(e){}
+  if(stored==='granted'){
+    gtag('consent','update',{'analytics_storage':'granted'});
+    loadGA();
+  }else if(stored==='denied'){
+    /* Da tu choi: khong tai gtag.js, khong hien lai banner. */
+  }else{
+    showBanner();
+  }
+})();
+</script>
 </body></html>
