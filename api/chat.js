@@ -34,7 +34,7 @@ const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MO
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const GROQ_MODELS = ['openai/gpt-oss-120b', 'openai/gpt-oss-20b'];
 const GROQ_TIMEOUT_MS = 8000;
-const MAX_Q_LEN = 500;          // tối đa 500 ký tự / câu hỏi
+const MAX_Q_LEN = 4500;        // đủ chỗ cho bài Writing; widget chat vẫn giới hạn 500 ký tự ở giao diện
 const HISTORY_TURNS = 2;        // giữ tối đa 2 lượt trao đổi gần nhất
 const RATE_PER_HOUR = 10;       // mỗi IP: tối đa 10 tin / giờ
 const RATE_PER_DAY = 50;        // mỗi IP: tối đa 50 tin / ngày
@@ -68,7 +68,7 @@ const SYSTEM_PROMPT = [
   'Bạn là trợ lý AI của David English — trang học tiếng Anh miễn phí cho người Việt.',
   'Trả lời bằng tiếng Việt, ngắn gọn (tối đa khoảng 250 từ), giọng ấm áp, rõ ràng, dễ hiểu cho người đang học tiếng Anh.',
   'Giải thích ngữ pháp và từ vựng bằng tiếng Việt, kèm ví dụ tiếng Anh ngắn và dịch nghĩa. Khi giải thích phát âm, dùng phiên âm đơn giản mà người Việt đọc được.',
-  'Khi người dùng hỏi về bài học, đề thi thử hay tài liệu trên trang: chỉ dẫn tới các mục trong TÀI LIỆU TRÊN TRANG (đường dẫn bắt đầu bằng "/"). Trang đang là khung sườn — nhiều mục còn ghi "Sắp có"; nếu nội dung họ hỏi chưa có trên trang, nói thẳng "chưa có trên trang, sắp có" rồi gợi ý mục phù hợp nhất, tuyệt đối không bịa ra bài học hay link không có thật.',
+  'Khi người dùng hỏi về bài học, đề thi thử hay tài liệu trên trang: chỉ dẫn tới các mục có thật trong TÀI LIỆU TRÊN TRANG (đường dẫn bắt đầu bằng "/"). Phân biệt nội dung đã có với nội dung mới chỉ là hướng dẫn hoặc đang xây dựng; tuyệt đối không bịa bài học, số lượng bài hay đường dẫn.',
   'Không dùng dấu ** trong câu trả lời (không in đậm bằng markdown).',
   'Không bao giờ nói câu trả lời đã được giáo viên duyệt — mọi câu trả lời đều là AI soạn, chưa duyệt.',
   'Không trả lời về chính trị hay các chủ đề ngoài việc học tiếng Anh.',
@@ -78,12 +78,15 @@ const SYSTEM_PROMPT = [
 const MODE_PROMPTS = {
   vocab: 'Người dùng muốn tra một từ/cụm từ tiếng Anh. Trả lời theo đúng dạng: (1) Nghĩa tiếng Việt chính, (2) Phiên âm đơn giản, (3) 2 ví dụ ngắn kèm dịch, (4) 1 từ đồng nghĩa. Nếu từ có nhiều nghĩa, cho nghĩa thường gặp nhất trước. Không bịa nghĩa.',
   writing: 'Người dùng gửi một đoạn văn tiếng Anh nhờ chữa. Liệt kê từng lỗi ngữ pháp/từ vựng (trích đúng chỗ sai), sửa từng lỗi, giải thích ngắn bằng tiếng Việt, rồi đưa một bản viết lại hay hơn. Khích lệ người học. Không chấm điểm số.',
+  assessment: 'Đây là bài kiểm tra Writing để ước lượng trình độ, không phải chấm thi chính thức. Đọc toàn bộ bài làm được cung cấp và đánh giá theo đúng ngữ cảnh đề bài. Cho 4 tiêu chí Task, Coherence, Lexical, Grammar theo thang 3.0–9.0, mỗi điểm tăng theo bước 0.5. Nếu lạc đề hoặc chép đề, Task không quá 4.0. Không tự suy diễn phần bài viết không được cung cấp. Trả lời đúng định dạng: Task: 6.0, Coherence: 6.5, Lexical: 6.0, Grammar: 6.5, Điểm mạnh: ..., Cần cải thiện: ...',
 };
 
 function siteContextText() {
   const lines = ['TÀI LIỆU TRÊN TRANG David English — chỉ dùng những mục dưới đây, tuyệt đối không bịa link hay đoán slug:'];
   for (const [label, url] of SITE_SECTIONS) lines.push(`- ${label}: ${url}`);
-  lines.push('Lưu ý: trang đang là khung sườn v1, các mục bài học còn ghi "Sắp có" — đừng nói nội dung đã có khi chưa có.');
+  lines.push('Nội dung hiện có: A1 có 5 bài, A2 có 5 bài, B1 có 12 bài, B2 có 6 bài. C1 và C2 hiện là trang hướng dẫn, chưa phải khóa học đầy đủ.');
+  lines.push('Bài /bai-xep-lop.html là bản demo ngắn 3 câu. Bài đánh giá chi tiết hơn nằm ở /tro-choi/english-level-check.html; kết quả chỉ là ước lượng tham khảo, không phải chứng chỉ hay bài thi chuẩn hóa.');
+  lines.push('Bài kiểm tra hiện có câu hỏi ngữ pháp/từ vựng, nghe bằng giọng đọc của trình duyệt, đọc và phần Writing tùy bài. Không có phần Speaking được chấm.');
   return lines.join('\n');
 }
 
