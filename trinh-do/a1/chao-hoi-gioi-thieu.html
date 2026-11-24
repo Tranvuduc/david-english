@@ -3,6 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {'analytics_storage': 'denied'});
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://davidenglish.vercel.app/"}, {"@type": "ListItem", "position": 2, "name": "Theo trình độ", "item": "https://davidenglish.vercel.app/trinh-do/"}, {"@type": "ListItem", "position": 3, "name": "Trình độ A1", "item": "https://davidenglish.vercel.app/trinh-do/a1.html"}, {"@type": "ListItem", "position": 4, "name": "Chào hỏi và giới thiệu bản thân", "item": "https://davidenglish.vercel.app/trinh-do/a1/chao-hoi-gioi-thieu.html"}]}
+</script>
+<style>
+.cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:100;background:#fff;color:#1a1a1a;border-top:3px solid #123a6d;box-shadow:0 -4px 24px rgba(0,0,0,.18);padding:16px 0}
+.cookie-banner p{margin:0 0 12px}
+.cookie-actions{display:flex;gap:12px;flex-wrap:wrap}
+.cookie-actions .btn{flex:1 1 160px;margin-top:0}
+</style>
 <title>Chào hỏi và giới thiệu bản thân | David English</title>
 <meta name="description" content="Bài 1 — Trình độ A1: học cách chào hỏi, hỏi tên, giới thiệu bản thân bằng tiếng Anh.">
 <meta property="og:title" content="Chào hỏi và giới thiệu bản thân | David English">
@@ -98,10 +112,70 @@
   <div class="wrap">
     <p><strong>David English</strong> — Học tiếng Anh miễn phí cho người Việt.</p>
     <p>Mọi câu trả lời của AI đều ghi rõ “AI, chưa duyệt” — chưa được giáo viên duyệt.</p>
-    <p><a href="/">Trang chủ</a> · <a href="/tro-chuyen-ai.html">Trò chuyện AI</a> · <a href="/bai-xep-lop.html">Bài xếp lớp</a> · <a href="/tai-nguyen.html">Tài nguyên miễn phí</a> · <a href="/cong-cu/tu-vung.html">Tra từ</a> · <a href="/cong-cu/viet.html">Chữa bài viết</a></p>
+    <p><a href="/">Trang chủ</a> · <a href="/tro-chuyen-ai.html">Trò chuyện AI</a> · <a href="/bai-xep-lop.html">Bài xếp lớp</a> · <a href="/tai-nguyen.html">Tài nguyên miễn phí</a> · <a href="/cong-cu/tu-vung.html">Tra từ</a> · <a href="/cong-cu/viet.html">Chữa bài viết</a> · <a href="/quyen-rieng-tu.html">Quyền riêng tư</a> · <a href="#" id="cookie-settings">Cài đặt cookie</a></p>
     <p class="muted">Bài học, trò chơi và sách học miễn phí — nội dung mới thêm dần.</p>
   </div>
 </footer>
 <script src="/chat/de-chat.js" defer></script>
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Thông báo về cookie" hidden>
+  <div class="wrap">
+    <p>Trang này dùng Google Analytics để biết nội dung nào hữu ích cho bạn — chỉ khi bạn đồng ý. Không có cookie quảng cáo, không bán dữ liệu. Bạn có thể đổi ý bất cứ lúc nào qua “Cài đặt cookie” ở chân trang. Xem <a href="/quyen-rieng-tu.html">Chính sách quyền riêng tư</a>.</p>
+    <div class="cookie-actions">
+      <button type="button" id="cookie-accept" class="btn">Đồng ý</button>
+      <button type="button" id="cookie-decline" class="btn">Từ chối</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY='de-consent';
+  var banner=document.getElementById('cookie-banner');
+  function loadGA(){
+    if(document.querySelector('script[src*="googletagmanager.com/gtag/js"]')){return;}
+    var s=document.createElement('script');
+    s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id=G-6WKB00FR9G';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-6WKB00FR9G');
+  }
+  function eraseGaCookies(){
+    document.cookie.split(';').forEach(function(c){
+      var name=c.split('=')[0].trim();
+      if(name.indexOf('_ga')===0){
+        document.cookie=name+'=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+      }
+    });
+  }
+  function showBanner(){banner.hidden=false;}
+  function hideBanner(){banner.hidden=true;}
+  function accept(){
+    try{localStorage.setItem(KEY,'granted');}catch(e){}
+    gtag('consent','update',{'analytics_storage':'granted'});
+    loadGA();
+    hideBanner();
+  }
+  function decline(){
+    try{localStorage.setItem(KEY,'denied');}catch(e){}
+    gtag('consent','update',{'analytics_storage':'denied'});
+    eraseGaCookies();
+    hideBanner();
+  }
+  document.getElementById('cookie-accept').addEventListener('click',accept);
+  document.getElementById('cookie-decline').addEventListener('click',decline);
+  var settings=document.getElementById('cookie-settings');
+  if(settings){settings.addEventListener('click',function(e){e.preventDefault();showBanner();});}
+  var stored=null;
+  try{stored=localStorage.getItem(KEY);}catch(e){}
+  if(stored==='granted'){
+    gtag('consent','update',{'analytics_storage':'granted'});
+    loadGA();
+  }else if(stored==='denied'){
+    /* Da tu choi: khong tai gtag.js, khong hien lai banner. */
+  }else{
+    showBanner();
+  }
+})();
+</script>
 </body>
 </html>
