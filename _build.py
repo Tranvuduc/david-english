@@ -103,7 +103,7 @@ NAV = [
     ("Học với David", "/hoc-voi-david.html"),
 ]
 
-STYLE = "/assets/style.css"
+STYLE = "/assets/style.css?v=20261124-tutor"  # versioned: busts stale phone caches (tutor-page CSS fix 24/11)
 CHAT_CSS = "/chat/de-chat.css"
 CHAT_JS = "/chat/de-chat.js"
 PROGRESS_JS = "/assets/progress.js"
@@ -1260,20 +1260,23 @@ add("/ke-hoach-hoc.html", "Kế hoạch học", "Kế hoạch học tiếng Anh 
 # Trang giới thiệu lớp học 1 kèm 1 với David — KHÔNG thay trang chủ (thư viện
 # tự học miễn phí vẫn là cửa chính). Chỉ ghi sự thật đã kiểm chứng: 10 năm dạy,
 # TOEFL iBT 97, trình độ A1–B1, học 1 kèm 1 online (Zoom) và trực tiếp.
-# KHÔNG ghi: chứng chỉ TESOL, du học Mỹ (chưa kiểm chứng); KHÔNG ghi học phí
-# hay khung giờ cố định (chưa có số liệu); KHÔNG ghi "tối đa 3 học viên".
+# Đã kiểm chứng (David 24/11): TESOL + du học Mỹ đúng; học phí 200k (giao tiếp/
+# công việc) + 300k (IELTS)/giờ; Zalo 0902821991; lịch trao đổi qua Zalo.
+# Học 1 kèm 1, KHÔNG "tối đa 3 học viên". Khoảng trắng giữa </b> và <span>
+# (trust items) và giữa các chip <span> là BẮT BUỘC — không có CSS thì
+# chữ vẫn phải đọc được (lỗi David báo 24/11: "10 nămKinh nghiệm").
 add("/hoc-voi-david.html", "Học với David", "Học tiếng Anh 1 kèm 1 với David",
     guide_sections(f"""
 <p class="lead">Trang này là lớp học 1 kèm 1 với David — khác với thư viện tự học miễn phí của trang web. Bạn học trực tiếp với giáo viên, theo lộ trình riêng của mình, trình độ A1–B1, online qua Zoom và trực tiếp.</p>
 <div class="tutor-trust">
-<div class="tutor-trust-item"><b>10 năm</b><span>Kinh nghiệm<br>giảng dạy tiếng Anh</span></div>
-<div class="tutor-trust-item"><b>TOEFL 97</b><span>TOEFL iBT 97/120<br>tương đương IELTS 7.0–7.5</span></div>
-<div class="tutor-trust-item"><b>1 kèm 1</b><span>Học riêng với giáo viên<br>không học theo lớp đông</span></div>
-<div class="tutor-trust-item"><b>A1–B1</b><span>Trình độ học viên<br>học 1 kèm 1</span></div>
+<div class="tutor-trust-item"><b>10 năm</b> <span>Kinh nghiệm<br>giảng dạy tiếng Anh</span></div>
+<div class="tutor-trust-item"><b>TOEFL 97</b> <span>TOEFL iBT 97/120<br>tương đương IELTS 7.0–7.5</span></div>
+<div class="tutor-trust-item"><b>1 kèm 1</b> <span>Học riêng với giáo viên<br>không học theo lớp đông</span></div>
+<div class="tutor-trust-item"><b>A1–B1</b> <span>Trình độ học viên<br>học 1 kèm 1</span></div>
 </div>
 <h2>Học cùng ai</h2>
 <p>David — 10 năm kinh nghiệm giảng dạy tiếng Anh, chứng chỉ TESOL, TOEFL iBT 97/120 (tương đương IELTS 7.0–7.5), và từng du học tại Hoa Kỳ. Dạy học viên trình độ A1–B1, học 1 kèm 1, online qua Zoom và trực tiếp. Phương pháp tập trung vào sự rõ ràng, thực hành và tiến bộ bền vững.</p>
-<p class="tutor-chips"><span>10 năm kinh nghiệm</span><span>TESOL</span><span>TOEFL iBT 97</span><span>Du học Hoa Kỳ</span></p>
+<p class="tutor-chips"><span>10 năm kinh nghiệm</span> <span>TESOL</span> <span>TOEFL iBT 97</span> <span>Du học Hoa Kỳ</span></p>
 <h2>Chọn mục tiêu của bạn</h2>
 <p>Không học dàn trải. Tập trung vào kỹ năng và mục tiêu bạn cần sử dụng.</p>
 <div class="cards">
