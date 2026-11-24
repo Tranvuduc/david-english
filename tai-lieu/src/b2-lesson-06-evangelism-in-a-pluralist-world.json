@@ -1,0 +1,310 @@
+{
+ "slug": "b2-lesson-06-evangelism-in-a-pluralist-world",
+ "level": "b2",
+ "lesson_no": 6,
+ "title": "Bài 6: Truyền Giáo Trong Thế Giới Đa Nguyên",
+ "title_en": "Evangelism in a Pluralist World",
+ "subtitle": "Evangelism in a Pluralist World — Acts 17:22-28; 1 Peter 3:15-16 · Ngữ pháp: Discourse markers for argumentation (however, furthermore, on the other hand, in contrast, nevertheless) and concession clauses (although / even though / despite / in spite of)",
+ "scripture": "Acts 17:22-28; 1 Peter 3:15-16",
+ "grammar_topic": "Discourse markers for argumentation (however, furthermore, on the other hand, in contrast, nevertheless) and concession clauses (although / even though / despite / in spite of)",
+ "pronunciation": "Thought groups and pausing in persuasive speech: chunking, one stressed word per group",
+ "pronunciation_detail": "English is spoken in chunks, not word by word. A thought group is a short chunk of words that belong together: Men of Athens, / I perceive that / in every way / you are very religious. We pause briefly between groups — not after every word, and not never at all.\n\nPauses show the structure. In a long verse, pause after the subject group and after each clause: The God who made the world / and everything in it / does not live in temples made by man. The listener can then follow the argument instead of drowning in words.\n\nStress one key word in each group, and let the other words go quiet: Men of ATHENS, / I perCEIVE that / in EVery way / you are very reLIGious. One strong word per group is enough. If you stress every word, nothing stands out.\n\nPractice. Read Acts 17:27 aloud in groups: that they should seek God, / and perhaps feel their way toward him / and find him. Pause at each slash. Then read 1 Peter 3:15 the same way: Always being prepared / to make a defense / to anyone who asks you / for a reason for the hope that is in you.\n\nListen and repeat: Men of Athens, / I perceive that / in every way / you are very religious.; What therefore you worship as unknown, / this I proclaim to you.; The God who made the world / and everything in it / does not live in temples made by man.; In him we live / and move / and have our being.; Always being prepared / to make a defense / to anyone who asks you / for a reason for the hope that is in you.; Yet do it / with gentleness / and respect.",
+ "objectives": [
+  "Hiểu và dùng từ nối lập luận (however, furthermore, on the other hand, in contrast, nevertheless) và mệnh đề nhượng bộ (although / even though / despite / in spite of).",
+  "Phát âm: nhóm ý và ngắt nhịp khi nói thuyết phục (chunking, nhấn từ chính trong mỗi nhóm).",
+  "Đọc và hiểu Công Vụ 17:22–28 và 1 Phi-e-rơ 3:15–16 (ESV): Phao-lô tại A-thên, bàn thờ thần không biết, trả lời với lòng hiền hòa.",
+  "Nghe và trả lời 6 câu hỏi về truyền giáo trong thế giới đa nguyên."
+ ],
+ "vocabulary": [
+  {
+   "word": "Areopagus",
+   "pos": "n",
+   "ipa": "ˌær.iˈɑː.pə.ɡəs",
+   "vi": "A-rê-ô-pa (nơi họp nổi tiếng ở A-thên)",
+   "ex": "So Paul, standing in the midst of the Areopagus, said: Men of Athens..."
+  },
+  {
+   "word": "perceive",
+   "pos": "v",
+   "ipa": "pərˈsiːv",
+   "vi": "Nhận thấy, nhận biết",
+   "ex": "Men of Athens, I perceive that in every way you are very religious."
+  },
+  {
+   "word": "religious",
+   "pos": "adj",
+   "ipa": "rɪˈlɪdʒ.əs",
+   "vi": "Sùng đạo",
+   "ex": "I perceive that in every way you are very religious."
+  },
+  {
+   "word": "altar",
+   "pos": "n",
+   "ipa": "ˈɔːl.tər",
+   "vi": "Bàn thờ",
+   "ex": "I found also an altar with this inscription: To the unknown god."
+  },
+  {
+   "word": "inscription",
+   "pos": "n",
+   "ipa": "ɪnˈskrɪp.ʃən",
+   "vi": "Dòng chữ khắc",
+   "ex": "I found also an altar with this inscription: To the unknown god."
+  },
+  {
+   "word": "unknown god",
+   "pos": "n.phr",
+   "ipa": "ʌnˈnoʊn ɡɑːd",
+   "vi": "Thần không biết",
+   "ex": "What therefore you worship as unknown, this I proclaim to you."
+  },
+  {
+   "word": "observe",
+   "pos": "v",
+   "ipa": "əbˈzɝːv",
+   "vi": "Quan sát",
+   "ex": "As I passed along and observed the objects of your worship, I found also an altar."
+  },
+  {
+   "word": "breath",
+   "pos": "n",
+   "ipa": "breθ",
+   "vi": "Hơi thở, sự sống",
+   "ex": "He himself gives to all mankind life and breath and everything."
+  },
+  {
+   "word": "mankind",
+   "pos": "n",
+   "ipa": "ˈmæn.kaɪnd",
+   "vi": "Nhân loại",
+   "ex": "He gives to all mankind life and breath and everything."
+  },
+  {
+   "word": "boundary",
+   "pos": "n",
+   "ipa": "ˈbaʊn.dər.i",
+   "vi": "Ranh giới",
+   "ex": "God determined the boundaries of their dwelling place."
+  },
+  {
+   "word": "dwelling place",
+   "pos": "n.phr",
+   "ipa": "ˈdwel.ɪŋ pleɪs",
+   "vi": "Nơi ở",
+   "ex": "God determined the boundaries of their dwelling place."
+  },
+  {
+   "word": "seek",
+   "pos": "v",
+   "ipa": "siːk",
+   "vi": "Tìm kiếm",
+   "ex": "That they should seek God, and perhaps feel their way toward him and find him."
+  },
+  {
+   "word": "offspring",
+   "pos": "n",
+   "ipa": "ˈɔːf.sprɪŋ",
+   "vi": "Con cháu, dòng dõi",
+   "ex": "For we are indeed his offspring."
+  },
+  {
+   "word": "poet",
+   "pos": "n",
+   "ipa": "ˈpoʊ.ɪt",
+   "vi": "Thi sĩ, nhà thơ",
+   "ex": "As even some of your own poets have said, For we are indeed his offspring."
+  },
+  {
+   "word": "defense",
+   "pos": "n",
+   "ipa": "dɪˈfens",
+   "vi": "Lời biện hộ, sự bảo vệ",
+   "ex": "Always being prepared to make a defense to anyone who asks you for a reason."
+  },
+  {
+   "word": "gentleness",
+   "pos": "n",
+   "ipa": "ˈdʒen.təl.nəs",
+   "vi": "Lòng hiền hòa",
+   "ex": "Yet do it with gentleness and respect."
+  },
+  {
+   "word": "respect",
+   "pos": "n",
+   "ipa": "rɪˈspekt",
+   "vi": "Sự kính trọng",
+   "ex": "Yet do it with gentleness and respect."
+  },
+  {
+   "word": "conscience",
+   "pos": "n",
+   "ipa": "ˈkɑːn.ʃəns",
+   "vi": "Lương tâm",
+   "ex": "Having a good conscience, so that, when you are slandered, those who revile you may be put to shame."
+  },
+  {
+   "word": "slander",
+   "pos": "v",
+   "ipa": "ˈslæn.dər",
+   "vi": "Vu khống, nói xấu",
+   "ex": "When you are slandered, those who revile your good behavior in Christ may be put to shame."
+  },
+  {
+   "word": "revile",
+   "pos": "v",
+   "ipa": "rɪˈvaɪl",
+   "vi": "Chê bai, nguyền rủa",
+   "ex": "Those who revile your good behavior in Christ may be put to shame."
+  },
+  {
+   "word": "shame",
+   "pos": "n",
+   "ipa": "ʃeɪm",
+   "vi": "Sự hổ thẹn",
+   "ex": "Those who revile your good behavior in Christ may be put to shame."
+  },
+  {
+   "word": "worldview",
+   "pos": "n",
+   "ipa": "ˈwɝːld.vjuː",
+   "vi": "Thế giới quan",
+   "ex": "Evangelism in a pluralist world needs a clear Christian worldview."
+  },
+  {
+   "word": "persuade",
+   "pos": "v",
+   "ipa": "pərˈsweɪd",
+   "vi": "Thuyết phục",
+   "ex": "Paul reasoned and persuaded the Athenians; he never forced anyone."
+  },
+  {
+   "word": "pluralism",
+   "pos": "n",
+   "ipa": "ˈplʊr.ə.lɪ.zəm",
+   "vi": "Chủ nghĩa đa nguyên",
+   "ex": "Pluralism says all religions are the same; Paul showed the one true God."
+  }
+ ],
+ "grammar": [
+  {
+   "title": "Discourse markers for argumentation (however, furthermore, on the other hand, in contrast, nevertheless) and concession clauses (although / even though / despite / in spite of)",
+   "explain": "Discourse markers — words that show how your ideas connect. However means but, in a formal way: Some laughed. However, some believed. Furthermore means and also, more strongly: Paul listened first. Furthermore, he proclaimed the truth. On the other hand gives the opposite view. In contrast gives the direct opposite. Nevertheless means despite that.\n\nPosition and punctuation. Markers usually come at the start of a sentence, followed by a comma: However, some believed. In the middle of a sentence, use two commas: Some, however, believed. Never write however without a comma after it at the start of a sentence.\n\nConcession with although and even though. Although / even though + clause (with a verb): Although many people worshipped many gods, Paul showed them the one true God. Even though is stronger than although: it concedes something surprising. Even though some people laughed, Paul kept preaching.\n\nConcession with despite and in spite of. Despite / in spite of + noun or verb-ing: Despite being alone, Paul spoke boldly. Do not mix the two patterns: Despite Paul was alone is wrong, and Although being alone is wrong. Although needs a verb; despite needs a noun or an -ing form.\n\nArguing gently. Use concession to agree before you disagree: Although I understand your view, I believe Christ is the only way. This is how Paul argued in Athens, and it is how Peter tells us to answer: with gentleness and respect.",
+   "examples": [
+    "Some laughed. However, some believed.",
+    "Paul listened first. Furthermore, he proclaimed the truth.",
+    "Although many people worshipped many gods, Paul showed them the one true God.",
+    "Despite being alone in Athens, Paul spoke boldly.",
+    "Even though some people laughed, Paul kept preaching.",
+    "My colleague is kind. On the other hand, she does not believe in Christ.",
+    "In contrast to the many gods of Athens, the true God made the world.",
+    "Although I understand your view, I believe Christ is the only way."
+   ]
+  }
+ ],
+ "listening": {
+  "audio": "/tai-lieu/b2/audio/b2-lesson-06-listening.mp3",
+  "duration_secs": 167,
+  "words": 440,
+  "script": "/tai-lieu/b2/scripts/b2-lesson-06-listening-script.txt"
+ },
+ "reading_passage": "Paul came to Athens, the most famous city of learning in the ancient world, and he found a city full of idols. The people of Athens worshipped many gods, and they were so careful not to miss one that they had built an altar with the inscription: To the unknown god. Paul stood in the midst of the Areopagus and began, not with an attack, but with respect: Men of Athens, I perceive that in every way you are very religious. For as I passed along and observed the objects of your worship, I found also an altar with this inscription. What therefore you worship as unknown, this I proclaim to you. Paul found common ground, and then he proclaimed the truth. The God who made the world and everything in it, being Lord of heaven and earth, does not live in temples made by man, nor is he served by human hands, as though he needed anything, since he himself gives to all mankind life and breath and everything. This God made from one man every nation of mankind to live on all the face of the earth, having determined allotted periods and the boundaries of their dwelling place, that they should seek God, and perhaps feel their way toward him and find him. Yet he is actually not far from each one of us, for in him we live and move and have our being. Paul even quoted their own poets: For we are indeed his offspring. Although many people in Athens worshipped many gods, Paul showed them the one true God. On the other hand, he never forced anyone. He reasoned, he persuaded, and he left the result to God. Peter gives the same rule to us: in your hearts honor Christ the Lord as holy, always being prepared to make a defense to anyone who asks you for a reason for the hope that is in you; yet do it with gentleness and respect. Be ready with a reason, and give it gently. That is evangelism in a pluralist world: respectful, clear, and gentle, leaving the result to God.",
+ "reading_comprehension": [
+  {
+   "q": "1. What did Paul find in Athens (Acts 17:23)?",
+   "a": "An altar with the inscription: To the unknown god."
+  },
+  {
+   "q": "2. What does Paul say about the God who made the world (Acts 17:24-25)?",
+   "a": "He is Lord of heaven and earth; he does not live in temples made by man; he gives to all mankind life and breath and everything."
+  },
+  {
+   "q": "3. Why did God make all nations, according to Acts 17:26-27?",
+   "a": "That they should seek God, and perhaps feel their way toward him and find him."
+  },
+  {
+   "q": "4. What did Paul quote from the Athenians' own poets (Acts 17:28)?",
+   "a": "'In him we live and move and have our being' and 'For we are indeed his offspring.'"
+  },
+  {
+   "q": "5. How should we give a defense of our hope, according to 1 Peter 3:15-16?",
+   "a": "With gentleness and respect, having a good conscience."
+  }
+ ],
+ "listening_questions": [
+  {
+   "q": "1. Where did Paul speak in Acts 17?",
+   "a": "In the midst of the Areopagus in Athens."
+  },
+  {
+   "q": "2. What did Paul notice as he passed through Athens?",
+   "a": "An altar with the inscription: To the unknown god."
+  },
+  {
+   "q": "3. What does Paul say about God in Acts 17:24-25?",
+   "a": "He made the world and everything in it; he is Lord of heaven and earth; he does not live in temples made by man; he gives to all mankind life and breath and everything."
+  },
+  {
+   "q": "4. What does 1 Peter 3:15 tell believers to be ready to do?",
+   "a": "Make a defense to anyone who asks for a reason for the hope in them; do it with gentleness and respect."
+  },
+  {
+   "q": "5. What does the Friend's colleague say about religions?",
+   "a": "All religions are the same, and it does not matter what you believe."
+  },
+  {
+   "q": "6. What did Paul do first in Athens — argue, or listen?",
+   "a": "He listened and observed first: he passed along and observed the objects of their worship before he spoke."
+  }
+ ],
+ "exercises": [
+  {
+   "title": "Exercise 1: Thought Groups — Pause After Each Chunk",
+   "instruction": "Mark the pauses (/) in each sentence. English is spoken in thought groups: short chunks of words that belong together. Pause briefly between groups, and stress one key word in each group.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 2: Discourse Markers — however / furthermore / on the other hand",
+   "instruction": "Complete each sentence with however, furthermore, on the other hand, in contrast, nevertheless, or for example. More than one answer is sometimes possible; the key tells you the best one.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 3: Concession Clauses — although / despite",
+   "instruction": "Combine each pair into one sentence with although, even though, despite, or in spite of. Remember: although / even though + clause (with a verb); despite / in spite of + noun or verb-ing.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 4: Vocabulary Matching",
+   "instruction": "Match each word with its correct definition.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 5: Listening Comprehension",
+   "instruction": "Listen to the audio (b2-lesson-06-listening.mp3) twice. Then answer the questions.",
+   "items": 5
+  },
+  {
+   "title": "Exercise 6: Ministry Translation Lab (Vietnamese to English)",
+   "instruction": "Translate into natural English. Use discourse markers and concession clauses.",
+   "items": 3
+  }
+ ],
+ "speaking_task": "Roleplay in pairs (3 minutes): Student A plays a friend who says 'All religions are the same.' Student B answers like Paul: listen first, find common ground, then proclaim gently. Use at least 3 discourse markers (however, furthermore, on the other hand), 1 concession clause (although / despite), and 5 vocabulary words from Section 3. Practise thought groups: pause after each chunk, and stress one key word per group.",
+ "writing_task": "Write a short essay (120-150 words) titled 'How I Would Answer a Pluralist Friend'. Write a short, gentle answer to someone who says 'All religions are the same', using Paul's method: listen, find common ground, then proclaim. Use at least 3 discourse markers, 1 concession clause, and 5 vocabulary words from Section 3.",
+ "homework": {
+  "written": [
+   "A. Write a short answer (80-100 words) to a friend who says 'All religions are the same.' Use Paul's method: find common ground, then proclaim the truth. Use at least 3 discourse markers and 1 concession clause.",
+   "B. Write 1 Peter 3:15 in English from memory, then check your work against the Bible."
+  ],
+  "listening": "Listen to the audio again. Fill in the missing words: 'Always being prepared to make a ______ to anyone who asks you for a ______ for the hope that is in you; yet do it with ______ and ______.' Then answer: What three things will the Friend do with her colleague?",
+  "memory_verse": "but in your hearts honor Christ the Lord as holy, always being prepared to make a defense to anyone who asks you for a reason for the hope that is in you; yet do it with gentleness and respect. — 1 Peter 3:15 (ESV)",
+  "memory_verse_vi": "Nhưng hãy tôn Đấng Christ là Chúa làm thánh trong lòng anh em, luôn sẵn sàng trả lời cho bất cứ ai hỏi anh em về lý do của niềm hy vọng trong anh em; nhưng hãy làm điều đó với lòng hiền hòa và kính trọng. — 1 Phi-e-rơ 3:15 (bản dịch nghĩa tiếng Việt)"
+ },
+ "_source": {
+  "json": "teaching/b2/content/b2-lesson-06.json",
+  "json_sha256": "56186f1ac3620124113a9f9a788efeaa59c0df247f7550b755056de63eabb672",
+  "pdf": "teaching/b2/output/b2-lesson-06-evangelism-in-a-pluralist-world.pdf",
+  "pdf_sha256": "6d6df0ef732bafb0406ece50afc6bd034453a70930ee53223ebf5c49566c10bd",
+  "mp3": "teaching/b2/audio/b2-lesson-06-listening.mp3",
+  "mp3_sha256": "44057720c380a7e933ed2c7bfe5d823df0ad8da7d28dd4a1c0f959760797e3c0"
+ }
+}

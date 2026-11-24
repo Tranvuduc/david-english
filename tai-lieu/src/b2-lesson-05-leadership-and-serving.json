@@ -1,0 +1,310 @@
+{
+ "slug": "b2-lesson-05-leadership-and-serving",
+ "level": "b2",
+ "lesson_no": 5,
+ "title": "Bài 5: Lãnh Đạo và Phục Vụ",
+ "title_en": "Leadership and Serving",
+ "subtitle": "Leadership and Serving — Mark 10:42-45; 1 Timothy 3:1-7 · Ngữ pháp: Noun clauses (that / what / whether / if) and cleft sentences for emphasis (It is... who/that... / What... is...)",
+ "scripture": "Mark 10:42-45; 1 Timothy 3:1-7",
+ "grammar_topic": "Noun clauses (that / what / whether / if) and cleft sentences for emphasis (It is... who/that... / What... is...)",
+ "pronunciation": "Word stress: suffixes -ity and -ation — the stress falls on the syllable just before the suffix",
+ "pronunciation_detail": "Rule 1 — words ending in -ity. The main stress falls on the syllable just before -ity: hu-MI-li-ty, a-BI-li-ty, re-spon-si-BI-li-ty, pos-si-BI-li-ty. The suffix -ity itself is never stressed.\n\nRule 2 — words ending in -ation. The stress falls on the syllable just before -ation: con-dem-NA-tion, ce-le-BRA-tion, re-ve-LA-tion, trans-for-MA-tion. Again, the suffix itself is never stressed.\n\nWhy the rule works. The suffix pulls the stress to the syllable next to it. Learn the word with its stress: say the whole family together. Humble, huMIlity. Able, aBIlity. Responsible, responsiBIlity. Condemn, condemNAtion. Transform, transforMAtion.\n\nPractice. Read 1 Timothy 3:6 aloud and stress condemNAtion correctly: fall into the condemNAtion of the devil. Then read Romans 12:2: be transformed by the renewal of your mind — transformation: transforMAtion. Say each pair aloud, clapping on the stressed syllable.\n\nListen and repeat: huMIlity; aBIlity; responsiBIlity; possibility; condemNAtion; celeBRAtion; reveLAtion; transforMAtion",
+ "objectives": [
+  "Hiểu và dùng mệnh đề danh ngữ (that / what / whether) và câu chẻ nhấn mạnh (It is... who... / What... is...).",
+  "Phát âm: trọng âm với hậu tố -ity và -ation (trọng âm rơi vào âm tiết ngay trước hậu tố).",
+  "Đọc và hiểu Mác 10:42–45 và 1 Ti-mô-thê 3:1–7 (ESV): lãnh đạo là phục vụ, phẩm chất của người giám sát.",
+  "Nghe và trả lời 6 câu hỏi về lãnh đạo và phục vụ trong Hội Thánh."
+ ],
+ "vocabulary": [
+  {
+   "word": "overseer",
+   "pos": "n",
+   "ipa": "ˈoʊ.vər.siː.ər",
+   "vi": "Người giám sát (trưởng lão, mục sư)",
+   "ex": "If anyone aspires to the office of overseer, he desires a noble task."
+  },
+  {
+   "word": "aspire",
+   "pos": "v",
+   "ipa": "əˈspaɪər",
+   "vi": "Ao ước, khát khao",
+   "ex": "If anyone aspires to the office of overseer, he desires a noble task."
+  },
+  {
+   "word": "noble",
+   "pos": "adj",
+   "ipa": "ˈnoʊ.bəl",
+   "vi": "Cao quý",
+   "ex": "If anyone aspires to the office of overseer, he desires a noble task."
+  },
+  {
+   "word": "above reproach",
+   "pos": "adj.phr",
+   "ipa": "əˈbʌv rɪˈproʊtʃ",
+   "vi": "Không chỗ trách được",
+   "ex": "An overseer must be above reproach."
+  },
+  {
+   "word": "sober-minded",
+   "pos": "adj",
+   "ipa": "ˈsoʊ.bər ˈmaɪn.dɪd",
+   "vi": "Tiết độ, tỉnh táo",
+   "ex": "An overseer must be sober-minded, self-controlled, respectable."
+  },
+  {
+   "word": "self-controlled",
+   "pos": "adj",
+   "ipa": "ˌself kənˈtroʊld",
+   "vi": "Tự chủ",
+   "ex": "An overseer must be sober-minded, self-controlled, respectable."
+  },
+  {
+   "word": "respectable",
+   "pos": "adj",
+   "ipa": "rɪˈspek.tə.bəl",
+   "vi": "Đáng kính",
+   "ex": "An overseer must be sober-minded, self-controlled, respectable."
+  },
+  {
+   "word": "hospitable",
+   "pos": "adj",
+   "ipa": "hɑːˈspɪt.ə.bəl",
+   "vi": "Hiếu khách",
+   "ex": "An overseer must be respectable, hospitable, able to teach."
+  },
+  {
+   "word": "violent",
+   "pos": "adj",
+   "ipa": "ˈvaɪ.ə.lənt",
+   "vi": "Hung bạo",
+   "ex": "An overseer must not be violent but gentle."
+  },
+  {
+   "word": "quarrelsome",
+   "pos": "adj",
+   "ipa": "ˈkwɔːr.əl.səm",
+   "vi": "Hay cãi cọ",
+   "ex": "An overseer must not be quarrelsome, not a lover of money."
+  },
+  {
+   "word": "lover of money",
+   "pos": "n.phr",
+   "ipa": "ˈlʌv.ər əv ˈmʌn.i",
+   "vi": "Người tham tiền",
+   "ex": "An overseer must not be quarrelsome, not a lover of money."
+  },
+  {
+   "word": "manage",
+   "pos": "v",
+   "ipa": "ˈmæn.ɪdʒ",
+   "vi": "Quản lý",
+   "ex": "He must manage his own household well."
+  },
+  {
+   "word": "household",
+   "pos": "n",
+   "ipa": "ˈhaʊs.hoʊld",
+   "vi": "Gia đình, hộ gia đình",
+   "ex": "He must manage his own household well."
+  },
+  {
+   "word": "dignity",
+   "pos": "n",
+   "ipa": "ˈdɪɡ.nə.ti",
+   "vi": "Phẩm cách, sự đường hoàng",
+   "ex": "He must manage his own household well, with all dignity keeping his children submissive."
+  },
+  {
+   "word": "submissive",
+   "pos": "adj",
+   "ipa": "səbˈmɪs.ɪv",
+   "vi": "Vâng phục",
+   "ex": "He must manage his own household well, with all dignity keeping his children submissive."
+  },
+  {
+   "word": "recent convert",
+   "pos": "n.phr",
+   "ipa": "ˈriː.sənt ˈkɑːn.vɝːrt",
+   "vi": "Người mới tin Chúa",
+   "ex": "He must not be a recent convert."
+  },
+  {
+   "word": "conceit",
+   "pos": "n",
+   "ipa": "kənˈsiːt",
+   "vi": "Sự kiêu ngạo",
+   "ex": "He may become puffed up with conceit."
+  },
+  {
+   "word": "disgrace",
+   "pos": "n",
+   "ipa": "dɪsˈɡreɪs",
+   "vi": "Sự hổ thẹn, ô nhục",
+   "ex": "He must be well thought of by outsiders, so that he may not fall into disgrace."
+  },
+  {
+   "word": "snare",
+   "pos": "n",
+   "ipa": "sneər",
+   "vi": "Cạm bẫy",
+   "ex": "He may fall into disgrace, into a snare of the devil."
+  },
+  {
+   "word": "servant",
+   "pos": "n",
+   "ipa": "ˈsɝː.vənt",
+   "vi": "Đầy tớ, người phục vụ",
+   "ex": "Whoever would be great among you must be your servant."
+  },
+  {
+   "word": "slave",
+   "pos": "n",
+   "ipa": "sleɪv",
+   "vi": "Nô lệ, tôi mọi",
+   "ex": "Whoever would be first among you must be slave of all."
+  },
+  {
+   "word": "ransom",
+   "pos": "n",
+   "ipa": "ˈræn.səm",
+   "vi": "Giá chuộc",
+   "ex": "The Son of Man came to give his life as a ransom for many."
+  },
+  {
+   "word": "lord it over",
+   "pos": "v.phr",
+   "ipa": "lɔːrd ɪt ˈoʊ.vər",
+   "vi": "Cai trị cách độc đoán",
+   "ex": "Those who are considered rulers of the Gentiles lord it over them."
+  },
+  {
+   "word": "authority",
+   "pos": "n",
+   "ipa": "ɔːˈθɔːr.ə.ti",
+   "vi": "Quyền hành, thẩm quyền",
+   "ex": "Their great ones exercise authority over them."
+  }
+ ],
+ "grammar": [
+  {
+   "title": "Noun clauses (that / what / whether / if) and cleft sentences for emphasis (It is... who/that... / What... is...)",
+   "explain": "Noun clauses — a clause that works like a noun. That-clauses follow verbs of saying and believing: Jesus said that the greatest must be the servant. Paul teaches that an overseer must be above reproach. In speech, that can be dropped: Jesus said the greatest must be the servant.\n\nWh-clauses — what, who, why, how + clause. What matters most is character. I don't know why he wants to be a leader. Note the word order: a noun clause uses statement order, not question order. Say I don't know why he wants to be a leader, not I don't know why does he want to be a leader.\n\nWhether and if clauses. I don't know whether he will be a good leader. Whether is more formal than if. Use whether after prepositions and before infinitives: the question of whether to choose him, I don't know whether to stay or go.\n\nIt-clefts for emphasis. Form: It + be + stressed part + who / that + rest of the sentence. It was Jesus who turned leadership upside down. The cleft puts a spotlight on one part of the sentence: not Paul, not Peter — Jesus. Use it when you want to correct someone or to underline the point of a sermon.\n\nWhat-clefts for emphasis. Form: What + clause + be + stressed part. What matters most is character. What Paul requires is an overseer above reproach. Use clefts sparingly: one cleft in a paragraph gives it power; five clefts in a paragraph make it sound strange.",
+   "examples": [
+    "Jesus said that the greatest must be the servant.",
+    "What matters most is character, not talent.",
+    "It was Jesus who turned leadership upside down.",
+    "It is the servant who is truly great.",
+    "What Paul requires is an overseer above reproach.",
+    "I don't know whether he will be a good leader.",
+    "I wonder who the church will choose.",
+    "It is gentleness that shows a leader's heart."
+   ]
+  }
+ ],
+ "listening": {
+  "audio": "/tai-lieu/b2/audio/b2-lesson-05-listening.mp3",
+  "duration_secs": 159,
+  "words": 387,
+  "script": "/tai-lieu/b2/scripts/b2-lesson-05-listening-script.txt"
+ },
+ "reading_passage": "Jesus called his disciples together and taught them a lesson about leadership that turned the world upside down. You know, he said, that those who are considered rulers of the Gentiles lord it over them, and their great ones exercise authority over them. That is how the world leads: from above, by power, by force. But it shall not be so among you. Whoever would be great among you must be your servant, and whoever would be first among you must be slave of all. For even the Son of Man came not to be served but to serve, and to give his life as a ransom for many. Jesus did not only teach this; he lived it. He washed feet, he carried a cross, and he gave his life. The greatest leader in history was the greatest servant in history. Paul gives the same teaching in practical form when he lists the qualities of an overseer. The saying is trustworthy: If anyone aspires to the office of overseer, he desires a noble task. Therefore an overseer must be above reproach, the husband of one wife, sober-minded, self-controlled, respectable, hospitable, able to teach, not a drunkard, not violent but gentle, not quarrelsome, not a lover of money. Notice what is missing from the list: Paul does not ask for a great speaker, a rich man, or a popular leader. He asks for character. He must manage his own household well, with all dignity keeping his children submissive, for if someone does not know how to manage his own household, how will he care for God's church? What happens at home shows what will happen in the church. He must not be a recent convert, or he may become puffed up with conceit and fall into the condemnation of the devil. Moreover, he must be well thought of by outsiders, so that he may not fall into disgrace, into a snare of the devil. So the church should choose servants, not kings. It is the servant who is truly great, and it is the gentle leader whom God blesses.",
+ "reading_comprehension": [
+  {
+   "q": "1. How do Gentile rulers lead, according to Mark 10:42?",
+   "a": "They lord it over people; their great ones exercise authority over them."
+  },
+  {
+   "q": "2. What must the greatest among believers be (Mark 10:43-44)?",
+   "a": "The greatest must be the servant; the first must be slave of all."
+  },
+  {
+   "q": "3. Why did the Son of Man come, according to Mark 10:45?",
+   "a": "Not to be served but to serve, and to give his life as a ransom for many."
+  },
+  {
+   "q": "4. What does 1 Timothy 3:1 say about desiring to be an overseer?",
+   "a": "It is a noble task."
+  },
+  {
+   "q": "5. Why must an overseer not be a recent convert?",
+   "a": "He may become puffed up with conceit and fall into the condemnation of the devil (1 Timothy 3:6)."
+  }
+ ],
+ "listening_questions": [
+  {
+   "q": "1. What is the Friend's church doing?",
+   "a": "Choosing new elders (leaders)."
+  },
+  {
+   "q": "2. What did Jesus say about Gentile rulers in Mark 10:42?",
+   "a": "They lord it over people; their great ones exercise authority over them."
+  },
+  {
+   "q": "3. What did Jesus say the greatest among believers must be?",
+   "a": "The greatest must be the servant; the first must be slave of all."
+  },
+  {
+   "q": "4. What does 1 Timothy 3:1 say about aspiring to be an overseer?",
+   "a": "He desires a noble task."
+  },
+  {
+   "q": "5. Name three qualities of an overseer from 1 Timothy 3:2-3.",
+   "a": "Any three of: above reproach, sober-minded, self-controlled, respectable, hospitable, able to teach, not a drunkard, not violent but gentle, not quarrelsome, not a lover of money."
+  },
+  {
+   "q": "6. Why must an overseer manage his household well?",
+   "a": "If someone does not know how to manage his own household, how will he care for God's church? (1 Timothy 3:5)"
+  }
+ ],
+ "exercises": [
+  {
+   "title": "Exercise 1: Suffix Stress — -ity and -ation",
+   "instruction": "Mark the stressed syllable. In words ending in -ity or -ation, the main stress falls on the syllable just before the suffix. The suffix itself is never stressed.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 2: Noun Clauses — that / what / whether",
+   "instruction": "Complete each sentence with that, what, whether, if, or who. Remember: noun clauses use statement word order, not question word order.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 3: Cleft Sentences — It is... / What... is...",
+   "instruction": "Rewrite each sentence as a cleft sentence for emphasis: It is / It was... who / that... or What... is...",
+   "items": 6
+  },
+  {
+   "title": "Exercise 4: Vocabulary Matching",
+   "instruction": "Match each word with its correct definition.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 5: Listening Comprehension",
+   "instruction": "Listen to the audio (b2-lesson-05-listening.mp3) twice. Then answer the questions.",
+   "items": 5
+  },
+  {
+   "title": "Exercise 6: Ministry Translation Lab (Vietnamese to English)",
+   "instruction": "Translate into natural English. Use noun clauses and cleft sentences.",
+   "items": 3
+  }
+ ],
+ "speaking_task": "Roleplay in pairs (3 minutes): Student A describes a leader you admire (in your church, your family, or your work). Student B asks what makes them a good leader. Use at least 3 noun clauses (that / what / whether), 2 cleft sentences (It is... / What... is...), and 5 vocabulary words from Section 3. Practise the -ity and -ation stress words: humility, ability, responsibility, condemnation.",
+ "writing_task": "Write a short essay (120-150 words) titled 'What Makes a Good Church Leader?' Describe the qualities of a good leader from Mark 10 and 1 Timothy 3, and give an example of a leader you admire. Use at least 3 noun clauses, 2 cleft sentences, and 5 vocabulary words from Section 3.",
+ "homework": {
+  "written": [
+   "A. Write 5 sentences about leadership in your church: 2 with noun clauses (1 that-clause, 1 wh-clause), 2 cleft sentences (1 It is... who..., 1 What... is...), and 1 sentence with whether.",
+   "B. Write Mark 10:45 in English from memory, then check your work against the Bible."
+  ],
+  "listening": "Listen to the audio again. Fill in the missing words: 'Whoever would be great among you must be your ______, and whoever would be first among you must be ______ of all.' Then answer: Why must an overseer manage his own household well?",
+  "memory_verse": "For even the Son of Man came not to be served but to serve, and to give his life as a ransom for many. — Mark 10:45 (ESV)",
+  "memory_verse_vi": "Vì Con Người đến không phải để được phục vụ, nhưng để phục vụ, và phó mạng sống mình làm giá chuộc cho nhiều người. — Mác 10:45 (bản dịch nghĩa tiếng Việt)"
+ },
+ "_source": {
+  "json": "teaching/b2/content/b2-lesson-05.json",
+  "json_sha256": "c0709ea7cc746cd8186394305909e2a3bf4aa78546f3623f325eed727e8e2d0e",
+  "pdf": "teaching/b2/output/b2-lesson-05-leadership-and-serving.pdf",
+  "pdf_sha256": "f90d3a4becb38562a5e2c1ffba615fa8087cf9a936053aa96d589be5e9fe64f4",
+  "mp3": "teaching/b2/audio/b2-lesson-05-listening.mp3",
+  "mp3_sha256": "21a49bbe1082e34c517f3a1ba0fe8d4cfaf723d2580b321fc98530c3fe299659"
+ }
+}

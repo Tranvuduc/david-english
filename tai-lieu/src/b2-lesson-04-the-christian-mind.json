@@ -1,0 +1,310 @@
+{
+ "slug": "b2-lesson-04-the-christian-mind",
+ "level": "b2",
+ "lesson_no": 4,
+ "title": "Bài 4: Tâm Trí Của Cơ Đốc Nhân",
+ "title_en": "The Christian Mind",
+ "subtitle": "The Christian Mind — Romans 12:1-2; Philippians 4:8 · Ngữ pháp: Advanced passive: reporting verbs (It is said that... / He is said to...) and causative have / get (have something done; get someone to do something)",
+ "scripture": "Romans 12:1-2; Philippians 4:8",
+ "grammar_topic": "Advanced passive: reporting verbs (It is said that... / He is said to...) and causative have / get (have something done; get someone to do something)",
+ "pronunciation": "Assimilation: sounds change when words join — ten bikes, good girl, don't you, did you, this year",
+ "pronunciation_detail": "What is assimilation? When words join in fast speech, the last sound of one word changes to match the first sound of the next. This is called assimilation. Ten bikes becomes tem bikes: /n/ changes to /m/ before /b/, because both sounds use the lips.\n\nMore examples. Good girl becomes goob girl: /d/ changes to /b/ before /g/. Don't you becomes doncha: /t/ + /j/ becomes /tʃ/. Did you becomes didja: /d/ + /j/ becomes /dʒ/. This year becomes thish year: /s/ + /j/ becomes /ʃ/. Last year becomes lash year.\n\nWhy does it happen? Your mouth takes the shortest path between two sounds. Changing /n/ to /m/ before /b/ is easier than keeping /n/, because your lips are already closing for /b/. These changes are normal in natural speech: native speakers do them without thinking, and they do not even notice.\n\nYou do not have to copy every assimilation, but you must recognise it when you hear it. Listen for it in the lesson audio: don't you, did you, ten bikes. Then try it yourself, slowly at first: ten bikes, tem bikes; good girl, goob girl; don't you, doncha; did you, didja.\n\nListen and repeat: ten bikes — tem bikes (/n/ changes to /m/ before /b/); good girl — goob girl (/d/ changes to /b/ before /g/); don't you — doncha (/t/ + /j/ becomes /tʃ/); did you — didja (/d/ + /j/ becomes /dʒ/); this year — thish year (/s/ + /j/ becomes /ʃ/); last year — lash year (/st/ + /j/ becomes /ʃ/)",
+ "objectives": [
+  "Hiểu và dùng câu bị động tường thuật (It is said that... / He is said to...) và cấu trúc nhờ vả have/get (have something done, get someone to do something).",
+  "Phát âm: đồng hóa âm khi nối từ (ten bikes, good girl, don't you, did you).",
+  "Đọc và hiểu Rô-ma 12:1–2 và Phi-líp 4:8 (ESV): dâng thân thể làm của lễ sống, đổi mới tâm trí, suy nghĩ điều chân thật, đáng khen.",
+  "Nghe và trả lời 6 câu hỏi về việc đổi mới tâm trí."
+ ],
+ "vocabulary": [
+  {
+   "word": "conform",
+   "pos": "v",
+   "ipa": "kənˈfɔːrm",
+   "vi": "Rập khuôn theo, làm theo",
+   "ex": "Do not be conformed to this world."
+  },
+  {
+   "word": "transform",
+   "pos": "v",
+   "ipa": "trænsˈfɔːrm",
+   "vi": "Biến đổi",
+   "ex": "Be transformed by the renewal of your mind."
+  },
+  {
+   "word": "renew",
+   "pos": "v",
+   "ipa": "rɪˈnuː",
+   "vi": "Đổi mới",
+   "ex": "Be transformed by the renewal of your mind."
+  },
+  {
+   "word": "renewal",
+   "pos": "n",
+   "ipa": "rɪˈnuː.əl",
+   "vi": "Sự đổi mới",
+   "ex": "Be transformed by the renewal of your mind."
+  },
+  {
+   "word": "discern",
+   "pos": "v",
+   "ipa": "dɪˈsɝːn",
+   "vi": "Nhận biết, phân biệt",
+   "ex": "That by testing you may discern what is the will of God."
+  },
+  {
+   "word": "sacrifice",
+   "pos": "n",
+   "ipa": "ˈsæk.rə.faɪs",
+   "vi": "Của lễ, sinh tế",
+   "ex": "Present your bodies as a living sacrifice."
+  },
+  {
+   "word": "spiritual",
+   "pos": "adj",
+   "ipa": "ˈspɪr.ɪ.tʃu.əl",
+   "vi": "Thuộc linh, thiêng liêng",
+   "ex": "Present your bodies as a living sacrifice, which is your spiritual worship."
+  },
+  {
+   "word": "worship",
+   "pos": "n",
+   "ipa": "ˈwɝː.ʃɪp",
+   "vi": "Sự thờ phượng",
+   "ex": "Present your bodies as a living sacrifice, which is your spiritual worship."
+  },
+  {
+   "word": "acceptable",
+   "pos": "adj",
+   "ipa": "əkˈsep.tə.bəl",
+   "vi": "Được chấp nhận, đẹp lòng",
+   "ex": "A living sacrifice, holy and acceptable to God."
+  },
+  {
+   "word": "perfect",
+   "pos": "adj",
+   "ipa": "ˈpɝː.fɪkt",
+   "vi": "Trọn vẹn, hoàn hảo",
+   "ex": "What is good and acceptable and perfect."
+  },
+  {
+   "word": "excellence",
+   "pos": "n",
+   "ipa": "ˈek.sə.ləns",
+   "vi": "Sự xuất sắc",
+   "ex": "If there is any excellence, think about these things."
+  },
+  {
+   "word": "commendable",
+   "pos": "adj",
+   "ipa": "kəˈmen.də.bəl",
+   "vi": "Đáng khen",
+   "ex": "Whatever is lovely, whatever is commendable, think about these things."
+  },
+  {
+   "word": "praiseworthy",
+   "pos": "adj",
+   "ipa": "ˈpreɪzˌwɝː.ði",
+   "vi": "Đáng ca ngợi",
+   "ex": "If there is anything worthy of praise, think about these things."
+  },
+  {
+   "word": "just",
+   "pos": "adj",
+   "ipa": "dʒʌst",
+   "vi": "Công chính, công bình",
+   "ex": "Whatever is true, whatever is honorable, whatever is just."
+  },
+  {
+   "word": "lovely",
+   "pos": "adj",
+   "ipa": "ˈlʌv.li",
+   "vi": "Đáng yêu",
+   "ex": "Whatever is true, whatever is honorable, whatever is just, whatever is pure, whatever is lovely."
+  },
+  {
+   "word": "true",
+   "pos": "adj",
+   "ipa": "truː",
+   "vi": "Chân thật",
+   "ex": "Whatever is true, whatever is honorable, whatever is just."
+  },
+  {
+   "word": "dwell",
+   "pos": "v",
+   "ipa": "dwel",
+   "vi": "Cư ngụ, ở lại lâu trong tâm trí",
+   "ex": "Do not let bitter thoughts dwell in your mind."
+  },
+  {
+   "word": "meditate",
+   "pos": "v",
+   "ipa": "ˈmed.ɪ.teɪt",
+   "vi": "Suy ngẫm",
+   "ex": "Meditate on what is true every morning."
+  },
+  {
+   "word": "thought",
+   "pos": "n",
+   "ipa": "θɔːt",
+   "vi": "Ý nghĩ",
+   "ex": "Take every anxious thought to God in prayer."
+  },
+  {
+   "word": "mind",
+   "pos": "n",
+   "ipa": "maɪnd",
+   "vi": "Tâm trí",
+   "ex": "Be transformed by the renewal of your mind."
+  },
+  {
+   "word": "pattern",
+   "pos": "n",
+   "ipa": "ˈpæt.ərn",
+   "vi": "Khuôn mẫu",
+   "ex": "The world has a pattern, and it presses us into its shape."
+  },
+  {
+   "word": "worldly",
+   "pos": "adj",
+   "ipa": "ˈwɝːld.li",
+   "vi": "Thuộc về thế gian",
+   "ex": "Do not be conformed to this worldly pattern."
+  },
+  {
+   "word": "captive",
+   "pos": "adj",
+   "ipa": "ˈkæp.tɪv",
+   "vi": "Bị bắt giữ, bị khống chế",
+   "ex": "Take every anxious thought captive and bring it to God."
+  },
+  {
+   "word": "obedience",
+   "pos": "n",
+   "ipa": "oʊˈbiː.di.əns",
+   "vi": "Sự vâng phục",
+   "ex": "We present our bodies to God in obedience."
+  }
+ ],
+ "grammar": [
+  {
+   "title": "Advanced passive: reporting verbs (It is said that... / He is said to...) and causative have / get (have something done; get someone to do something)",
+   "explain": "Reporting passive 1 — It is said / thought / believed that + clause. Use it when you report what people say in general, without naming anyone: It is said that what we watch shapes what we think. It is more formal and more careful than People say... — and it is the form you will meet in news reports, academic writing, and sermons.\n\nReporting passive 2 — subject + is said / thought / believed to + base verb (present) or to have + past participle (past). He is said to be a wise teacher. Paul is believed to have written Philippians from prison. The second form (to have + past participle) reports a past event: She is thought to have written the letter in Rome.\n\nCausative have / get + object + past participle. You arrange for someone else to do something for you: I had my phone repaired last week. I paid someone to repair it; I did not repair it myself. Get is more informal and more common in speech: She got her hair cut yesterday.\n\nCausative have / get + person + verb. Two patterns, and they are different: have + person + base verb (I had the teacher explain the verse — no to), and get + person + to + verb (I got the teacher to explain the verse). Do not mix them: had him to explain is wrong, and got him explain is wrong.\n\nWhy use the passive here? The passive lets you talk about ideas without blaming or naming people. It is thought that our habits shape our minds is gentler than People think... — useful when you discuss sensitive topics in the church, and it is the mark of a careful, B2-level writer.",
+   "examples": [
+    "It is said that what we watch shapes what we think.",
+    "It is thought that our habits shape our minds more than our wishes do.",
+    "He is said to be a wise teacher.",
+    "She is thought to know the Bible well.",
+    "Paul is believed to have written Philippians from prison.",
+    "I had my phone repaired last week.",
+    "She got her hair cut yesterday.",
+    "I got the teacher to explain the verse again."
+   ]
+  }
+ ],
+ "listening": {
+  "audio": "/tai-lieu/b2/audio/b2-lesson-04-listening.mp3",
+  "duration_secs": 137,
+  "words": 373,
+  "script": "/tai-lieu/b2/scripts/b2-lesson-04-listening-script.txt"
+ },
+ "reading_passage": "Paul begins Romans 12 with an appeal: I appeal to you therefore, brothers, by the mercies of God, to present your bodies as a living sacrifice, holy and acceptable to God, which is your spiritual worship. Worship is not only what we do on Sunday. It is what we do with our bodies, our time, and our minds every day. Then Paul tells us how change happens: Do not be conformed to this world, but be transformed by the renewal of your mind. The world has a pattern, and it presses us into its shape every day — through the news, through advertising, through the opinions of people around us. We do not change by trying harder in our own strength. We change when our minds are renewed, and our minds are renewed by what we feed them. That is why Philippians 4:8 gives us a filter for every thought: Finally, brothers, whatever is true, whatever is honorable, whatever is just, whatever is pure, whatever is lovely, whatever is commendable, if there is any excellence, if there is anything worthy of praise, think about these things. Eight qualities, one question: is this thought true, honorable, just, pure, lovely, commendable, excellent, and worthy of praise? If it is not, do not let it dwell in your mind. A renewed mind can do what an unrenewed mind cannot: it can discern what is the will of God, what is good and acceptable and perfect. So guard your mind the way you would guard a house. Choose what comes in through the door. Read God's word first in the morning. Meditate on what is true. And watch what happens: the mind that is renewed is the mind that is transformed.",
+ "reading_comprehension": [
+  {
+   "q": "1. What does Paul appeal to believers to do in Romans 12:1?",
+   "a": "To present their bodies as a living sacrifice, holy and acceptable to God, which is their spiritual worship."
+  },
+  {
+   "q": "2. How are we transformed, according to Romans 12:2?",
+   "a": "By the renewal of our minds."
+  },
+  {
+   "q": "3. What will a renewed mind be able to do?",
+   "a": "Discern what is the will of God: what is good and acceptable and perfect."
+  },
+  {
+   "q": "4. Name four things Philippians 4:8 tells us to think about.",
+   "a": "Any four of: true, honorable, just, pure, lovely, commendable, excellent, worthy of praise."
+  },
+  {
+   "q": "5. Why does it matter what we feed our minds?",
+   "a": "Because what we think about shapes who we become — we are transformed by what fills our minds, so we must guard what we feed them."
+  }
+ ],
+ "listening_questions": [
+  {
+   "q": "1. What does Paul say in Romans 12:2?",
+   "a": "Do not be conformed to this world, but be transformed by the renewal of your mind."
+  },
+  {
+   "q": "2. What is the Friend's morning habit, and what does it do to her?",
+   "a": "She reads the news on her phone; by nine o'clock she is already worried about everything."
+  },
+  {
+   "q": "3. What filter does Philippians 4:8 give us for our thoughts?",
+   "a": "Think about whatever is true, honorable, just, pure, lovely, commendable, excellent, and worthy of praise."
+  },
+  {
+   "q": "4. What happened when the Friend had her phone repaired?",
+   "a": "For two days she had no news at all; she felt peaceful, read her Bible in the morning, and got her work done early."
+  },
+  {
+   "q": "5. What does the Narrator say our habits do?",
+   "a": "Our habits shape our minds more than our wishes do."
+  },
+  {
+   "q": "6. What will the Friend do every morning from now on?",
+   "a": "Read one chapter of the Bible before touching her phone, and ask: is this thought true, just, pure, and lovely?"
+  }
+ ],
+ "exercises": [
+  {
+   "title": "Exercise 1: Assimilation — Sounds That Change When Words Join",
+   "instruction": "In fast, natural speech, the last sound of one word changes to match the first sound of the next word. Write how each phrase really sounds, and say which sound changes.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 2: Reporting Passive — It is said that...",
+   "instruction": "Rewrite each sentence with a reporting passive: It is said / thought / believed that... or He / She is said / thought to...",
+   "items": 6
+  },
+  {
+   "title": "Exercise 3: Causative Have / Get",
+   "instruction": "Complete each sentence with have or get + the correct form. Have / get + object + past participle = you arrange for someone else to do it. Have + person + base verb; get + person + to + verb.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 4: Vocabulary Matching",
+   "instruction": "Match each word with its correct definition.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 5: Listening Comprehension",
+   "instruction": "Listen to the audio (b2-lesson-04-listening.mp3) twice. Then answer the questions.",
+   "items": 5
+  },
+  {
+   "title": "Exercise 6: Ministry Translation Lab (Vietnamese to English)",
+   "instruction": "Translate into natural English. Use the reporting passive and causative have, and this lesson's vocabulary.",
+   "items": 3
+  }
+ ],
+ "speaking_task": "Roleplay in pairs (3 minutes): Student A describes what fills your mind each day (news, phone, Bible, music). Student B asks about it using reporting passives: It is said that... / He is thought to... Use at least 3 reporting-passive or causative sentences and 5 vocabulary words from Section 3. Practise assimilation: say don't you, did you, ten bikes, good girl the natural way.",
+ "writing_task": "Write a short essay (120-150 words) titled 'How I Guard My Mind'. Describe your daily habits, what you feed your mind, and what you will change. Use at least 3 reporting-passive or causative sentences and 5 vocabulary words from Section 3.",
+ "homework": {
+  "written": [
+   "A. Write 5 sentences about your church or community, using the reporting passive and causative have/get: 2 with It is said/thought that..., 1 with He/She is said to..., and 2 with have/get something done.",
+   "B. Write Romans 12:2 in English from memory, then check your work against the Bible."
+  ],
+  "listening": "Listen to the audio again. Fill in the missing words: 'Do not be ______ to this world, but be ______ by the renewal of your ______.' Then answer: What will the Friend do every morning from now on?",
+  "memory_verse": "Do not be conformed to this world, but be transformed by the renewal of your mind, that by testing you may discern what is the will of God, what is good and acceptable and perfect. — Romans 12:2 (ESV)",
+  "memory_verse_vi": "Đừng rập khuôn theo đời này, nhưng hãy được biến đổi bởi sự đổi mới của tâm trí mình, để anh em có thể nhận biết ý muốn của Đức Chúa Trời — điều gì là tốt đẹp, đẹp lòng Ngài và trọn vẹn. — Rô-ma 12:2 (bản dịch nghĩa tiếng Việt)"
+ },
+ "_source": {
+  "json": "teaching/b2/content/b2-lesson-04.json",
+  "json_sha256": "2cdb480e43b324fd29353b48bd9c6cdba646c859c5ea9fdb11f2698d26cbe2d2",
+  "pdf": "teaching/b2/output/b2-lesson-04-the-christian-mind.pdf",
+  "pdf_sha256": "75a402f6cc8340266202bb63b2af5b0bd4bf973f46fefd213921f90f32cb3e6f",
+  "mp3": "teaching/b2/audio/b2-lesson-04-listening.mp3",
+  "mp3_sha256": "10f050f392646f1564eb7025852a8c74a22ce8d0ae64aa9cf38ac421341681ce"
+ }
+}

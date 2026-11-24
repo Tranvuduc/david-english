@@ -1,0 +1,310 @@
+{
+ "slug": "b2-lesson-03-wisdom-for-decisions",
+ "level": "b2",
+ "lesson_no": 3,
+ "title": "Bài 3: Sự Khôn Ngoan Cho Quyết Định",
+ "title_en": "Wisdom for Decisions",
+ "subtitle": "Wisdom for Decisions — Proverbs 3:5-6; James 1:5-6; James 3:13-18 · Ngữ pháp: Modals of deduction and speculation: must / can't / may / might / could (present) and must have / can't have / might have + past participle (past)",
+ "scripture": "Proverbs 3:5-6; James 1:5-6; James 3:13-18",
+ "grammar_topic": "Modals of deduction and speculation: must / can't / may / might / could (present) and must have / can't have / might have + past participle (past)",
+ "pronunciation": "Listing and contrast intonation: rising tone on non-final list items, falling tone on the last; contrastive stress on the word that differs",
+ "pronunciation_detail": "Lists — rise, rise, fall. In a list, the voice rises on every item except the last, which falls. Pure (rise), peaceable (rise), gentle (rise), open to reason (rise), full of mercy (rise), impartial (rise), and sincere (fall). The rise tells the listener there is more to come. The fall tells them the list is finished.\n\nShort lists work the same way. Faith (rise), hope (rise), and love (fall). If you fall on every item, the list sounds finished too early, and the listener stops listening. If you rise on the last item, the listener keeps waiting for more.\n\nContrast — stress the word that differs. I asked for WISDOM, not money. She trusted GOD, not herself. The stressed word carries the meaning, and the rest of the sentence goes quiet. In a decision, the contrast is often the point: God's will, not MY will.\n\nPractice. Read James 3:17 aloud as a list, rising on each quality and falling on the last: pure, peaceable, gentle, open to reason, full of mercy and good fruits, impartial and sincere. Then read the Friend's three steps: I will ask God for wisdom, talk to my pastor, and wait for peace. Rise, rise, fall.\n\nListen and repeat: pure (rise), peaceable (rise), gentle (rise), open to reason (rise), full of mercy (rise), impartial (rise), and sincere (fall); faith (rise), hope (rise), and love (fall); Trust in the Lord (rise), pray for wisdom (rise), and wait for peace (fall); I asked for WISDOM, not money.; She trusted GOD, not herself.; I want GOD'S will, not my will.",
+ "objectives": [
+  "Hiểu và dùng động từ khuyết thiếu suy luận: must / can't / may / might / could (hiện tại) và must have / can't have / might have + quá khứ phân từ.",
+  "Phát âm: ngữ điệu liệt kê (giọng lên ở các mục chưa cuối, giọng xuống ở mục cuối) và trọng âm đối lập.",
+  "Đọc và hiểu Châm Ngôn 3:5–6, Gia-cơ 1:5–6 và 3:13–18 (ESV): tin cậy Chúa, cầu xin sự khôn ngoan, khôn ngoan từ trên cao.",
+  "Nghe và trả lời 6 câu hỏi về một quyết định khó khăn."
+ ],
+ "vocabulary": [
+  {
+   "word": "wisdom",
+   "pos": "n",
+   "ipa": "ˈwɪz.dəm",
+   "vi": "Sự khôn ngoan",
+   "ex": "If any of you lacks wisdom, let him ask God."
+  },
+  {
+   "word": "lean",
+   "pos": "v",
+   "ipa": "liːn",
+   "vi": "Nương cậy, dựa vào",
+   "ex": "Do not lean on your own understanding."
+  },
+  {
+   "word": "acknowledge",
+   "pos": "v",
+   "ipa": "əkˈnɑː.lɪdʒ",
+   "vi": "Nhận biết, công nhận",
+   "ex": "In all your ways acknowledge him."
+  },
+  {
+   "word": "straight",
+   "pos": "adj",
+   "ipa": "streɪt",
+   "vi": "Ngay thẳng",
+   "ex": "He will make straight your paths."
+  },
+  {
+   "word": "path",
+   "pos": "n",
+   "ipa": "pæθ",
+   "vi": "Đường lối, nẻo đường",
+   "ex": "He will make straight your paths."
+  },
+  {
+   "word": "generous",
+   "pos": "adj",
+   "ipa": "ˈdʒen.ər.əs",
+   "vi": "Rộng rãi, hào phóng",
+   "ex": "God gives generously to all without reproach."
+  },
+  {
+   "word": "reproach",
+   "pos": "n",
+   "ipa": "rɪˈproʊtʃ",
+   "vi": "Sự trách móc",
+   "ex": "God gives generously to all without reproach."
+  },
+  {
+   "word": "doubt",
+   "pos": "n",
+   "ipa": "daʊt",
+   "vi": "Sự nghi ngờ",
+   "ex": "Let him ask in faith, with no doubting."
+  },
+  {
+   "word": "double-minded",
+   "pos": "adj",
+   "ipa": "ˈdʌb.əl ˈmaɪn.dɪd",
+   "vi": "Hai lòng, không nhất quán",
+   "ex": "He is a double-minded man, unstable in all his ways."
+  },
+  {
+   "word": "unstable",
+   "pos": "adj",
+   "ipa": "ʌnˈsteɪ.bəl",
+   "vi": "Không vững vàng",
+   "ex": "He is a double-minded man, unstable in all his ways."
+  },
+  {
+   "word": "jealousy",
+   "pos": "n",
+   "ipa": "ˈdʒel.ə.si",
+   "vi": "Sự ghen tị",
+   "ex": "If you have bitter jealousy and selfish ambition in your hearts, do not boast."
+  },
+  {
+   "word": "ambition",
+   "pos": "n",
+   "ipa": "æmˈbɪʃ.ən",
+   "vi": "Tham vọng ích kỷ",
+   "ex": "Where jealousy and selfish ambition exist, there will be disorder."
+  },
+  {
+   "word": "boast",
+   "pos": "v",
+   "ipa": "boʊst",
+   "vi": "Khoe khoang",
+   "ex": "Do not boast and be false to the truth."
+  },
+  {
+   "word": "disorder",
+   "pos": "n",
+   "ipa": "dɪˈsɔːr.dər",
+   "vi": "Sự rối loạn, hỗn loạn",
+   "ex": "Where jealousy and selfish ambition exist, there will be disorder and every vile practice."
+  },
+  {
+   "word": "pure",
+   "pos": "adj",
+   "ipa": "pjʊr",
+   "vi": "Thanh sạch",
+   "ex": "The wisdom from above is first pure, then peaceable."
+  },
+  {
+   "word": "peaceable",
+   "pos": "adj",
+   "ipa": "ˈpiː.sə.bəl",
+   "vi": "Hòa thuận, yêu chuộng hòa bình",
+   "ex": "The wisdom from above is first pure, then peaceable, gentle."
+  },
+  {
+   "word": "gentle",
+   "pos": "adj",
+   "ipa": "ˈdʒen.təl",
+   "vi": "Hiền hòa, dịu dàng",
+   "ex": "The wisdom from above is first pure, then peaceable, gentle."
+  },
+  {
+   "word": "impartial",
+   "pos": "adj",
+   "ipa": "ɪmˈpɑːr.ʃəl",
+   "vi": "Không thiên vị",
+   "ex": "The wisdom from above is impartial and sincere."
+  },
+  {
+   "word": "sincere",
+   "pos": "adj",
+   "ipa": "sɪnˈsɪr",
+   "vi": "Chân thành",
+   "ex": "The wisdom from above is impartial and sincere."
+  },
+  {
+   "word": "harvest",
+   "pos": "n",
+   "ipa": "ˈhɑːr.vɪst",
+   "vi": "Mùa gặt, kết quả",
+   "ex": "A harvest of righteousness is sown in peace by those who make peace."
+  },
+  {
+   "word": "discern",
+   "pos": "v",
+   "ipa": "dɪˈsɝːn",
+   "vi": "Nhận biết, phân biệt",
+   "ex": "We must discern what is the will of God."
+  },
+  {
+   "word": "decision",
+   "pos": "n",
+   "ipa": "dɪˈsɪʒ.ən",
+   "vi": "Quyết định",
+   "ex": "I have a difficult decision to make about my job."
+  },
+  {
+   "word": "counsel",
+   "pos": "n",
+   "ipa": "ˈkaʊn.səl",
+   "vi": "Lời khuyên",
+   "ex": "I asked my pastor for counsel before I decided."
+  },
+  {
+   "word": "prudent",
+   "pos": "adj",
+   "ipa": "ˈpruː.dənt",
+   "vi": "Khôn ngoan, thận trọng",
+   "ex": "A prudent person asks for counsel before deciding."
+  }
+ ],
+ "grammar": [
+  {
+   "title": "Modals of deduction and speculation: must / can't / may / might / could (present) and must have / can't have / might have + past participle (past)",
+   "explain": "Present deduction — how sure are you? Must + base verb means I am sure it is true: He must be a wise man. Can't + base verb means I am sure it is NOT true: She can't have decided yet. May, might, and could + base verb mean it is possible, but I am not sure: It might be God's will, or it might not.\n\nPast deduction — looking back. Must have + past participle means I am sure it happened: They must have wanted you very much. Can't have + past participle means I am sure it did NOT happen: She can't have decided at once. Might have or may have + past participle means it is possible it happened: The news might have been good.\n\nMust for deduction is not must for obligation. Compare: You must pray (obligation — you have to pray) with He must be wise (deduction — I am sure he is wise). The same word has two jobs, and the context tells you which one it is. Do not confuse them.\n\nChoosing the strength. Must and can't claim 90 to 100 percent certainty. May, might, and could claim only possibility. Saying It must be God's will claims that you are certain about God's will — be careful with that claim. Saying It might be God's will is humbler, and usually wiser.\n\nAsking about the past. To question a past deduction, use Can he have...? or Could he have...? Example: Can he have forgotten the meeting? To soften a deduction, add Do you think...? Example: Do you think it might be God's will? Softening is a mark of wisdom in English: it leaves room for other people to disagree.",
+   "examples": [
+    "He listens before he speaks. He must be a wise man.",
+    "She is still praying. She can't have decided yet.",
+    "It might be God's will, or it might not.",
+    "They must have wanted you very much.",
+    "He must have been a patient man.",
+    "The roads are wet. It must have rained last night.",
+    "She is smiling. The news might have been good.",
+    "He can't have read Proverbs 3, or he would trust God more."
+   ]
+  }
+ ],
+ "listening": {
+  "audio": "/tai-lieu/b2/audio/b2-lesson-03-listening.mp3",
+  "duration_secs": 141,
+  "words": 407,
+  "script": "/tai-lieu/b2/scripts/b2-lesson-03-listening-script.txt"
+ },
+ "reading_passage": "Every day we make decisions, and some of them change our lives. Shall I take this job? Shall I move to another city? Shall I marry this person? The Bible does not give us a list of answers for every decision, but it does give us a way to decide. Solomon wrote the shortest guide to decisions in the whole Bible: Trust in the Lord with all your heart, and do not lean on your own understanding. In all your ways acknowledge him, and he will make straight your paths. Trusting God does not mean we stop thinking. It means we do not trust our thinking alone. We bring our plans to God, we ask him for wisdom, and we let him straighten the path. James tells us how to ask: If any of you lacks wisdom, let him ask God, who gives generously to all without reproach, and it will be given him. God does not scold us for asking. He gives generously, like a father who loves to give good gifts. But James adds a warning: let him ask in faith, with no doubting. The person who doubts is like a wave of the sea, driven and tossed by the wind, a double-minded man, unstable in all his ways. And James gives us a test for every decision: the wisdom from above is first pure, then peaceable, gentle, open to reason, full of mercy and good fruits, impartial and sincere. A decision that comes from God will look like that list. It will be pure, not mixed with selfish ambition. It will be peaceable, not full of quarrelling. It will be gentle and open to reason, not proud and stubborn. So when you face a hard decision, do not decide alone and do not decide in a hurry. Ask God for wisdom, talk to wise friends, and wait for peace. The straight path is the path God makes straight.",
+ "reading_comprehension": [
+  {
+   "q": "1. What two commands does Proverbs 3:5 give?",
+   "a": "Trust in the Lord with all your heart, and do not lean on your own understanding."
+  },
+  {
+   "q": "2. What does God promise if we acknowledge him in all our ways (Proverbs 3:6)?",
+   "a": "He will make straight our paths."
+  },
+  {
+   "q": "3. According to James 1:5, how does God give wisdom?",
+   "a": "He gives generously to all without reproach."
+  },
+  {
+   "q": "4. What happens to the person who doubts, according to James 1:6-8?",
+   "a": "He is like a wave of the sea, driven and tossed by the wind; he is a double-minded man, unstable in all his ways (James 1:6-8)."
+  },
+  {
+   "q": "5. Name four qualities of the wisdom from above (James 3:17).",
+   "a": "Any four of: pure, peaceable, gentle, open to reason, full of mercy and good fruits, impartial, sincere."
+  }
+ ],
+ "listening_questions": [
+  {
+   "q": "1. What decision is the Friend facing?",
+   "a": "Whether to take a job in another city — good pay, but she would have to leave her church and her family."
+  },
+  {
+   "q": "2. What does Proverbs 3:5-6 tell us to do?",
+   "a": "Trust in the Lord with all our heart, do not lean on our own understanding; in all our ways acknowledge him, and he will make straight our paths."
+  },
+  {
+   "q": "3. According to James 1:5, what should we do if we lack wisdom?",
+   "a": "Let him ask God, who gives generously to all without reproach, and it will be given him."
+  },
+  {
+   "q": "4. What does the Narrator say about the manager who listened before speaking?",
+   "a": "He must be a wise man, because a wise person listens first."
+  },
+  {
+   "q": "5. Name three qualities of the wisdom from above (James 3:17).",
+   "a": "Any three of: pure, peaceable, gentle, open to reason, full of mercy and good fruits, impartial, sincere."
+  },
+  {
+   "q": "6. What does the Friend decide to do before she decides?",
+   "a": "Ask God for wisdom, talk to her pastor, and wait for peace before deciding."
+  }
+ ],
+ "exercises": [
+  {
+   "title": "Exercise 1: Listing Intonation — Rise, Rise, Fall",
+   "instruction": "Read each list aloud. The voice rises on every item except the last, which falls. The rise tells the listener there is more to come; the fall tells them the list is finished.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 2: Modals of Deduction — Present",
+   "instruction": "Complete each sentence with must, can't, may, might, or could + the base verb. Must = I am sure it is true. Can't = I am sure it is not true. May / might / could = it is possible.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 3: Modals of Deduction — Past",
+   "instruction": "Complete each sentence with must have, can't have, or might have + the past participle. Must have = I am sure it happened. Can't have = I am sure it did not happen. Might have = it is possible it happened.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 4: Vocabulary Matching",
+   "instruction": "Match each word with its correct definition.",
+   "items": 6
+  },
+  {
+   "title": "Exercise 5: Listening Comprehension",
+   "instruction": "Listen to the audio (b2-lesson-03-listening.mp3) twice. Then answer the questions.",
+   "items": 5
+  },
+  {
+   "title": "Exercise 6: Ministry Translation Lab (Vietnamese to English)",
+   "instruction": "Translate into natural English. Use modals of deduction and this lesson's vocabulary.",
+   "items": 3
+  }
+ ],
+ "speaking_task": "Roleplay in pairs (3 minutes): Student A describes a real decision you are facing (a job, a move, a course of study). Student B asks questions and gives advice using modals of deduction: It might be God's will... / He must have wanted you... / You can't have decided yet. Use at least 4 modal-of-deduction sentences and 5 vocabulary words from Section 3. Practise listing intonation: read a three-item list with rise, rise, fall.",
+ "writing_task": "Write a short essay (120-150 words) titled 'A Difficult Decision'. Describe a decision you faced, how you sought God's wisdom, and what happened. Use at least 4 modal-of-deduction sentences (must / can't / might have) and 5 vocabulary words from Section 3.",
+ "homework": {
+  "written": [
+   "A. Write 6 sentences about people you know, using modals of deduction: 2 present (1 must, 1 can't), 2 past (1 must have, 1 can't have), and 2 possible (may / might have).",
+   "B. Write Proverbs 3:5-6 in English from memory, then check your work against the Bible."
+  ],
+  "listening": "Listen to the audio again. Fill in the missing words: 'Trust in the Lord with all your heart, and do not lean on your own ______. In all your ways ______ him, and he will make straight your ______.' Then answer: What three things will the Friend do before she decides?",
+  "memory_verse": "Trust in the Lord with all your heart, and do not lean on your own understanding. In all your ways acknowledge him, and he will make straight your paths. — Proverbs 3:5-6 (ESV)",
+  "memory_verse_vi": "Hãy hết lòng tin cậy Chúa, chớ nương cậy nơi sự thông sáng của con. Hãy nhận biết Ngài trong mọi đường lối của con, thì Ngài sẽ làm cho các nẻo đường con ngay thẳng. — Châm Ngôn 3:5-6 (bản dịch nghĩa tiếng Việt)"
+ },
+ "_source": {
+  "json": "teaching/b2/content/b2-lesson-03.json",
+  "json_sha256": "30462c27712a74eac147bec7295867e39e62b61c77d3a4e2d16069ea7e6e7100",
+  "pdf": "teaching/b2/output/b2-lesson-03-wisdom-for-decisions.pdf",
+  "pdf_sha256": "e9fe3f58597bd218079ba49400a4b28cac3799f43d82cc9ecdc5fda32b708b92",
+  "mp3": "teaching/b2/audio/b2-lesson-03-listening.mp3",
+  "mp3_sha256": "a41f675aeef769061f76c7663d8b90f861ad66752a29d3fa5248946c805ab5da"
+ }
+}

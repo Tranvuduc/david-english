@@ -1,0 +1,117 @@
+{
+ "lessons": [
+  {
+   "n": 1,
+   "slug": "b2-lesson-01-living-as-exiles",
+   "title_en": "Living as Exiles",
+   "vocab": 24,
+   "exercises": 6,
+   "rc": 5,
+   "listening_secs": 168,
+   "script_words": 423,
+   "sha256": {
+    "json": "teaching/b2/content/b2-lesson-01.json",
+    "json_sha256": "0dad95aad875ec3dd2264b3f562f1cd25fe5ecd7ee466354b85f7196b776fa06",
+    "pdf": "teaching/b2/output/b2-lesson-01-living-as-exiles.pdf",
+    "pdf_sha256": "c841a56b0981ae1894a4f04a42c37c10986e203eb2289471fdd7f03e6fbcc20e",
+    "mp3": "teaching/b2/audio/b2-lesson-01-listening.mp3",
+    "mp3_sha256": "645d48f7944b089cc4829e11e256696ac7ef003bd2a2804dbf03e8f6fc05e66c"
+   }
+  },
+  {
+   "n": 2,
+   "slug": "b2-lesson-02-suffering-and-hope",
+   "title_en": "Suffering and Hope",
+   "vocab": 24,
+   "exercises": 6,
+   "rc": 5,
+   "listening_secs": 151,
+   "script_words": 411,
+   "sha256": {
+    "json": "teaching/b2/content/b2-lesson-02.json",
+    "json_sha256": "b1b97f77b8ef0df23b4fa522f430319c924cd46620a6ebc84887021176d12864",
+    "pdf": "teaching/b2/output/b2-lesson-02-suffering-and-hope.pdf",
+    "pdf_sha256": "be1c49ae55a7ad7e91f47036241ab891507810f9bfde04d657c68181dc690392",
+    "mp3": "teaching/b2/audio/b2-lesson-02-listening.mp3",
+    "mp3_sha256": "4d7a3b84bceeacad0ea3e641978ae5ccea3dcc19bc88b378835a380c13f460da"
+   }
+  },
+  {
+   "n": 3,
+   "slug": "b2-lesson-03-wisdom-for-decisions",
+   "title_en": "Wisdom for Decisions",
+   "vocab": 24,
+   "exercises": 6,
+   "rc": 5,
+   "listening_secs": 141,
+   "script_words": 407,
+   "sha256": {
+    "json": "teaching/b2/content/b2-lesson-03.json",
+    "json_sha256": "30462c27712a74eac147bec7295867e39e62b61c77d3a4e2d16069ea7e6e7100",
+    "pdf": "teaching/b2/output/b2-lesson-03-wisdom-for-decisions.pdf",
+    "pdf_sha256": "e9fe3f58597bd218079ba49400a4b28cac3799f43d82cc9ecdc5fda32b708b92",
+    "mp3": "teaching/b2/audio/b2-lesson-03-listening.mp3",
+    "mp3_sha256": "a41f675aeef769061f76c7663d8b90f861ad66752a29d3fa5248946c805ab5da"
+   }
+  },
+  {
+   "n": 4,
+   "slug": "b2-lesson-04-the-christian-mind",
+   "title_en": "The Christian Mind",
+   "vocab": 24,
+   "exercises": 6,
+   "rc": 5,
+   "listening_secs": 137,
+   "script_words": 373,
+   "sha256": {
+    "json": "teaching/b2/content/b2-lesson-04.json",
+    "json_sha256": "2cdb480e43b324fd29353b48bd9c6cdba646c859c5ea9fdb11f2698d26cbe2d2",
+    "pdf": "teaching/b2/output/b2-lesson-04-the-christian-mind.pdf",
+    "pdf_sha256": "75a402f6cc8340266202bb63b2af5b0bd4bf973f46fefd213921f90f32cb3e6f",
+    "mp3": "teaching/b2/audio/b2-lesson-04-listening.mp3",
+    "mp3_sha256": "10f050f392646f1564eb7025852a8c74a22ce8d0ae64aa9cf38ac421341681ce"
+   }
+  },
+  {
+   "n": 5,
+   "slug": "b2-lesson-05-leadership-and-serving",
+   "title_en": "Leadership and Serving",
+   "vocab": 24,
+   "exercises": 6,
+   "rc": 5,
+   "listening_secs": 159,
+   "script_words": 387,
+   "sha256": {
+    "json": "teaching/b2/content/b2-lesson-05.json",
+    "json_sha256": "c0709ea7cc746cd8186394305909e2a3bf4aa78546f3623f325eed727e8e2d0e",
+    "pdf": "teaching/b2/output/b2-lesson-05-leadership-and-serving.pdf",
+    "pdf_sha256": "f90d3a4becb38562a5e2c1ffba615fa8087cf9a936053aa96d589be5e9fe64f4",
+    "mp3": "teaching/b2/audio/b2-lesson-05-listening.mp3",
+    "mp3_sha256": "21a49bbe1082e34c517f3a1ba0fe8d4cfaf723d2580b321fc98530c3fe299659"
+   }
+  },
+  {
+   "n": 6,
+   "slug": "b2-lesson-06-evangelism-in-a-pluralist-world",
+   "title_en": "Evangelism in a Pluralist World",
+   "vocab": 24,
+   "exercises": 6,
+   "rc": 5,
+   "listening_secs": 167,
+   "script_words": 440,
+   "sha256": {
+    "json": "teaching/b2/content/b2-lesson-06.json",
+    "json_sha256": "56186f1ac3620124113a9f9a788efeaa59c0df247f7550b755056de63eabb672",
+    "pdf": "teaching/b2/output/b2-lesson-06-evangelism-in-a-pluralist-world.pdf",
+    "pdf_sha256": "6d6df0ef732bafb0406ece50afc6bd034453a70930ee53223ebf5c49566c10bd",
+    "mp3": "teaching/b2/audio/b2-lesson-06-listening.mp3",
+    "mp3_sha256": "44057720c380a7e933ed2c7bfe5d823df0ad8da7d28dd4a1c0f959760797e3c0"
+   }
+  }
+ ],
+ "totals": {
+  "lessons": 6,
+  "vocab": 144,
+  "listening_secs": 923
+ }
+}
