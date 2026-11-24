@@ -57,15 +57,15 @@ const SYSTEM_PROMPT = [
   'Trả lời bằng tiếng Việt, ngắn gọn (tối đa khoảng 250 từ), giọng ấm áp, rõ ràng, dễ hiểu cho người đang học tiếng Anh.',
   'Giải thích ngữ pháp và từ vựng bằng tiếng Việt, kèm ví dụ tiếng Anh ngắn và dịch nghĩa. Khi giải thích phát âm, dùng phiên âm đơn giản mà người Việt đọc được.',
   'Khi người dùng hỏi về bài học, đề thi thử hay tài liệu trên trang: chỉ dẫn tới các mục trong TÀI LIỆU TRÊN TRANG (đường dẫn bắt đầu bằng "/"). Nếu nội dung họ hỏi chưa có trên trang, nói thẳng là chưa có rồi gợi ý mục phù hợp nhất; tuyệt đối không bịa ra bài học hay link không có thật.',
-  'Không dùng dấu ** trong câu trả lời (không in đậm bằng markdown).',
+  'Câu trả lời phải là VĂN BẢN THUẦN (plain text) — tuyệt đối không dùng bất kỳ định dạng Markdown nào: không **in đậm**, không __in đậm__, không tiêu đề # hay ##, không tiêu đề đánh số kiểu Markdown; chỉ dùng dòng trống để tách đoạn, và chỉ dùng dạng "1. " để đánh số khi thật sự cần liệt kê.',
   'Không bao giờ nói câu trả lời đã được giáo viên duyệt — mọi câu trả lời đều là AI soạn, chưa duyệt.',
   'Không trả lời về chính trị hay các chủ đề ngoài việc học tiếng Anh.',
 ].join(' ');
 
 // Hướng dẫn riêng theo từng công cụ AI (gửi kèm mode trong body).
 const MODE_PROMPTS = {
-  vocab: 'Người dùng muốn tra một từ/cụm từ tiếng Anh. Trả lời theo đúng dạng: (1) Nghĩa tiếng Việt chính, (2) Phiên âm đơn giản, (3) 2 ví dụ ngắn kèm dịch, (4) 1 từ đồng nghĩa. Nếu từ có nhiều nghĩa, cho nghĩa thường gặp nhất trước. Không bịa nghĩa.',
-  writing: 'Người dùng gửi một đoạn văn tiếng Anh nhờ chữa. Liệt kê từng lỗi ngữ pháp/từ vựng (trích đúng chỗ sai), sửa từng lỗi, giải thích ngắn bằng tiếng Việt, rồi đưa một bản viết lại hay hơn. Khích lệ người học. Không chấm điểm số.',
+  vocab: 'Người dùng muốn tra một từ/cụm từ tiếng Anh. Trả lời theo đúng dạng: (1) Nghĩa tiếng Việt chính, (2) Phiên âm đơn giản, (3) 2 ví dụ ngắn kèm dịch, (4) 1 từ đồng nghĩa. Nếu từ có nhiều nghĩa, cho nghĩa thường gặp nhất trước. Không bịa nghĩa. Trả lời bằng văn bản thuần, không dùng **, __, #, ## hay bất kỳ định dạng Markdown nào.',
+  writing: 'Người dùng gửi một đoạn văn tiếng Anh nhờ chữa. Liệt kê từng lỗi ngữ pháp/từ vựng (trích đúng chỗ sai), sửa từng lỗi, giải thích ngắn bằng tiếng Việt, rồi đưa một bản viết lại hay hơn. Khích lệ người học. Không chấm điểm số. Trả lời bằng văn bản thuần, không dùng **, __, #, ## hay bất kỳ định dạng Markdown nào.',
 };
 
 function siteContextText() {
@@ -79,6 +79,18 @@ function siteContextText() {
   }
   lines.push('Lưu ý: mục ghi "demo" chỉ là bản demo, không phải bài kiểm tra thật — hướng người dùng tới English Level Check (/tro-choi/english-level-check.html) khi họ muốn kiểm tra trình độ thật. Mục ghi "hướng dẫn học" có nội dung hướng dẫn, chưa có bài học theo bài.');
   return lines.join('\n');
+}
+
+// Phòng thủ chiều sâu: dù model có dùng Markdown, câu trả lời trả về vẫn
+// là văn bản thuần. Chỉ gỡ cặp **/__ in đậm và dấu # ở đầu dòng; không chạm
+// dấu * đơn trong từ (vd: 5*3) hay dấu # trong câu.
+function stripMarkdown(text) {
+  let s = String(text || '');
+  s = s.replace(/\*\*([^*]+)\*\*/g, '$1'); // **in đậm**
+  s = s.replace(/__([^_]+)__/g, '$1');     // __in đậm__
+  s = s.replace(/^#{1,6}\s+/gm, '');       // # / ## ... ở đầu dòng
+  s = s.replace(/\*\*/g, '').replace(/__/g, ''); // cặp lẻ còn sót lại
+  return s;
 }
 
 // ---------------------------------------------------------------- tiện ích
@@ -295,7 +307,7 @@ export default async function handler(req, res) {
       return json(res, 500, { error: 'error', message: MSG_ERROR });
     }
 
-    return json(res, 200, { answer: ai.text, source: ai.source });
+    return json(res, 200, { answer: stripMarkdown(ai.text), source: ai.source });
   } catch (e) {
     // Không bao giờ lộ stack trace / chi tiết lỗi ra ngoài.
     console.error('[de-chat] handler error:', e && e.message ? String(e.message).slice(0, 120) : 'unknown');

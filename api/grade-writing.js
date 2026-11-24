@@ -123,6 +123,8 @@ function fallbackResult(essay) {
   const overall = band == null ? 4 : Math.max(3, Math.min(9, Math.round(Math.min(7, band) * 2) / 2));
   return {
     graded_by: 'fallback',
+    ai_reviewed: false,
+    label: 'AI, chưa duyệt',
     task: null, coherence: null, lexical: null, grammar: null,
     overall, strengths: '', improvements: '', examples: [],
   };
@@ -162,6 +164,8 @@ function parseGrade(text) {
     ? obj.examples.filter((x) => typeof x === 'string').slice(0, 3).map((x) => x.slice(0, 300))
     : [];
   out.graded_by = 'ai';
+  out.ai_reviewed = false;
+  out.label = 'AI, chưa duyệt';
   return out;
 }
 

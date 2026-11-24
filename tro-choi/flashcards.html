@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flashcards — Ôn từ vựng | David English</title>
+<meta name="description" content="Ôn từ vựng các bài học trên David English bằng thẻ lật: chọn trình độ và bài học, lật thẻ xem nghĩa, đánh dấu đã biết hay chưa biết.">
+<meta property="og:title" content="Flashcards — Ôn từ vựng">
+<meta property="og:description" content="Ôn từ vựng các bài học trên David English bằng thẻ lật: chọn trình độ và bài học, lật thẻ xem nghĩa, đánh dấu đã biết hay chưa biết.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://davidenglish.vercel.app/tro-choi/flashcards.html">
+<meta property="og:image" content="https://davidenglish.vercel.app/assets/og-default.png">
+<link rel="canonical" href="https://davidenglish.vercel.app/tro-choi/flashcards.html">
+<link rel="icon" href="/favicon.svg">
+<style>
+body{margin:0;font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#f7f5ef;color:#1a1a1a}
+.de-back{margin:0;background:#123a6d;color:#fff;padding:0 16px}
+.de-back a{display:inline-flex;align-items:center;min-height:44px;color:#fff;font-weight:600;font-size:15px;text-decoration:none}
+.de-back a:hover{color:#e8a020;text-decoration:underline}
+main{max-width:760px;margin:0 auto;padding:20px 16px 80px}
+h1{font-size:1.6rem;line-height:1.25;margin:12px 0 4px}
+.lead{color:#444;margin:0 0 16px}
+.muted{color:#666;font-size:.9rem}
+.card{background:#fff;border:1px solid #ddd;border-radius:12px;padding:18px;margin:14px 0}
+.btn{display:inline-block;border:0;border-radius:10px;padding:12px 20px;font:inherit;font-weight:700;cursor:pointer;background:#123a6d;color:#fff;margin:4px 6px 4px 0}
+.btn:hover{background:#0d2c55}
+.btn.ghost{background:#fff;color:#123a6d;border:2px solid #123a6d}
+.btn.good{background:#1d7a3d}
+.btn.bad{background:#b3261e}
+.btn:disabled{opacity:.5;cursor:default}
+select,input[type=radio]{font:inherit}
+select{padding:10px;border-radius:8px;border:1px solid #999;background:#fff;max-width:100%}
+label{font-weight:700;display:block;margin:12px 0 4px}
+.hidden{display:none!important}
+</style>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {'analytics_storage': 'denied'});
+</script>
+<style>
+.cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:100;background:#fff;color:#1a1a1a;border-top:3px solid #123a6d;box-shadow:0 -4px 24px rgba(0,0,0,.18);padding:16px 0}
+.cookie-banner p{margin:0 0 12px}
+.cookie-actions{display:flex;gap:12px;flex-wrap:wrap}
+.cookie-actions .btn{flex:1 1 160px;margin-top:0}
+</style>
+</head>
+<body>
+<header class="de-back"><a href="/tro-choi/">← Trò chơi &amp; Công cụ</a></header>
+<main>
+
+<h1>Flashcards — Ôn từ vựng</h1>
+<p class="lead">Từ vựng lấy từ các bài học trên trang.</p>
+
+<div class="card">
+  <label for="levelSel">Trình độ</label>
+  <select id="levelSel">
+    <option value="a1">A1 — Mới bắt đầu</option>
+    <option value="a2">A2 — Sơ cấp</option>
+    <option value="b1">B1 — Trung cấp</option>
+    <option value="b2">B2 — Trung cấp cao</option>
+  </select>
+  <label for="lessonSel">Bài học</label>
+  <select id="lessonSel"></select>
+  <p>
+    <button class="btn" id="loadBtn" type="button">Mở bộ thẻ</button>
+    <button class="btn ghost" id="reviewBtn" type="button">Ôn từ chưa biết</button>
+  </p>
+  <p class="muted" id="deckInfo"></p>
+</div>
+
+<div id="errBox" class="card hidden" role="alert"></div>
+
+<div id="studyBox" class="hidden">
+  <p class="muted" id="progressLine"></p>
+  <div class="card" id="flipCard" tabindex="0" role="button" aria-label="Lật thẻ" style="cursor:pointer;text-align:center;min-height:220px;display:flex;flex-direction:column;justify-content:center">
+    <div id="cardFront">
+      <div id="cardWord" style="font-size:2rem;font-weight:800"></div>
+      <div id="cardIpa" class="muted" style="font-size:1.1rem"></div>
+      <div id="cardPos" class="muted"></div>
+      <p class="muted" style="margin-top:16px">Chạm vào thẻ để lật xem nghĩa</p>
+    </div>
+    <div id="cardBack" class="hidden">
+      <div id="cardVi" style="font-size:1.5rem;font-weight:800"></div>
+      <div id="cardEx" style="font-style:italic;margin-top:10px"></div>
+      <p class="muted" style="margin-top:16px">Chạm vào thẻ để lật lại</p>
+    </div>
+  </div>
+  <p>
+    <button class="btn good" id="knownBtn" type="button">Đã biết ✓</button>
+    <button class="btn bad" id="unknownBtn" type="button">Chưa biết ✗</button>
+  </p>
+  <p>
+    <button class="btn ghost" id="prevBtn" type="button">← Thẻ trước</button>
+    <button class="btn ghost" id="nextBtn" type="button">Thẻ sau →</button>
+    <button class="btn ghost" id="shuffleBtn" type="button">Xáo trộn</button>
+  </p>
+  <p><a id="lessonLink" href="#">Mở bài học này →</a></p>
+</div>
+
+<p class="muted">Tiến độ “Đã biết / Chưa biết” được lưu trên máy của bạn (cùng chỗ lưu tiến độ học của trang), không gửi về máy chủ.</p>
+</main>
+<script>
+"use strict";
+// Danh mục 28 bài học — slug file + tiêu đề chép nguyên từ tai-lieu/src/*.json.
+// JSON được tải lúc chạy từ /tai-lieu/src/<file>.json; trường từ vựng:
+// vocabulary[] = {word, pos, ipa, vi, ex}.
+const LESSONS = [{"file": "a1-chao-hoi-gioi-thieu", "level": "a1", "title": "Chào hỏi và giới thiệu bản thân", "page": "/trinh-do/a1/chao-hoi-gioi-thieu.html", "n": 12}, {"file": "a1-so-dem-ngay-gio", "level": "a1", "title": "Số đếm, ngày và giờ", "page": "/trinh-do/a1/so-dem-ngay-gio.html", "n": 38}, {"file": "a1-gia-dinh-cua-toi", "level": "a1", "title": "Gia đình của tôi — My Family", "page": "/trinh-do/a1/gia-dinh-cua-toi.html", "n": 14}, {"file": "a1-mon-an-va-do-uong", "level": "a1", "title": "Món ăn và đồ uống — Food and Drink", "page": "/trinh-do/a1/mon-an-va-do-uong.html", "n": 14}, {"file": "a1-nha-cua-toi", "level": "a1", "title": "Nhà của tôi — My Home", "page": "/trinh-do/a1/nha-cua-toi.html", "n": 14}, {"file": "a2-everyday-english", "level": "a2", "title": "Everyday English — Tiếng Anh hằng ngày", "page": "/trinh-do/a2/everyday-english.html", "n": 14}, {"file": "a2-mua-sam-hoi-gia", "level": "a2", "title": "Đi mua sắm và hỏi giá", "page": "/trinh-do/a2/mua-sam-hoi-gia.html", "n": 14}, {"file": "a2-du-lich-va-ky-nghi", "level": "a2", "title": "Du lịch và kỳ nghỉ — Travel and Holidays", "page": "/trinh-do/a2/du-lich-va-ky-nghi.html", "n": 14}, {"file": "a2-suc-khoe-va-co-the", "level": "a2", "title": "Sức khỏe và cơ thể — Health and Body", "page": "/trinh-do/a2/suc-khoe-va-co-the.html", "n": 14}, {"file": "a2-thoi-tiet-va-mua", "level": "a2", "title": "Thời tiết và các mùa — Weather and Seasons", "page": "/trinh-do/a2/thoi-tiet-va-mua.html", "n": 14}, {"file": "b1-lesson-01-sermon-on-the-mount", "level": "b1", "title": "Bài 1: Bài Giảng Trên Núi", "page": "/trinh-do/b1/b1-lesson-01-sermon-on-the-mount.html", "n": 22}, {"file": "b1-lesson-02-life-of-david", "level": "b1", "title": "Bài 2: Cuộc Đời Đa-vít", "page": "/trinh-do/b1/b1-lesson-02-life-of-david.html", "n": 22}, {"file": "b1-lesson-03-prophets-isaiah", "level": "b1", "title": "Bài 3: Các Tiên Tri: Ê-sai", "page": "/trinh-do/b1/b1-lesson-03-prophets-isaiah.html", "n": 22}, {"file": "b1-lesson-04-wisdom-proverbs-psalms", "level": "b1", "title": "Bài 4: Sự Khôn Ngoan: Châm Ngôn & Thi Thiên", "page": "/trinh-do/b1/b1-lesson-04-wisdom-proverbs-psalms.html", "n": 24}, {"file": "b1-lesson-05-romans-justification", "level": "b1", "title": "Bài 5: Rô-ma: Được Xưng Công Chính Bởi Đức Tin", "page": "/trinh-do/b1/b1-lesson-05-romans-justification.html", "n": 22}, {"file": "b1-lesson-06-parables-kingdom", "level": "b1", "title": "Bài 6: Các Dụ Ngôn Về Nước Thiên Đàng", "page": "/trinh-do/b1/b1-lesson-06-parables-kingdom.html", "n": 24}, {"file": "b1-lesson-07-holy-spirit-acts", "level": "b1", "title": "Bài 7: Đức Thánh Linh Trong Sách Công Vụ Các Sứ Đồ", "page": "/trinh-do/b1/b1-lesson-07-holy-spirit-acts.html", "n": 24}, {"file": "b1-lesson-08-prayer-worship", "level": "b1", "title": "Bài 8: Cầu Nguyện Và Thờ Phượng", "page": "/trinh-do/b1/b1-lesson-08-prayer-worship.html", "n": 22}, {"file": "b1-lesson-09-church-one-body", "level": "b1", "title": "Bài 9: Hội Thánh: Một Thân Thể", "page": "/trinh-do/b1/b1-lesson-09-church-one-body.html", "n": 24}, {"file": "b1-lesson-10-money-work-contentment", "level": "b1", "title": "Bài 10: Tiền Bạc, Công Việc & Sự Thỏa Lòng", "page": "/trinh-do/b1/b1-lesson-10-money-work-contentment.html", "n": 24}, {"file": "b1-lesson-11-mission-nations", "level": "b1", "title": "Bài 11: Sứ Mạng Đến Với Muôn Dân", "page": "/trinh-do/b1/b1-lesson-11-mission-nations.html", "n": 24}, {"file": "b1-lesson-12-revelation-hope", "level": "b1", "title": "Bài 12: Khải Huyền và Hy Vọng Sống Động — Ôn Tập Tổng Kết", "page": "/trinh-do/b1/b1-lesson-12-revelation-hope.html", "n": 24}, {"file": "b2-lesson-01-living-as-exiles", "level": "b2", "title": "Bài 1: Sống Như Khách Lạ Trên Đất", "page": "/trinh-do/b2/b2-lesson-01-living-as-exiles.html", "n": 24}, {"file": "b2-lesson-02-suffering-and-hope", "level": "b2", "title": "Bài 2: Đau Khổ và Hy Vọng", "page": "/trinh-do/b2/b2-lesson-02-suffering-and-hope.html", "n": 24}, {"file": "b2-lesson-03-wisdom-for-decisions", "level": "b2", "title": "Bài 3: Sự Khôn Ngoan Cho Quyết Định", "page": "/trinh-do/b2/b2-lesson-03-wisdom-for-decisions.html", "n": 24}, {"file": "b2-lesson-04-the-christian-mind", "level": "b2", "title": "Bài 4: Tâm Trí Của Cơ Đốc Nhân", "page": "/trinh-do/b2/b2-lesson-04-the-christian-mind.html", "n": 24}, {"file": "b2-lesson-05-leadership-and-serving", "level": "b2", "title": "Bài 5: Lãnh Đạo và Phục Vụ", "page": "/trinh-do/b2/b2-lesson-05-leadership-and-serving.html", "n": 24}, {"file": "b2-lesson-06-evangelism-in-a-pluralist-world", "level": "b2", "title": "Bài 6: Truyền Giáo Trong Thế Giới Đa Nguyên", "page": "/trinh-do/b2/b2-lesson-06-evangelism-in-a-pluralist-world.html", "n": 24}];
+const KEY = "de-progress-v1";
+
+const $ = s => document.querySelector(s);
+const levelSel = $("#levelSel"), lessonSel = $("#lessonSel");
+const errBox = $("#errBox"), studyBox = $("#studyBox");
+
+let deck = [];        // [{word,pos,ipa,vi,ex,lesson,level}]
+let idx = 0, flipped = false, deckLabel = "";
+
+function loadProgress() {
+  try {
+    const p = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (p && typeof p === "object") {
+      if (!p.words || typeof p.words !== "object") p.words = {};
+      return p;
+    }
+  } catch (e) { /* localStorage hỏng thì bắt đầu mới */ }
+  return { done: [], words: {}, streak: { last: "", days: 0 } };
+}
+function saveProgress(p) {
+  try { localStorage.setItem(KEY, JSON.stringify(p)); } catch (e) { /* bộ nhớ đầy/khóa */ }
+}
+function mark(word, known, lesson, level) {
+  const p = loadProgress();
+  p.words[word] = { known: !!known, lesson: lesson, level: level };
+  saveProgress(p);
+}
+function knownCount() {
+  const p = loadProgress();
+  let n = 0;
+  for (const w of deck) {
+    const rec = p.words[w.word];
+    if (rec && rec.known) n++;
+  }
+  return n;
+}
+
+function fillLessons() {
+  const lv = levelSel.value;
+  lessonSel.innerHTML = "";
+  for (const l of LESSONS.filter(x => x.level === lv)) {
+    const o = document.createElement("option");
+    o.value = l.file;
+    o.textContent = l.title + " (" + l.n + " từ)";
+    lessonSel.appendChild(o);
+  }
+}
+levelSel.addEventListener("change", fillLessons);
+fillLessons();
+
+function showError(msg) {
+  errBox.textContent = msg;
+  errBox.classList.remove("hidden");
+  studyBox.classList.add("hidden");
+}
+function clearError() { errBox.classList.add("hidden"); errBox.textContent = ""; }
+
+async function fetchLesson(file) {
+  const res = await fetch("/tai-lieu/src/" + file + ".json");
+  if (!res.ok) throw new Error("HTTP " + res.status);
+  const data = await res.json();
+  if (!Array.isArray(data.vocabulary) || !data.vocabulary.length)
+    throw new Error("no-vocab");
+  return data;
+}
+
+function startDeck(words, label, lessonPage) {
+  deck = words; idx = 0; flipped = false; deckLabel = label;
+  $("#lessonLink").href = lessonPage || "#";
+  $("#lessonLink").style.display = lessonPage ? "" : "none";
+  $("#deckInfo").textContent = label + " — " + words.length + " từ.";
+  clearError();
+  studyBox.classList.remove("hidden");
+  render();
+}
+
+function render() {
+  if (!deck.length) return;
+  const w = deck[idx];
+  $("#cardWord").textContent = w.word || "";
+  $("#cardIpa").textContent = w.ipa ? "/" + w.ipa + "/" : "";
+  $("#cardPos").textContent = w.pos || "";
+  $("#cardVi").textContent = w.vi || "";
+  $("#cardEx").textContent = w.ex || "";
+  $("#cardFront").classList.toggle("hidden", flipped);
+  $("#cardBack").classList.toggle("hidden", !flipped);
+  const known = knownCount();
+  $("#progressLine").textContent =
+    "Thẻ " + (idx + 1) + "/" + deck.length + " · Đã biết " + known + "/" + deck.length + " từ trong bộ này";
+  const rec = loadProgress().words[w.word];
+  $("#knownBtn").textContent = (rec && rec.known) ? "Đã biết ✓ (đã lưu)" : "Đã biết ✓";
+  $("#unknownBtn").textContent = (rec && rec.known === false) ? "Chưa biết ✗ (đã lưu)" : "Chưa biết ✗";
+}
+
+function flip() { flipped = !flipped; render(); }
+$("#flipCard").addEventListener("click", flip);
+$("#flipCard").addEventListener("keydown", e => {
+  if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); }
+});
+
+function grade(known) {
+  if (!deck.length) return;
+  const w = deck[idx];
+  mark(w.word, known, w.lesson, w.level);
+  if (idx < deck.length - 1) { idx++; flipped = false; }
+  render();
+}
+$("#knownBtn").addEventListener("click", () => grade(true));
+$("#unknownBtn").addEventListener("click", () => grade(false));
+$("#prevBtn").addEventListener("click", () => {
+  if (!deck.length) return;
+  idx = (idx - 1 + deck.length) % deck.length; flipped = false; render();
+});
+$("#nextBtn").addEventListener("click", () => {
+  if (!deck.length) return;
+  idx = (idx + 1) % deck.length; flipped = false; render();
+});
+$("#shuffleBtn").addEventListener("click", () => {
+  if (!deck.length) return;
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const t = deck[i]; deck[i] = deck[j]; deck[j] = t;
+  }
+  idx = 0; flipped = false; render();
+});
+
+$("#loadBtn").addEventListener("click", async () => {
+  const file = lessonSel.value;
+  const meta = LESSONS.find(l => l.file === file);
+  $("#deckInfo").textContent = "Đang tải " + (meta ? meta.title : file) + "…";
+  try {
+    const data = await fetchLesson(file);
+    const words = data.vocabulary.map(v => ({
+      word: v.word, pos: v.pos || "", ipa: v.ipa || "",
+      vi: v.vi || "", ex: v.ex || "",
+      lesson: meta.page, level: meta.level
+    }));
+    startDeck(words, meta.title, meta.page);
+  } catch (e) {
+    showError("Không tải được bài học này. Kiểm tra mạng rồi thử lại. (Bài học: " +
+      (meta ? meta.title : file) + ")");
+    $("#deckInfo").textContent = "";
+  }
+});
+
+// Ôn từ chưa biết: gom mọi từ đã đánh dấu known=false ở tất cả các bài.
+$("#reviewBtn").addEventListener("click", async () => {
+  $("#deckInfo").textContent = "Đang gom các từ chưa biết từ 28 bài học…";
+  const p = loadProgress();
+  const wanted = new Set(Object.keys(p.words).filter(w => p.words[w] && p.words[w].known === false));
+  if (!wanted.size) {
+    showError("Bạn chưa đánh dấu từ nào là “Chưa biết”. Hãy mở một bộ thẻ và bấm “Chưa biết” cho các từ cần ôn.");
+    $("#deckInfo").textContent = "";
+    return;
+  }
+  try {
+    const all = await Promise.all(LESSONS.map(async l => {
+      try {
+        const data = await fetchLesson(l.file);
+        return data.vocabulary
+          .filter(v => wanted.has(v.word))
+          .map(v => ({ word: v.word, pos: v.pos || "", ipa: v.ipa || "",
+                        vi: v.vi || "", ex: v.ex || "", lesson: l.page, level: l.level }));
+      } catch (e) { return []; }
+    }));
+    const words = all.flat();
+    if (!words.length) {
+      showError("Không tìm thấy từ chưa biết nào trong các bài học (có thể các từ đó không còn trong bài).");
+      $("#deckInfo").textContent = "";
+      return;
+    }
+    startDeck(words, "Ôn từ chưa biết", "");
+  } catch (e) {
+    showError("Không tải được danh sách từ. Kiểm tra mạng rồi thử lại.");
+    $("#deckInfo").textContent = "";
+  }
+});
+</script>
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Thông báo về cookie" hidden>
+  <div class="wrap">
+    <p>Trang này dùng Google Analytics để biết nội dung nào hữu ích cho bạn — chỉ khi bạn đồng ý. Không có cookie quảng cáo, không bán dữ liệu. Bạn có thể đổi ý bất cứ lúc nào qua “Cài đặt cookie” ở chân trang. Xem <a href="/quyen-rieng-tu.html">Chính sách quyền riêng tư</a>.</p>
+    <div class="cookie-actions">
+      <button type="button" id="cookie-accept" class="btn">Đồng ý</button>
+      <button type="button" id="cookie-decline" class="btn">Từ chối</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY='de-consent';
+  var banner=document.getElementById('cookie-banner');
+  function loadGA(){
+    if(document.querySelector('script[src*="googletagmanager.com/gtag/js"]')){return;}
+    var s=document.createElement('script');
+    s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id=G-6WKB00FR9G';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-6WKB00FR9G');
+  }
+  function eraseGaCookies(){
+    document.cookie.split(';').forEach(function(c){
+      var name=c.split('=')[0].trim();
+      if(name.indexOf('_ga')===0){
+        document.cookie=name+'=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+      }
+    });
+  }
+  function showBanner(){banner.hidden=false;}
+  function hideBanner(){banner.hidden=true;}
+  function accept(){
+    try{localStorage.setItem(KEY,'granted');}catch(e){}
+    gtag('consent','update',{'analytics_storage':'granted'});
+    loadGA();
+    hideBanner();
+  }
+  function decline(){
+    try{localStorage.setItem(KEY,'denied');}catch(e){}
+    gtag('consent','update',{'analytics_storage':'denied'});
+    eraseGaCookies();
+    hideBanner();
+  }
+  document.getElementById('cookie-accept').addEventListener('click',accept);
+  document.getElementById('cookie-decline').addEventListener('click',decline);
+  var settings=document.getElementById('cookie-settings');
+  if(settings){settings.addEventListener('click',function(e){e.preventDefault();showBanner();});}
+  var stored=null;
+  try{stored=localStorage.getItem(KEY);}catch(e){}
+  if(stored==='granted'){
+    gtag('consent','update',{'analytics_storage':'granted'});
+    loadGA();
+  }else if(stored==='denied'){
+    /* Da tu choi: khong tai gtag.js, khong hien lai banner. */
+  }else{
+    showBanner();
+  }
+})();
+</script>
+</body>
+</html>

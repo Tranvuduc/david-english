@@ -55,6 +55,11 @@ export const SITE_SECTIONS = [
     "note": "hướng dẫn học, chưa có bài học theo bài"
   },
   {
+    "name": "Kế hoạch học",
+    "url": "/ke-hoach-hoc.html",
+    "status": "available"
+  },
+  {
     "name": "Theo kỹ năng (Nghe, Nói, Đọc, Viết)",
     "url": "/ky-nang/",
     "status": "available"
@@ -93,7 +98,7 @@ export const SITE_SECTIONS = [
     "name": "Trò chơi & Công cụ",
     "url": "/tro-choi/",
     "status": "available",
-    "tools": 18
+    "tools": 20
   },
   {
     "name": "Trò chuyện AI",

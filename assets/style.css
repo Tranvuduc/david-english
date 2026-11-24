@@ -359,3 +359,20 @@ tbody tr:nth-child(even) td { background: #fbfaf6; }
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   Tiến độ học (assets/progress.js) — hộp "Tiến độ của bạn" + nút đánh dấu.
+   Hộp chỉ hiện khi JS chạy (container rỗng trong HTML, JS điền nội dung).
+   ========================================================================== */
+.de-progress-box {
+  background: var(--gold-soft);
+  border: 1px solid var(--gold-line);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin: 16px 0;
+}
+.de-progress-box h2 { margin-top: 0; }
+.de-progress-box p { margin: 8px 0; }
+.de-progress-box p:last-child { margin-bottom: 0; }
+.de-done-btn.is-done { background: var(--ok); }
+.de-done-btn.is-done:hover { background: var(--green); }

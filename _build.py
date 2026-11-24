@@ -105,6 +105,7 @@ NAV = [
 STYLE = "/assets/style.css"
 CHAT_CSS = "/chat/de-chat.css"
 CHAT_JS = "/chat/de-chat.js"
+PROGRESS_JS = "/assets/progress.js"
 
 
 def nav_html(active):
@@ -378,6 +379,7 @@ def page(path, title, h1, body_html, active="/", desc=None, eyebrow=None, hero=N
 {updated_html}  </div>
 </footer>
 <script src="{CHAT_JS}" defer></script>
+<script src="{PROGRESS_JS}" defer></script>
 {COOKIE_BANNER}
 {cookie_script}
 </body>
@@ -439,6 +441,7 @@ def add(path, title, h1, body, active="/", desc=None, eyebrow=None, hero=None, n
 add("/", "Học tiếng Anh miễn phí", "Học tiếng Anh miễn phí, từ đầu tới giỏi",
     f"""
 <p>Trang đang được xây dựng dần: bài học A1–B2, trò chơi và sách học đã có — các mục còn lại sẽ thêm sau.</p>
+<div class="de-progress-box" data-de-progress-box></div>
 <section class="section">
 <div class="cards">
   <article class="card card-tool">{card_icon("place")}<h2><a href="/bai-xep-lop.html">Bài xếp lớp</a></h2><p>Bản demo với 3 câu mẫu — thử giao diện xếp lớp rồi gợi ý lộ trình học phù hợp.</p></article>
@@ -475,7 +478,7 @@ add("/", "Học tiếng Anh miễn phí", "Học tiếng Anh miễn phí, từ �
 add("/bai-xep-lop.html", "Bài xếp lớp", "Bài xếp lớp",
     """
 <p class="lead">Bản demo giao diện bài xếp lớp — 3 câu mẫu để thử, chưa phải bài kiểm tra thật. 3 câu hỏi không thể đo trình độ của bạn, vì vậy trang này không đưa ra kết quả xếp lớp.</p>
-<p>Muốn kiểm tra thật? Làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> — bài kiểm tra trình độ có chấm điểm (nghe, đọc, viết) và gợi ý lộ trình học phù hợp.</p>
+<p>Muốn kiểm tra thật? Làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> — bài kiểm tra tự thích ứng, ước lượng trình độ A1–C2 (chỉ có đọc/viết/ngữ pháp, chưa có nghe/nói), rồi gợi ý lộ trình học phù hợp.</p>
 <p><span class="badge">Đang hoàn thiện</span> Đây là bản demo giao diện — bộ câu hỏi chính thức và cách chấm điểm thật chưa có. Kết quả dưới đây chỉ để thử giao diện, chưa dùng để xếp lớp thật.</p>
 <section class="section">
 <form id="placementForm">
@@ -538,7 +541,7 @@ add("/bai-xep-lop.html", "Bài xếp lớp", "Bài xếp lớp",
   });
 })();
 </script>
-""", active="/bai-xep-lop.html", eyebrow="Bài xếp lớp", desc="Bài xếp lớp demo: 3 câu mẫu để thử giao diện và gợi ý lộ trình học theo trình độ A1–C2. Bộ câu hỏi chính thức đang hoàn thiện.")
+""", active="/bai-xep-lop.html", eyebrow="Bài xếp lớp", desc="Bài xếp lớp demo: 3 câu mẫu để thử giao diện. Trang này không xếp lớp được — muốn kiểm tra thật, làm bài English Level Check.")
 
 
 # ETA "sắp bổ sung" cho 15 trang hướng dẫn đã có nội dung đầy đủ
@@ -610,6 +613,21 @@ for _lv, _fn in LESSON_FILES:
 AI_NOTE = ('<p><span class="badge">AI, chưa duyệt</span> Bài học do AI soạn thảo, '
            'chưa được giáo viên duyệt — hãy đối chiếu với sách và giáo viên của bạn.</p>')
 
+# Dòng giới thiệu English Level Check dùng chung ở các trang hub: trung thực —
+# bài kiểm tra tự thích ứng, ước lượng A1–C2, chỉ đọc/viết/ngữ pháp.
+LEVEL_CHECK_LINE = ('Chưa biết mình ở trình độ nào? Làm bài '
+    '<a href="/tro-choi/english-level-check.html">English Level Check</a>'
+    ' — bài kiểm tra tự thích ứng, ước lượng trình độ A1–C2 '
+    '(chỉ có đọc/viết/ngữ pháp, chưa có nghe/nói).')
+
+
+def _done_button(path):
+    # Nút "Đánh dấu đã học xong" trên trang bài học — trạng thái do
+    # assets/progress.js điền từ localStorage (data-de-done).
+    return (f'<p><button type="button" class="btn de-done-btn" '
+            f'data-de-done="{path}" aria-pressed="false">'
+            'Đánh dấu đã học xong</button></p>')
+
 
 def _esc(s):
     return htmlmod.escape(str(s), quote=False)
@@ -669,6 +687,7 @@ def lesson_body(d, prev_lesson, next_lesson):
     return f"""
 <p class="lead">{_esc(d.get("subtitle", ""))}</p>
 {AI_NOTE}
+{_done_button(d["_path"])}
 <section class="section">
 <div class="section-head"><h2>Mục tiêu bài học</h2></div>
 <ul>{''.join(f"<li>{_esc(o)}</li>" for o in d.get("objectives", []))}</ul>
@@ -854,6 +873,7 @@ def b1_lesson_body(d, prev_lesson, next_lesson):
     return f"""
 <p class="lead">{_esc(d.get("subtitle", ""))}</p>
 {AI_NOTE}
+{_done_button(d["_path"])}
 <section class="section">
 <div class="section-head"><h2>Mục tiêu bài học</h2><p class="section-sub">Mục tiêu rút từ chính nội dung bài: ngữ pháp, phát âm và đoạn Kinh Thánh của bài.</p></div>
 <ul>{''.join(f"<li>{_esc(o)}</li>" for o in d.get("objectives", []))}</ul>
@@ -1012,6 +1032,7 @@ def b2_lesson_body(d, prev_lesson, next_lesson):
     return f"""
 <p class="lead">{_esc(d.get("subtitle", ""))}</p>
 {AI_NOTE}
+{_done_button(d["_path"])}
 <section class="section">
 <div class="section-head"><h2>Mục tiêu bài học</h2><p class="section-sub">Mục tiêu rút từ chính nội dung bài: ngữ pháp, phát âm và đoạn Kinh Thánh của bài.</p></div>
 <ul>{''.join(f"<li>{_esc(o)}</li>" for o in d.get("objectives", []))}</ul>
@@ -1068,6 +1089,7 @@ def b2_hub_lessons_html():
 <p>Tổng cộng: 6 bài · {total_vocab} từ vựng · {_mmss(total_secs)} bài nghe. Học theo thứ tự từ Bài 1 tới Bài 6 — tiếp nối mạch B1 (từ Bài Giảng Trên Núi tới Khải Huyền và Hy Vọng) ở mức sâu hơn: sống như khách lạ, đau khổ và hy vọng, khôn ngoan khi quyết định, đổi mới tâm trí, lãnh đạo phục vụ, và truyền giáo trong thế giới đa nguyên. Giọng đọc: Casper (người dẫn) và Aria (đối thoại).</p>
 <ol>{items}</ol>
 <p><strong>Lộ trình gợi ý:</strong> 1 bài/tuần trong 6 tuần (mỗi buổi 45–60 phút). Mỗi bài: học từ vựng → nghe 2 lần (lần 1 không nhìn transcript, lần 2 đối chiếu) → làm bài tập trong PDF → học thuộc câu ghi nhớ.</p>
+<p>{LEVEL_CHECK_LINE}</p>
 </section>
 """
 
@@ -1089,6 +1111,7 @@ def b1_hub_lessons_html():
 <p>Tổng cộng: 12 bài · {total_vocab} từ vựng · {_mmss(total_secs)} bài nghe. Học theo thứ tự từ Bài 1 tới Bài 12 — Bài 12 là bài tổng kết toàn khóa. Giọng đọc: Casper (người dẫn) và Aria (đối thoại).</p>
 <ol>{items}</ol>
 <p><strong>Lộ trình gợi ý:</strong> 1 bài/tuần trong 12 tuần (mỗi buổi 45–60 phút). Mỗi bài: học từ vựng → nghe 2 lần (lần 1 không nhìn transcript, lần 2 đối chiếu) → làm bài tập trong PDF → học thuộc câu ghi nhớ.</p>
+<p>{LEVEL_CHECK_LINE}</p>
 </section>
 """
 
@@ -1166,14 +1189,17 @@ def level_hub_body(slug, name, desc):
 <div class="section-head"><h2>Tài liệu PDF miễn phí</h2></div>
 <ul>{pdfs}</ul>
 </section>
-{extra}<p><a href="{nxt[1]}">{nxt[0]} →</a> · <a href="/trinh-do/">← Tất cả trình độ</a> · <a href="/bai-xep-lop.html">Làm bài xếp lớp →</a> · <a href="/tro-chuyen-ai.html?q={quote(f"Cho tôi lộ trình học tiếng Anh trình độ {slug.upper()}.", safe="")}">Hỏi AI về lộ trình học →</a></p>
+{extra}<p>{LEVEL_CHECK_LINE}</p>
+<p><a href="{nxt[1]}">{nxt[0]} →</a> · <a href="/trinh-do/">← Tất cả trình độ</a> · <a href="/tro-choi/english-level-check.html">Làm bài English Level Check →</a> · <a href="/tro-chuyen-ai.html?q={quote(f"Cho tôi lộ trình học tiếng Anh trình độ {slug.upper()}.", safe="")}">Hỏi AI về lộ trình học →</a></p>
 """
 
 
 add("/trinh-do/index.html", "Theo trình độ", "Học theo trình độ (A1–C2)",
     """
 <p class="lead">Chọn trình độ của bạn để đi đúng lộ trình — mỗi cấp độ sẽ có từ vựng, ngữ pháp, bài đọc, bài nghe và bài tập riêng.</p>
-<p>Chưa biết mình ở đâu? <a href="/bai-xep-lop.html">Làm bài xếp lớp →</a></p>
+<p>Chưa biết mình ở trình độ nào? Làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> — bài kiểm tra tự thích ứng, ước lượng trình độ A1–C2 (chỉ có đọc/viết/ngữ pháp, chưa có nghe/nói).</p>
+<div class="de-progress-box" data-de-progress-box></div>
+<p><a href="/ke-hoach-hoc.html">Xem kế hoạch học →</a> · Bạn cũng có thể thử <a href="/bai-xep-lop.html">bản demo 3 câu mẫu</a> (chỉ để thử giao diện, không xếp lớp được).</p>
 <section class="section">
 <div class="cards">
 """ + level_cards() + """
@@ -1188,6 +1214,46 @@ add("/trinh-do/index.html", "Theo trình độ", "Học theo trình độ (A1–
 <p><a href="/sach/">Xem tất cả sách học →</a></p>
 </section>
 """, active="/trinh-do/", eyebrow="Theo trình độ", desc="Học tiếng Anh theo trình độ A1–C2: chọn cấp độ của bạn để xem lộ trình, từ vựng, ngữ pháp và bài tập — đã có bài học A1, A2, B1 và B2 kèm PDF + audio miễn phí.")
+# ---------------- Kế hoạch học ----------------
+add("/ke-hoach-hoc.html", "Kế hoạch học", "Kế hoạch học tiếng Anh của bạn",
+    guide_sections("""
+<p class="lead">Bạn không cần học lan man: làm bài kiểm tra trình độ trước, bắt đầu đúng chỗ, học theo thứ tự, rồi theo dõi tiến độ ngay trên trang này. Trang này chỉ dẫn đường — mọi bài học đều nằm ở các trang đã có, bấm vào là tới.</p>
+<h2>Bước 1 — Làm bài English Level Check trước</h2>
+<p>Chưa biết mình ở trình độ nào? Làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> — bài kiểm tra tự thích ứng, ước lượng trình độ A1–C2 (chỉ có đọc/viết/ngữ pháp, chưa có nghe/nói). Bài kiểm tra gợi ý bạn nên bắt đầu ở trình độ nào, rồi quay lại trang này để xem bước tiếp theo.</p>
+<p>Trang <a href="/bai-xep-lop.html">Bài xếp lớp</a> chỉ là bản demo 3 câu mẫu để thử giao diện — trang đó không xếp lớp được, đừng dùng kết quả demo để chọn trình độ.</p>
+<h2>Bước 2 — Đọc kết quả, bắt đầu ở đâu</h2>
+<p>Tùy kết quả English Level Check, bạn bắt đầu ở đây:</p>
+<div class="table-wrap"><table><thead><tr><th>Kết quả kiểm tra</th><th>Bắt đầu ở đâu</th></tr></thead><tbody>
+<tr><td>A1</td><td><a href="/trinh-do/a1/chao-hoi-gioi-thieu.html">A1 Bài 1: Chào hỏi và giới thiệu bản thân</a></td></tr>
+<tr><td>A2</td><td>Ôn nhanh <a href="/trinh-do/a1.html">A1</a> rồi bắt đầu <a href="/trinh-do/a2/everyday-english.html">A2 Bài 1: Everyday English — Tiếng Anh hằng ngày</a></td></tr>
+<tr><td>B1</td><td><a href="/trinh-do/b1/b1-lesson-01-sermon-on-the-mount.html">B1 Bài 1: Bài Giảng Trên Núi</a></td></tr>
+<tr><td>B2</td><td><a href="/trinh-do/b2/b2-lesson-01-living-as-exiles.html">B2 Bài 1: Sống Như Khách Lạ Trên Đất</a></td></tr>
+<tr><td>C1 / C2</td><td><a href="/trinh-do/c1.html">Hướng dẫn tự học C1</a> và <a href="/trinh-do/c2.html">hướng dẫn tự học C2</a> — chưa có bài học theo bài, học theo lộ trình gợi ý trên các trang đó</td></tr>
+</tbody></table></div>
+<h2>Bước 3 — Thứ tự học</h2>
+<p>Học theo thứ tự <a href="/trinh-do/a1.html">A1</a> → <a href="/trinh-do/a2.html">A2</a> → <a href="/trinh-do/b1.html">B1</a> → <a href="/trinh-do/b2.html">B2</a>, hết bài này mới sang bài sau trong cùng một trình độ. Song song với bài học theo trình độ, luyện riêng từng kỹ năng ở <a href="/ky-nang/">Theo kỹ năng (nghe, nói, đọc, viết)</a>. Khi học tới B1, bắt đầu làm quen với <a href="/luyen-thi/">Luyện thi (IELTS, TOEIC, PTE, TOEFL, VSTEP)</a> nếu bạn có mục tiêu thi chứng chỉ.</p>
+<h2>Nhịp học — xem kế hoạch có sẵn của từng trình độ</h2>
+<p>Trang này không đặt ra nhịp học mới — mỗi trình độ đã có kế hoạch của riêng nó, bạn cứ theo đó:</p>
+<ul>
+<li><a href="/trinh-do/b1.html">Trình độ B1</a> — mục “Lộ trình học 8 tuần lên B1 vững”.</li>
+<li><a href="/trinh-do/c1.html">Trình độ C1</a> — mục “Lộ trình học 12 tuần lên C1 vững”.</li>
+<li>Trang <a href="/trinh-do/b1.html">B1</a> và <a href="/trinh-do/b2.html">B2</a> cũng ghi lộ trình gợi ý theo từng bài (1 bài/tuần).</li>
+</ul>
+<h2>Cách theo dõi tiến độ</h2>
+<p>Trang này không cần tài khoản — tiến độ chỉ lưu trên chính trình duyệt của bạn:</p>
+<ul>
+<li><strong>Đánh dấu bài đã học:</strong> mỗi trang bài học (28 bài A1–B2) đều có nút “Đánh dấu đã học xong” ở đầu bài. Bấm một lần để đánh dấu, bấm lại để bỏ đánh dấu; bài đã học xong hiện dấu ✓.</li>
+<li><strong>Hộp “Tiến độ của bạn”:</strong> trên <a href="/">trang chủ</a> và <a href="/trinh-do/">trang Theo trình độ</a> — cho biết bạn đã học xong mấy trên 28 bài, từng trình độ được mấy bài, chuỗi ngày học của bạn, và bài tiếp theo nên học (“Tiếp tục”).</li>
+<li><strong>Chuỗi ngày học:</strong> mỗi ngày bạn đánh dấu xong một bài, chuỗi tăng thêm 1; bỏ cách một ngày thì chuỗi tính lại từ đầu.</li>
+<li><strong>Ôn từ vựng:</strong> dùng <a href="/tro-choi/flashcards.html">Flashcards — ôn từ vựng</a> để ôn lại từ của các bài đã học; từ nào bạn đã thuộc hay chưa thuộc cũng được lưu cùng một chỗ với tiến độ bài học.</li>
+</ul>
+<p>Xóa dữ liệu trình duyệt là xóa luôn tiến độ — trang không giữ bản sao nào trên máy chủ.</p>
+<h2>Kiểm tra lại</h2>
+<p>Học xong một trình độ (ví dụ hết 5 bài A1), làm lại bài <a href="/tro-choi/english-level-check.html">English Level Check</a> để xem mình có lên trình độ mới chưa, rồi bắt đầu Bài 1 của trình độ tiếp theo theo bảng ở Bước 2.</p>
+<p><a href="/trinh-do/">← Tất cả trình độ</a> · <a href="/tro-choi/english-level-check.html">Làm bài English Level Check →</a> · <a href="/">← Về trang chủ</a></p>
+"""), active="/trinh-do/", eyebrow="Theo trình độ",
+    desc="Kế hoạch học tiếng Anh: làm bài English Level Check trước, bắt đầu đúng trình độ, học theo thứ tự A1 → A2 → B1 → B2, và theo dõi tiến độ ngay trên trang.")
+
 # ---------------- Nội dung đầy đủ cho B1–C2, kỹ năng, luyện thi, trẻ em, công việc, du học ----------------
 # Các trang dưới đây từng là stub "Sắp có" (noindex). Nội dung do AI soạn, gắn nhãn
 # "AI, chưa duyệt" (AI_NOTE) — chưa được giáo viên duyệt. Bài tập là câu hỏi tự biên
@@ -1251,7 +1317,7 @@ LEVEL_BODIES = {
 <li><strong>Tuần 5–6:</strong> Từ vựng theo 4 chủ đề (du lịch, sức khỏe, công việc, môi trường). Luyện nói: mỗi ngày kể một chuyện 2 phút, ghi âm lại và nghe lại.</li>
 <li><strong>Tuần 7–8:</strong> Viết email và đoạn văn 120–150 từ. Làm bài kiểm tra tổng hợp: nghe một đoạn hội thoại, đọc một bài báo ngắn, viết một đoạn văn.</li>
 </ul>
-<p>Muốn kiểm tra mình đang ở đâu? Hãy <a href="/bai-xep-lop.html">làm bài xếp lớp</a> hoặc chơi <a href="/tro-choi/intermediate-quest.html">Intermediate Quest — trò chơi trình độ trung cấp</a> để ôn từ vựng và ngữ pháp B1.</p>
+<p>Muốn kiểm tra mình đang ở đâu? Hãy làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> — bài kiểm tra tự thích ứng, ước lượng trình độ A1–C2 (chỉ có đọc/viết/ngữ pháp, chưa có nghe/nói) — hoặc chơi <a href="/tro-choi/intermediate-quest.html">Intermediate Quest — trò chơi trình độ trung cấp</a> để ôn từ vựng và ngữ pháp B1.</p>
 <h2>Lỗi thường gặp</h2>
 <ul>
 <li><strong>Dịch từng từ từ tiếng Việt sang tiếng Anh:</strong> <em>"I very like it"</em> — sai, vì <em>very</em> không bổ nghĩa cho động từ. Viết đúng: <em>I like it very much.</em> Quy tắc: <em>very + tính từ/trạng từ</em>, còn động từ thì dùng <em>very much / a lot</em>.</li>
@@ -1734,7 +1800,7 @@ Receptionist: Yes, of course.</em></p>
 <li><strong>Tuần 5–6:</strong> Luyện đề có bấm giờ: Listening + Reading trong 90 phút liên tục như thi thật. Chữa kỹ từng câu sai — hiểu vì sao sai quan trọng hơn làm nhiều đề.</li>
 <li><strong>Tuần 7–8:</strong> Làm 2 đề thi thử đầy đủ (4 kỹ năng) trong điều kiện thi thật. Tuần cuối: ôn lại lỗi cũ, nghỉ ngơi trước ngày thi 1 ngày.</li>
 </ul>
-<p>Muốn chơi mà vẫn ôn IELTS? Chơi <a href="/tro-choi/band-climb.html">Band Climb — luyện IELTS qua trò chơi</a>. Học theo sách? Xem <a href="/sach/mindset-for-ielts.html">hướng dẫn học với sách Mindset for IELTS</a> (từ Foundation tới Level 3, band 7.5). Cần band 6.5 để du học? Xem <a href="/du-hoc.html">chuẩn bị tiếng Anh đi du học</a>. Chưa rõ mình ở band nào? Hãy <a href="/bai-xep-lop.html">làm bài xếp lớp</a> hoặc xem <a href="/trinh-do/b2.html">trình độ B2</a> và <a href="/trinh-do/c1.html">trình độ C1</a>.</p>
+<p>Muốn chơi mà vẫn ôn IELTS? Chơi <a href="/tro-choi/band-climb.html">Band Climb — luyện IELTS qua trò chơi</a>. Học theo sách? Xem <a href="/sach/mindset-for-ielts.html">hướng dẫn học với sách Mindset for IELTS</a> (từ Foundation tới Level 3, band 7.5). Cần band 6.5 để du học? Xem <a href="/du-hoc.html">chuẩn bị tiếng Anh đi du học</a>. Chưa rõ mình ở band nào? Hãy làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> (chỉ có đọc/viết/ngữ pháp, chưa có nghe/nói) hoặc xem <a href="/trinh-do/b2.html">trình độ B2</a> và <a href="/trinh-do/c1.html">trình độ C1</a>.</p>
 """,
 "toeic": """
 <p class="lead">TOEIC là kỳ thi tiếng Anh công việc phổ biến nhất tại Việt Nam — nhiều công ty dùng điểm TOEIC để tuyển dụng và xét thăng chức. Bài thi Listening & Reading có 200 câu trắc nghiệm, làm trong 2 giờ, thang điểm 10–990. Trang này dạy bạn cấu trúc 7 phần thi, chiến thuật từng phần và bài tập tự biên soạn để luyện tập.</p>
@@ -2584,6 +2650,10 @@ TRO_CHOI = [
      "Kệ sách mở: đọc sách tiếng Anh miễn phí từ Project Gutenberg, LibriVox, Archive.org — lưu sách bạn đang đọc."),
     ("bible-english-adventure", "Bible English Adventure", "book",
      "Học tiếng Anh sơ cấp qua các đoạn Kinh Thánh ngắn: từ vựng, ngữ pháp, viết."),
+    ("flashcards", "Flashcards — Ôn từ vựng", "tool",
+     "Ôn từ vựng các bài học A1–B2 bằng thẻ lật: lật thẻ xem nghĩa, đánh dấu đã biết hay chưa biết, ôn lại từ chưa biết."),
+    ("toeic-mini-mock", "TOEIC Mini-Mock", "exam",
+     "Đề thi thử TOEIC mini 20 câu, 20 phút: ngữ pháp, hội thoại và cụm từ — chép từ ngân hàng câu hỏi TOEIC Arcade."),
 ]
 add("/tro-choi/index.html", "Trò chơi & Công cụ", "Trò chơi & Công cụ",
     """
@@ -2632,7 +2702,7 @@ add("/quyen-rieng-tu.html", "Quyền riêng tư", "Quyền riêng tư",
 <section class="section section-alt">
 <div class="section-head"><h2>Rút lại sự đồng ý và xóa dữ liệu</h2></div>
 <p>Bạn có thể rút lại sự đồng ý bất cứ lúc nào: bấm liên kết “Cài đặt cookie” ở chân trang, rồi bấm “Từ chối”. Thao tác này xóa cookie Google Analytics khỏi trình duyệt của bạn và dừng mọi thu thập tiếp theo ngay lập tức. Dữ liệu đã gửi trước đó được ẩn danh và tự xóa sau tối đa 14 tháng.</p>
-<p>Ngoài GA4, trang chỉ lưu dữ liệu trên chính máy của bạn: tiến độ trò chơi và bài kiểm tra được lưu trong trình duyệt của bạn (localStorage), không gửi về máy chủ của chúng tôi. Xóa dữ liệu trình duyệt là xóa luôn các dữ liệu này.</p>
+<p>Ngoài GA4, trang chỉ lưu dữ liệu trên chính máy của bạn: tiến độ bài học (bài nào bạn đã đánh dấu học xong), từ vựng đã biết/chưa biết, tiến độ trò chơi và bài kiểm tra được lưu trong trình duyệt của bạn (localStorage), không gửi về máy chủ của chúng tôi. Xóa dữ liệu trình duyệt là xóa luôn các dữ liệu này.</p>
 </section>
 <section class="section section-alt">
 <div class="section-head"><h2>Yêu cầu xóa dữ liệu</h2></div>
@@ -2674,6 +2744,7 @@ if __name__ == "__main__":
         {"name": "Trình độ B2", "url": "/trinh-do/b2.html", "status": "available", "lessons": len(B2_LESSONS)},
         {"name": "Trình độ C1 (hướng dẫn học)", "url": "/trinh-do/c1.html", "status": "available", "note": "hướng dẫn học, chưa có bài học theo bài"},
         {"name": "Trình độ C2 (hướng dẫn học)", "url": "/trinh-do/c2.html", "status": "available", "note": "hướng dẫn học, chưa có bài học theo bài"},
+        {"name": "Kế hoạch học", "url": "/ke-hoach-hoc.html", "status": "available"},
         {"name": "Theo kỹ năng (Nghe, Nói, Đọc, Viết)", "url": "/ky-nang/", "status": "available"},
         {"name": "Luyện thi (IELTS, TOEIC, PTE, TOEFL, VSTEP)", "url": "/luyen-thi/", "status": "available"},
         {"name": "Trẻ em", "url": "/tre-em.html", "status": "available"},
