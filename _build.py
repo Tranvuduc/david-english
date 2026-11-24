@@ -5,6 +5,7 @@
 # section/section-alt, card theo loại + icon SVG, badge-soon, level-chip.
 # Chỉ đổi markup trình bày — không đổi chữ, link hay cấu trúc nội dung.
 import html as htmlmod
+import json
 import os
 import re
 from urllib.parse import quote
@@ -138,6 +139,118 @@ def _pretty_url(path):
     return path
 
 
+GA4_ID = "G-6WKB00FR9G"  # GA4 thật — property "David English", tạo 23/11 dưới reformedvn@gmail.com.
+
+# Nhãn breadcrumb cho trang trung gian không có trong NAV (vd /trinh-do/a1.html).
+CRUMB_LABELS = {
+    "/trinh-do/a1.html": "Trình độ A1",
+    "/trinh-do/a2.html": "Trình độ A2",
+}
+
+
+def _breadcrumb_jsonld(path, title, active):
+    """BreadcrumbList JSON-LD: Trang chủ → hub (theo nav active) →
+    trang trung gian (nếu có) → trang hiện tại. Trang chủ không cần."""
+    if path == "/":
+        return ""
+    pretty = _pretty_url(path)
+    items = [("Trang chủ", "/")]
+    for label, href in NAV:
+        if href == active and href != "/":
+            items.append((label, href))
+            break
+    parent_page = os.path.dirname(pretty) + ".html"
+    if parent_page in CRUMB_LABELS and all(u != parent_page for _, u in items):
+        items.append((CRUMB_LABELS[parent_page], parent_page))
+    if all(u != pretty for _, u in items):
+        items.append((title, pretty))
+    data = {"@context": "https://schema.org", "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": i + 1, "name": name,
+                 "item": SITE_URL + url}
+                for i, (name, url) in enumerate(items)]}
+    return ('<script type="application/ld+json">\n'
+            + json.dumps(data, ensure_ascii=False) + '\n</script>')
+
+
+# Consent Mode v2 (basic): mặc định analytics_storage: denied; gtag.js CHỈ
+# tải/chạy sau khi khách bấm "Đồng ý". Xem PLAN.md §6.
+CONSENT_HEAD = """<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {'analytics_storage': 'denied'});
+</script>"""
+
+COOKIE_STYLE = """<style>
+.cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:100;background:#fff;color:#1a1a1a;border-top:3px solid #123a6d;box-shadow:0 -4px 24px rgba(0,0,0,.18);padding:16px 0}
+.cookie-banner p{margin:0 0 12px}
+.cookie-actions{display:flex;gap:12px;flex-wrap:wrap}
+.cookie-actions .btn{flex:1 1 160px;margin-top:0}
+</style>"""
+
+COOKIE_BANNER = """<div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Thông báo về cookie" hidden>
+  <div class="wrap">
+    <p>Trang này dùng Google Analytics để biết nội dung nào hữu ích cho bạn — chỉ khi bạn đồng ý. Không có cookie quảng cáo, không bán dữ liệu. Bạn có thể đổi ý bất cứ lúc nào qua “Cài đặt cookie” ở chân trang. Xem <a href="/quyen-rieng-tu.html">Chính sách quyền riêng tư</a>.</p>
+    <div class="cookie-actions">
+      <button type="button" id="cookie-accept" class="btn">Đồng ý</button>
+      <button type="button" id="cookie-decline" class="btn">Từ chối</button>
+    </div>
+  </div>
+</div>"""
+
+COOKIE_SCRIPT = """<script>
+(function(){
+  var KEY='de-consent';
+  var banner=document.getElementById('cookie-banner');
+  function loadGA(){
+    if(document.querySelector('script[src*="googletagmanager.com/gtag/js"]')){return;}
+    var s=document.createElement('script');
+    s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id=__GA4_ID__';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', '__GA4_ID__');
+  }
+  function eraseGaCookies(){
+    document.cookie.split(';').forEach(function(c){
+      var name=c.split('=')[0].trim();
+      if(name.indexOf('_ga')===0){
+        document.cookie=name+'=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+      }
+    });
+  }
+  function showBanner(){banner.hidden=false;}
+  function hideBanner(){banner.hidden=true;}
+  function accept(){
+    try{localStorage.setItem(KEY,'granted');}catch(e){}
+    gtag('consent','update',{'analytics_storage':'granted'});
+    loadGA();
+    hideBanner();
+  }
+  function decline(){
+    try{localStorage.setItem(KEY,'denied');}catch(e){}
+    gtag('consent','update',{'analytics_storage':'denied'});
+    eraseGaCookies();
+    hideBanner();
+  }
+  document.getElementById('cookie-accept').addEventListener('click',accept);
+  document.getElementById('cookie-decline').addEventListener('click',decline);
+  var settings=document.getElementById('cookie-settings');
+  if(settings){settings.addEventListener('click',function(e){e.preventDefault();showBanner();});}
+  var stored=null;
+  try{stored=localStorage.getItem(KEY);}catch(e){}
+  if(stored==='granted'){
+    gtag('consent','update',{'analytics_storage':'granted'});
+    loadGA();
+  }else if(stored==='denied'){
+    /* Da tu choi: khong tai gtag.js, khong hien lai banner. */
+  }else{
+    showBanner();
+  }
+})();
+</script>"""
+
+
 def page(path, title, h1, body_html, active="/", desc=None, eyebrow=None, hero=None, noindex=False):
     d = desc or derive_desc(body_html)
     desc_esc = htmlmod.escape(d, quote=True)
@@ -145,6 +258,8 @@ def page(path, title, h1, body_html, active="/", desc=None, eyebrow=None, hero=N
     pretty = _pretty_url(path)
     robots_meta = ('<meta name="robots" content="noindex, follow">\n'
                    if noindex else "")
+    breadcrumb = _breadcrumb_jsonld(path, title, active)
+    cookie_script = COOKIE_SCRIPT.replace("__GA4_ID__", GA4_ID)
     if hero is not None:
         # Trang chủ: hero full-bleed, con trực tiếp của <main class="wrap">.
         head_html = (
@@ -180,6 +295,9 @@ def page(path, title, h1, body_html, active="/", desc=None, eyebrow=None, hero=N
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+{CONSENT_HEAD}
+{breadcrumb}
+{COOKIE_STYLE}
 <title>{title_esc} | David English</title>
 <meta name="description" content="{desc_esc}">
 {robots_meta}<meta property="og:title" content="{title_esc} | David English">
@@ -218,11 +336,13 @@ def page(path, title, h1, body_html, active="/", desc=None, eyebrow=None, hero=N
   <div class="wrap">
     <p><strong>David English</strong> — Học tiếng Anh miễn phí cho người Việt.</p>
     <p>Mọi câu trả lời của AI đều ghi rõ “AI, chưa duyệt” — chưa được giáo viên duyệt.</p>
-    <p><a href="/">Trang chủ</a> · <a href="/tro-chuyen-ai.html">Trò chuyện AI</a> · <a href="/bai-xep-lop.html">Bài xếp lớp</a> · <a href="/tai-nguyen.html">Tài nguyên miễn phí</a> · <a href="/cong-cu/tu-vung.html">Tra từ</a> · <a href="/cong-cu/viet.html">Chữa bài viết</a></p>
+    <p><a href="/">Trang chủ</a> · <a href="/tro-chuyen-ai.html">Trò chuyện AI</a> · <a href="/bai-xep-lop.html">Bài xếp lớp</a> · <a href="/tai-nguyen.html">Tài nguyên miễn phí</a> · <a href="/cong-cu/tu-vung.html">Tra từ</a> · <a href="/cong-cu/viet.html">Chữa bài viết</a> · <a href="/quyen-rieng-tu.html">Quyền riêng tư</a> · <a href="#" id="cookie-settings">Cài đặt cookie</a></p>
     <p class="muted">Bài học, trò chơi và sách học miễn phí — nội dung mới thêm dần.</p>
   </div>
 </footer>
 <script src="{CHAT_JS}" defer></script>
+{COOKIE_BANNER}
+{cookie_script}
 </body>
 </html>
 """
@@ -281,16 +401,16 @@ def add(path, title, h1, body, active="/", desc=None, eyebrow=None, hero=None, n
 # ---------------- Trang chủ ----------------
 add("/", "Trang chủ", "Học tiếng Anh miễn phí, từ đầu tới giỏi",
     f"""
-<p>Trang đang được xây dựng dần: bài học A1–A2, trò chơi và sách học đã có — các mục còn lại sẽ thêm sau.</p>
+<p>Trang đang được xây dựng dần: bài học A1–B1, trò chơi và sách học đã có — các mục còn lại sẽ thêm sau.</p>
 <section class="section">
 <div class="cards">
   <article class="card card-tool">{card_icon("place")}<h2><a href="/bai-xep-lop.html">Bài xếp lớp</a></h2><p>Bản demo với 3 câu mẫu — thử giao diện xếp lớp rồi gợi ý lộ trình học phù hợp.</p></article>
-  <article class="card card-level">{card_icon("level")}<h2><a href="/trinh-do/">Theo trình độ (A1–C2)</a></h2><p>Đã có bài học A1 và A2 — từ vựng, ngữ pháp, bài tập và PDF miễn phí. Các cấp B1–C2 sẽ có sau.</p></article>
-  <article class="card card-skill">{card_icon("skill")}<p><span class="badge badge-soon">Sắp có</span></p><h2><a href="/ky-nang/">Theo kỹ năng</a></h2><p>Nghe, nói, đọc, viết — sẽ luyện từng kỹ năng riêng, có giải thích tiếng Việt.</p></article>
-  <article class="card card-exam">{card_icon("exam")}<p><span class="badge badge-soon">Sắp có</span></p><h2><a href="/luyen-thi/">Luyện thi</a></h2><p>IELTS · TOEIC · PTE · TOEFL · VSTEP — sẽ có đề thi thử và mẹo làm bài từng phần.</p></article>
-  <article class="card card-kids">{card_icon("kids")}<p><span class="badge badge-soon">Sắp có</span></p><h2><a href="/tre-em.html">Trẻ em</a></h2><p>Tiếng Anh cho trẻ em: sẽ có từ vựng theo chủ đề, bài hát, trò chơi, truyện ngắn.</p></article>
-  <article class="card card-work">{card_icon("work")}<p><span class="badge badge-soon">Sắp có</span></p><h2><a href="/cong-viec.html">Tiếng Anh công việc</a></h2><p>Tiếng Anh cho từng ngành nghề sẽ có: kinh doanh, y tế, công nghệ, du lịch, và hơn nữa.</p></article>
-  <article class="card card-abroad">{card_icon("abroad")}<p><span class="badge badge-soon">Sắp có</span></p><h2><a href="/du-hoc.html">Du học</a></h2><p>Chuẩn bị tiếng Anh đi du học sẽ có: học bổng, hồ sơ, phỏng vấn, đời sống ở nước ngoài.</p></article>
+  <article class="card card-level">{card_icon("level")}<h2><a href="/trinh-do/">Theo trình độ (A1–C2)</a></h2><p>Đã có bài học A1, A2 và B1 (Kingdom English) kèm PDF + audio miễn phí, cùng hướng dẫn học cho các cấp B2–C2.</p></article>
+  <article class="card card-skill">{card_icon("skill")}<h2><a href="/ky-nang/">Theo kỹ năng</a></h2><p>Nghe, nói, đọc, viết — luyện từng kỹ năng riêng, có giải thích tiếng Việt.</p></article>
+  <article class="card card-exam">{card_icon("exam")}<h2><a href="/luyen-thi/">Luyện thi</a></h2><p>IELTS · TOEIC · PTE · TOEFL · VSTEP — cấu trúc bài thi, mẹo làm bài từng phần và bài luyện.</p></article>
+  <article class="card card-kids">{card_icon("kids")}<h2><a href="/tre-em.html">Trẻ em</a></h2><p>Tiếng Anh cho trẻ em: từ vựng theo chủ đề, bài hát, trò chơi, truyện ngắn.</p></article>
+  <article class="card card-work">{card_icon("work")}<h2><a href="/cong-viec.html">Tiếng Anh công việc</a></h2><p>Tiếng Anh cho từng ngành nghề: kinh doanh, y tế, công nghệ, du lịch, và hơn nữa.</p></article>
+  <article class="card card-abroad">{card_icon("abroad")}<h2><a href="/du-hoc.html">Du học</a></h2><p>Chuẩn bị tiếng Anh đi du học: học bổng, hồ sơ, phỏng vấn, đời sống ở nước ngoài.</p></article>
   <article class="card card-resource">{card_icon("resource")}<h2><a href="/tai-nguyen.html">Tài nguyên miễn phí</a></h2><p>Link tới tài nguyên học tiếng Anh miễn phí chất lượng cao trên mạng (British Council, BBC, Cambridge…).</p></article>
   <article class="card card-book">{card_icon("book")}<h2><a href="/sach/">Sách học</a></h2><p>Hướng dẫn tự học với các sách tiếng Anh phổ biến: Global Success, American English File, Barron's TOEIC, Mindset for IELTS.</p></article>
   <article class="card card-tool">{card_icon("dice")}<h2><a href="/tro-choi/">Trò chơi &amp; Công cụ</a></h2><p>Học tiếng Anh bằng trò chơi: luyện TOEIC, PTE, IELTS, kiểm tra trình độ, trò chơi theo lớp 4, 9, 10 và công cụ cho giáo viên.</p></article>
@@ -305,11 +425,11 @@ add("/", "Trang chủ", "Học tiếng Anh miễn phí, từ đầu tới giỏi
 </div>
 </section>
 <p class="muted">Mọi câu trả lời của AI đều ghi rõ “AI, chưa duyệt”.</p>
-""", desc="David English đang xây dựng thư viện học tiếng Anh miễn phí cho người Việt, giải thích bằng tiếng Việt — đã có bài học A1–A2, trò chơi và sách học; các mục còn lại đang được xây dựng dần.",
+""", desc="David English đang xây dựng thư viện học tiếng Anh miễn phí cho người Việt, giải thích bằng tiếng Việt — đã có bài học A1–B1, trò chơi và sách học; các mục còn lại đang được xây dựng dần.",
     hero={
         "eyebrow": TAGLINE,
         "title_html": "Học tiếng Anh <strong>miễn phí</strong>, từ đầu tới giỏi",
-        "lead": "David English đang xây dựng thư viện học tiếng Anh miễn phí cho người Việt — không cần đăng ký, giải thích bằng tiếng Việt. Đã có bài học A1–A2, trò chơi và sách học; các mục còn lại đang được xây dựng dần.",
+        "lead": "David English đang xây dựng thư viện học tiếng Anh miễn phí cho người Việt — không cần đăng ký, giải thích bằng tiếng Việt. Đã có bài học A1–B1, trò chơi và sách học; các mục còn lại đang được xây dựng dần.",
         "cta_primary": ("Bài xếp lớp", "/bai-xep-lop.html"),
         "cta_secondary": ("Theo trình độ", "/trinh-do/"),
     })
@@ -388,11 +508,17 @@ import json as _json
 LESSON_FILES = [
     ("a1", "a1-chao-hoi-gioi-thieu.json"),
     ("a1", "a1-so-dem-ngay-gio.json"),
+    ("a1", "a1-gia-dinh-cua-toi.json"),
+    ("a1", "a1-mon-an-va-do-uong.json"),
+    ("a1", "a1-nha-cua-toi.json"),
     ("a2", "a2-everyday-english.json"),
     ("a2", "a2-mua-sam-hoi-gia.json"),
+    ("a2", "a2-du-lich-va-ky-nghi.json"),
+    ("a2", "a2-suc-khoe-va-co-the.json"),
+    ("a2", "a2-thoi-tiet-va-mua.json"),
 ]
 LESSONS = []  # mỗi mục: dict JSON + level + path + pdf_href
-LESSONS_BY_LEVEL = {"a1": [], "a2": []}
+LESSONS_BY_LEVEL = {"a1": [], "a2": [], "b1": []}
 for _lv, _fn in LESSON_FILES:
     with open(os.path.join(ROOT, "tai-lieu", "src", _fn), encoding="utf-8") as _f:
         _d = _json.load(_f)
@@ -484,6 +610,173 @@ for _i, _d in enumerate(LESSONS):
         desc=_d.get("subtitle", ""))
 
 
+# ---------------- Bài học B1 — Kingdom English (tạo từ tai-lieu/src/b1-*.json) ----------------
+# JSON do convert_b1.py sinh từ teaching/b1/content/*.json (nguồn duy nhất).
+# Schema B1 khác A1/A2 (có Kinh Thánh, phát âm, bài nghe, đọc hiểu, bài tập
+# về nhà) nên dùng renderer riêng b1_lesson_body thay vì lesson_body.
+# Đáp án đầy đủ của 6 bài tập nằm trong PDF — trang chỉ liệt kê tên bài +
+# hướng dẫn, không chép đáp án lên trang.
+import glob as _glob
+
+B1_FILES = sorted(
+    os.path.basename(p) for p in _glob.glob(
+        os.path.join(ROOT, "tai-lieu", "src", "b1-lesson-*.json")))
+B1_LESSONS = []
+for _fn in B1_FILES:
+    with open(os.path.join(ROOT, "tai-lieu", "src", _fn), encoding="utf-8") as _f:
+        _d = _json.load(_f)
+    _d["_level"] = "b1"
+    _d["_path"] = f"/trinh-do/b1/{_d['slug']}.html"
+    _d["_pdf"] = f"/tai-lieu/b1/{_d['slug']}.pdf"
+    B1_LESSONS.append(_d)
+    LESSONS_BY_LEVEL["b1"].append(_d)
+
+
+def _mmss(secs):
+    return f"{int(secs) // 60}:{int(secs) % 60:02d}"
+
+
+def b1_lesson_body(d, prev_lesson, next_lesson):
+    vocab_rows = "".join(
+        f"<tr><td><strong>{_esc(v['word'])}</strong></td>"
+        f"<td>{_esc(v.get('pos', ''))}</td>"
+        f"<td>/{_esc(v.get('ipa', ''))}/</td>"
+        f"<td>{_esc(v.get('vi', ''))}</td>"
+        f"<td><em>{_esc(v.get('ex', ''))}</em></td></tr>"
+        for v in d.get("vocabulary", []))
+    grammar_html = ""
+    for g in d.get("grammar", []):
+        exs = "".join(f"<li><em>{_esc(e)}</em></li>" for e in g.get("examples", []))
+        grammar_html += (f"<h3>{_esc(g['title'])}</h3>\n"
+                         f"<p>{_esc(g['explain'])}</p>\n<ul>{exs}</ul>\n")
+    lis = d.get("listening", {})
+    audio_html = ""
+    if lis.get("audio"):
+        audio_html = (
+            f'<audio controls preload="none" src="{lis["audio"]}"></audio>\n'
+            f"<p>Thời lượng: {_mmss(lis.get('duration_secs', 0))} · "
+            f"{lis.get('words', 0)} từ · "
+            f"<a href=\"{lis.get('script', '')}\">Xem transcript (TXT)</a></p>\n")
+    rc = "".join(
+        f"<details><summary><strong>Câu {i}.</strong> {_esc(r['q'])}</summary>"
+        f"<p>Đáp án: {_esc(r['a'])}</p></details>\n"
+        for i, r in enumerate(d.get("reading_comprehension", []), 1))
+    lq = "".join(
+        f"<details><summary><strong>Câu {i}.</strong> {_esc(r['q'])}</summary>"
+        f"<p>Đáp án: {_esc(r['a'])}</p></details>\n"
+        for i, r in enumerate(d.get("listening_questions", []), 1))
+    exs_html = "".join(
+        f"<li><strong>{_esc(e['title'])}.</strong> {_esc(e['instruction'])} "
+        f"({e['items']} câu)</li>"
+        for e in d.get("exercises", []))
+    hw = d.get("homework", {})
+    hw_html = ""
+    if hw:
+        written = hw.get("written", "")
+        if isinstance(written, list):
+            written = " ".join(str(x) for x in written)
+        listening = hw.get("listening", "")
+        if isinstance(listening, list):
+            listening = " ".join(
+                str(x.get("q", x)) if isinstance(x, dict) else str(x)
+                for x in listening)
+        verse = hw.get("memory_verse", "")
+        verse_vi = hw.get("memory_verse_vi", "")
+        hw_html = ("<section class=\"section section-alt\">\n"
+                   "<div class=\"section-head\"><h2>Bài tập về nhà</h2></div>\n"
+                   + (f"<p><strong>Viết:</strong> {_esc(written)}</p>\n" if written else "")
+                   + (f"<p><strong>Nghe:</strong> {_esc(listening)}</p>\n" if listening else "")
+                   + (f"<p><strong>Câu ghi nhớ:</strong> <em>{_esc(verse)}</em></p>\n" if verse else "")
+                   + (f"<p><em>{_esc(verse_vi)}</em></p>\n" if verse_vi else "")
+                   + "</section>\n")
+    extra = ""
+    if d.get("reading_passage"):
+        extra += ("<section class=\"section\">\n<div class=\"section-head\">"
+                  "<h2>Bài đọc</h2></div>\n"
+                  f"<p>{_esc(d['reading_passage'])}</p></section>\n")
+    if d.get("speaking_task"):
+        extra += ("<section class=\"section section-alt\">\n<div class=\"section-head\">"
+                  "<h2>Nói</h2></div>\n"
+                  f"<p>{_esc(d['speaking_task'])}</p></section>\n")
+    if d.get("writing_task"):
+        extra += ("<section class=\"section\">\n<div class=\"section-head\">"
+                  "<h2>Viết</h2></div>\n"
+                  f"<p>{_esc(d['writing_task'])}</p></section>\n")
+    nav = []
+    if prev_lesson:
+        nav.append(f"<a href=\"{prev_lesson['_path']}\">← {prev_lesson['title']}</a>")
+    else:
+        nav.append("<a href=\"/trinh-do/a2/thoi-tiet-va-mua.html\">← Ôn lại A2: Thời tiết và mùa</a>")
+    if next_lesson:
+        nav.append(f"<a href=\"{next_lesson['_path']}\">{next_lesson['title']} →</a>")
+    else:
+        nav.append("<a href=\"/trinh-do/b2.html\">Lên trình độ B2 →</a>")
+    nav.append("<a href=\"/trinh-do/b1.html\">← Về trình độ B1</a>")
+    nav.append("<a href=\"/\">← Về trang chủ</a>")
+    return f"""
+<p class="lead">{_esc(d.get("subtitle", ""))}</p>
+{AI_NOTE}
+<section class="section">
+<div class="section-head"><h2>Mục tiêu bài học</h2><p class="section-sub">Mục tiêu rút từ chính nội dung bài: ngữ pháp, phát âm và đoạn Kinh Thánh của bài.</p></div>
+<ul>{''.join(f"<li>{_esc(o)}</li>" for o in d.get("objectives", []))}</ul>
+</section>
+<section class="section section-alt">
+<div class="section-head"><h2>Từ vựng</h2><p class="section-sub">{len(d.get("vocabulary", []))} từ — mỗi từ có phiên âm IPA, nghĩa tiếng Việt và câu ví dụ.</p></div>
+<div class="table-wrap"><table><thead><tr><th>Từ</th><th>Loại</th><th>IPA</th><th>Nghĩa</th><th>Ví dụ</th></tr></thead><tbody>{vocab_rows}</tbody></table></div>
+</section>
+<section class="section">
+<div class="section-head"><h2>Ngữ pháp</h2><p class="section-sub">Chủ đề ngữ pháp của bài — phần giải thích chi tiết và ví dụ đầy đủ nằm trong file PDF.</p></div>
+{grammar_html}</section>
+<section class="section section-alt">
+<div class="section-head"><h2>Phát âm</h2></div>
+<p><strong>{_esc(d.get("pronunciation", ""))}</strong> — phần luyện phát âm chi tiết nằm trong file PDF bài học.</p>
+<p>Đoạn Kinh Thánh của bài: <strong>{_esc(d.get("scripture", ""))}</strong></p>
+</section>
+<section class="section">
+<div class="section-head"><h2>Bài nghe</h2><p class="section-sub">Nghe toàn bộ bài, rồi trả lời 5 câu hỏi bên dưới. Giọng đọc: Casper (người dẫn) và Aria (đối thoại).</p></div>
+{audio_html}</section>
+{f'<section class="section section-alt"><div class="section-head"><h2>Câu hỏi nghe hiểu</h2></div>{lq}</section>' if lq else ""}
+{extra}
+{f'<section class="section"><div class="section-head"><h2>Đọc hiểu</h2></div>{rc}</section>' if rc else ""}
+<section class="section section-alt">
+<div class="section-head"><h2>Bài tập</h2><p class="section-sub">6 bài tập trong file PDF — đáp án đầy đủ nằm ở cuối PDF.</p></div>
+<ul>{exs_html}</ul>
+</section>
+{hw_html}
+<p><a class="btn btn-primary" href="{d['_pdf']}">Tải PDF bài học (miễn phí, 9 trang)</a></p>
+<p>{' · '.join(nav)}</p>
+"""
+
+
+for _i, _d in enumerate(B1_LESSONS):
+    _prev = B1_LESSONS[_i - 1] if _i > 0 else None
+    _next = B1_LESSONS[_i + 1] if _i < len(B1_LESSONS) - 1 else None
+    add(_d["_path"], _d["title"], _d["title"],
+        b1_lesson_body(_d, _prev, _next),
+        active="/trinh-do/", eyebrow="Trình độ B1 — Kingdom English",
+        desc=_d.get("subtitle", ""))
+
+
+def b1_hub_lessons_html():
+    items = "".join(
+        f"<li><a href=\"{l['_path']}\">Bài {l['lesson_no']}: {l['title_en']}</a> — "
+        f"{l.get('subtitle', '')} · "
+        f"<a href=\"{l['_pdf']}\">PDF</a> · "
+        f"<a href=\"{l['listening']['audio']}\">Nghe ({_mmss(l['listening'].get('duration_secs', 0))})</a></li>"
+        for l in B1_LESSONS)
+    total_vocab = sum(len(l.get("vocabulary", [])) for l in B1_LESSONS)
+    total_secs = sum(l["listening"].get("duration_secs", 0) for l in B1_LESSONS)
+    return f"""
+<section class="section">
+<div class="section-head"><h2>Bài học B1 — Kingdom English</h2><p class="section-sub">12 bài học tiếng Anh trung cấp theo chủ đề Kinh Thánh — mỗi bài có từ vựng, ngữ pháp, bài nghe (audio + transcript) và file PDF 9 trang miễn phí.</p></div>
+{AI_NOTE}
+<p>Tổng cộng: 12 bài · {total_vocab} từ vựng · {_mmss(total_secs)} bài nghe. Học theo thứ tự từ Bài 1 tới Bài 12 — Bài 12 là bài tổng kết toàn khóa. Giọng đọc: Casper (người dẫn) và Aria (đối thoại).</p>
+<ol>{items}</ol>
+<p><strong>Lộ trình gợi ý:</strong> 1 bài/tuần trong 12 tuần (mỗi buổi 45–60 phút). Mỗi bài: học từ vựng → nghe 2 lần (lần 1 không nhìn transcript, lần 2 đối chiếu) → làm bài tập trong PDF → học thuộc câu ghi nhớ.</p>
+</section>
+"""
+
+
 LEVEL_ICONS = {"a1": "flag", "a2": "book", "b1": "chat",
                "b2": "abroad", "c1": "cap", "c2": "trophy"}
 
@@ -493,10 +786,13 @@ def level_cards():
     for slug, name, desc in LEVELS:
         if slug in ("a1", "a2"):
             badge = ""
-            note = " Đã có 2 bài học và tài liệu PDF miễn phí."
+            note = " Đã có 5 bài học và tài liệu PDF miễn phí."
+        elif slug == "b1":
+            badge = ""
+            note = " Đã có 12 bài học Kingdom English kèm PDF + audio miễn phí."
         else:
-            badge = '<p><span class="badge badge-soon">Sắp có</span></p>'
-            note = ""
+            badge = ""
+            note = " Đã có hướng dẫn học đầy đủ."
         out.append(
             f'<article class="card card-level">{card_icon(LEVEL_ICONS[slug])}'
             f'<span class="level-chip lv-{slug}">{slug.upper()}</span>'
@@ -572,7 +868,259 @@ add("/trinh-do/index.html", "Theo trình độ", "Học theo trình độ (A1–
 </ul>
 <p><a href="/sach/">Xem tất cả sách học →</a></p>
 </section>
-""", active="/trinh-do/", eyebrow="Theo trình độ", desc="Học tiếng Anh theo trình độ A1–C2: chọn cấp độ của bạn để xem lộ trình, từ vựng, ngữ pháp và bài tập sắp có.")
+""", active="/trinh-do/", eyebrow="Theo trình độ", desc="Học tiếng Anh theo trình độ A1–C2: chọn cấp độ của bạn để xem lộ trình, từ vựng, ngữ pháp và bài tập — đã có bài học A1, A2 và B1 kèm PDF + audio miễn phí.")
+# ---------------- Nội dung đầy đủ cho B1–C2, kỹ năng, luyện thi, trẻ em, công việc, du học ----------------
+# Các trang dưới đây từng là stub "Sắp có" (noindex). Nội dung do AI soạn, gắn nhãn
+# "AI, chưa duyệt" (AI_NOTE) — chưa được giáo viên duyệt. Bài tập là câu hỏi tự biên
+# soạn để luyện tập, không sao chép đề thi thật. Số liệu về định dạng kỳ thi được
+# đối chiếu với trang chính thức của đơn vị tổ chức thi (ghi rõ nguồn ở từng trang).
+
+def _guide_nav(prev=None, next=None, parent=None, ai_question=None):
+    """Dòng liên kết cuối trang hướng dẫn: bài trước/sau, trang cha, trang chủ, hỏi AI."""
+    parts = []
+    if prev:
+        parts.append(f'<a href="{prev[1]}">← {prev[0]}</a>')
+    if next:
+        parts.append(f'<a href="{next[1]}">{next[0]} →</a>')
+    if parent:
+        parts.append(f'<a href="{parent[1]}">← {parent[0]}</a>')
+    parts.append('<a href="/">← Về trang chủ</a>')
+    if ai_question:
+        parts.append(f'<a href="/tro-chuyen-ai.html?q={quote(ai_question, safe="")}">Hỏi AI về chủ đề này →</a>')
+    return "<p>" + " · ".join(parts) + "</p>"
+
+
+LEVEL_BODIES = {
+"b1": """
+<p class="lead">B1 là trình độ trung cấp — bạn đã qua giai đoạn "mới bắt đầu" và bắt đầu dùng tiếng Anh một cách độc lập: tự xử lý hầu hết tình huống khi đi du lịch, kể chuyện, bày tỏ ý kiến và đọc hiểu văn bản quen thuộc.</p>
+""" + AI_NOTE + """
+<h2>B1 nghĩa là gì?</h2>
+<p>Theo Khung tham chiếu chung châu Âu (CEFR), B1 còn gọi là "Threshold" — ngưỡng độc lập. Người ở trình độ B1 có thể hiểu ý chính của văn bản rõ ràng về các chủ đề quen thuộc (công việc, học tập, giải trí), xử lý được hầu hết tình huống phát sinh khi đi du lịch ở nơi nói tiếng Anh, viết được văn bản đơn giản, có liên kết về chủ đề quen thuộc, và kể được về trải nghiệm, ước mơ, kế hoạch của mình, đồng thời nêu ngắn gọn lý do và giải thích cho ý kiến của mình.</p>
+<p>Nói ngắn gọn: ở A2 bạn "sống sót" được bằng tiếng Anh; ở B1 bạn bắt đầu "sống" được bằng tiếng Anh.</p>
+<h2>Bạn cần học gì ở B1?</h2>
+<p><strong>Ngữ pháp trọng tâm.</strong> Đây là những cấu trúc làm nên "xương sống" của B1 — nếu chưa chắc, hãy ôn lại trước khi học thêm từ mới:</p>
+<ul>
+<li><strong>Hiện tại hoàn thành (present perfect) và phân biệt với quá khứ đơn:</strong> <em>I have lived here for five years</em> (vẫn đang sống) khác với <em>I lived here for five years</em> (đã chuyển đi rồi). Đây là điểm ngữ pháp người Việt hay nhầm nhất ở B1, vì tiếng Việt không chia thì.</li>
+<li><strong>Quá khứ tiếp diễn + quá khứ đơn:</strong> <em>While I was walking home, it started to rain.</em> — hành động đang diễn ra thì bị hành động khác xen vào.</li>
+<li><strong>Tương lai: will / going to / hiện tại tiếp diễn:</strong> <em>I will help you</em> (quyết định ngay lúc nói), <em>I am going to travel in June</em> (đã có kế hoạch), <em>I am meeting Lan tomorrow</em> (đã hẹn cụ thể).</li>
+<li><strong>Câu điều kiện loại 1:</strong> <em>If it rains, we will stay at home.</em></li>
+<li><strong>Câu bị động ở thì hiện tại và quá khứ đơn:</strong> <em>The house was built in 1990.</em></li>
+<li><strong>So sánh hơn, so sánh nhất và so sánh bằng:</strong> <em>as … as, more … than, the most …</em></li>
+<li><strong>Động từ khuyết thiếu:</strong> <em>must, have to, should, might, could</em> để diễn đạt nghĩa vụ, lời khuyên và khả năng.</li>
+<li><strong>Mệnh đề quan hệ với who / which / that:</strong> <em>The book that I bought yesterday is very interesting.</em></li>
+</ul>
+<p><strong>Từ vựng.</strong> Ở B1, bạn mở rộng từ vựng theo chủ đề thay vì học từ rời rạc: du lịch và giao thông, sức khỏe, công việc, giáo dục, môi trường, công nghệ, tiền bạc và mua sắm. Với mỗi chủ đề, học cả cụm từ (collocation) — ví dụ không học riêng từ <em>decision</em> mà học <em>make a decision</em>; không học riêng <em>mistake</em> mà học <em>make a mistake</em>. Học từ theo cụm giúp bạn nói tự nhiên hơn nhiều so với việc ghép từng từ đơn lại.</p>
+<p><strong>Bốn kỹ năng.</strong> Nghe: hiểu được hội thoại hằng ngày ở tốc độ gần tự nhiên và nắm ý chính của bản tin ngắn. Nói: kể một câu chuyện có đầu có cuối, diễn đạt ý kiến trong 1–2 phút mà không cần chuẩn bị quá lâu. Đọc: đọc được truyện ngắn, email, bài báo đơn giản và tìm được thông tin cụ thể. Viết: viết được email, đoạn văn 120–150 từ có mở bài, thân bài, kết bài rõ ràng.</p>
+<h2>Checklist: bạn đã đạt B1 chưa?</h2>
+<p>Tự đánh dấu những điều bạn làm được. Nếu làm được ít nhất 8/10, bạn đang ở B1 vững:</p>
+<ul>
+<li>☐ Kể lại một bộ phim hoặc chuyến đi trong 2 phút bằng tiếng Anh, người nghe hiểu được cốt truyện.</li>
+<li>☐ Viết email xin nghỉ phép hoặc hỏi thông tin mà không cần tra từ điển từng câu.</li>
+<li>☐ Nghe hiểu ý chính của một đoạn hội thoại nhanh giữa hai người bản xứ.</li>
+<li>☐ Phân biệt và dùng đúng <em>have been</em> và <em>went</em>, <em>since</em> và <em>for</em>.</li>
+<li>☐ Đưa ra ý kiến và bảo vệ nó bằng 2–3 lý do: <em>I think … because …</em></li>
+<li>☐ Đọc một bài báo ngắn trên BBC Learning English và tóm tắt lại bằng lời của mình.</li>
+<li>☐ Hỏi đường, đặt phòng khách sạn, gọi món và giải quyết rắc rối nhỏ khi đi du lịch.</li>
+<li>☐ Hiểu và dùng được câu điều kiện loại 1 và câu bị động đơn giản.</li>
+<li>☐ Viết đoạn văn 120 từ về chủ đề quen thuộc mà không mắc lỗi thì cơ bản.</li>
+</ul>
+<h2>Lộ trình học 8 tuần lên B1 vững</h2>
+<p>Giả định bạn đã xong A2 và học 5 buổi/tuần, mỗi buổi 45 phút:</p>
+<ul>
+<li><strong>Tuần 1–2:</strong> Ôn chắc A2 và học thì hiện tại hoàn thành. Mỗi ngày viết 5 câu về bản thân dùng <em>have/has + V3</em>.</li>
+<li><strong>Tuần 3–4:</strong> Câu điều kiện loại 1, câu bị động, so sánh. Luyện đọc truyện ngắn và tóm tắt lại.</li>
+<li><strong>Tuần 5–6:</strong> Từ vựng theo 4 chủ đề (du lịch, sức khỏe, công việc, môi trường). Luyện nói: mỗi ngày kể một chuyện 2 phút, ghi âm lại và nghe lại.</li>
+<li><strong>Tuần 7–8:</strong> Viết email và đoạn văn 120–150 từ. Làm bài kiểm tra tổng hợp: nghe một đoạn hội thoại, đọc một bài báo ngắn, viết một đoạn văn.</li>
+</ul>
+<p>Muốn kiểm tra mình đang ở đâu? Hãy <a href="/bai-xep-lop.html">làm bài xếp lớp</a> hoặc chơi <a href="/tro-choi/intermediate-quest.html">Intermediate Quest — trò chơi trình độ trung cấp</a> để ôn từ vựng và ngữ pháp B1.</p>
+<h2>Lỗi thường gặp</h2>
+<ul>
+<li><strong>Dịch từng từ từ tiếng Việt sang tiếng Anh:</strong> <em>"I very like it"</em> — sai, vì <em>very</em> không bổ nghĩa cho động từ. Viết đúng: <em>I like it very much.</em> Quy tắc: <em>very + tính từ/trạng từ</em>, còn động từ thì dùng <em>very much / a lot</em>.</li>
+<li><strong>Quên "s" ở ngôi thứ ba số ít:</strong> <em>He go to work</em> — sai. Viết đúng: <em>He goes to work.</em> Lỗi này nhỏ nhưng xuất hiện trong mọi bài thi viết.</li>
+<li><strong>Dùng quá khứ đơn thay cho hiện tại hoàn thành:</strong> <em>I live here since 2020</em> — sai. Viết đúng: <em>I have lived here since 2020.</em> Nhớ: <em>since/for</em> đi với hiện tại hoàn thành khi hành động còn kéo dài tới hiện tại.</li>
+<li><strong>Nhầm <em>borrow</em> và <em>lend</em>:</strong> <em>borrow</em> là mượn (về phía mình), <em>lend</em> là cho mượn. <em>Can you lend me your book?</em> / <em>Can I borrow your book?</em></li>
+<li><strong>Nhầm <em>fun</em> và <em>funny</em>:</strong> <em>fun</em> là vui (thú vị), <em>funny</em> là buồn cười. <em>The party was fun</em>, không phải <em>funny</em> — trừ khi bữa tiệc làm bạn cười.</li>
+<li><strong>Dịch "tôi 20 tuổi" thành <em>I have 20 years old</em>:</strong> sai. Tiếng Anh dùng động từ <em>be</em>: <em>I am 20 years old.</em></li>
+<li><strong>Nói quá nhanh khi chưa chắc:</strong> ở B1, nói chậm mà đúng tốt hơn nói nhanh mà sai. Người nghe đánh giá cao câu rõ ràng hơn câu nhanh.</li>
+</ul>
+<h2>Luyện tập nhanh</h2>
+<p>Thử 3 câu trắc nghiệm — bấm vào từng câu để xem đáp án và giải thích.</p>
+<details><summary><strong>Câu 1.</strong> Chọn câu đúng: (a) I have lived in Hanoi since five years. (b) I have lived in Hanoi for five years. (c) I live in Hanoi since five years.</summary><p>Đáp án: <strong>(b)</strong>. <em>For + khoảng thời gian</em> (for five years), <em>since + mốc thời gian</em> (since 2020). Và hành động kéo dài tới hiện tại nên dùng hiện tại hoàn thành.</p></details>
+<details><summary><strong>Câu 2.</strong> Chọn câu đúng: (a) If it will rain, we stay at home. (b) If it rains, we will stay at home. (c) If it rains, we stay at home tomorrow.</summary><p>Đáp án: <strong>(b)</strong>. Câu điều kiện loại 1: mệnh đề <em>if</em> dùng hiện tại đơn, mệnh đề chính dùng <em>will</em>.</p></details>
+<details><summary><strong>Câu 3.</strong> Chọn câu đúng: (a) She is more tall than her sister. (b) She is taller than her sister. (c) She is the more tall in her class.</summary><p>Đáp án: <strong>(b)</strong>. Tính từ ngắn (1 âm tiết) thêm <em>-er</em>: <em>tall → taller</em>, không dùng <em>more</em>.</p></details>
+<h2>Học tiếp ở đâu?</h2>
+<p>Chưa chắc A2? Hãy <a href="/trinh-do/a2.html">ôn lại bài học A2</a> trước. Đã vững B1? Lên <a href="/trinh-do/b2.html">trình độ B2</a>. Nếu bạn cần chứng chỉ ở mức B1, xem <a href="/luyen-thi/vstep.html">hướng dẫn luyện thi VSTEP</a> (bậc 3 tương đương B1) hoặc <a href="/luyen-thi/toeic.html">luyện thi TOEIC</a> để dùng tiếng Anh trong công việc. Muốn luyện nghe nói? Xem <a href="/ky-nang/nghe.html">hướng dẫn luyện nghe</a> và <a href="/ky-nang/noi.html">hướng dẫn luyện nói</a>.</p>
+""",
+"b2": """
+<p class="lead">B2 là trình độ trung cấp cao — bạn giao tiếp trôi chảy với người bản xứ mà không khiến đôi bên căng thẳng, hiểu ý chính của văn bản phức tạp và viết được luận, email công việc và bài tranh luận có lập luận rõ ràng.</p>
+""" + AI_NOTE + """
+<h2>B2 nghĩa là gì?</h2>
+<p>Theo CEFR, B2 còn gọi là "Vantage" — lợi thế. Người ở trình độ B2 có thể hiểu ý chính của văn bản phức tạp, cả về chủ đề cụ thể lẫn trừu tượng, kể cả các cuộc thảo luận chuyên môn trong lĩnh vực của mình; giao tiếp trôi chảy và tự nhiên tới mức cuộc trò chuyện với người bản xứ diễn ra thoải mái cho cả hai bên; và viết được văn bản rõ ràng, chi tiết về nhiều chủ đề, trình bày quan điểm về một vấn đề với ưu điểm và nhược điểm của các phương án khác nhau.</p>
+<p>Điểm khác biệt lớn nhất giữa B1 và B2 không phải là số từ bạn biết, mà là <strong>độ tự nhiên</strong>: ở B1 bạn phải nghĩ rồi mới nói; ở B2 bạn nghĩ bằng tiếng Anh trong lúc nói. Đây cũng là mức mà nhiều trường đại học và nhà tuyển dụng yêu cầu.</p>
+<h2>Bạn cần học gì ở B2?</h2>
+<p><strong>Ngữ pháp trọng tâm.</strong> B2 đào sâu và kết hợp những gì bạn đã biết:</p>
+<ul>
+<li><strong>Các thì hoàn thành và hoàn thành tiếp diễn:</strong> <em>I had been working there for two years before I quit.</em> — quá khứ hoàn thành tiếp diễn diễn tả hành động kéo dài rồi kết thúc trước một mốc trong quá khứ.</li>
+<li><strong>Câu điều kiện loại 2 và loại 3:</strong> <em>If I had more time, I would learn French</em> (loại 2 — giả định trái hiện tại); <em>If I had studied harder, I would have passed</em> (loại 3 — tiếc nuối về quá khứ). Phân biệt rõ 3 loại câu điều kiện là dấu hiệu của B2.</li>
+<li><strong>Câu bị động ở mọi thì, kể cả bị động với động từ khuyết thiếu:</strong> <em>The report should have been finished yesterday.</em></li>
+<li><strong>Câu tường thuật (reported speech):</strong> <em>She said she was tired</em> — lùi thì, đổi đại từ và trạng từ chỉ thời gian.</li>
+<li><strong>Mệnh đề quan hệ không xác định và rút gọn:</strong> <em>Ha Long Bay, which is in northern Vietnam, is very beautiful.</em> / <em>The man standing over there is my teacher.</em></li>
+<li><strong>Động từ khuyết thiếu suy luận:</strong> <em>He must be tired</em> (chắc chắn), <em>He might be busy</em> (có thể), <em>He can't be at home</em> (chắc chắn không).</li>
+<li><strong>Cấu trúc nhấn mạnh và đảo ngữ nhẹ:</strong> <em>Not only did she win, but she also broke the record.</em></li>
+<li><strong>Danh động từ và động từ nguyên mẫu sau các động từ đặc biệt:</strong> <em>I enjoy swimming</em> nhưng <em>I decided to swim</em> — nhớ theo từng động từ, không có quy tắc chung.</li>
+</ul>
+<p><strong>Từ vựng.</strong> Ở B2, bạn học từ theo <strong>ngữ cảnh học thuật và công việc</strong>: giáo dục, kinh tế, môi trường, công nghệ, xã hội. Quan trọng hơn số lượng là <strong>collocation và từ đồng nghĩa theo sắc thái</strong>: <em>big</em> → <em>enormous, massive, considerable</em> — mỗi từ dùng trong ngữ cảnh khác nhau. Bạn cũng cần học cụm động từ (phrasal verbs) thông dụng: <em>look into, carry out, put off, come up with, deal with</em>, vì người bản xứ dùng chúng hằng ngày.</p>
+<p><strong>Bốn kỹ năng.</strong> Nghe: hiểu bài giảng, podcast và phim không phụ đề ở mức khá. Nói: tranh luận, thuyết trình 5 phút, kể chuyện có chi tiết và cảm xúc. Đọc: đọc báo, bài luận và tài liệu chuyên ngành, phân biệt được quan điểm của tác giả và sự thật. Viết: viết luận 250 từ có lập luận, email công việc trang trọng, báo cáo ngắn.</p>
+<h2>Checklist: bạn đã đạt B2 chưa?</h2>
+<ul>
+<li>☐ Tranh luận về một chủ đề (ví dụ: có nên cấm xe máy ở trung tâm thành phố?) trong 3 phút, đưa ra được cả hai mặt của vấn đề.</li>
+<li>☐ Viết bài luận 250 từ có mở bài, hai luận điểm và kết luận, dùng được từ nối như <em>however, furthermore, on the other hand</em>.</li>
+<li>☐ Nghe một podcast 10 phút và tóm tắt lại ý chính mà không cần nghe lại.</li>
+<li>☐ Dùng đúng câu điều kiện loại 2 và loại 3 trong cùng một đoạn nói.</li>
+<li>☐ Đọc một bài báo trên BBC News và phân biệt được đâu là sự thật, đâu là ý kiến của tác giả.</li>
+<li>☐ Viết email công việc trang trọng: xin việc, khiếu nại, đề xuất — dùng đúng giọng văn (register).</li>
+<li>☐ Giải thích một khái niệm chuyên môn trong ngành của bạn bằng tiếng Anh cho người ngoài ngành hiểu.</li>
+<li>☐ Hiểu và dùng được ít nhất 30 cụm động từ thông dụng.</li>
+<li>☐ Đọc một cuốn sách tiếng Anh cấp độ B2 (graded reader) mà không cần tra từ điển quá 5 từ mỗi trang.</li>
+</ul>
+<h2>Lộ trình học 12 tuần lên B2 vững</h2>
+<ul>
+<li><strong>Tuần 1–3:</strong> Củng cố B1: ôn lại hiện tại hoàn thành, câu bị động, câu điều kiện loại 1. Bắt đầu đọc báo ngắn mỗi ngày 15 phút.</li>
+<li><strong>Tuần 4–6:</strong> Câu điều kiện loại 2–3, câu tường thuật, mệnh đề quan hệ. Viết 2 bài luận 250 từ/tuần, nhờ <a href="/cong-cu/viet.html">công cụ chữa bài viết bằng AI</a> góp ý rồi tự sửa lại.</li>
+<li><strong>Tuần 7–9:</strong> Từ vựng học thuật và cụm động từ. Luyện nghe podcast 20 phút/ngày, tập tóm tắt bằng lời của mình. Luyện nói: thuyết trình 5 phút về một chủ đề mỗi tuần.</li>
+<li><strong>Tuần 10–12:</strong> Luyện đề tổng hợp: làm thử đề <a href="/luyen-thi/ielts.html">IELTS</a> hoặc <a href="/luyen-thi/vstep.html">VSTEP</a> (bậc 4 tương đương B2), chữa kỹ từng lỗi, ôn lại điểm yếu.</li>
+</ul>
+<h2>Lỗi thường gặp</h2>
+<ul>
+<li><strong>Dùng từ "rất hay" nhưng sai ngữ cảnh:</strong> <em>actual</em> không có nghĩa là "thực sự hay" mà là "thực tế, đúng sự thật": <em>the actual cost</em> (chi phí thực tế). Muốn nói "thực sự" thì dùng <em>really</em> hoặc <em>actually</em>.</li>
+<li><strong>Nhầm <em>say</em> và <em>tell</em>:</strong> <em>say something</em> (nói điều gì) nhưng <em>tell someone something</em> (nói với ai điều gì). <em>She told me that she was busy</em> — không nói <em>She said me that…</em></li>
+<li><strong>Dịch "tôi đồng ý với bạn" thành <em>I agree with you</em> thì đúng, nhưng nhiều người viết <em>I am agree</em> — sai.</strong> <em>Agree</em> là động từ, không cần <em>am</em>.</li>
+<li><strong>Quên lùi thì trong câu tường thuật:</strong> <em>He said he is happy</em> — sai khi câu gốc nói trong quá khứ. Viết đúng: <em>He said he was happy.</em></li>
+<li><strong>Dùng <em>very</em> cho mọi thứ:</strong> ở B2, hãy thay <em>very tired</em> bằng <em>exhausted</em>, <em>very good</em> bằng <em>excellent</em>, <em>very big</em> bằng <em>huge</em>. Từ mạnh làm bài viết của bạn khác hẳn.</li>
+<li><strong>Viết luận chỉ liệt kê ý kiến mà không có ví dụ:</strong> mỗi luận điểm cần một ví dụ cụ thể hoặc giải thích. Luận điểm không có chứng cứ chỉ là ý kiến suông.</li>
+<li><strong>Phát âm trọng âm sai ở từ dài:</strong> <em>PHOtograph</em> nhưng <em>phoTOgraphy</em> — trọng âm đổi khi thêm hậu tố. Nghe và lặp lại từng từ mới ngay khi học.</li>
+</ul>
+<h2>Luyện tập nhanh</h2>
+<details><summary><strong>Câu 1.</strong> Chọn câu đúng: (a) If I would have money, I would travel. (b) If I had money, I would travel. (c) If I have money, I would travel.</summary><p>Đáp án: <strong>(b)</strong>. Câu điều kiện loại 2: <em>If + quá khứ đơn, would + động từ nguyên mẫu</em>. Không dùng <em>would</em> trong mệnh đề <em>if</em>.</p></details>
+<details><summary><strong>Câu 2.</strong> Chọn câu đúng: (a) She said that she has finished her work. (b) She said that she had finished her work. (c) She said that she has finish her work.</summary><p>Đáp án: <strong>(b)</strong>. Câu tường thuật lùi thì: hiện tại hoàn thành (<em>has finished</em>) lùi thành quá khứ hoàn thành (<em>had finished</em>).</p></details>
+<details><summary><strong>Câu 3.</strong> Chọn từ phù hợp: "The company decided to ___ the project because it cost too much." (a) look into (b) carry out (c) call off</summary><p>Đáp án: <strong>(c) call off</strong> (hủy bỏ). <em>Look into</em> là điều tra, <em>carry out</em> là thực hiện.</p></details>
+<h2>Học tiếp ở đâu?</h2>
+<p>Chưa vững B1? Quay lại <a href="/trinh-do/b1.html">trình độ B1</a>. Đã vững B2? Lên <a href="/trinh-do/c1.html">trình độ C1</a>. B2 là mức cần cho nhiều mục tiêu thực tế: <a href="/luyen-thi/ielts.html">luyện thi IELTS</a> (mục tiêu band 6.0–6.5), <a href="/luyen-thi/vstep.html">luyện thi VSTEP</a> (bậc 4 tương đương B2), <a href="/cong-viec.html">tiếng Anh công việc</a>, hoặc chơi <a href="/tro-choi/workplace-english-arcade.html">Workplace English Arcade — tiếng Anh công việc trình độ B2</a>. Học từ vựng theo sách? Xem <a href="/sach/american-english-file.html">hướng dẫn học với sách American English File</a> (tới C1).</p>
+""",
+
+"c1": """
+<p class="lead">C1 là trình độ nâng cao — bạn dùng tiếng Anh linh hoạt và hiệu quả trong học thuật và công việc: đọc tài liệu chuyên ngành, thuyết trình, viết báo cáo và tranh luận mà ít khi phải dừng lại tìm từ.</p>
+""" + AI_NOTE + """
+<h2>C1 nghĩa là gì?</h2>
+<p>Theo CEFR, C1 còn gọi là "Effective Operational Proficiency" — sử dụng hiệu quả. Người ở trình độ C1 có thể hiểu nhiều loại văn bản dài, phức tạp và nhận ra ý nghĩa hàm ẩn; diễn đạt trôi chảy, tự nhiên mà không phải tìm từ một cách rõ rệt; dùng tiếng Anh linh hoạt và hiệu quả cho mục đích xã hội, học thuật và nghề nghiệp; và viết được văn bản rõ ràng, cấu trúc tốt, chi tiết về chủ đề phức tạp, thể hiện được cách dùng có kiểm soát của các cấu trúc tổ chức, từ nối và liên kết.</p>
+<p>Điểm khác biệt giữa B2 và C1 là <strong>sự tinh tế</strong>: ở B2 bạn nói đúng; ở C1 bạn nói đúng <em>và</em> đúng giọng — biết khi nào nói trang trọng, khi nào nói thân mật, khi nào nói giảm, khi nào nói thẳng. Bạn cũng bắt đầu hiểu được hài hước, châm biếm và ý nghĩa ẩn sau lời nói.</p>
+<h2>Bạn cần học gì ở C1?</h2>
+<p><strong>Ngữ pháp trọng tâm.</strong> Ở C1, ngữ pháp không còn là "thì mới" mà là cách dùng nâng cao:</p>
+<ul>
+<li><strong>Đảo ngữ để nhấn mạnh:</strong> <em>Rarely have I seen such dedication.</em> / <em>Not only is it expensive, it is also unreliable.</em></li>
+<li><strong>Câu điều kiện hỗn hợp:</strong> <em>If I had saved more money, I would be travelling now.</em> — quá khứ giả định, kết quả ở hiện tại.</li>
+<li><strong>Mệnh đề phân từ và mệnh đề rút gọn:</strong> <em>Having finished the report, she went home.</em> / <em>The results, published last year, show a clear trend.</em></li>
+<li><strong>Câu bị động nâng cao và cấu trúc bị động với hai tân ngữ:</strong> <em>She was given the award.</em></li>
+<li><strong>Câu chẻ (cleft sentences) để nhấn mạnh:</strong> <em>It was Lan who suggested the idea.</em> / <em>What I need is more time.</em></li>
+<li><strong>Động từ khuyết thiếu ở thì hoàn thành để suy luận về quá khứ:</strong> <em>He must have forgotten.</em> / <em>She can't have left already.</em> / <em>They should have told us earlier.</em></li>
+<li><strong>Danh từ hóa (nominalisation) trong văn viết học thuật:</strong> <em>We analysed the data</em> → <em>The analysis of the data shows…</em> — viết học thuật dùng danh từ nhiều hơn động từ.</li>
+</ul>
+<p><strong>Từ vựng.</strong> Ở C1, bạn học <strong>collocation học thuật</strong> (ví dụ: <em>draw a conclusion, raise concerns, play a crucial role, take something into account</em>), <strong>từ nối tinh tế</strong> (<em>nevertheless, consequently, albeit, notwithstanding</em> — và quan trọng hơn, biết khi nào <em>không</em> nên dùng chúng vì nghe quá cứng), và <strong>thành ngữ cùng cách nói giảm</strong> (<em>hedging</em>): <em>It seems that…, There is a tendency to…, This suggests that…</em> — cách diễn đạt thận trọng là dấu hiệu của văn viết trình độ cao.</p>
+<p><strong>Bốn kỹ năng.</strong> Nghe: hiểu bài giảng đại học, tranh luận trên truyền hình và nhiều giọng khác nhau (Anh, Mỹ, Úc). Nói: thuyết trình 10 phút, trả lời câu hỏi phản biện, đàm phán và thuyết phục. Đọc: đọc sách chuyên ngành, bài nghiên cứu và nhận ra lập trường của tác giả. Viết: viết luận học thuật, báo cáo, đề xuất dự án với cấu trúc chặt chẽ.</p>
+<h2>Checklist: bạn đã đạt C1 chưa?</h2>
+<ul>
+<li>☐ Đọc một bài báo học thuật 3.000 từ và tóm tắt luận điểm chính cùng bằng chứng của tác giả.</li>
+<li>☐ Viết bài luận 500 từ với lập luận chặt chẽ, dùng được danh từ hóa và từ nối học thuật.</li>
+<li>☐ Thuyết trình 10 phút về chủ đề chuyên môn và trả lời câu hỏi phản biện mà không lúng túng.</li>
+<li>☐ Nghe một cuộc tranh luận trên đài và phân biệt được quan điểm của từng bên, kể cả khi họ nói hàm ý.</li>
+<li>☐ Viết email thương lượng (đàm phán giá, thời hạn) bằng giọng văn lịch sự nhưng kiên quyết.</li>
+<li>☐ Dùng đúng đảo ngữ, câu chẻ và câu điều kiện hỗn hợp trong bài viết của mình.</li>
+<li>☐ Hiểu truyện cười hoặc châm biếm bằng tiếng Anh mà không cần ai giải thích.</li>
+<li>☐ Chuyển giọng văn linh hoạt: viết email cho sếp khác với nhắn tin cho bạn bè.</li>
+<li>☐ Đọc một cuốn sách tiếng Anh không phải sách giáo khoa (tiểu thuyết hoặc sách chuyên môn) và hiểu được 95% nội dung.</li>
+<li>☐ Diễn đạt cùng một ý bằng 3 cách khác nhau, từ trang trọng tới thân mật.</li>
+</ul>
+<h2>Lộ trình học 12 tuần lên C1 vững</h2>
+<ul>
+<li><strong>Tuần 1–3:</strong> Đọc sâu: mỗi tuần đọc 2 bài báo dài (The Economist, BBC News, hoặc bài nghiên cứu trong ngành của bạn), ghi lại 20 collocation mới và đặt câu với chúng.</li>
+<li><strong>Tuần 4–6:</strong> Viết học thuật: học danh từ hóa và hedging, viết 1 bài luận 500 từ/tuần, nhờ <a href="/cong-cu/viet.html">công cụ chữa bài viết bằng AI</a> góp ý rồi tự sửa lại.</li>
+<li><strong>Tuần 7–9:</strong> Nghe và nói nâng cao: nghe podcast học thuật 30 phút/ngày, tập thuyết trình và ghi âm lại, chú ý ngữ điệu và nhịp ngắt câu.</li>
+<li><strong>Tuần 10–12:</strong> Luyện đề: làm thử đề <a href="/luyen-thi/ielts.html">IELTS</a> mục tiêu band 7.0–7.5, hoặc đề <a href="/luyen-thi/toefl.html">TOEFL iBT</a> nếu bạn định <a href="/du-hoc.html">đi du học</a>. Chữa kỹ từng lỗi và ôn lại điểm yếu.</li>
+</ul>
+<p>Học từ vựng theo sách? Xem <a href="/sach/mindset-for-ielts.html">hướng dẫn học với sách Mindset for IELTS</a> (tới band 7.5) và <a href="/sach/american-english-file.html">hướng dẫn học với sách American English File</a> (Level 5 tương đương C1).</p>
+<h2>Lỗi thường gặp</h2>
+<ul>
+<li><strong>Dùng từ nối học thuật một cách máy móc:</strong> nhồi <em>moreover, furthermore, nevertheless</em> vào mọi đoạn văn khiến bài viết nghe giả tạo. Ở C1, từ nối phải phục vụ lập luận, không phải để "khoe" từ. Một đoạn văn tốt đôi khi không cần từ nối nào.</li>
+<li><strong>Dịch thành ngữ Việt sang tiếng Anh:</strong> <em>"water flows, stone wears"</em> không có nghĩa gì với người bản xứ. Học thành ngữ tiếng Anh từ nguồn tiếng Anh, đừng dịch thành ngữ Việt.</li>
+<li><strong>Nhầm <em>actually</em> và <em>currently</em>:</strong> <em>actually</em> nghĩa là "thực ra", <em>currently</em> mới là "hiện tại". <em>I am currently working in Hanoi</em> — không dùng <em>actually</em>.</li>
+<li><strong>Dùng <em>very</em> + từ mạnh:</strong> <em>very excellent, very perfect</em> đều sai — từ mạnh (excellent, perfect, unique) đã mang nghĩa tuyệt đối, không cần <em>very</em>.</li>
+<li><strong>Viết câu quá dài:</strong> câu 40–50 từ với 3 mệnh đề phụ rất dễ sai ngữ pháp và khó đọc. Ở C1, câu hay là câu rõ ràng — tách câu dài thành 2 câu ngắn thường tốt hơn.</li>
+<li><strong>Nhầm <em>economic</em> và <em>economical</em>:</strong> <em>economic</em> là thuộc về kinh tế (<em>economic growth</em>), <em>economical</em> là tiết kiệm (<em>an economical car</em>).</li>
+<li><strong>Nói quá trang trọng trong giao tiếp thường ngày:</strong> dùng <em>I would like to inquire whether…</em> với bạn bè nghe kỳ cục. C1 là biết chọn đúng giọng văn cho đúng hoàn cảnh.</li>
+</ul>
+<h2>Luyện tập nhanh</h2>
+<details><summary><strong>Câu 1.</strong> Chọn câu đúng: (a) Rarely I have seen such a beautiful sunset. (b) Rarely have I seen such a beautiful sunset. (c) Rarely have seen I such a beautiful sunset.</summary><p>Đáp án: <strong>(b)</strong>. Khi trạng từ phủ định đứng đầu câu (<em>rarely, never, hardly</em>), câu phải đảo ngữ: trợ động từ đứng trước chủ ngữ.</p></details>
+<details><summary><strong>Câu 2.</strong> Chọn câu đúng: (a) If I had known about the traffic, I would leave earlier. (b) If I had known about the traffic, I would have left earlier. (c) If I knew about the traffic, I would have left earlier.</summary><p>Đáp án: <strong>(b)</strong>. Câu điều kiện loại 3 (cả điều kiện và kết quả đều trong quá khứ): <em>If + had + V3, would have + V3</em>.</p></details>
+<details><summary><strong>Câu 3.</strong> Chọn cách diễn đạt thận trọng (hedging) phù hợp cho bài luận: (a) This proves that the policy failed. (b) This suggests that the policy may have failed. (c) The policy failed, everyone knows it.</summary><p>Đáp án: <strong>(b)</strong>. Văn viết học thuật tránh khẳng định tuyệt đối khi bằng chứng chưa đủ mạnh; <em>suggests / may have</em> là cách diễn đạt thận trọng chuẩn.</p></details>
+<h2>Học tiếp ở đâu?</h2>
+<p>Chưa vững B2? Quay lại <a href="/trinh-do/b2.html">trình độ B2</a>. Đã vững C1? Lên <a href="/trinh-do/c2.html">trình độ C2</a>. C1 là mức cần cho <a href="/du-hoc.html">du học</a> bậc sau đại học và nhiều công việc quốc tế — xem <a href="/luyen-thi/ielts.html">luyện thi IELTS</a> (mục tiêu band 7.0–7.5), <a href="/luyen-thi/toefl.html">luyện thi TOEFL iBT</a> và <a href="/luyen-thi/pte.html">luyện thi PTE Academic</a>. Muốn luyện đọc sách tiếng Anh thật? Xem <a href="/tro-choi/open-shelf.html">Open Shelf — đọc sách tiếng Anh miễn phí</a>.</p>
+""",
+"c2": """
+<p class="lead">C2 là trình độ thành thạo — gần như người bản xứ: bạn hiểu mọi thứ mình đọc và nghe được, diễn đạt tinh tế, viết văn bản phức tạp và chuyển giọng văn linh hoạt theo từng hoàn cảnh.</p>
+""" + AI_NOTE + """
+<h2>C2 nghĩa là gì?</h2>
+<p>Theo CEFR, C2 còn gọi là "Mastery" — thành thạo. Người ở trình độ C2 có thể hiểu dễ dàng mọi thứ nghe hoặc đọc được; tóm tắt thông tin từ nhiều nguồn nói và viết khác nhau, tái cấu trúc lập luận và trình bày lại một cách mạch lạc; và diễn đạt một cách tự nhiên, trôi chảy, chính xác, phân biệt được những sắc thái ý nghĩa tinh tế ngay cả trong tình huống phức tạp.</p>
+<p>Nói thật: rất ít người học tiếng Anh — kể cả người dạy tiếng Anh — đạt C2 toàn diện, và đa số không cần tới C2. C1 đã đủ cho học thuật và công việc quốc tế. C2 là mục tiêu cho người muốn dạy tiếng Anh ở trình độ cao, dịch thuật, làm việc hoàn toàn bằng tiếng Anh trong môi trường học thuật, hoặc đơn giản là yêu ngôn ngữ và muốn chạm tới đỉnh của nó. Trang này giúp bạn hiểu C2 là gì và duy trì, nâng cao trình độ nếu bạn đã ở gần đó.</p>
+<h2>Bạn cần học gì ở C2?</h2>
+<p>Ở C2, bạn không học "thêm ngữ pháp" nữa — bạn học <strong>sự chính xác và phong cách</strong>:</p>
+<ul>
+<li><strong>Phân biệt từ gần nghĩa theo sắc thái:</strong> <em>slim, slender, thin, skinny</em> đều chỉ "gầy" nhưng sắc thái khác nhau hoàn toàn — <em>slim</em> là khen, <em>skinny</em> gần như chê. <em>Stubborn</em> (bướng bỉnh, tiêu cực) khác <em>determined</em> (kiên quyết, tích cực) dù cùng chỉ "không bỏ cuộc".</li>
+<li><strong>Thành ngữ, tục ngữ và cách nói cố định:</strong> <em>to beat around the bush, to cut corners, the tip of the iceberg, to be in the same boat</em> — và quan trọng hơn, biết khi nào dùng (văn nói thân mật) và khi nào không (luận văn học thuật).</li>
+<li><strong>Ngôn ngữ hàm ý và châm biếm:</strong> hiểu khi người ta nói <em>"Oh, great — another meeting"</em> mà ý là chán ngán, không phải vui mừng. Hiểu hài hước đòi hỏi hiểu cả văn hóa, không chỉ từ vựng.</li>
+<li><strong>Phong cách viết (style):</strong> viết được nhiều thể loại — luận văn, truyện ngắn, bài phê bình, email ngoại giao — mỗi thể loại một giọng văn riêng. Biết dùng câu ngắn để tạo nhịp, câu dài để xây lập luận, và biết khi nào phá vỡ quy tắc một cách có chủ ý.</li>
+<li><strong>Từ vựng chuyên ngành sâu:</strong> trong ngành của bạn, bạn dùng được thuật ngữ chính xác như người trong nghề, kể cả từ viết tắt và cách nói riêng của ngành.</li>
+<li><strong>Phát âm gần như bản xứ:</strong> không nhất thiết phải "giống người Anh" — mà là phát âm rõ ràng, trọng âm và ngữ điệu tự nhiên tới mức người nghe không phải cố gắng để hiểu bạn.</li>
+</ul>
+<h2>Checklist: bạn đã ở gần C2 chưa?</h2>
+<ul>
+<li>☐ Đọc tiểu thuyết tiếng Anh (không phải sách luyện thi) và hiểu được cả chơi chữ, châm biếm và hàm ý văn hóa.</li>
+<li>☐ Xem phim không phụ đề, kể cả phim có nhiều tiếng lóng và giọng địa phương.</li>
+<li>☐ Viết bài luận mà giáo viên hoặc đồng nghiệp bản xứ đọc xong không nhận ra người viết không phải bản xứ.</li>
+<li>☐ Tranh luận về chủ đề trừu tượng (triết học, chính trị, nghệ thuật) và diễn đạt được quan điểm tinh tế, có sắc thái.</li>
+<li>☐ Dịch một đoạn văn tiếng Việt sang tiếng Anh mà vẫn giữ được giọng văn và hàm ý của bản gốc.</li>
+<li>☐ Hiểu và dùng được ít nhất 100 thành ngữ thông dụng trong đúng ngữ cảnh.</li>
+<li>☐ Nghe được sự khác biệt giữa giọng Anh-Anh, Anh-Mỹ, Anh-Úc và hiểu được cả ba.</li>
+<li>☐ Nhận ra lỗi sai trong bài viết của người khác và giải thích được vì sao sai.</li>
+<li>☐ Nói chuyện về bất cứ chủ đề gì trong 10 phút mà không bí từ.</li>
+</ul>
+<h2>Lộ trình duy trì và nâng cao trình độ C2</h2>
+<p>Ở C2, mục tiêu không còn là "học thêm" mà là <strong>không để mất trình độ</strong> và mài giũa sự tinh tế:</p>
+<ul>
+<li><strong>Đọc mỗi ngày, đọc thứ khó:</strong> tiểu thuyết, bài nghiên cứu, báo chất lượng cao (The Economist, The Guardian, Nature). Mỗi tuần ghi lại 10 từ hoặc cụm từ mới theo sắc thái, không phải theo nghĩa đơn thuần.</li>
+<li><strong>Viết có người đọc thật:</strong> viết blog, viết bài cho tạp chí, dịch tài liệu — viết cho người đọc thật buộc bạn phải chính xác hơn viết bài tập.</li>
+<li><strong>Nói với người bản xứ thường xuyên:</strong> tham gia câu lạc bộ, hội thảo, nhóm thảo luận bằng tiếng Anh. Nếu không có môi trường, hãy <a href="/tro-chuyen-ai.html">trò chuyện với AI</a> về chủ đề khó và yêu cầu AI phản biện lại ý kiến của bạn.</li>
+<li><strong>Học qua dạy:</strong> giải thích ngữ pháp hoặc sửa bài cho người khác là cách nhanh nhất để phát hiện lỗ hổng của chính mình.</li>
+<li><strong>Chấp nhận rằng C2 không có "xong":</strong> ngay cả người bản xứ cũng học từ mới mỗi ngày. Mục tiêu là tiến bộ đều, không phải hoàn hảo.</li>
+</ul>
+<p>Muốn kiểm tra trình độ hiện tại? Chơi <a href="/tro-choi/english-level-check.html">English Level Check — kiểm tra trình độ của bạn</a>. Muốn đọc sách tiếng Anh thật? Xem <a href="/tro-choi/open-shelf.html">Open Shelf — đọc sách tiếng Anh miễn phí</a>.</p>
+<h2>Lỗi thường gặp</h2>
+<ul>
+<li><strong>Dùng từ "sang" nhưng sai ngữ cảnh:</strong> <em>utilize</em> không hay hơn <em>use</em> — người bản xứ dùng <em>use</em> trong hầu hết trường hợp. Dùng từ dài một cách không cần thiết là dấu hiệu của người học, không phải người giỏi.</li>
+<li><strong>Dịch sát văn phong Việt:</strong> câu văn Việt hay dùng nhiều từ nối và lặp ý; câu văn Anh hay chuộng ngắn gọn, trực tiếp. Viết tiếng Anh hay nghĩa là viết theo tư duy Anh, không phải dịch tư duy Việt.</li>
+<li><strong>Nhầm <em>imply</em> và <em>infer</em>:</strong> người nói <em>implies</em> (hàm ý), người nghe <em>infers</em> (suy ra). <em>Are you implying that I lied?</em> — không nói <em>inferring</em>.</li>
+<li><strong>Dùng thành ngữ sai ngữ cảnh:</strong> <em>It's raining cats and dogs</em> là thành ngữ đúng nhưng người bản xứ hiện đại hiếm khi dùng; dùng nó trong bài luận học thuật thì sai hoàn toàn. Thành ngữ có "tuổi thọ" và "nơi chốn" riêng.</li>
+<li><strong>Quá tự tin vào "cảm giác ngôn ngữ":</strong> ở C2, cảm giác đúng 90% nhưng 10% còn lại vẫn cần tra cứu. Người giỏi là người biết tra từ điển, không phải người không bao giờ tra.</li>
+<li><strong>Nhầm <em>historic</em> và <em>historical</em>:</strong> <em>historic</em> là có tầm quan trọng lịch sử (<em>a historic day</em>), <em>historical</em> là thuộc về lịch sử (<em>historical records</em>).</li>
+</ul>
+<h2>Luyện tập nhanh</h2>
+<details><summary><strong>Câu 1.</strong> Chọn từ phù hợp: "Her ___ refusal to admit she was wrong cost her the job." (a) stubborn (b) determined (c) strong</summary><p>Đáp án: <strong>(a) stubborn</strong>. Cả ba từ đều gần nghĩa "kiên quyết", nhưng <em>stubborn</em> mang sắc thái tiêu cực — phù hợp với hậu quả "mất việc". <em>Determined</em> mang sắc thái tích cực.</p></details>
+<details><summary><strong>Câu 2.</strong> Người nói hàm ý gì? "Oh, wonderful. Another Monday morning meeting." (a) Họ rất thích họp sáng thứ Hai. (b) Họ đang châm biếm — thực ra họ chán họp. (c) Họ khen buổi họp được tổ chức tốt.</summary><p>Đáp án: <strong>(b)</strong>. Đây là châm biếm (irony): từ tích cực (<em>wonderful</em>) dùng với ngữ điệu và ngữ cảnh ngược lại để diễn tả sự chán ngán.</p></details>
+<details><summary><strong>Câu 3.</strong> Chọn câu viết tốt nhất cho bài luận học thuật: (a) This essay will talk about pollution. (b) This essay examines the causes and consequences of air pollution in urban areas. (c) In this essay, I want to tell you about pollution, which is a very big problem nowadays.</summary><p>Đáp án: <strong>(b)</strong>. Câu (b) chính xác, cụ thể và dùng động từ học thuật (<em>examines</em>). Câu (a) quá chung chung, câu (c) quá thân mật cho văn viết học thuật.</p></details>
+<h2>Học tiếp ở đâu?</h2>
+<p>Chưa vững C1? Quay lại <a href="/trinh-do/c1.html">trình độ C1</a>. Đã ở C2? Hãy dùng tiếng Anh vào việc thật: <a href="/luyen-thi/ielts.html">luyện thi IELTS</a> mục tiêu band 8.0+, <a href="/du-hoc.html">chuẩn bị du học</a>, hoặc <a href="/cong-viec.html">tiếng Anh công việc</a> ở cấp độ chuyên nghiệp. Và nhớ: ở C2, cách học tốt nhất là dạy lại cho người khác — hãy <a href="/tro-chuyen-ai.html">hỏi AI</a> những câu hỏi khó nhất bạn từng gặp, rồi tự trả lời chúng bằng lời của mình.</p>
+""",
+}
+
 for i, (slug, name, desc) in enumerate(LEVELS):
     prev = (LEVELS[i - 1][0].upper(), f"/trinh-do/{LEVELS[i - 1][0]}.html") if i > 0 else None
     next_ = (LEVELS[i + 1][0].upper(), f"/trinh-do/{LEVELS[i + 1][0]}.html") if i < len(LEVELS) - 1 else None
@@ -582,25 +1130,15 @@ for i, (slug, name, desc) in enumerate(LEVELS):
             level_hub_body(slug, name, desc),
             active="/trinh-do/", eyebrow="Theo trình độ", desc=desc)
         continue
-    last = ("Lộ trình duy trì và nâng cao trình độ C2." if slug == "c2"
-            else f"Lộ trình lên cấp độ tiếp theo từ {slug.upper()}.")
-    do_now_trinh_do = {
-        "b1": ("Ôn lại bài học A2", "/trinh-do/a2.html"),
-        "b2": ("Hướng dẫn học với sách American English File (tới C1)", "/sach/american-english-file.html"),
-        "c1": ("Hướng dẫn học với sách Mindset for IELTS (tới band 7.5)", "/sach/mindset-for-ielts.html"),
-        "c2": ("Kiểm tra trình độ hiện tại của bạn", "/tro-choi/english-level-check.html"),
-    }[slug]
+    _body = guide_sections(LEVEL_BODIES[slug])
+    if slug == "b1":
+        # B1 đã có bài học thật: đặt danh sách bài lên đầu trang hướng dẫn.
+        _body = b1_hub_lessons_html() + _body
     add(f"/trinh-do/{slug}.html", name, name,
-        soon("Trang này sẽ có:",
-             [f"Mô tả năng lực của trình độ {slug.upper()} theo khung CEFR.",
-              "Từ vựng và ngữ pháp trọng tâm của cấp độ này.",
-              "Bài học, bài đọc, bài nghe và bài tập — giải thích bằng tiếng Việt.",
-              last],
-             parent=("Tất cả trình độ", "/trinh-do/"),
-             prev=prev, next=next_,
-             ai_question=f"Cho tôi lộ trình học tiếng Anh trình độ {slug.upper()}.",
-             chip=slug, lead=desc, do_now=do_now_trinh_do),
-        active="/trinh-do/", eyebrow="Theo trình độ", desc=desc, noindex=True)
+        _body + _guide_nav(
+            prev, next_, ("Tất cả trình độ", "/trinh-do/"),
+            f"Cho tôi lộ trình học tiếng Anh trình độ {slug.upper()}."),
+        active="/trinh-do/", eyebrow="Theo trình độ", desc=desc)
 
 # ---------------- Theo kỹ năng ----------------
 SKILLS = [
@@ -612,36 +1150,184 @@ SKILLS = [
 SKILL_ICONS = {"nghe": "listen", "noi": "mic", "doc": "book", "viet": "write"}
 add("/ky-nang/index.html", "Theo kỹ năng", "Luyện từng kỹ năng",
     """
-<p class="lead">Bốn kỹ năng nghe — nói — đọc — viết, sẽ luyện riêng từng kỹ năng với bài tập và giải thích bằng tiếng Việt.</p>
+<p class="lead">Bốn kỹ năng nghe — nói — đọc — viết, luyện riêng từng kỹ năng với bài tập và giải thích bằng tiếng Việt.</p>
 <section class="section">
 <div class="cards">
 """ + "".join(
-        f'<article class="card card-skill">{card_icon(SKILL_ICONS[slug])}<h2><a href="/ky-nang/{slug}.html">{name}</a></h2><p><span class="badge badge-soon">Sắp có</span></p><p>{desc}</p></article>'
+        f'<article class="card card-skill">{card_icon(SKILL_ICONS[slug])}<h2><a href="/ky-nang/{slug}.html">{name}</a></h2><p>{desc}</p></article>'
         for slug, name, desc in SKILLS
     ) + """
 </div>
 </section>
 <p>Muốn AI chữa bài viết? <a href="/cong-cu/viet.html">Dùng công cụ chữa bài viết →</a></p>
-""", active="/ky-nang/", eyebrow="Theo kỹ năng", desc="Luyện từng kỹ năng nghe, nói, đọc, viết tiếng Anh với bài tập và giải thích bằng tiếng Việt. Các mục đang được xây dựng.")
+""", active="/ky-nang/", eyebrow="Theo kỹ năng", desc="Luyện từng kỹ năng nghe, nói, đọc, viết tiếng Anh với bài tập và giải thích bằng tiếng Việt.")
+
+SKILL_BODIES = {
+"nghe": """
+<p class="lead">Nghe là kỹ năng khó nhất với đa số người Việt — không phải vì tai bạn kém, mà vì bạn chưa được luyện nghe đúng cách. Trang này dạy bạn nghe theo 3 bước: đoán trước, nghe ý chính, rồi mới nghe chi tiết.</p>
+""" + AI_NOTE + """
+<h2>Vì sao bạn nghe không hiểu?</h2>
+<p>Có 3 lý do phổ biến. Thứ nhất, <strong>bạn cố dịch từng từ</strong>: nghe tới từ nào thì dịch từ đó trong đầu, nên khi dịch xong từ thứ nhất thì người ta đã nói tới câu thứ ba. Thứ hai, <strong>bạn học từ qua mắt, không qua tai</strong>: bạn biết mặt chữ <em>comfortable</em> nhưng chưa bao giờ nghe nó đọc là /ˈkʌmftəbəl/ (3 âm tiết, không phải 4), nên khi nghe thấy thì không nhận ra. Thứ ba, <strong>bạn nghe quá ít</strong>: nghe là kỹ năng của thói quen — tai cần hàng trăm giờ tiếp xúc mới quen với tốc độ và cách nối âm của người bản xứ.</p>
+<p>Tin tốt: cả 3 lý do đều sửa được. Nghe giỏi không cần năng khiếu — cần phương pháp và thời gian nghe đều đặn mỗi ngày.</p>
+<h2>Kỹ thuật nghe 3 bước</h2>
+<p><strong>Bước 1 — Đoán trước (30 giây).</strong> Trước khi bấm play, đọc câu hỏi hoặc tiêu đề và tự hỏi: đoạn này sẽ nói về cái gì? Ai nói với ai? Bạn sẽ nghe thấy những từ nào? Đoán trước giúp não "mở sẵn" từ vựng cần thiết, nên khi nghe thấy từ đó bạn nhận ra ngay.</p>
+<p><strong>Bước 2 — Nghe ý chính (lần 1).</strong> Nghe một lượt không dừng, không tra từ điển. Chỉ cần trả lời: đoạn này nói về cái gì? Thái độ của người nói là gì (vui, buồn, phàn nàn, thuyết phục)? Đừng lo nếu bạn chỉ hiểu 50% — mục tiêu của lần 1 là khung xương, không phải từng từ.</p>
+<p><strong>Bước 3 — Nghe chi tiết (lần 2–3).</strong> Nghe lại và ghi chép: số liệu, tên riêng, lý do, trình tự sự việc. Nghe lần 3 vừa nghe vừa đọc transcript (nếu có) để bắt những chỗ mình nghe sót — đặc biệt là từ nối âm và từ rút gọn.</p>
+<p><strong>Kỹ thuật bổ sung — nghe chép chính tả (dictation):</strong> nghe một câu, dừng lại, viết ra đúng từng từ, rồi đối chiếu với transcript. Mỗi ngày 5 câu, sau 1 tháng khả năng bắt âm của bạn thay đổi rõ rệt. <strong>Kỹ thuật shadowing (nghe và nói theo):</strong> nghe một câu rồi lặp lại ngay với cùng ngữ điệu, không cần hiểu hết — cách này luyện cả tai lẫn miệng.</p>
+<h2>Ví dụ luyện nghe</h2>
+<p>Hãy đọc đoạn hội thoại dưới đây như một "bản transcript" — đây là ví dụ tự biên soạn để bạn tập kỹ thuật đoán trước và nghe ý chính (không phải đề thi thật):</p>
+<p><em>Anna: Hi, Tom! Did you enjoy the trip to Da Lat?<br>
+Tom: It was amazing! The weather was cool, and the flowers were beautiful.<br>
+Anna: Did you visit the night market?<br>
+Tom: Yes, we did. We tried a lot of street food, but the grilled corn was the best.<br>
+Anna: How long did you stay there?<br>
+Tom: Three days. I wish we could have stayed longer, but I had to come back for work.</em></p>
+<p><strong>Câu hỏi luyện tập:</strong> (1) Tom đi đâu? (2) Anh ấy thích món ăn nào nhất? (3) Vì sao anh ấy không ở lại lâu hơn? — Đáp án: (1) Đà Lạt. (2) Bắp nướng (grilled corn). (3) Vì phải về đi làm.</p>
+<p><strong>Điểm cần chú ý:</strong> <em>I wish we could have stayed longer</em> — đây là câu ước về quá khứ (wish + could have + V3), nghĩa là "ước gì đã ở lại lâu hơn (nhưng thực tế không ở lại)". Nhiều người nghe nhầm thành "đã ở lại lâu". Khi nghe, hãy chú ý các cấu trúc <em>wish</em> và <em>would have</em> — chúng luôn diễn tả điều trái với thực tế.</p>
+<h2>Lỗi thường gặp</h2>
+<ul>
+<li><strong>Dịch từng từ trong đầu:</strong> nghe là nghe ý, không phải dịch. Khi bạn nghe thấy <em>How are you doing?</em>, đừng dịch "Bạn đang làm thế nào?" — hãy hiểu ngay đó là lời chào. Luyện phản xạ: nghe câu quen thuộc thì hiểu ngay, không dịch.</li>
+<li><strong>Nghe không ra từ nối âm:</strong> người bản xứ nói <em>What do you want to do?</em> nghe như <em>"Whaddaya wanna do?"</em> — các từ nối vào nhau. Học các dạng nối âm thông dụng: <em>want to → wanna, going to → gonna, got to → gotta, did you → didja</em>. Biết trước các dạng này thì nghe ra ngay.</li>
+<li><strong>Nhầm từ đồng âm:</strong> <em>their / there / they're</em> nghe giống nhau — phải dựa vào ngữ cảnh. Nghe câu hoàn chỉnh, đừng nghe từng từ rời rạc.</li>
+<li><strong>Bỏ cuộc khi không hiểu một từ:</strong> không hiểu 1 từ trong 20 từ vẫn hiểu được 95% câu. Người nghe giỏi là người bỏ qua từ lạ và bám theo ý chính, không phải người hiểu 100% từ.</li>
+<li><strong>Chỉ nghe giọng Mỹ:</strong> thi IELTS và đời thực có cả giọng Anh, Úc, Canada. Hãy nghe nhiều giọng: BBC (Anh), VOA (Mỹ), ABC Australia — mỗi tuần đổi một nguồn.</li>
+<li><strong>Nghe mà không ghi chép:</strong> với bài nghe dài (bài giảng, podcast), không ghi chép thì nghe xong quên ngay. Ghi từ khóa, không ghi câu đầy đủ.</li>
+</ul>
+<h2>Luyện tập nhanh</h2>
+<details><summary><strong>Câu 1.</strong> Nghe câu: "I could have helped you if you had told me." — Người nói có giúp không? (a) Có, đã giúp. (b) Không, vì không được báo trước. (c) Sẽ giúp sau.</summary><p>Đáp án: <strong>(b)</strong>. Đây là câu điều kiện loại 3: điều kiện trong quá khứ không xảy ra (bạn đã không nói cho tôi biết), nên kết quả cũng không xảy ra (tôi đã không giúp).</p></details>
+<details><summary><strong>Câu 2.</strong> Từ nào được nhấn mạnh trong câu "I didn't say you stole the money"? (Giả sử nhấn vào <em>I</em>.) (a) Người khác nói, không phải tôi. (b) Tôi không nói gì cả. (c) Tiền không bị lấy trộm.</summary><p>Đáp án: <strong>(a)</strong>. Trọng âm câu thay đổi nghĩa: nhấn vào <em>I</em> nghĩa là "người khác nói, không phải tôi"; nhấn vào <em>stole</em> nghĩa là "tôi không nói là bạn lấy trộm (có thể là mượn)". Nghe trọng âm là nghe ý.</p></details>
+<details><summary><strong>Câu 3.</strong> "Gonna" là dạng rút gọn của cụm nào? (a) going to (b) got to (c) going on</summary><p>Đáp án: <strong>(a) going to</strong>. <em>I'm gonna call you tonight</em> = <em>I'm going to call you tonight</em>.</p></details>
+<h2>Kế hoạch luyện nghe 30 ngày</h2>
+<ul>
+<li><strong>Ngày 1–10:</strong> Mỗi ngày 15 phút: nghe một đoạn ngắn (2–3 phút) theo 3 bước trên. Nguồn: BBC Learning English, VOA Learning English (đọc chậm, rõ ràng).</li>
+<li><strong>Ngày 11–20:</strong> Tăng lên 20 phút/ngày, thêm nghe chép chính tả 5 câu/ngày. Bắt đầu nghe podcast tốc độ tự nhiên.</li>
+<li><strong>Ngày 21–30:</strong> 30 phút/ngày: nghe phim không phụ đề 10 phút + podcast 20 phút. Thử <a href="/tro-choi/toeic-arcade.html">luyện nghe TOEIC qua trò chơi TOEIC Arcade</a> hoặc <a href="/tro-choi/pte-arcade.html">chơi thử PTE Arcade</a> để luyện nghe trong áp lực thời gian.</li>
+</ul>
+<h2>Học tiếp ở đâu?</h2>
+<p>Muốn luyện nghe theo kỳ thi? Xem <a href="/luyen-thi/toeic.html">luyện thi TOEIC</a> (phần Listening chiếm một nửa bài thi), <a href="/luyen-thi/ielts.html">luyện thi IELTS</a> (Listening 40 câu, nghe một lần duy nhất) và <a href="/luyen-thi/pte.html">luyện thi PTE Academic</a> (nghe và viết lại câu — Write From Dictation). Muốn luyện nói song song với nghe? Xem <a href="/ky-nang/noi.html">hướng dẫn luyện nói</a> — kỹ thuật shadowing luyện cả hai kỹ năng cùng lúc.</p>
+""",
+"noi": """
+<p class="lead">Nói là kỹ năng khiến người học sợ nhất — không phải vì bạn không biết từ, mà vì bạn sợ sai. Sự thật: người bản xứ không đánh giá bạn qua lỗi sai, họ đánh giá qua việc bạn có truyền đạt được ý mình không. Trang này dạy bạn nói trôi chảy trước, chính xác sau.</p>
+""" + AI_NOTE + """
+<h2>Vì sao bạn nói không trôi chảy?</h2>
+<p>Có 3 nguyên nhân chính. Thứ nhất, <strong>bạn dịch từ tiếng Việt sang tiếng Anh trong đầu rồi mới nói</strong> — quá trình này chậm và cho ra câu tiếng Anh mang cấu trúc Việt. Thứ hai, <strong>bạn cố nói hoàn hảo</strong>: dừng lại sửa từng lỗi nhỏ, nên câu nói đứt quãng. Thứ ba, <strong>bạn thiếu "cụm từ sẵn"</strong> (chunks): người bản xứ không ghép từng từ mà dùng cụm có sẵn — <em>to be honest, as far as I know, let me think about it</em>. Khi bạn có sẵn 50–100 cụm như vậy, bạn nói nhanh hơn hẳn vì không phải "xây" từng câu từ đầu.</p>
+<h2>Kỹ thuật luyện nói</h2>
+<p><strong>1. Nói theo cụm, không nói theo từ.</strong> Học và dùng các cụm mở đầu: <em>In my opinion…</em> (ý kiến), <em>First of all… / On top of that…</em> (liệt kê), <em>To be honest…</em> (thú nhận), <em>What I mean is…</em> (giải thích lại), <em>Let me put it this way…</em> (diễn đạt lại). Mỗi cụm là một "viên gạch" — có sẵn gạch thì xây câu nhanh.</p>
+<p><strong>2. Kỹ thuật 4-3-2.</strong> Chọn một chủ đề, nói về nó trong 4 phút. Nói lại chủ đề đó trong 3 phút. Nói lại lần nữa trong 2 phút. Mỗi lần rút ngắn, bạn buộc phải nói gọn và trôi chảy hơn — đây là kỹ thuật luyện trôi chảy nổi tiếng, chỉ cần một chủ đề và một chiếc đồng hồ.</p>
+<p><strong>3. Ghi âm và nghe lại.</strong> Nói 1–2 phút về một chủ đề, ghi âm lại, nghe lại và tự chấm: chỗ nào ngập ngừng? Chỗ nào sai thì? Chỗ nào phát âm chưa rõ? Sửa một lỗi mỗi lần, không sửa tất cả cùng lúc.</p>
+<p><strong>4. Shadowing.</strong> Nghe một câu tiếng Anh rồi lặp lại ngay với cùng ngữ điệu và tốc độ. Bắt đầu với câu ngắn, tốc độ chậm; tăng dần. Shadowing luyện cả phát âm, ngữ điệu và phản xạ cùng lúc — xem thêm ở <a href="/ky-nang/nghe.html">hướng dẫn luyện nghe</a>.</p>
+<p><strong>5. Phát âm: trọng âm quan trọng hơn từng âm.</strong> Người Việt thường phát âm từng âm khá tốt nhưng sai trọng âm từ và trọng âm câu. Nhớ: <em>PHOtograph</em> nhưng <em>phoTOgraphy</em>; trong câu, từ mang thông tin chính được nhấn mạnh (<em>I bought a RED car</em> — nhấn RED vì màu xe là thông tin mới). Nói đúng trọng âm thì người nghe hiểu bạn ngay cả khi vài âm chưa chuẩn.</p>
+<h2>Ví dụ: trả lời câu hỏi giới thiệu bản thân</h2>
+<p>Câu hỏi: <em>"Tell me about yourself."</em> — câu hỏi mở đầu của hầu hết buổi phỏng vấn và phần thi nói. Đừng trả lời bằng danh sách (<em>I am 25. I live in Hanoi. I like music.</em>). Hãy trả lời bằng một câu chuyện ngắn có cấu trúc: hiện tại → quá khứ → tương lai.</p>
+<p><em>"I'm Linh, and I currently work as a nurse at a hospital in Hanoi. I became a nurse because I have always wanted to help people — my grandmother was ill when I was young, and the nurses who cared for her inspired me. In the next few years, I hope to improve my English so I can work with international patients and maybe study abroad."</em></p>
+<p><strong>Vì sao câu trả lời này tốt?</strong> Có cấu trúc rõ ràng (hiện tại → lý do quá khứ → kế hoạch tương lai), có chi tiết cụ thể (bà ngoại, bệnh viện), và có cảm xúc thật. Giám khảo nhớ câu chuyện, không nhớ danh sách.</p>
+<h2>Lỗi thường gặp</h2>
+<ul>
+<li><strong>Dịch "tôi tên là…" thành <em>My name is…</em> thì đúng, nhưng nhiều người nói <em>I am name…</em> — sai.</strong> <em>Name</em> là danh từ: <em>My name is Linh</em> hoặc <em>I'm Linh</em>.</li>
+<li><strong>Nhầm <em>fun</em> và <em>funny</em> khi nói:</strong> <em>The trip was fun</em> (chuyến đi vui), không phải <em>funny</em> (buồn cười) — trừ khi chuyến đi làm bạn cười.</li>
+<li><strong>Nói "I am agree" — sai.</strong> <em>Agree</em> là động từ: <em>I agree with you.</em></li>
+<li><strong>Phát âm âm cuối:</strong> người Việt hay bỏ âm cuối (<em>like</em> đọc thành <em>lai</em> thiếu /k/). Âm cuối phân biệt nghĩa: <em>rice / rise, back / bag, work / word</em>. Luyện đọc to âm cuối của mỗi từ.</li>
+<li><strong>Nói quá nhanh khi hồi hộp:</strong> khi lo lắng, ai cũng nói nhanh hơn. Mẹo: hít một hơi trước khi trả lời, nói câu đầu tiên thật chậm — nhịp sẽ ổn định lại.</li>
+<li><strong>Dùng "ừm" tiếng Việt khi ngập ngừng:</strong> thay bằng <em>well… / let me think… / that's a good question…</em> — những cụm này cho bạn 2–3 giây suy nghĩ mà vẫn nghe tự nhiên.</li>
+<li><strong>Chỉ trả lời "Yes/No" rồi im lặng:</strong> trong thi nói, câu trả lời 1 từ gần như không được điểm. Luôn thêm lý do hoặc ví dụ: <em>Yes, I do. I like it because…</em></li>
+</ul>
+<h2>Luyện tập nhanh</h2>
+<details><summary><strong>Câu 1.</strong> Câu nào tự nhiên nhất khi bạn cần thời gian suy nghĩ? (a) Ummm… (im lặng 10 giây) (b) Well, let me think about it for a moment. (c) I don't know.</summary><p>Đáp án: <strong>(b)</strong>. Cụm <em>let me think</em> cho bạn thời gian mà vẫn giữ cuộc trò chuyện chạy tiếp. Im lặng dài khiến người nghe lúng túng; <em>I don't know</em> thì đóng cuộc trò chuyện lại.</p></details>
+<details><summary><strong>Câu 2.</strong> Chọn cách nói đúng trọng âm từ: "photography" nhấn âm nào? (a) PHO-to-gra-phy (b) pho-TO-gra-phy (c) pho-to-GRA-phy</summary><p>Đáp án: <strong>(b) pho-TO-gra-phy</strong>. Khi thêm hậu tố <em>-y</em>, trọng âm chuyển về âm tiết trước nó. So sánh: <em>PHO-to-graph</em> nhưng <em>pho-TO-gra-phy</em>.</p></details>
+<details><summary><strong>Câu 3.</strong> Sửa câu sau: "I am very like football."</summary><p>Đáp án: <em>I like football very much.</em> — <em>very</em> không bổ nghĩa cho động từ; dùng <em>very much</em> hoặc <em>a lot</em> sau động từ.</p></details>
+<h2>Kế hoạch luyện nói 30 ngày</h2>
+<ul>
+<li><strong>Ngày 1–10:</strong> Mỗi ngày nói 5 phút: tự giới thiệu, kể về ngày hôm nay, mô tả một bức ảnh. Ghi âm lại và nghe lại.</li>
+<li><strong>Ngày 11–20:</strong> Thêm kỹ thuật 4-3-2 (2 chủ đề/tuần) và shadowing 10 phút/ngày. Học 5 cụm từ mới mỗi ngày và dùng chúng trong câu nói của mình.</li>
+<li><strong>Ngày 21–30:</strong> Luyện nói theo chủ đề thi: trả lời câu hỏi IELTS Speaking Part 1–2, hoặc tập thuyết trình 3–5 phút. Thử <a href="/tro-choi/speaking-booth.html">Speaking Booth — luyện nói theo chủ đề</a> và <a href="/tro-chuyen-ai.html">trò chuyện với AI</a> để luyện phản xạ trả lời.</li>
+</ul>
+<h2>Học tiếp ở đâu?</h2>
+<p>Muốn luyện nói theo kỳ thi? Xem <a href="/luyen-thi/ielts.html">luyện thi IELTS</a> (Speaking 3 phần, thi với giám khảo thật) và <a href="/luyen-thi/pte.html">luyện thi PTE Academic</a> (nói vào micro, máy chấm). Muốn luyện nghe song song? Xem <a href="/ky-nang/nghe.html">hướng dẫn luyện nghe</a>. Muốn luyện phát âm theo chủ đề công việc? Chơi <a href="/tro-choi/workplace-english-arcade.html">Workplace English Arcade</a>.</p>
+""",
+
+"doc": """
+<p class="lead">Đọc là kỹ năng dễ luyện nhất — vì bạn kiểm soát được tốc độ của mình. Nhưng đọc giỏi không có nghĩa là hiểu từng từ; nghĩa là tìm được thông tin mình cần, nhanh hay chậm tùy mục đích. Trang này dạy bạn đọc theo mục đích: lướt, quét và đọc sâu.</p>
+""" + AI_NOTE + """
+<h2>3 cách đọc — dùng sai cách là mất thời gian</h2>
+<p><strong>Skimming (đọc lướt lấy ý chính):</strong> đọc tiêu đề, câu đầu mỗi đoạn và câu cuối bài trong 1–2 phút để nắm bài nói về cái gì. Dùng khi bạn cần quyết định bài này có đáng đọc kỹ không, hoặc khi làm bài thi đọc cần nắm ý chính trước.</p>
+<p><strong>Scanning (quét tìm thông tin):</strong> mắt chạy nhanh qua bài để tìm một thông tin cụ thể — một con số, một cái tên, một ngày tháng. Không đọc từng từ; chỉ tìm "mục tiêu". Dùng khi câu hỏi thi yêu cầu tìm chi tiết cụ thể.</p>
+<p><strong>Đọc sâu (intensive reading):</strong> đọc chậm, từng câu, tra từ mới, phân tích cấu trúc — dùng khi học từ vựng từ một bài ngắn, hoặc khi bài thi yêu cầu suy luận ý kiến của tác giả.</p>
+<p>Lỗi lớn nhất của người học: dùng <strong>một cách đọc cho mọi tình huống</strong> — đọc sâu cả bài báo 1.000 từ chỉ để tìm một con số, hoặc đọc lướt một bài luận rồi than không hiểu tác giả muốn nói gì. Trước khi đọc, hãy hỏi: <em>mình đọc để làm gì?</em></p>
+<h2>Ví dụ luyện đọc</h2>
+<p>Đọc đoạn văn tự biên soạn dưới đây (không phải đề thi thật), rồi trả lời câu hỏi — tập kỹ thuật skimming trước (đọc trong 30 giây để nắm ý chính), rồi scanning (tìm con số cụ thể):</p>
+<p><em>Learning a language takes time, but the way you practise matters more than the number of hours you spend. A student who studies for 30 minutes every day will usually make faster progress than a student who studies for five hours once a week. Short, regular practice helps your brain remember new words, because each time you return to a word, the memory becomes stronger. Experts call this "spaced repetition": reviewing something just before you forget it. The best time to review a new word is one day after you first learn it, then three days later, then one week later.</em></p>
+<p><strong>Câu hỏi:</strong> (1) Ý chính của đoạn văn là gì? (2) Theo đoạn văn, nên ôn từ mới lần đầu sau bao lâu? (3) "Spaced repetition" nghĩa là gì theo đoạn văn?</p>
+<p><strong>Đáp án:</strong> (1) Cách luyện tập quan trọng hơn số giờ học — học ngắn và đều đặn hiệu quả hơn học dồn. (2) Một ngày sau khi học từ mới. (3) Ôn lại kiến thức ngay trước khi bạn quên nó — ôn lặp lại theo khoảng thời gian tăng dần.</p>
+<p><strong>Điểm cần chú ý:</strong> câu <em>"A student who studies for 30 minutes every day will usually make faster progress than…"</em> chứa từ <em>usually</em> — tác giả không khẳng định tuyệt đối. Trong bài thi đọc, những từ như <em>usually, often, sometimes, may, might</em> rất quan trọng: chúng phân biệt câu đúng với câu "gần đúng nhưng sai". Dạng câu True/False/Not Given của IELTS đánh đúng vào chỗ này.</p>
+<h2>Lỗi thường gặp</h2>
+<ul>
+<li><strong>Tra từ điển từng từ lạ:</strong> gặp 10 từ lạ thì tra cả 10 — đọc 1 trang mất 30 phút và quên mất nội dung bài. Quy tắc: chỉ tra từ nào xuất hiện nhiều lần, hoặc từ nào làm bạn không hiểu cả câu. Từ còn lại, đoán nghĩa từ ngữ cảnh.</li>
+<li><strong>Đọc bằng miệng (đọc thầm thành tiếng trong đầu):</strong> đọc từng từ thành tiếng làm tốc độ đọc của bạn bằng tốc độ nói (khoảng 150 từ/phút). Đọc bằng mắt theo cụm từ có thể đạt 250–300 từ/phút. Luyện đọc theo cụm: nhìn một cụm 3–4 từ mỗi lần dừng mắt, không nhìn từng từ.</li>
+<li><strong>Đọc lại câu vừa đọc:</strong> thói quen quay lại đọc lại câu trước làm tốc độ chậm một nửa. Tin vào lần đọc đầu tiên; chỉ quay lại khi bạn thực sự không hiểu.</li>
+<li><strong>Nhầm ý kiến tác giả với sự thật:</strong> <em>"Many people believe that…"</em> là ý kiến của "nhiều người", không phải quan điểm của tác giả. Trong bài thi, câu hỏi thường hỏi "tác giả nghĩ gì" — phải phân biệt ai nói câu nào.</li>
+<li><strong>Bỏ qua từ nối:</strong> <em>however, therefore, for example, in contrast</em> là "biển chỉ đường" của bài đọc — chúng cho biết câu sau là đối lập, kết luận hay ví dụ của câu trước. Đọc mà bỏ qua từ nối thì mất mạch lập luận.</li>
+<li><strong>Dịch từng câu sang tiếng Việt:</strong> giống như nghe, đọc cũng cần phản xạ trực tiếp bằng tiếng Anh. Dịch làm bạn chậm lại và hiểu sai những chỗ tiếng Anh diễn đạt khác tiếng Việt.</li>
+</ul>
+<h2>Luyện tập nhanh</h2>
+<details><summary><strong>Câu 1.</strong> Bạn cần tìm năm thành lập của một công ty trong bài báo dài 800 từ. Nên dùng cách đọc nào? (a) Đọc sâu từng câu từ đầu tới cuối. (b) Scanning — quét tìm con số/năm. (c) Skimming — đọc lướt ý chính.</summary><p>Đáp án: <strong>(b) Scanning</strong>. Bạn tìm một thông tin cụ thể (năm) — quét nhanh để tìm số, không cần hiểu toàn bài.</p></details>
+<details><summary><strong>Câu 2.</strong> Đoạn văn viết: "Some scientists argue that coffee is good for health." — Câu nào sau đây ĐÚNG? (a) Tác giả khẳng định cà phê tốt cho sức khỏe. (b) Một số nhà khoa học cho rằng cà phê tốt cho sức khỏe. (c) Cà phê chắc chắn tốt cho sức khỏe.</summary><p>Đáp án: <strong>(b)</strong>. <em>Some scientists argue that…</em> là ý kiến của một nhóm nhà khoa học, không phải khẳng định của tác giả, và <em>argue</em> nghĩa là "cho rằng", không phải "chứng minh".</p></details>
+<details><summary><strong>Câu 3.</strong> Từ "it" trong câu "Spaced repetition works because it helps your brain remember" chỉ cái gì? (a) Your brain (b) Spaced repetition (c) Remember</summary><p>Đáp án: <strong>(b) Spaced repetition</strong>. Đại từ <em>it</em> chỉ danh từ chính của mệnh đề trước. Bài thi đọc hay hỏi về đại từ thay thế — luôn tìm danh từ gần nhất phù hợp về số và nghĩa.</p></details>
+<h2>Kế hoạch luyện đọc 30 ngày</h2>
+<ul>
+<li><strong>Ngày 1–10:</strong> Mỗi ngày đọc 1 bài ngắn (200–300 từ) trên BBC Learning English hoặc VOA Learning English. Đọc lướt lấy ý chính trước, rồi đọc kỹ và ghi 5 từ mới.</li>
+<li><strong>Ngày 11–20:</strong> Tăng lên bài 500 từ (BBC News). Luyện scanning: đặt 3 câu hỏi tìm chi tiết trước khi đọc, rồi tìm câu trả lời trong 3 phút.</li>
+<li><strong>Ngày 21–30:</strong> Đọc truyện ngắn hoặc sách graded reader 15 phút/ngày. Thử <a href="/tro-choi/open-shelf.html">Open Shelf — đọc sách tiếng Anh miễn phí</a> để chọn sách đúng trình độ của bạn, và xem <a href="/luyen-thi/ielts.html">hướng dẫn luyện thi IELTS</a> để luyện dạng True/False/Not Given.</li>
+</ul>
+<h2>Học tiếp ở đâu?</h2>
+<p>Muốn luyện đọc theo kỳ thi? Xem <a href="/luyen-thi/ielts.html">luyện thi IELTS</a> (Reading 40 câu, 60 phút), <a href="/luyen-thi/toeic.html">luyện thi TOEIC</a> (Part 7 — đọc hiểu văn bản công việc) và <a href="/luyen-thi/vstep.html">luyện thi VSTEP</a> (4 bài đọc, 40 câu). Muốn đọc sách thật? Xem <a href="/tro-choi/open-shelf.html">Open Shelf</a> và <a href="/sach/global-success.html">hướng dẫn học với sách Global Success</a>.</p>
+""",
+"viet": """
+<p class="lead">Viết là kỹ năng "lộ" trình độ thật của bạn — vì khi viết, lỗi sai nằm lại trên giấy, không trôi đi như khi nói. Nhưng viết giỏi không phải tài năng bẩm sinh; nó là một quy trình: nghĩ ý → xếp ý → viết → sửa. Trang này dạy bạn quy trình đó.</p>
+""" + AI_NOTE + """
+<h2>Quy trình viết 4 bước</h2>
+<p><strong>Bước 1 — Nghĩ ý (5 phút).</strong> Trước khi viết một chữ nào, hãy trả lời 3 câu hỏi: Tôi viết cho ai? Tôi muốn họ làm gì hoặc nghĩ gì sau khi đọc? Tôi có những ý nào? Viết các ý ra dưới dạng gạch đầu dòng, chưa cần thành câu. Người viết dở thường bỏ qua bước này và viết tới đâu nghĩ tới đó — bài viết vì vậy lan man.</p>
+<p><strong>Bước 2 — Xếp ý thành dàn bài.</strong> Một đoạn văn tốt có 1 ý chính, 2–3 ý phụ và 1 ví dụ. Một bài luận tốt có mở bài (nêu vấn đề + quan điểm), thân bài (2–3 đoạn, mỗi đoạn 1 luận điểm) và kết bài (tóm tắt + nhấn mạnh quan điểm). Dàn bài càng rõ, viết càng nhanh.</p>
+<p><strong>Bước 3 — Viết bản nháp, đừng sửa khi viết.</strong> Viết liền một mạch theo dàn bài, kể cả khi bạn chưa chắc từ hay ngữ pháp. Sửa trong lúc viết làm bạn mất mạch suy nghĩ. Bản nháp được phép xấu — nhiệm vụ của nó là "có chữ trên giấy".</p>
+<p><strong>Bước 4 — Sửa theo checklist.</strong> Đọc lại bài và kiểm tra theo thứ tự: (1) đủ ý chưa? (2) câu nào khó hiểu? (3) ngữ pháp: thì, "s" ngôi thứ ba, mạo từ a/the? (4) chính tả và dấu câu? Sửa theo thứ tự này — đừng sửa chính tả trước khi sửa ý.</p>
+<h2>Ví dụ: viết một đoạn văn tốt</h2>
+<p>Đề bài tự biên soạn: <em>"Do you think students should wear uniforms at school? Give reasons."</em> (Học sinh có nên mặc đồng phục không? Nêu lý do.)</p>
+<p><strong>Bản viết yếu (chỉ liệt kê):</strong> <em>"I think students should wear uniforms. Uniforms are good. They are cheap. Students look the same. I like uniforms."</em> — Các câu ngắn, rời rạc, không có lập luận, không có ví dụ.</p>
+<p><strong>Bản viết tốt (cùng ý, viết lại):</strong> <em>"I believe students should wear uniforms at school. First, uniforms reduce the pressure to follow fashion trends, so students from poorer families do not feel embarrassed about their clothes. Second, uniforms create a sense of belonging: when everyone wears the same clothes, students feel they are part of one school community. For these reasons, I think uniforms are a good idea."</em></p>
+<p><strong>Vì sao bản thứ hai tốt hơn?</strong> Có từ nối dẫn dắt (<em>First, Second, For these reasons</em>), mỗi luận điểm có giải thích (<em>so students… do not feel…</em>), và có câu kết tóm tắt quan điểm. Cùng một ý tưởng — khác nhau ở cách tổ chức.</p>
+<p><strong>Từ nối nên dùng:</strong> thêm ý — <em>furthermore, in addition, moreover</em>; đối lập — <em>however, on the other hand, although</em>; nguyên nhân — <em>because, as a result, therefore</em>; ví dụ — <em>for example, for instance, such as</em>; kết luận — <em>in conclusion, to sum up, overall</em>. Nhưng nhớ: dùng từ nối để phục vụ lập luận, không phải để khoe từ — xem thêm lỗi này ở <a href="/trinh-do/c1.html">trình độ C1</a>.</p>
+<h2>Lỗi thường gặp</h2>
+<ul>
+<li><strong>Quên mạo từ a/an/the:</strong> tiếng Việt không có mạo từ nên người Việt hay bỏ. <em>I am student</em> — sai. Viết đúng: <em>I am a student.</em> Quy tắc nhanh: danh từ đếm được số ít cần có mạo từ hoặc từ sở hữu/từ chỉ định đi kèm.</li>
+<li><strong>Viết câu quá dài:</strong> một câu 40 từ với 3 mệnh đề phụ rất dễ sai và khó đọc. Tách thành 2 câu ngắn thường tốt hơn — giám khảo chấm ý, không chấm độ dài câu.</li>
+<li><strong>Dùng "very" cho mọi thứ:</strong> <em>very good, very big, very tired</em> trong cả bài luận nghe nghèo nàn. Thay bằng từ mạnh: <em>excellent, huge, exhausted</em>.</li>
+<li><strong>Viết tắt trong văn viết trang trọng:</strong> <em>don't, can't, isn't</em> không dùng trong luận văn và email trang trọng — viết đầy đủ: <em>do not, cannot, is not</em>.</li>
+<li><strong>Dịch câu tiếng Việt sang tiếng Anh từng chữ:</strong> <em>"The weather today is very beautiful, I go out to play"</em> — sai dấu câu và cấu trúc. Viết đúng: <em>The weather is beautiful today, so I went out.</em> (Hai mệnh đề cần từ nối hoặc tách thành 2 câu; dấu phẩy không nối được 2 câu độc lập — lỗi "comma splice" rất phổ biến.)</li>
+<li><strong>Không có câu chủ đề (topic sentence):</strong> mỗi đoạn văn cần một câu đầu nêu ý chính của đoạn. Không có câu chủ đề, người đọc không biết đoạn này nói về cái gì cho tới khi đọc hết đoạn.</li>
+<li><strong>Viết xong không đọc lại:</strong> 90% lỗi chính tả và lỗi thì sẽ lộ ra khi đọc lại sau 10 phút. Luôn dành 5 phút cuối để đọc lại bài của mình.</li>
+</ul>
+<h2>Luyện tập nhanh</h2>
+<details><summary><strong>Câu 1.</strong> Sửa câu sau: "I am student at Hanoi University."</summary><p>Đáp án: <em>I am <strong>a</strong> student at Hanoi University.</em> — Danh từ đếm được số ít (<em>student</em>) cần mạo từ <em>a</em>.</p></details>
+<details><summary><strong>Câu 2.</strong> Sửa câu sau: "She likes coffee, she drinks it every morning."</summary><p>Đáp án: <em>She likes coffee, <strong>and</strong> she drinks it every morning.</em> (hoặc tách thành 2 câu: <em>She likes coffee. She drinks it every morning.</em>) — Dấu phẩy không nối được 2 câu độc lập (lỗi comma splice).</p></details>
+<details><summary><strong>Câu 3.</strong> Chọn từ nối phù hợp: "It was raining. ___, we decided to stay at home." (a) Furthermore (b) Therefore (c) For example</summary><p>Đáp án: <strong>(b) Therefore</strong> (vì vậy) — câu sau là kết quả của câu trước. <em>Furthermore</em> dùng để thêm ý, <em>For example</em> dùng để nêu ví dụ.</p></details>
+<h2>Kế hoạch luyện viết 30 ngày</h2>
+<ul>
+<li><strong>Ngày 1–10:</strong> Mỗi ngày viết 5 câu về một chủ đề quen thuộc (ngày hôm nay, món ăn yêu thích, bộ phim vừa xem). Tập viết đúng thì và mạo từ.</li>
+<li><strong>Ngày 11–20:</strong> Viết đoạn văn 120–150 từ, 3 đoạn/tuần, theo dàn bài: câu chủ đề → 2 ý phụ → ví dụ → câu kết. Dán bài vào <a href="/cong-cu/viet.html">công cụ chữa bài viết bằng AI</a> để xem lỗi, rồi tự sửa lại bằng tay.</li>
+<li><strong>Ngày 21–30:</strong> Viết email và bài luận 250 từ. Tra từ vựng bằng <a href="/cong-cu/tu-vung.html">công cụ tra từ bằng AI</a> khi cần từ chính xác hơn. Xem <a href="/luyen-thi/ielts.html">hướng dẫn luyện thi IELTS</a> (Writing Task 2) để luyện viết luận theo chuẩn thi.</li>
+</ul>
+<h2>Học tiếp ở đâu?</h2>
+<p>Muốn luyện viết theo kỳ thi? Xem <a href="/luyen-thi/ielts.html">luyện thi IELTS</a> (Writing Task 1 và Task 2), <a href="/luyen-thi/vstep.html">luyện thi VSTEP</a> (viết thư 120 từ và luận 250 từ) và <a href="/luyen-thi/toefl.html">luyện thi TOEFL iBT</a> (viết email và bài thảo luận). Muốn luyện đọc để lấy ý cho bài viết? Xem <a href="/ky-nang/doc.html">hướng dẫn luyện đọc</a>. Muốn tra từ và chữa bài ngay? Dùng <a href="/cong-cu/tu-vung.html">công cụ tra từ bằng AI</a> và <a href="/cong-cu/viet.html">công cụ chữa bài viết bằng AI</a>.</p>
+""",
+}
+
 for i, (slug, name, desc) in enumerate(SKILLS):
     prev = (SKILLS[i - 1][1], f"/ky-nang/{SKILLS[i - 1][0]}.html") if i > 0 else None
     next_ = (SKILLS[i + 1][1], f"/ky-nang/{SKILLS[i + 1][0]}.html") if i < len(SKILLS) - 1 else None
-    do_now_skill = {
-        "nghe": ("Luyện nghe qua trò chơi TOEIC Arcade", "/tro-choi/toeic-arcade.html"),
-        "noi": ("Luyện nói cùng AI — Trò chuyện AI", "/tro-chuyen-ai.html"),
-        "doc": ("Đọc sách tiếng Anh miễn phí trên Open Shelf", "/tro-choi/open-shelf.html"),
-        "viet": ("Dùng công cụ chữa bài viết bằng AI", "/cong-cu/viet.html"),
-    }[slug]
     add(f"/ky-nang/{slug}.html", name, f"Luyện {name.lower()}",
-        soon("Trang này sẽ có:",
-             [desc,
-              "Bài tập theo từng cấp độ (A1–C2).",
-              "Mẹo luyện tập hằng ngày và lỗi thường gặp của người Việt."],
-             parent=("Tất cả kỹ năng", "/ky-nang/"),
-             prev=prev, next=next_,
-             ai_question=f"Làm sao để luyện {name.lower()} tiếng Anh hiệu quả?",
-             lead=desc, do_now=do_now_skill),
-        active="/ky-nang/", eyebrow="Theo kỹ năng", desc=desc, noindex=True)
+        guide_sections(SKILL_BODIES[slug]) + _guide_nav(
+            prev, next_, ("Tất cả kỹ năng", "/ky-nang/"),
+            f"Làm sao để luyện {name.lower()} tiếng Anh hiệu quả?"),
+        active="/ky-nang/", eyebrow="Theo kỹ năng", desc=desc)
 
 # ---------------- Luyện thi ----------------
 # Hướng dẫn sử dụng sách đã có sẵn cho IELTS và TOEIC — gắn vào trang luyện thi.
@@ -658,77 +1344,443 @@ TESTS = [
 ]
 add("/luyen-thi/index.html", "Luyện thi", "Luyện thi tiếng Anh",
     """
-<p class="lead">Chuẩn bị cho kỳ thi của bạn: sẽ có đề thi thử, mẹo làm bài từng phần kèm giải thích bằng tiếng Việt.</p>
-<p class="muted">Đề thi thử trên trang là đề tự biên soạn để luyện tập — điểm chỉ là ước lượng, không phải điểm thi thật.</p>
+<p class="lead">Chuẩn bị cho kỳ thi của bạn: hướng dẫn từng phần thi, bài tập tự biên soạn để luyện tập và mẹo làm bài, kèm giải thích bằng tiếng Việt.</p>
+<p class="muted">Bài tập trên trang là câu hỏi tự biên soạn để luyện tập — điểm chỉ là ước lượng, không phải điểm thi thật.</p>
 <section class="section">
 <div class="cards">
 """ + "".join(
-        f'<article class="card card-exam">{card_icon("exam")}<h2><a href="/luyen-thi/{slug}.html">{name}</a></h2><p><span class="badge badge-soon">Sắp có</span></p><p>{desc}</p></article>'
+        f'<article class="card card-exam">{card_icon("exam")}<h2><a href="/luyen-thi/{slug}.html">{name}</a></h2><p>{desc}</p></article>'
         for slug, name, desc in TESTS
     ) + """
 </div>
 </section>
 <p>Đã có hướng dẫn học với sách cho hai kỳ thi: <a href="/sach/barrons-toeic.html">học TOEIC với sách Barron's</a> · <a href="/sach/mindset-for-ielts.html">học IELTS với sách Mindset for IELTS</a>.</p>
-""", active="/luyen-thi/", eyebrow="Luyện thi", desc="Luyện thi IELTS, TOEIC, PTE, TOEFL và VSTEP: đề thi thử tự biên soạn, mẹo làm bài từng phần, giải thích bằng tiếng Việt.")
+""", active="/luyen-thi/", eyebrow="Luyện thi", desc="Luyện thi IELTS, TOEIC, PTE, TOEFL và VSTEP: bài tập tự biên soạn, mẹo làm bài từng phần, giải thích bằng tiếng Việt.")
+
+TEST_BODIES = {
+"ielts": """
+<p class="lead">IELTS là kỳ thi tiếng Anh phổ biến nhất cho du học và định cư. Bài thi có 4 kỹ năng — Nghe, Đọc, Viết, Nói — thang điểm từ 1 đến 9, không có "đậu" hay "rớt": mỗi trường hoặc cơ quan yêu cầu một mức điểm khác nhau. Trang này dạy bạn cấu trúc bài thi, chiến thuật từng phần và bài tập tự biên soạn để luyện tập.</p>
+""" + AI_NOTE + """
+<h2>Cấu trúc bài thi (đã đối chiếu ielts.org)</h2>
+<p>IELTS có 2 dạng: <strong>Academic</strong> (cho người đi học đại học, sau đại học hoặc đăng ký hành nghề chuyên môn) và <strong>General Training</strong> (cho người định cư hoặc học nghề). Nghe và Nói giống nhau ở cả 2 dạng; Đọc và Viết thì khác nhau. Ba phần Nghe, Đọc, Viết thi liên tục trong một buổi, không nghỉ giữa các phần; phần Nói có thể thi cùng ngày hoặc khác ngày, tùy trung tâm.</p>
+<div class="table-wrap"><table><thead><tr><th>Phần thi</th><th>Thời gian</th><th>Nội dung</th><th>Cách chấm</th></tr></thead><tbody>
+<tr><td>Listening</td><td>Khoảng 30 phút</td><td>40 câu hỏi, 4 phần; mỗi đoạn ghi âm chỉ nghe 1 lần</td><td>Mỗi câu đúng 1 điểm; điểm thô /40 quy ra band 1–9</td></tr>
+<tr><td>Reading</td><td>60 phút</td><td>40 câu hỏi, 3 bài đọc (Academic: 3 đoạn văn; General: nhiều đoạn ngắn hơn)</td><td>Mỗi câu đúng 1 điểm; điểm thô /40 quy ra band 1–9 (bảng quy đổi khác nhau giữa 2 dạng)</td></tr>
+<tr><td>Writing</td><td>60 phút</td><td>2 bài: Task 1 tối thiểu 150 từ (Academic: mô tả biểu đồ; General: viết thư), Task 2 tối thiểu 250 từ (bài luận)</td><td>4 tiêu chí mỗi bài; Task 2 chiếm gấp đôi điểm so với Task 1</td></tr>
+<tr><td>Speaking</td><td>11–14 phút</td><td>3 phần, phỏng vấn trực tiếp với giám khảo, có ghi âm</td><td>4 tiêu chí: trôi chảy, từ vựng, ngữ pháp, phát âm</td></tr>
+</tbody></table></div>
+<p>Tổng thời gian thi khoảng 2 giờ 45 phút. Điểm tổng (Overall Band) là trung bình cộng của 4 kỹ năng, làm tròn tới nửa band gần nhất. <strong>Chưa kiểm chứng được:</strong> lệ phí thi và lịch thi cụ thể tại Việt Nam thay đổi theo thời điểm và trung tâm — hãy xem trên trang của trung tâm tổ chức thi (British Council hoặc IDP) trước khi đăng ký. Trang này không ghi lệ phí hay ngày thi cụ thể vì các thông tin đó thay đổi thường xuyên.</p>
+<h2>Chiến thuật từng phần</h2>
+<p><strong>Listening — nghe 1 lần duy nhất.</strong> Đây là điểm khó nhất: không có lần nghe thứ hai. Trước mỗi phần, dùng thời gian chuẩn bị để đọc câu hỏi và gạch chân từ khóa (tên, số, từ mang thông tin). Khi nghe, viết đáp án ngay khi nghe thấy — đừng đợi nghe hết rồi mới viết. Chú ý bẫy: người nói thường nhắc tới đáp án sai trước rồi mới sửa lại (<em>"The meeting is on Tuesday… no, sorry, Wednesday"</em> — đáp án là Wednesday). Thi trên giấy có 10 phút chuyển đáp án sang phiếu trả lời; thi trên máy tính thì gõ đáp án trực tiếp. Luyện tập: xem <a href="/ky-nang/nghe.html">hướng dẫn luyện nghe</a>.</p>
+<p><strong>Reading — 60 phút cho 40 câu, không có thời gian chuyển đáp án.</strong> Đừng đọc toàn bài từ đầu tới cuối rồi mới làm câu hỏi — làm vậy sẽ hết giờ. Đọc câu hỏi trước, gạch chân từ khóa, rồi quét (scan) bài để tìm vị trí thông tin. Dạng True/False/Not Given là dạng gây mất điểm nhiều nhất: <em>False</em> nghĩa là bài viết nói điều ngược lại; <em>Not Given</em> nghĩa là bài viết không nhắc tới — nếu bạn không tìm thấy thông tin, đáp án thường là Not Given, đừng đoán thành False. Dạng Matching Headings: đọc câu đầu và câu cuối mỗi đoạn để nắm ý chính của đoạn, đừng đọc kỹ từng câu. Luyện tập: xem <a href="/ky-nang/doc.html">hướng dẫn luyện đọc</a>.</p>
+<p><strong>Writing Task 1 (Academic) — mô tả biểu đồ trong 20 phút, tối thiểu 150 từ.</strong> Cấu trúc: mở bài (diễn đạt lại đề bằng lời của mình) → tổng quan (nêu 2–3 xu hướng chính, không có số liệu) → thân bài (mô tả số liệu theo nhóm, có so sánh). Lỗi phổ biến: liệt kê số liệu mà không có tổng quan, hoặc viết ý kiến cá nhân vào Task 1 (không được phép — Task 1 chỉ mô tả, không bình luận). Task 1 General Training là viết thư: chú ý giọng văn (trang trọng hay thân mật) tùy người nhận.</p>
+<p><strong>Writing Task 2 — bài luận 250 từ trong 40 phút, chiếm gấp đôi điểm.</strong> Dàn bài chuẩn: mở bài (diễn đạt lại vấn đề + nêu quan điểm) → thân bài 2 đoạn (mỗi đoạn 1 luận điểm + giải thích/ví dụ) → kết bài (tóm tắt quan điểm). Luôn trả lời đúng câu hỏi: đề hỏi "do you agree?" thì phải nêu rõ đồng ý hay không; đề hỏi "discuss both views" thì phải trình bày cả hai phía rồi mới nêu quan điểm của mình. Luyện tập: xem <a href="/ky-nang/viet.html">hướng dẫn luyện viết</a> và dùng <a href="/cong-cu/viet.html">công cụ chữa bài viết bằng AI</a>.</p>
+<p><strong>Speaking — 3 phần, 11–14 phút.</strong> Part 1 (4–5 phút): hỏi đáp về bản thân, gia đình, công việc, sở thích — trả lời 2–3 câu mỗi câu hỏi, đừng trả lời 1 từ. Part 2 (3–4 phút): nhận một chủ đề, chuẩn bị 1 phút, nói liên tục 1–2 phút — dùng 1 phút chuẩn bị để viết dàn ý (mở đầu, 2–3 ý, kết), đừng viết câu đầy đủ. Part 3 (4–5 phút): thảo luận sâu về chủ đề của Part 2 — đây là phần phân biệt band 6 và band 7: bạn cần đưa ra ý kiến trừu tượng, so sánh, dự đoán. Luyện tập: xem <a href="/ky-nang/noi.html">hướng dẫn luyện nói</a> và chơi <a href="/tro-choi/speaking-booth.html">Speaking Booth</a>.</p>
+<h2>Bài tập tự biên soạn (không phải đề thi thật)</h2>
+<p><strong>Listening — dạng điền từ.</strong> Đọc đoạn hội thoại tự biên soạn dưới đây như một transcript, rồi điền từ còn thiếu (tưởng tượng bạn vừa nghe đoạn này một lần):</p>
+<p><em>Receptionist: Good morning. How can I help you?<br>
+Student: I'd like to book a room for two nights, please. From the 15th to the 17th of June.<br>
+Receptionist: Certainly. A single room or a double room?<br>
+Student: A double room, please. How much is it per night?<br>
+Receptionist: It's 850,000 dong per night, including breakfast.<br>
+Student: That's fine. Can I pay by card?<br>
+Receptionist: Yes, of course.</em></p>
+<p>Câu hỏi: (1) Khách đặt phòng mấy đêm? (2) Từ ngày nào tới ngày nào? (3) Giá phòng bao nhiêu một đêm, đã bao gồm gì? — Đáp án: (1) 2 đêm. (2) Từ 15 tới 17 tháng 6. (3) 850.000 đồng/đêm, đã bao gồm bữa sáng.</p>
+<p><strong>Reading — dạng True/False/Not Given.</strong> Đọc đoạn văn tự biên soạn dưới đây:</p>
+<p><em>Most people check their phones many times a day. A recent study found that the average person looks at their phone more than 90 times a day. However, the study did not say whether this habit is harmful. Some experts believe that frequent phone use can reduce concentration, while others argue that phones are useful tools for learning and communication.</em></p>
+<p>Câu hỏi: (1) The average person checks their phone more than 90 times a day. (True / False / Not Given) (2) The study proved that checking phones is harmful. (True / False / Not Given) (3) All experts agree that phones reduce concentration. (True / False / Not Given) — Đáp án: (1) True — đoạn văn nói rõ con số này. (2) False — đoạn văn nói nghiên cứu <em>không</em> kết luận thói quen này có hại hay không. (3) False — đoạn văn nói <em>một số</em> chuyên gia tin vậy, trong khi số khác không đồng ý.</p>
+<p><strong>Writing Task 2 — đề tự biên soạn.</strong> <em>"Some people think that children should learn a foreign language at primary school. Others think it is better to start later. Discuss both views and give your opinion."</em> — Hãy viết dàn bài (không cần viết cả bài): mở bài nêu quan điểm của bạn; đoạn 1: lý do nên học sớm (trẻ học phát âm dễ hơn, có nhiều thời gian hơn); đoạn 2: lý do nên học muộn (trẻ cần vững tiếng mẹ đẻ trước, học muộn vẫn đạt được nếu có động lực); kết bài: tóm tắt và khẳng định quan điểm của bạn. Sau đó viết bài 250 từ và nhờ <a href="/cong-cu/viet.html">công cụ chữa bài viết bằng AI</a> góp ý.</p>
+<p><strong>Speaking Part 1 — câu hỏi tự biên soạn.</strong> <em>"Do you like reading books?"</em> — Câu trả lời yếu: <em>"Yes."</em> Câu trả lời tốt: <em>"Yes, I do. I usually read before bed — mostly novels, because they help me relax after a long day. At the moment I'm reading a book about Vietnamese history, and I'm really enjoying it."</em> — Trả lời 2–3 câu, có lý do và ví dụ cụ thể.</p>
+<h2>Lỗi thường gặp</h2>
+<ul>
+<li><strong>Listening: nghe thấy từ trong câu hỏi thì chọn ngay.</strong> Bài nghe cố tình nhắc tới từ khóa của đáp án sai trước. Nghe cả câu, hiểu nghĩa rồi mới chọn.</li>
+<li><strong>Reading: đoán Not Given thành False.</strong> Không tìm thấy thông tin ≠ thông tin sai. Chỉ chọn False khi bài viết nói điều ngược lại rõ ràng.</li>
+<li><strong>Writing Task 1: không có phần tổng quan (overview).</strong> Thiếu overview là lỗi trừ điểm nặng nhất ở Task 1. Luôn viết 2–3 câu tổng quan ngay sau mở bài, trước khi mô tả số liệu.</li>
+<li><strong>Writing Task 2: viết dưới 250 từ.</strong> Bài dưới số từ tối thiểu bị trừ điểm dù viết hay. Đếm từ khi luyện tập; khi thi thật, hãy viết khoảng 270–290 từ để chắc chắn đủ.</li>
+<li><strong>Writing: dùng từ nối một cách máy móc.</strong> Nhồi <em>moreover, furthermore, nevertheless</em> vào mọi đoạn khiến bài nghe giả tạo — xem lỗi này ở <a href="/trinh-do/c1.html">trình độ C1</a>.</li>
+<li><strong>Speaking Part 2: nói chưa tới 1 phút rồi dừng.</strong> Nói dưới 1 phút bị trừ điểm nặng. Luyện nói đủ 2 phút bằng kỹ thuật 4-3-2 ở <a href="/ky-nang/noi.html">hướng dẫn luyện nói</a>.</li>
+<li><strong>Speaking: học thuộc câu trả lời mẫu.</strong> Giám khảo nhận ra ngay câu học thuộc và có thể trừ điểm. Học dàn ý và cụm từ, không học thuộc lòng cả bài.</li>
+</ul>
+<h2>Kế hoạch ôn 8 tuần (mục tiêu band 6.0–6.5)</h2>
+<ul>
+<li><strong>Tuần 1–2:</strong> Làm quen format: đọc kỹ trang này, làm 1 đề Listening + 1 đề Reading (đề tự biên soạn hoặc sách luyện thi), chấm và ghi lại dạng câu hay sai.</li>
+<li><strong>Tuần 3–4:</strong> Tập trung vào điểm yếu nhất (thường là Writing hoặc Speaking). Viết 3 bài Task 2/tuần; luyện nói Part 2 mỗi ngày 10 phút.</li>
+<li><strong>Tuần 5–6:</strong> Luyện đề có bấm giờ: Listening + Reading trong 90 phút liên tục như thi thật. Chữa kỹ từng câu sai — hiểu vì sao sai quan trọng hơn làm nhiều đề.</li>
+<li><strong>Tuần 7–8:</strong> Làm 2 đề thi thử đầy đủ (4 kỹ năng) trong điều kiện thi thật. Tuần cuối: ôn lại lỗi cũ, nghỉ ngơi trước ngày thi 1 ngày.</li>
+</ul>
+<p>Muốn chơi mà vẫn ôn IELTS? Chơi <a href="/tro-choi/band-climb.html">Band Climb — luyện IELTS qua trò chơi</a>. Học theo sách? Xem <a href="/sach/mindset-for-ielts.html">hướng dẫn học với sách Mindset for IELTS</a> (từ Foundation tới Level 3, band 7.5). Cần band 6.5 để du học? Xem <a href="/du-hoc.html">chuẩn bị tiếng Anh đi du học</a>. Chưa rõ mình ở band nào? Hãy <a href="/bai-xep-lop.html">làm bài xếp lớp</a> hoặc xem <a href="/trinh-do/b2.html">trình độ B2</a> và <a href="/trinh-do/c1.html">trình độ C1</a>.</p>
+""",
+"toeic": """
+<p class="lead">TOEIC là kỳ thi tiếng Anh công việc phổ biến nhất tại Việt Nam — nhiều công ty dùng điểm TOEIC để tuyển dụng và xét thăng chức. Bài thi Listening & Reading có 200 câu trắc nghiệm, làm trong 2 giờ, thang điểm 10–990. Trang này dạy bạn cấu trúc 7 phần thi, chiến thuật từng phần và bài tập tự biên soạn để luyện tập.</p>
+""" + AI_NOTE + """
+<h2>Cấu trúc bài thi (đã đối chiếu ETS)</h2>
+<p>Bài thi TOEIC Listening & Reading gồm 2 phần, 7 nhỏ (Part 1–7), tổng cộng 200 câu trắc nghiệm, làm trong khoảng 2 giờ. Listening 100 câu (khoảng 45 phút), Reading 100 câu (75 phút). Mỗi kỹ năng chấm riêng từ 5 tới 495 điểm; tổng điểm từ 10 tới 990. Không có điểm trừ cho câu sai — vì vậy không bao giờ bỏ trống câu nào. Ngoài ra còn có bài thi TOEIC Speaking & Writing riêng (thi trên máy tính) — trang này tập trung vào bài Listening & Reading, vì đó là bài thi phổ biến nhất tại Việt Nam.</p>
+<div class="table-wrap"><table><thead><tr><th>Phần</th><th>Nội dung</th><th>Số câu</th><th>Thời gian</th></tr></thead><tbody>
+<tr><td>Listening Part 1</td><td>Mô tả hình ảnh: chọn câu mô tả đúng nhất bức ảnh</td><td>6</td><td rowspan="4">Khoảng 45 phút</td></tr>
+<tr><td>Listening Part 2</td><td>Hỏi – đáp: chọn câu trả lời phù hợp nhất cho câu hỏi hoặc câu nói</td><td>25</td></tr>
+<tr><td>Listening Part 3</td><td>Hội thoại: 13 đoạn hội thoại, mỗi đoạn 3 câu hỏi</td><td>39</td></tr>
+<tr><td>Listening Part 4</td><td>Bài nói ngắn: 10 bài nói, mỗi bài 3 câu hỏi</td><td>30</td></tr>
+<tr><td>Reading Part 5</td><td>Điền câu chưa hoàn chỉnh: ngữ pháp và từ vựng</td><td>30</td><td rowspan="3">75 phút</td></tr>
+<tr><td>Reading Part 6</td><td>Điền từ vào đoạn văn: email, thông báo, bài báo ngắn</td><td>16</td></tr>
+<tr><td>Reading Part 7</td><td>Đọc hiểu: đoạn văn đơn và đoạn văn đôi, trả lời câu hỏi</td><td>54</td></tr>
+</tbody></table></div>
+<p>Điểm TOEIC không quy đổi cố định từ số câu đúng sang điểm — ETS dùng phương pháp quy đổi thống kê riêng cho từng đề thi, nên cùng số câu đúng có thể cho điểm hơi khác nhau giữa các lần thi. Vì vậy đừng tin các "bảng quy đổi" lan truyền trên mạng là chính xác tuyệt đối; hãy dùng chúng làm ước lượng. <strong>Chưa kiểm chứng được:</strong> lệ phí thi và lịch thi tại Việt Nam thay đổi theo thời điểm — hãy xem trên trang của IIG Vietnam (đơn vị tổ chức thi TOEIC tại Việt Nam) trước khi đăng ký.</p>
+<h2>Chiến thuật từng phần</h2>
+<p><strong>Part 1 — Mô tả hình ảnh (6 câu).</strong> Nghe 4 câu mô tả, chọn câu đúng nhất về bức ảnh. Chiến thuật: nhìn ảnh trước khi nghe (5 giây), tự mô tả ảnh bằng tiếng Anh trong đầu (ai đang làm gì? ở đâu?). Bẫy phổ biến: câu dùng đúng từ vựng trong ảnh nhưng sai hành động (<em>a man is reading a book</em> trong khi ảnh là người đàn ông đang viết). Chú ý thì: ảnh mô tả hành động đang diễn ra nên đáp án đúng thường ở thì hiện tại tiếp diễn.</p>
+<p><strong>Part 2 — Hỏi đáp (25 câu).</strong> Nghe một câu hỏi hoặc câu nói, chọn câu trả lời phù hợp trong 3 lựa chọn. Đây là phần "bẫy" nhiều nhất: đáp án sai thường lặp lại từ trong câu hỏi (nghe thấy từ quen thì chọn ngay là sai). Chiến thuật: nghe từ hỏi đầu câu (Who/When/Where/Why/How) để biết loại thông tin cần tìm. Câu hỏi Yes/No không nhất thiết trả lời Yes/No — <em>"Did you finish the report?" — "I'll send it to you this afternoon."</em> là câu trả lời đúng (hàm ý: chưa xong, chiều sẽ gửi).</p>
+<p><strong>Part 3 — Hội thoại (39 câu).</strong> Mỗi đoạn hội thoại 3 câu hỏi. Chiến thuật: đọc trước 3 câu hỏi trong lúc nghe hướng dẫn, gạch chân từ khóa. Nghe và ghi nhanh đáp án; đừng dừng lại suy nghĩ một câu quá lâu — sẽ lỡ câu tiếp theo. Câu hỏi thường theo thứ tự nội dung hội thoại, nên đáp án câu 1 thường ở đầu đoạn, câu 3 ở cuối đoạn.</p>
+<p><strong>Part 4 — Bài nói ngắn (30 câu).</strong> Thông báo, tin nhắn thoại, bài giới thiệu. Chiến thuật giống Part 3, nhưng bài nói chỉ có 1 người nên phải tập trung hơn. Chú ý các câu hỏi dạng "người nói sẽ làm gì tiếp theo?" — đáp án thường ở cuối bài nói.</p>
+<p><strong>Part 5 — Điền câu (30 câu, khoảng 30 giây/câu).</strong> Đây là phần ngữ pháp + từ vựng. Chiến thuật: đọc câu, xác định loại từ cần điền (danh từ, động từ, tính từ hay trạng từ) trước khi nhìn đáp án. Câu về từ vựng: học collocation công việc (<em>make a decision, take responsibility, meet a deadline</em>). Đừng dành quá 30 giây cho 1 câu — câu khó thì đánh dấu, làm câu dễ trước, quay lại sau nếu còn giờ.</p>
+<p><strong>Part 6 — Điền từ vào đoạn văn (16 câu).</strong> 4 đoạn văn, mỗi đoạn 4 chỗ trống. Có 1 câu mỗi đoạn là chọn câu hoàn chỉnh để điền vào (dạng mới) — cần đọc cả đoạn để hiểu mạch văn, không chỉ nhìn câu trống.</p>
+<p><strong>Part 7 — Đọc hiểu (54 câu).</strong> Phần dài nhất và dễ hết giờ nhất. Chiến thuật: làm đoạn văn đơn trước, đoạn văn đôi sau (vì đoạn đôi dài hơn). Đọc câu hỏi trước, quét bài tìm thông tin. Câu hỏi "từ X trong bài có nghĩa gần nhất với…" — đừng đoán nghĩa từ điển, hãy xem ngữ cảnh trong câu. Quản lý thời gian: Part 5–6 nên xong trong 25 phút, để lại 50 phút cho Part 7.</p>
+<h2>Bài tập tự biên soạn (không phải đề thi thật)</h2>
+<p><strong>Part 2 — Hỏi đáp.</strong> Chọn câu trả lời phù hợp nhất:</p>
+<p>Câu hỏi: <em>"When will the new office open?"</em> (a) <em>Yes, it will.</em> (b) <em>Next Monday, I think.</em> (c) <em>It's on the second floor.</em> — Đáp án: <strong>(b)</strong>. Câu hỏi When cần câu trả lời về thời gian. (a) trả lời Yes/No cho câu hỏi When là sai; (c) trả lời về địa điểm, không phải thời gian.</p>
+<p>Câu hỏi: <em>"Would you like me to send you the report?"</em> (a) <em>Yes, please. That would be great.</em> (b) <em>The report is on my desk.</em> (c) <em>I sent it yesterday.</em> — Đáp án: <strong>(a)</strong>. Đây là lời đề nghị giúp đỡ — câu trả lời đúng là chấp nhận hoặc từ chối một cách lịch sự.</p>
+<p><strong>Part 5 — Điền câu.</strong> Chọn từ phù hợp:</p>
+<p>Câu 1: <em>"The company will announce the results ___ Friday."</em> (a) in (b) on (c) at — Đáp án: <strong>(b) on</strong>. <em>On + ngày/thứ</em> (on Friday, on 15 June); <em>in + tháng/năm</em> (in June, in 2026); <em>at + giờ</em> (at 9 a.m.).</p>
+<p>Câu 2: <em>"Please send the invoice to the accounting ___ as soon as possible."</em> (a) department (b) departmental (c) depart — Đáp án: <strong>(a) department</strong> (danh từ). Sau <em>the</em> + tính từ sở hữu cần danh từ; <em>departmental</em> là tính từ, <em>depart</em> là động từ.</p>
+<p><strong>Part 7 — Đọc hiểu.</strong> Đọc email tự biên soạn dưới đây:</p>
+<p><em>From: Hoa Nguyen (HR Department)<br>
+To: All staff<br>
+Subject: New working hours from next month<br>
+Dear colleagues,<br>
+From 1 December, our office hours will change. The office will now open at 8:30 a.m. and close at 5:30 p.m., from Monday to Friday. The lunch break will be from 12:00 to 1:00 p.m. Please note that the office will be closed on Saturday, as before. If you have any questions, please contact the HR Department.</em></p>
+<p>Câu hỏi: (1) Giờ làm việc mới bắt đầu lúc mấy giờ? (2) Văn phòng có mở cửa thứ Bảy không? (3) Ai gửi email này? — Đáp án: (1) 8:30 sáng. (2) Không — văn phòng đóng cửa thứ Bảy như trước. (3) Hoa Nguyễn, phòng Nhân sự (HR Department).</p>
+<h2>Lỗi thường gặp</h2>
+<ul>
+<li><strong>Part 1: chọn câu có từ vựng đúng nhưng hành động sai.</strong> Thấy ảnh có "book" thì chọn câu có từ <em>book</em> — nhưng người trong ảnh đang viết, không phải đang đọc. Nghe hành động, không nghe từ lẻ.</li>
+<li><strong>Part 2: bị bẫy "từ lặp lại".</strong> Câu hỏi nhắc tới <em>meeting</em>, đáp án sai cũng nhắc tới <em>meeting</em> nhưng trả lời lạc đề. Nghe nghĩa, không nghe từ.</li>
+<li><strong>Part 5: không xác định loại từ trước khi chọn.</strong> Nhìn 4 đáp án giống nhau về gốc từ (<em>department / departmental / depart / departure</em>) mà không xem vị trí cần điền là danh từ hay tính từ. Xác định loại từ trước, loại được 2 đáp án ngay.</li>
+<li><strong>Part 7: đọc hết bài mới đọc câu hỏi.</strong> Mất thời gian và quên chi tiết. Đọc câu hỏi trước, quét tìm thông tin sau — xem kỹ thuật ở <a href="/ky-nang/doc.html">hướng dẫn luyện đọc</a>.</li>
+<li><strong>Hết giờ ở Part 7.</strong> Dành quá nhiều thời gian cho Part 5–6 (câu khó) nên không còn giờ làm Part 7 (54 câu — hơn một phần tư bài thi). Quản lý thời gian: Part 5 tối đa 12 phút, Part 6 tối đa 10 phút.</li>
+<li><strong>Bỏ trống câu không biết.</strong> TOEIC không trừ điểm câu sai — câu nào không biết thì đoán và chuyển sang câu tiếp theo, không bao giờ để trống.</li>
+<li><strong>Dịch "tôi 20 tuổi" trong Part 2 thành câu trả lời sai:</strong> câu hỏi <em>"How old are you?"</em> — đáp án đúng dạng <em>"I'm twenty."</em> Lỗi này nhỏ nhưng xuất hiện trong cả Listening và Speaking.</li>
+</ul>
+<h2>Kế hoạch ôn 8 tuần (mục tiêu 600–750)</h2>
+<ul>
+<li><strong>Tuần 1–2:</strong> Làm quen format: làm 1 đề Listening + 1 đề Reading (đề tự biên soạn hoặc sách luyện thi), chấm và ghi lại phần hay sai nhất. Học 30 từ vựng công việc mỗi tuần theo chủ đề (email, họp, hợp đồng, du lịch công tác).</li>
+<li><strong>Tuần 3–4:</strong> Tập trung vào điểm yếu: Listening yếu thì luyện nghe Part 2–3 mỗi ngày 30 phút (xem <a href="/ky-nang/nghe.html">hướng dẫn luyện nghe</a>); Reading yếu thì luyện Part 5 (ngữ pháp) và Part 7 (đọc hiểu).</li>
+<li><strong>Tuần 5–6:</strong> Luyện đề có bấm giờ: Listening 45 phút + Reading 75 phút liên tục. Chữa kỹ từng câu sai — hiểu vì sao sai quan trọng hơn làm nhiều đề.</li>
+<li><strong>Tuần 7–8:</strong> Làm 2 đề thi thử đầy đủ trong điều kiện thi thật. Tuần cuối: ôn lại từ vựng và lỗi cũ, nghỉ ngơi trước ngày thi 1 ngày.</li>
+</ul>
+<p>Muốn luyện TOEIC qua trò chơi? Chơi <a href="/tro-choi/toeic-arcade.html">TOEIC Arcade — luyện TOEIC qua trò chơi</a>. Học theo sách? Xem <a href="/sach/barrons-toeic.html">hướng dẫn học với sách Barron's TOEIC</a> (kế hoạch 8 tuần). Cần TOEIC để xin việc? Xem <a href="/cong-viec.html">tiếng Anh công việc</a> và <a href="/trinh-do/b1.html">trình độ B1</a> (mức nền tảng cho mục tiêu 600) hoặc <a href="/trinh-do/b2.html">trình độ B2</a> (mức nền tảng cho mục tiêu 750+).</p>
+""",
+
+"pte": """
+<p class="lead">PTE Academic là kỳ thi tiếng Anh trên máy tính, chấm bằng AI — bạn nói vào micro, gõ bài viết trên máy, kết quả thường có trong khoảng 2 ngày. Bài thi có 3 phần, thang điểm 10–90, dùng cho du học và định cư (đặc biệt phổ biến cho Úc). Trang này dạy bạn cấu trúc bài thi, chiến thuật từng dạng câu hỏi và bài tập tự biên soạn để luyện tập.</p>
+""" + AI_NOTE + """
+<h2>Cấu trúc bài thi (đã đối chiếu pearsonpte.com)</h2>
+<p>PTE Academic thi hoàn toàn trên máy tính tại trung tâm thi được ủy quyền, trong một buổi khoảng 2 giờ. Bài thi có 3 phần với tổng cộng 22 dạng câu hỏi. Điểm tổng và điểm từng kỹ năng (Nghe, Nói, Đọc, Viết) đều theo thang 10–90. Một điểm đặc biệt: một số dạng câu hỏi được chấm cho cả 2 kỹ năng cùng lúc (ví dụ: Read Aloud chấm cả Nói và Đọc; Write From Dictation chấm cả Nghe và Viết), nên chiến thuật luyện tập khác với IELTS hay TOEFL.</p>
+<div class="table-wrap"><table><thead><tr><th>Phần thi</th><th>Thời gian</th><th>Dạng câu hỏi chính</th></tr></thead><tbody>
+<tr><td>Phần 1: Nói &amp; Viết</td><td>76–84 phút</td><td>Giới thiệu bản thân (không chấm điểm), Read Aloud (đọc to), Repeat Sentence (nghe và nhắc lại câu), Describe Image (mô tả hình ảnh), Retell Lecture (nghe bài giảng và kể lại), Answer Short Question (trả lời câu hỏi ngắn), Summarize Written Text (tóm tắt đoạn văn), Write Essay (viết luận), cùng 2 dạng mới từ tháng 8/2025: Summarize Group Discussion và Respond to a Situation</td></tr>
+<tr><td>Phần 2: Đọc</td><td>22–30 phút</td><td>Điền từ vào chỗ trống (chọn từ cho sẵn và kéo-thả), trắc nghiệm nhiều đáp án và một đáp án, sắp xếp lại đoạn văn (Reorder Paragraphs)</td></tr>
+<tr><td>Phần 3: Nghe</td><td>31–39 phút</td><td>Tóm tắt bài nói, trắc nghiệm, điền từ vào chỗ trống khi nghe, chọn tóm tắt đúng, chọn từ còn thiếu, tô sáng từ sai, Write From Dictation (nghe và viết lại câu)</td></tr>
+</tbody></table></div>
+<p>Lưu ý: Pearson đã cập nhật định dạng bài thi (rút ngắn thời gian và thêm 2 dạng câu hỏi nói mới từ tháng 8/2025). Các nguồn cũ hơn có thể vẫn ghi bài thi dài khoảng 3 giờ với 7 dạng câu hỏi nói — đó là định dạng cũ. <strong>Chưa kiểm chứng được:</strong> lệ phí thi và lịch thi cụ thể tại Việt Nam thay đổi theo thời điểm — hãy xem trên trang pearsonpte.com trước khi đăng ký. Trang này không ghi lệ phí hay ngày thi cụ thể.</p>
+<h2>Chiến thuật từng dạng câu hỏi quan trọng</h2>
+<p><strong>Read Aloud — đọc to đoạn văn (chấm cả Nói và Đọc).</strong> Bạn có vài giây chuẩn bị trước khi micro mở. Dùng thời gian đó đọc lướt đoạn văn, chú ý từ khó và dấu câu. Khi đọc, nói rõ ràng, tốc độ tự nhiên, ngắt nghỉ ở dấu phẩy và dấu chấm. Đừng đọc quá nhanh để "cho xong" — máy chấm cả độ trôi chảy và phát âm, đọc nhanh mà vấp thì mất điểm cả hai.</p>
+<p><strong>Repeat Sentence — nghe 1 câu và nhắc lại (chấm cả Nói và Nghe).</strong> Đây là dạng câu "ăn điểm" lớn nhất của PTE vì xuất hiện nhiều lần. Chiến thuật: nghe và hiểu ý chính của câu, đừng cố nhớ từng từ. Nhắc lại ngay khi micro mở, giữ đúng 50–70% từ quan trọng của câu gốc theo đúng thứ tự. Nếu quên một từ, bỏ qua và nói tiếp — dừng lại im lặng trừ điểm nhiều hơn nói thiếu 1 từ. Luyện tập: nghe một câu tiếng Anh, nhắc lại ngay không nhìn chữ — xem kỹ thuật shadowing ở <a href="/ky-nang/noi.html">hướng dẫn luyện nói</a>.</p>
+<p><strong>Describe Image — mô tả hình ảnh trong 40 giây.</strong> Đừng cố mô tả mọi chi tiết. Dùng khung cố định: mở đầu (<em>The image shows…</em>) → xu hướng chính / điểm cao nhất / điểm thấp nhất → kết luận (<em>In conclusion…</em>). Nói liên tục, không im lặng quá 3 giây — im lặng lâu máy sẽ tự ngắt ghi âm.</p>
+<p><strong>Write From Dictation — nghe 1 câu và gõ lại (chấm cả Nghe và Viết, xuất hiện nhiều lần).</strong> Đây là dạng câu quan trọng bậc nhất: mỗi câu đúng từng từ được điểm cao. Chiến thuật: nghe lần đầu và gõ ngay những từ đầu tiên bạn nghe được, sau đó điền nốt phần còn lại từ trí nhớ. Kiểm tra chính tả và dấu câu trước khi sang câu tiếp theo. Luyện tập: nghe chép chính tả mỗi ngày 10 câu — xem <a href="/ky-nang/nghe.html">hướng dẫn luyện nghe</a>.</p>
+<p><strong>Reading — Fill in the Blanks (kéo-thả).</strong> Đọc cả câu, xác định loại từ cần điền (danh từ, động từ, tính từ) và nghĩa phù hợp trước khi kéo từ vào. Collocation là chìa khóa: <em>make a decision, play a role, draw attention</em> — học cụm từ giúp bạn chọn đúng ngay cả khi không biết hết nghĩa của từ.</p>
+<p><strong>Reorder Paragraphs — sắp xếp lại đoạn văn.</strong> Tìm câu mở đầu (thường là câu giới thiệu chủ đề chung, không có từ nối như <em>however, therefore</em> hay đại từ <em>this, they</em> chỉ về trước). Sau đó nối các câu bằng từ nối và đại từ thay thế: câu nào có <em>this problem</em> thì phải đứng sau câu nêu ra "problem" đó.</p>
+<p><strong>Write Essay — viết luận 200–300 từ trong 20 phút.</strong> Dùng khung cố định 4 đoạn: mở bài (nêu vấn đề + quan điểm) → 2 đoạn thân bài (mỗi đoạn 1 luận điểm + ví dụ) → kết bài. Máy chấm cả ngữ pháp, chính tả, từ vựng và cấu trúc — vì vậy viết đúng và rõ ràng quan trọng hơn viết "hay". Luyện tập: xem <a href="/ky-nang/viet.html">hướng dẫn luyện viết</a>.</p>
+<h2>Bài tập tự biên soạn (không phải đề thi thật)</h2>
+<p><strong>Repeat Sentence — luyện tập.</strong> Đọc to câu sau đây một lần, che đi, rồi nhắc lại từ trí nhớ (tự biên soạn, không phải câu thi thật): <em>"The library will be closed on Monday for maintenance work."</em> — Kiểm tra: bạn nhớ được bao nhiêu từ theo đúng thứ tự? Mục tiêu: nhớ ít nhất 8/10 từ. Luyện mỗi ngày 10 câu như vậy, tăng dần độ dài câu.</p>
+<p><strong>Describe Image — luyện tập.</strong> Tưởng tượng một biểu đồ cột cho thấy số lượng sinh viên quốc tế tại một trường đại học tăng từ 500 (năm 2020) lên 1.200 (năm 2024). Hãy nói trong 40 giây theo khung: <em>"The image shows… The most noticeable trend is… In 2020, the number was… By 2024, it had risen to… In conclusion…"</em> — Ghi âm lại và nghe: bạn có nói liên tục không? Có ngập ngừng quá 3 giây không?</p>
+<p><strong>Reading — Fill in the Blanks (kéo-thả).</strong> Điền từ phù hợp vào chỗ trống (chọn từ danh sách: <em>role, decision, attention, growth</em>): <em>"The new policy will play an important ___ in reducing traffic in the city centre."</em> — Đáp án: <strong>role</strong> (<em>play a role in…</em> là collocation cố định). Câu 2: <em>"Before you make a ___, please read the contract carefully."</em> — Đáp án: <strong>decision</strong> (<em>make a decision</em>).</p>
+<p><strong>Write From Dictation — luyện tập.</strong> Nhờ một người đọc to câu sau đây một lần, bạn gõ lại chính xác từng từ (tự biên soạn): <em>"Students must submit their assignments before Friday afternoon."</em> — Kiểm tra: chính tả từng từ, dấu chấm cuối câu, và từ <em>must</em> (không viết thành <em>most</em>).</p>
+<p><strong>Answer Short Question — luyện tập.</strong> Trả lời ngắn gọn (1–2 từ) các câu hỏi sau: (1) <em>What do you call a person who writes books?</em> (2) <em>What season comes after summer?</em> (3) <em>How many days are there in a week?</em> — Đáp án: (1) A writer / an author. (2) Autumn (fall). (3) Seven.</p>
+<h2>Lỗi thường gặp</h2>
+<ul>
+<li><strong>Im lặng quá 3 giây khi nói.</strong> Trong các dạng câu nói, micro sẽ tự ngắt sau khoảng 3 giây im lặng. Nói liên tục quan trọng hơn nói đúng — nếu bí ý, hãy nói câu đệm: <em>Let me think… / In my opinion…</em></li>
+<li><strong>Đọc Read Aloud quá nhanh.</strong> Đọc nhanh để "cho xong" làm máy chấm trừ điểm trôi chảy và phát âm. Đọc tốc độ tự nhiên, ngắt nghỉ ở dấu câu.</li>
+<li><strong>Cố nhớ từng từ trong Repeat Sentence.</strong> Não không nhớ được 15 từ rời rạc — hãy nhớ ý chính và cụm từ. Nhắc lại 70% từ đúng thứ tự vẫn được điểm khá; im lặng thì được 0.</li>
+<li><strong>Viết essay quá dài hoặc quá ngắn.</strong> Bài luận PTE yêu cầu 200–300 từ. Viết dưới 200 từ bị trừ điểm; viết quá 300 từ tốn thời gian mà không thêm điểm. Luyện viết đúng 220–280 từ.</li>
+<li><strong>Không kiểm tra chính tả trong Write From Dictation.</strong> Một từ sai chính tả là mất điểm của cả câu. Dành 5 giây cuối kiểm tra lại các từ khó trước khi sang câu tiếp theo.</li>
+<li><strong>Đoán mò trong Reading mà không dùng collocation.</strong> Dạng điền từ của PTE chấm cả kiến thức collocation — học cụm từ cố định là cách tăng điểm nhanh nhất ở phần này.</li>
+<li><strong>Nhầm lẫn giữa thi trên máy và thi với người.</strong> PTE thi hoàn toàn với máy — không có giám khảo người để "cứu" bạn khi bạn ngập ngừng. Luyện nói với máy (ghi âm và nghe lại) thay vì chỉ luyện nói với bạn học.</li>
+</ul>
+<h2>Kế hoạch ôn 8 tuần</h2>
+<ul>
+<li><strong>Tuần 1–2:</strong> Làm quen format: đọc kỹ trang này, thử từng dạng câu hỏi 1 lần để biết mình yếu ở đâu. Học 30 collocation mỗi tuần.</li>
+<li><strong>Tuần 3–4:</strong> Tập trung vào 2 dạng "ăn điểm" lớn nhất: Repeat Sentence và Write From Dictation — mỗi ngày 20 phút nghe và nhắc lại/gõ lại câu.</li>
+<li><strong>Tuần 5–6:</strong> Luyện đề có bấm giờ: làm trọn 1 phần thi (Nói & Viết, hoặc Đọc, hoặc Nghe) trong thời gian thật. Chữa kỹ từng lỗi.</li>
+<li><strong>Tuần 7–8:</strong> Làm 2 bài thi thử đầy đủ (dùng đề luyện thi chính thức hoặc sách luyện thi). Tuần cuối: ôn lại lỗi cũ, luyện nói mỗi ngày 15 phút để giữ phản xạ.</li>
+</ul>
+<p>Muốn luyện PTE qua trò chơi? Chơi <a href="/tro-choi/pte-arcade.html">PTE Arcade — luyện PTE qua trò chơi</a>. Cần PTE để du học Úc? Xem <a href="/du-hoc.html">chuẩn bị tiếng Anh đi du học</a> và so sánh với <a href="/luyen-thi/ielts.html">luyện thi IELTS</a> để chọn kỳ thi phù hợp. Chưa rõ trình độ của mình? Xem <a href="/trinh-do/b2.html">trình độ B2</a> (mức nền tảng thường cần cho mục tiêu PTE 50–65).</p>
+""",
+"toefl": """
+<p class="lead">TOEFL iBT là kỳ thi tiếng Anh học thuật phổ biến nhất cho du học Mỹ và quốc tế. Từ ngày 21/01/2026, ETS đã cập nhật định dạng bài thi: ngắn hơn (khoảng 90 phút làm bài), thêm dạng câu hỏi mới ở cả 4 kỹ năng, và thang điểm mới 1–6. Trang này dạy bạn định dạng mới, chiến thuật từng phần và bài tập tự biên soạn để luyện tập.</p>
+""" + AI_NOTE + """
+<h2>Cấu trúc bài thi mới từ 21/01/2026 (đã đối chiếu ETS và IIG Vietnam)</h2>
+<p>Bài thi TOEFL iBT mới thi hoàn toàn trên máy tính, gồm 4 phần với tổng thời gian làm bài khoảng 90 phút (cộng thêm thời gian hướng dẫn, tổng buổi thi khoảng 2 giờ). Reading và Listening có tính thích ứng (adaptive): phần đầu đánh giá trình độ của bạn, phần sau điều chỉnh độ khó theo kết quả đó. Thang điểm mới là 1–6 cho từng kỹ năng và điểm tổng; bảng điểm cũng hiển thị điểm tương đương theo thang cũ 0–120 và trình độ CEFR tới tháng 01/2028 để các trường quen dần.</p>
+<div class="table-wrap"><table><thead><tr><th>Phần thi</th><th>Số câu / nhiệm vụ</th><th>Thời gian</th><th>Nội dung chính</th></tr></thead><tbody>
+<tr><td>Reading</td><td>Khoảng 50 câu</td><td>Khoảng 30 phút</td><td>Hoàn thành từ trong câu, đọc hiểu đời sống hằng ngày, đọc đoạn văn học thuật</td></tr>
+<tr><td>Listening</td><td>Khoảng 47 câu</td><td>Khoảng 29 phút</td><td>Nghe và chọn câu trả lời, nghe hội thoại, nghe thông báo, nghe bài giảng học thuật</td></tr>
+<tr><td>Writing</td><td>12 nhiệm vụ</td><td>Khoảng 23 phút</td><td>Xây dựng câu, viết email, viết bài thảo luận học thuật</td></tr>
+<tr><td>Speaking</td><td>11 nhiệm vụ</td><td>Khoảng 8 phút</td><td>Nghe và lặp lại, trả lời phỏng vấn</td></tr>
+</tbody></table></div>
+<p>Định dạng cũ (trước 21/01/2026) có Reading 20 câu/35 phút, Listening 28 câu/36 phút, Speaking 4 nhiệm vụ/16 phút, Writing 2 nhiệm vụ/29 phút, thang điểm 0–30 mỗi kỹ năng và tổng 0–120. Nếu bạn đang ôn theo tài liệu cũ, hãy đối chiếu với định dạng mới ở trên — dạng câu hỏi và cách chấm đã thay đổi. <strong>Chưa kiểm chứng được:</strong> lệ phí thi và lịch thi cụ thể tại Việt Nam thay đổi theo thời điểm — hãy xem trên trang của ETS hoặc IIG Vietnam trước khi đăng ký. Trang này không ghi lệ phí hay ngày thi cụ thể.</p>
+<h2>Chiến thuật từng phần (định dạng mới)</h2>
+<p><strong>Reading — 50 câu, 30 phút, có tính thích ứng.</strong> Phần đầu gồm các câu hoàn thành từ (Complete the Words) và đọc hiểu đời sống — làm nhanh và chính xác để phần sau nhận được câu khó hơn (và điểm cao hơn). Đừng dành quá 1 phút cho 1 câu đọc học thuật: đọc câu hỏi trước, quét đoạn văn tìm thông tin, chọn đáp án rồi đi tiếp. Chú ý dạng "hoàn thành từ": chính tả và dạng từ (danh từ/động từ/tính từ) đều được chấm. Luyện tập: xem <a href="/ky-nang/doc.html">hướng dẫn luyện đọc</a> và học từ vựng học thuật ở <a href="/trinh-do/c1.html">trình độ C1</a>.</p>
+<p><strong>Listening — 47 câu, 29 phút, có tính thích ứng.</strong> Nghe hội thoại trong trường (đăng ký môn học, hỏi thư viện), thông báo và bài giảng ngắn. Chiến thuật: nghe và ghi chép từ khóa (tên, số, thái độ người nói), đừng ghi câu đầy đủ. Câu hỏi "người nói sẽ làm gì tiếp theo?" thường có đáp án ở cuối đoạn nghe. Vì bài thi có tính thích ứng, hãy tập trung tối đa ở những câu đầu — chúng quyết định độ khó của phần sau. Luyện tập: xem <a href="/ky-nang/nghe.html">hướng dẫn luyện nghe</a>.</p>
+<p><strong>Writing — 12 nhiệm vụ, 23 phút.</strong> Phần viết mới gồm 3 dạng: xây dựng câu (Build a Sentence — sắp xếp từ thành câu đúng), viết email (Write an Email — trả lời email trong tình huống cho sẵn), và viết bài thảo luận học thuật (Write for an Academic Discussion — nêu quan điểm về một chủ đề học thuật). Chiến thuật: dạng xây dựng câu chấm chính tả và dạng từ — kiểm tra kỹ từng từ trước khi gửi. Viết email: chú ý giọng văn trang trọng và cấu trúc (chào hỏi → nội dung → kết thúc lịch sự). Viết thảo luận: nêu quan điểm rõ ràng, có 1–2 lý do, dùng từ nối học thuật. Luyện tập: xem <a href="/ky-nang/viet.html">hướng dẫn luyện viết</a>.</p>
+<p><strong>Speaking — 11 nhiệm vụ, 8 phút.</strong> Phần nói mới gồm nghe và lặp lại (Listen and Repeat — nhắc lại câu nghe được, chấm phát âm và độ chính xác) và trả lời phỏng vấn (Take an Interview — trả lời câu hỏi về bản thân và quan điểm). Chiến thuật: dạng lặp lại — nghe kỹ ngữ điệu và trọng âm, nhắc lại ngay với cùng nhịp điệu. Dạng phỏng vấn — trả lời 2–3 câu mỗi câu hỏi, có lý do hoặc ví dụ; đừng trả lời 1 từ. Luyện tập: xem <a href="/ky-nang/noi.html">hướng dẫn luyện nói</a> và kỹ thuật shadowing.</p>
+<h2>Bài tập tự biên soạn (không phải đề thi thật)</h2>
+<p><strong>Reading — hoàn thành từ.</strong> Điền từ phù hợp vào chỗ trống (tự biên soạn): <em>"The university library is open from 8 a.m. to 10 p.m. Students can borrow up to five books at a ___."</em> (a) time (b) timer (c) timely — Đáp án: <strong>(a) time</strong> (<em>at a time</em> là cụm cố định — "cùng một lúc").</p>
+<p><strong>Listening — nghe hội thoại (đọc transcript tự biên soạn như bài tập nghe hiểu).</strong></p>
+<p><em>Student: Excuse me, I'd like to change my class schedule. My biology class is at the same time as my chemistry lab.<br>
+Advisor: I see. The biology class is also offered on Thursday afternoon. Would that work for you?<br>
+Student: Yes, Thursday afternoon is fine. Thank you so much.</em></p>
+<p>Câu hỏi: (1) Vì sao sinh viên muốn đổi lịch học? (2) Cô cố vấn đề xuất giải pháp gì? (3) Sinh viên có đồng ý không? — Đáp án: (1) Vì lớp sinh học trùng giờ với giờ thực hành hóa học. (2) Chuyển sang lớp sinh học chiều thứ Năm. (3) Có — chiều thứ Năm phù hợp với bạn ấy.</p>
+<p><strong>Writing — viết email (đề tự biên soạn).</strong> <em>Bạn nhận được email từ giáo viên yêu cầu nộp bài tập muộn nhất là thứ Sáu. Bạn bị ốm và cần xin gia hạn thêm 3 ngày. Viết email trả lời (khoảng 80–100 từ).</em> — Khung gợi ý: chào hỏi trang trọng (<em>Dear Professor Smith,</em>) → giải thích lý do (<em>I am writing to ask for… because…</em>) → đề xuất cụ thể (<em>Could I please submit… by Monday?</em>) → cảm ơn và kết thúc (<em>Thank you for your understanding. Best regards,</em>). Nhớ: viết email học thuật thì không dùng từ viết tắt (<em>don't, can't</em>) và không dùng giọng văn thân mật.</p>
+<p><strong>Speaking — trả lời phỏng vấn (câu hỏi tự biên soạn).</strong> <em>"What is your favourite subject at school, and why?"</em> — Câu trả lời yếu: <em>"Maths."</em> Câu trả lời tốt: <em>"My favourite subject is maths, because I enjoy solving problems — it feels like a puzzle, and I like the feeling when I finally find the answer. I also think maths is useful for everyday life, for example when I need to calculate prices or plan a budget."</em> — Trả lời 2–3 câu, có lý do và ví dụ.</p>
+<h2>Lỗi thường gặp</h2>
+<ul>
+<li><strong>Ôn theo tài liệu cũ mà không biết định dạng đã đổi.</strong> Từ 21/01/2026, dạng câu hỏi, thời gian và thang điểm TOEFL iBT đều mới. Ôn theo sách cũ (Reading 20 câu, Speaking 4 nhiệm vụ, thang 0–120) sẽ khiến bạn bỡ ngỡ trong phòng thi. Luôn đối chiếu với trang chính thức của ETS trước khi thi.</li>
+<li><strong>Nghe không ghi chép.</strong> Bài giảng và hội thoại dài, không ghi chép thì nghe xong quên ngay. Ghi từ khóa, không ghi câu đầy đủ — xem kỹ thuật ở <a href="/ky-nang/nghe.html">hướng dẫn luyện nghe</a>.</li>
+<li><strong>Viết email bằng giọng văn thân mật.</strong> <em>"Hi, I want more time for my homework!!!"</em> — sai hoàn toàn trong ngữ cảnh học thuật. Email cho giáo viên phải trang trọng, rõ ràng và lịch sự.</li>
+<li><strong>Trả lời Speaking quá ngắn.</strong> Trả lời 1 từ hoặc 1 câu ngắn không đủ dữ liệu để máy chấm phát âm và độ trôi chảy. Luôn trả lời 2–3 câu với lý do hoặc ví dụ.</li>
+<li><strong>Sai chính tả trong dạng "hoàn thành từ".</strong> Dạng câu này chấm chính tả từng từ — <em>recieve</em> thay vì <em>receive</em> là mất điểm ngay. Học chính tả các từ học thuật thông dụng.</li>
+<li><strong>Làm câu đầu qua loa.</strong> Vì Reading và Listening có tính thích ứng, những câu đầu tiên ảnh hưởng tới độ khó (và điểm tối đa) của phần sau. Tập trung tối đa ngay từ câu đầu tiên.</li>
+<li><strong>Dịch từng từ khi đọc đoạn văn học thuật.</strong> Đọc để nắm ý chính và cấu trúc lập luận, không dịch từng từ — xem <a href="/ky-nang/doc.html">hướng dẫn luyện đọc</a>.</li>
+</ul>
+<h2>Kế hoạch ôn 8 tuần</h2>
+<ul>
+<li><strong>Tuần 1–2:</strong> Làm quen định dạng mới: đọc kỹ trang này, thử từng dạng câu hỏi 1 lần. Ôn từ vựng học thuật (30 từ/tuần) và chính tả các từ thông dụng.</li>
+<li><strong>Tuần 3–4:</strong> Tập trung vào điểm yếu nhất. Nghe yếu thì luyện nghe hội thoại trường học 30 phút/ngày; viết yếu thì luyện viết email và bài thảo luận 3 bài/tuần.</li>
+<li><strong>Tuần 5–6:</strong> Luyện đề có bấm giờ theo đúng thời gian thật (Reading 30 phút, Listening 29 phút, Writing 23 phút, Speaking 8 phút). Chữa kỹ từng lỗi.</li>
+<li><strong>Tuần 7–8:</strong> Làm 2 bài thi thử đầy đủ trong điều kiện thi thật. Tuần cuối: ôn lại lỗi cũ, luyện nói mỗi ngày 15 phút để giữ phản xạ.</li>
+</ul>
+<p>Cần TOEFL để du học Mỹ? Xem <a href="/du-hoc.html">chuẩn bị tiếng Anh đi du học</a> và so sánh với <a href="/luyen-thi/ielts.html">luyện thi IELTS</a> và <a href="/luyen-thi/pte.html">luyện thi PTE Academic</a> để chọn kỳ thi phù hợp với trường bạn nộp đơn. Chưa rõ trình độ của mình? Xem <a href="/trinh-do/b2.html">trình độ B2</a> và <a href="/trinh-do/c1.html">trình độ C1</a>.</p>
+""",
+"vstep": """
+<p class="lead">VSTEP là kỳ thi đánh giá năng lực tiếng Anh theo Khung năng lực ngoại ngữ 6 bậc dùng cho Việt Nam — kỳ thi chuẩn hóa của Bộ Giáo dục và Đào tạo, dùng cho xét tốt nghiệp, thi công chức, xét tuyển sau đại học và nhiều mục đích khác trong nước. Bài thi VSTEP.3-5 đánh giá 3 bậc (B1, B2, C1) trong một đề thi chung duy nhất. Trang này dạy bạn cấu trúc bài thi, cách tính điểm, chiến thuật từng phần và bài tập tự biên soạn để luyện tập.</p>
+""" + AI_NOTE + """
+<h2>Cấu trúc bài thi (đã đối chiếu Quyết định 729/QĐ-BGDĐT và các trường đại học tổ chức thi)</h2>
+<p>Bài thi VSTEP.3-5 gồm 4 kỹ năng, làm liên tục trong một ca thi khoảng 180 phút (chưa kể thời gian nghỉ chuyển phần). Mỗi kỹ năng chấm trên thang 10; điểm trung bình của 4 kỹ năng quyết định bậc đạt được. Định dạng này được ban hành theo Quyết định 729/QĐ-BGDĐT ngày 11/3/2015 của Bộ Giáo dục và Đào tạo và vẫn giữ nguyên cấu trúc tới nay. Ngoài ra còn có bài thi VSTEP.2 (chỉ đánh giá bậc 2, tương đương A2) — trang này tập trung vào VSTEP.3-5 vì đó là bài thi phổ biến nhất.</p>
+<div class="table-wrap"><table><thead><tr><th>Kỹ năng</th><th>Thời gian</th><th>Nội dung</th><th>Cách tính bậc</th></tr></thead><tbody>
+<tr><td>Nghe (Listening)</td><td>Khoảng 40 phút (đã gồm 7 phút chuyển đáp án)</td><td>35 câu trắc nghiệm, 3 phần: thông báo – hướng dẫn ngắn, hội thoại, bài nói chuyện – bài giảng</td><td rowspan="4">Điểm trung bình 4 kỹ năng (làm tròn tới 0,5): từ 4,0 tới 5,5 đạt bậc 3 (B1); từ 6,0 tới 8,0 đạt bậc 4 (B2); từ 8,5 tới 10 đạt bậc 5 (C1). Dưới 4,0 không đạt bậc nào.</td></tr>
+<tr><td>Đọc (Reading)</td><td>60 phút</td><td>40 câu trắc nghiệm, 4 bài đọc (tổng khoảng 1.900–2.050 từ), độ khó tương đương bậc 3–5</td></tr>
+<tr><td>Viết (Writing)</td><td>60 phút</td><td>Bài 1: viết thư/thư điện tử khoảng 120 từ (chiếm 1/3 điểm phần Viết). Bài 2: viết luận khoảng 250 từ (chiếm 2/3 điểm phần Viết)</td></tr>
+<tr><td>Nói (Speaking)</td><td>Khoảng 12 phút</td><td>3 phần: trả lời câu hỏi, trình bày về một chủ đề (thường có 2 chủ đề), thảo luận. Thi trên máy tính (ghi âm qua micro) hoặc với giám khảo trực tiếp, tùy đơn vị tổ chức thi</td></tr>
+</tbody></table></div>
+<p>Điểm Nghe và Đọc được quy đổi từ số câu đúng sang thang 10 theo bảng quy đổi chuẩn (không phải chia tỷ lệ đơn giản). Điểm Viết và Nói do giám khảo chấm theo tiêu chí. <strong>Chưa kiểm chứng được:</strong> danh sách đơn vị tổ chức thi, lịch thi và lệ phí cụ thể thay đổi theo thời điểm — hãy xem trên trang của đơn vị bạn định đăng ký thi (ví dụ: các trường đại học được Bộ Giáo dục và Đào tạo cho phép tổ chức thi VSTEP) trước khi đăng ký. Trang này không ghi danh sách nơi thi, lịch thi hay lệ phí cụ thể.</p>
+<h2>Chiến thuật từng phần</h2>
+<p><strong>Nghe — 35 câu, 40 phút, 3 phần với độ khó tăng dần.</strong> Phần 1 (thông báo, hướng dẫn ngắn): nghe và chọn đáp án đúng — tập trung vào số liệu (giờ, ngày, số tiền, địa điểm). Phần 2 (hội thoại): nghe 2 người nói chuyện, chú ý ai nói gì và thái độ của họ. Phần 3 (bài giảng, bài nói chuyện): dài nhất và khó nhất — ghi chép từ khóa trong lúc nghe, đừng cố ghi câu đầy đủ. Mẹo: 7 phút chuyển đáp án cuối giờ là để kiểm tra lại, không phải để làm bài — hãy ghi đáp án ngay trong lúc nghe. Luyện tập: xem <a href="/ky-nang/nghe.html">hướng dẫn luyện nghe</a>.</p>
+<p><strong>Đọc — 40 câu, 60 phút, 4 bài đọc.</strong> Độ khó tăng dần: bài 1–2 ở mức B1, bài 3–4 ở mức B2–C1. Chiến thuật: làm bài 1–2 trước để "lấy điểm chắc", dành nhiều thời gian cho bài 3–4. Đọc câu hỏi trước, quét bài tìm thông tin. Dạng câu hỏi phổ biến: tìm ý chính, tìm chi tiết, suy ra thái độ/quan điểm của tác giả, đoán nghĩa của từ trong ngữ cảnh. Chú ý từ nối và từ mang sắc thái (<em>however, surprisingly, unfortunately</em>) — chúng thường là chìa khóa của câu hỏi suy luận. Luyện tập: xem <a href="/ky-nang/doc.html">hướng dẫn luyện đọc</a>.</p>
+<p><strong>Viết Bài 1 — thư/email khoảng 120 từ, 20 phút.</strong> Đọc kỹ yêu cầu: viết cho ai? (bạn bè hay người lạ? — quyết định giọng văn thân mật hay trang trọng). Thư phải có đủ 3 phần: mở đầu (nêu lý do viết thư), thân bài (trả lời đủ các ý yêu cầu), kết thúc (câu chào phù hợp). Lỗi phổ biến: thiếu 1 ý trong yêu cầu (mỗi ý thiếu là mất điểm), hoặc viết quá dài (trên 140 từ tốn thời gian của Bài 2 mà không thêm điểm).</p>
+<p><strong>Viết Bài 2 — luận khoảng 250 từ, 40 phút, chiếm 2/3 điểm phần Viết.</strong> Dàn bài chuẩn: mở bài (nêu vấn đề + quan điểm) → thân bài 2 đoạn (mỗi đoạn 1 luận điểm + giải thích/ví dụ) → kết bài. Vì Bài 2 chiếm 2/3 điểm, hãy dành đủ 40 phút cho nó — đừng viết Bài 1 quá kỹ rồi không còn giờ viết Bài 2. Luyện tập: xem <a href="/ky-nang/viet.html">hướng dẫn luyện viết</a> và dùng <a href="/cong-cu/viet.html">công cụ chữa bài viết bằng AI</a>.</p>
+<p><strong>Nói — 3 phần, 12 phút.</strong> Phần 1: trả lời 3–6 câu hỏi ngắn về 2 chủ đề quen thuộc (gia đình, sở thích, công việc) — trả lời 2–3 câu mỗi câu hỏi, đừng trả lời 1 từ. Phần 2: trình bày về một chủ đề cho sẵn (thường có gợi ý) — dùng thời gian chuẩn bị để viết dàn ý, nói có mở đầu, 2–3 ý, kết luận. Phần 3: thảo luận sâu hơn — đưa ra ý kiến, so sánh, nêu ưu/nhược điểm. Nếu thi trên máy tính, nói rõ ràng vào micro và đừng im lặng quá lâu. Luyện tập: xem <a href="/ky-nang/noi.html">hướng dẫn luyện nói</a>.</p>
+<h2>Bài tập tự biên soạn (không phải đề thi thật)</h2>
+<p><strong>Nghe — hội thoại (đọc transcript tự biên soạn như bài tập nghe hiểu).</strong></p>
+<p><em>Nam: Hi, Lan. Have you finished the report for Mr. Tuan?<br>
+Lan: Not yet. I need one more day. The data from the sales team arrived late.<br>
+Nam: That's okay. The deadline is Friday, so you still have time.<br>
+Lan: Thanks. I'll send it to you on Thursday morning.</em></p>
+<p>Câu hỏi: (1) Vì sao Lan chưa xong báo cáo? (2) Hạn nộp báo cáo là khi nào? (3) Lan sẽ gửi báo cáo cho Nam khi nào? — Đáp án: (1) Vì dữ liệu từ đội bán hàng tới muộn. (2) Thứ Sáu. (3) Sáng thứ Năm.</p>
+<p><strong>Đọc — đoán nghĩa từ trong ngữ cảnh.</strong> Đọc câu tự biên soạn: <em>"The new shopping centre has attracted a large number of visitors since it opened last month. Many shops in the area have benefited from the increase in customers."</em> — Từ <em>benefited from</em> trong câu có nghĩa gần nhất với: (a) bị ảnh hưởng xấu bởi (b) được lợi từ (c) phàn nàn về — Đáp án: <strong>(b) được lợi từ</strong>. <em>Benefit from</em> nghĩa là "được lợi từ cái gì".</p>
+<p><strong>Viết Bài 1 — thư (đề tự biên soạn).</strong> <em>Bạn vừa chuyển tới một thành phố mới. Viết thư cho một người bạn (khoảng 120 từ) kể về thành phố mới, nơi ở mới và công việc/học tập mới của bạn.</em> — Khung gợi ý: mở đầu (<em>I'm writing to tell you about…</em>) → 3 ý (thành phố, nơi ở, công việc/học tập) → kết thúc (<em>Write back soon! / Hope to see you soon!</em>). Giọng văn thân mật vì viết cho bạn bè.</p>
+<p><strong>Viết Bài 2 — luận (đề tự biên soạn).</strong> <em>"Some people think that students should use mobile phones at school. Others think phones should be banned. Discuss both views and give your opinion."</em> — Hãy viết dàn bài: đoạn 1 (ủng hộ: tra cứu thông tin, liên lạc với gia đình); đoạn 2 (phản đối: mất tập trung, gian lận trong thi); kết bài (quan điểm của bạn). Sau đó viết bài 250 từ và nhờ <a href="/cong-cu/viet.html">công cụ chữa bài viết bằng AI</a> góp ý.</p>
+<p><strong>Nói — trả lời câu hỏi (tự biên soạn).</strong> <em>"Do you prefer studying alone or with friends? Why?"</em> — Câu trả lời yếu: <em>"With friends."</em> Câu trả lời tốt: <em>"I prefer studying with friends, because we can discuss difficult topics together and explain things to each other. When I study alone, I sometimes feel sleepy and lose motivation. However, for exams I usually study alone in the last few days, because I need quiet time to review everything."</em> — Trả lời có lý do, ví dụ và cả mặt đối lập.</p>
+<h2>Lỗi thường gặp</h2>
+<ul>
+<li><strong>Nghe: không ghi đáp án ngay.</strong> Đợi nghe hết bài mới ghi đáp án thì quên mất. Ghi đáp án ngay khi nghe thấy, dùng 7 phút cuối để kiểm tra lại.</li>
+<li><strong>Đọc: làm bài khó trước.</strong> Bài 3–4 (B2–C1) khó hơn nhưng cùng điểm mỗi câu với bài 1–2. Làm bài dễ trước để lấy điểm chắc, rồi mới làm bài khó.</li>
+<li><strong>Viết Bài 1: thiếu ý trong yêu cầu.</strong> Đề yêu cầu trả lời 3 ý mà bạn chỉ trả lời 2 ý là mất điểm dù viết hay. Đọc kỹ đề, gạch chân từng ý yêu cầu, kiểm tra lại trước khi nộp bài.</li>
+<li><strong>Viết Bài 2: viết dưới 250 từ.</strong> Bài luận dưới số từ yêu cầu bị trừ điểm. Luyện viết 260–280 từ để chắc chắn đủ.</li>
+<li><strong>Viết: dùng từ viết tắt và giọng văn thân mật trong bài luận.</strong> <em>don't, can't, gonna</em> không dùng trong bài luận trang trọng — viết đầy đủ: <em>do not, cannot, going to</em>.</li>
+<li><strong>Nói: trả lời 1 từ.</strong> <em>"Yes."</em> hoặc <em>"No."</em> gần như không được điểm. Luôn thêm lý do hoặc ví dụ — xem <a href="/ky-nang/noi.html">hướng dẫn luyện nói</a>.</li>
+<li><strong>Tính điểm sai:</strong> nhiều bạn tưởng điểm trung bình 5,5 là B2 — sai. Theo quy đổi chính thức: 4,0–5,5 là B1; 6,0–8,0 là B2; 8,5–10 là C1. Muốn đạt B2 thì điểm trung bình phải từ 6,0 trở lên — nghĩa là không thể "kéo" bằng 1 kỹ năng giỏi nếu 3 kỹ năng còn lại yếu. Học đều 4 kỹ năng.</li>
+</ul>
+<h2>Kế hoạch ôn 8 tuần (mục tiêu bậc 4 – B2)</h2>
+<ul>
+<li><strong>Tuần 1–2:</strong> Làm quen format: đọc kỹ trang này, làm 1 đề Nghe + 1 đề Đọc (đề tự biên soạn hoặc sách luyện thi VSTEP), chấm và ghi lại phần hay sai nhất. Ôn lại ngữ pháp nền tảng ở <a href="/trinh-do/b1.html">trình độ B1</a>.</li>
+<li><strong>Tuần 3–4:</strong> Tập trung vào điểm yếu nhất. Viết yếu thì viết 3 bài/tuần (1 thư + 2 luận); nói yếu thì luyện trả lời câu hỏi mỗi ngày 15 phút.</li>
+<li><strong>Tuần 5–6:</strong> Luyện đề có bấm giờ: Nghe 40 phút + Đọc 60 phút + Viết 60 phút liên tục như thi thật. Chữa kỹ từng câu sai.</li>
+<li><strong>Tuần 7–8:</strong> Làm 2 đề thi thử đầy đủ (4 kỹ năng) trong điều kiện thi thật. Tuần cuối: ôn lại từ vựng và lỗi cũ, nghỉ ngơi trước ngày thi 1 ngày.</li>
+</ul>
+<p>Muốn đạt bậc 3 (B1)? Ôn chắc <a href="/trinh-do/b1.html">trình độ B1</a>. Muốn đạt bậc 4 (B2)? Ôn chắc <a href="/trinh-do/b2.html">trình độ B2</a>. Muốn đạt bậc 5 (C1)? Ôn chắc <a href="/trinh-do/c1.html">trình độ C1</a>. So sánh với kỳ thi quốc tế? Xem <a href="/luyen-thi/ielts.html">luyện thi IELTS</a> và <a href="/luyen-thi/toeic.html">luyện thi TOEIC</a>.</p>
+""",
+}
+
 for i, (slug, name, desc) in enumerate(TESTS):
     prev = (TESTS[i - 1][1], f"/luyen-thi/{TESTS[i - 1][0]}.html") if i > 0 else None
     next_ = (TESTS[i + 1][1], f"/luyen-thi/{TESTS[i + 1][0]}.html") if i < len(TESTS) - 1 else None
-    do_now_test = {
-        "ielts": ("Luyện IELTS ngay với trò chơi Band Climb", "/tro-choi/band-climb.html"),
-        "toeic": ("Luyện TOEIC ngay với TOEIC Arcade", "/tro-choi/toeic-arcade.html"),
-        "pte": ("Chơi thử PTE Arcade ngay", "/tro-choi/pte-arcade.html"),
-        "toefl": ("Xem mục Du học — thi TOEFL để đi du học", "/du-hoc.html"),
-        "vstep": [("Ôn lại kiến thức trình độ B1", "/trinh-do/b1.html"),
-                  ("B2", "/trinh-do/b2.html"),
-                  ("C1", "/trinh-do/c1.html")],
-    }[slug]
+    extra = LUYEN_THI_GUIDE_EXTRA.get(slug, "")
     add(f"/luyen-thi/{slug}.html", name, f"Luyện thi {name}",
-        soon("Trang này sẽ có:",
-             [desc,
-              "Cấu trúc bài thi và thang điểm — kiểm chứng theo nguồn chính thức.",
-              "Đề thi thử từng phần + đáp án và giải thích bằng tiếng Việt.",
-              "Mẹo làm bài và lỗi thường gặp."],
-             extra=LUYEN_THI_GUIDE_EXTRA.get(slug, ""),
-             parent=("Tất cả kỳ thi", "/luyen-thi/"),
-             prev=prev, next=next_,
-             ai_question=f"Lộ trình luyện thi {name} như thế nào?",
-             lead=desc, do_now=do_now_test),
-        active="/luyen-thi/", eyebrow="Luyện thi", desc=desc, noindex=True)
+        guide_sections(TEST_BODIES[slug]) + (f"<section class=\"section\">{extra}</section>\n" if extra else "") + _guide_nav(
+            prev, next_, ("Tất cả kỳ thi", "/luyen-thi/"),
+            f"Lộ trình luyện thi {name} như thế nào?"),
+        active="/luyen-thi/", eyebrow="Luyện thi", desc=desc)
 
 # ---------------- Các mục còn lại ----------------
 add("/tre-em.html", "Trẻ em", "Tiếng Anh cho trẻ em",
-    soon("Trang này sẽ có:",
-         ["Từ vựng theo chủ đề quen thuộc với trẻ (gia đình, trường học, động vật, màu sắc…).",
-          "Bài hát, truyện ngắn và trò chơi học tiếng Anh.",
-          "Bài học ngắn, hình ảnh lớn, phù hợp cho trẻ từ mầm non tới tiểu học.",
-          "Hướng dẫn cho phụ huynh cùng học với con."],
-         ai_question="Cho tôi lộ trình dạy tiếng Anh cho trẻ em.",
-         lead="Tiếng Anh cho trẻ em: từ vựng theo chủ đề, bài hát, truyện ngắn và trò chơi — bài học ngắn, hình ảnh lớn.",
-         do_now=("Chơi Grade 4 Quest — từ vựng, ngữ pháp theo sách lớp 4", "/tro-choi/grade-4-quest.html")),
-    active="/tre-em.html", eyebrow="Trẻ em", noindex=True,
-    desc="Tiếng Anh cho trẻ em: từ vựng theo chủ đề, bài hát, truyện ngắn và trò chơi — bài học ngắn, hình ảnh lớn. Sắp có.")
+    guide_sections("""
+<p class="lead">Tiếng Anh cho trẻ em: từ vựng theo chủ đề, bài hát, truyện ngắn và trò chơi — bài học ngắn, hình ảnh lớn, học qua chơi chứ không học thuộc lòng. Trang này dành cho cả trẻ em và phụ huynh cùng học với con.</p>
+""" + AI_NOTE + """
+<h2>Trẻ em học tiếng Anh khác người lớn như thế nào?</h2>
+<p>Trẻ em không học tiếng Anh bằng cách học ngữ pháp — trẻ học bằng cách <strong>nghe, lặp lại và chơi</strong>. Một đứa trẻ 6 tuổi nghe bài hát tiếng Anh 20 lần sẽ thuộc lời mà không cần ai giải thích nghĩa từng từ. Vì vậy, cách học hiệu quả nhất cho trẻ là: nghe nhiều, nói theo, chơi trò chơi và đọc truyện có hình ảnh — mỗi ngày một ít (15–20 phút), đều đặn, vui vẻ. Ép trẻ ngồi học 1 giờ với sách ngữ pháp là cách nhanh nhất khiến trẻ ghét tiếng Anh.</p>
+<p><strong>Theo độ tuổi:</strong> trẻ mầm non (3–5 tuổi) học qua bài hát, trò chơi vận động và flashcards hình ảnh — mục tiêu chỉ là làm quen với âm thanh tiếng Anh và 50–100 từ đơn giản (màu sắc, con vật, bộ phận cơ thể). Trẻ tiểu học (6–10 tuổi) học từ vựng theo chủ đề ở trường, câu giao tiếp đơn giản, truyện ngắn và bài hát có lời — mục tiêu là nói được câu đơn giản và đọc được truyện ngắn. Trẻ 11 tuổi trở lên có thể bắt đầu học ngữ pháp cơ bản và viết đoạn văn ngắn — lúc này mới nên dùng sách giáo khoa như <a href="/sach/global-success.html">Global Success</a> một cách có hệ thống.</p>
+<h2>Từ vựng theo chủ đề cho trẻ</h2>
+<p>Học từ theo chủ đề, mỗi chủ đề 10–15 từ, kèm hình ảnh và hành động. Dưới đây là 4 chủ đề đầu tiên nên học:</p>
+<ul>
+<li><strong>Gia đình (Family):</strong> mother, father, sister, brother, grandmother, grandfather, baby. Câu mẫu: <em>This is my mother. She is a teacher.</em></li>
+<li><strong>Con vật (Animals):</strong> dog, cat, bird, fish, elephant, lion, monkey. Câu mẫu: <em>The elephant is big. The bird can fly.</em> — Trò chơi: bắt chước tiếng kêu và dáng đi của con vật, đoán tên bằng tiếng Anh.</li>
+<li><strong>Màu sắc (Colours):</strong> red, blue, green, yellow, orange, purple, pink, brown, black, white. Câu mẫu: <em>What colour is this? It's red.</em> — Trò chơi: đi quanh nhà tìm đồ vật màu đỏ, rồi màu xanh.</li>
+<li><strong>Trường học (School):</strong> book, pen, pencil, bag, desk, chair, teacher, student. Câu mẫu: <em>This is my bag. I have two pencils.</em></li>
+</ul>
+<p><strong>Cách học từ với trẻ:</strong> mỗi từ học kèm 3 thứ — hình ảnh, âm thanh và hành động. Ví dụ: học từ <em>jump</em> thì vừa nói vừa nhảy; học từ <em>apple</em> thì cầm quả táo thật hoặc xem hình quả táo. Trẻ nhớ qua tay và mắt, không nhớ qua chép từ 10 lần vào vở.</p>
+<h2>Bài hát, truyện và trò chơi</h2>
+<p><strong>Bài hát:</strong> hát mỗi ngày 1 bài, hát đi hát lại trong 1 tuần. Các bài hát kinh điển cho trẻ học tiếng Anh: <em>Head, Shoulders, Knees and Toes</em> (học bộ phận cơ thể qua vận động), <em>The Wheels on the Bus</em> (học từ về xe buýt và hành động), <em>If You're Happy and You Know It</em> (học cảm xúc và hành động), <em>Old MacDonald Had a Farm</em> (học tên con vật và tiếng kêu). Mẹo: hát chậm lần đầu, làm động tác theo lời hát — trẻ thuộc lời nhanh hơn khi cơ thể cùng tham gia.</p>
+<p><strong>Truyện ngắn:</strong> đọc truyện có hình ảnh lớn, ít chữ mỗi trang. Cách đọc: phụ huynh đọc to, chỉ vào hình, hỏi trẻ bằng tiếng Anh đơn giản (<em>What is this? What colour is the dog?</em>). Đọc cùng một truyện 3–4 lần trong tuần — lần đầu nghe, lần sau trẻ bắt đầu nhớ và nói theo, lần thứ ba trẻ có thể kể lại. Đừng đổi truyện mới mỗi ngày; trẻ học qua lặp lại.</p>
+<p><strong>Trò chơi:</strong> chơi <a href="/tro-choi/grade-4-quest.html">Grade 4 Quest — từ vựng và ngữ pháp theo sách lớp 4</a> và <a href="/tro-choi/starter-quest.html">Starter Quest — trò chơi cho người mới bắt đầu</a> trên trang này. Ở nhà, chơi trò "Simon Says" bằng tiếng Anh (<em>Simon says touch your nose!</em>), trò đoán từ qua hình vẽ, và trò tìm đồ vật theo màu sắc.</p>
+<h2>Bài học mẫu: "My Family" (15 phút)</h2>
+<p><strong>Phút 0–3 — Khởi động:</strong> hát bài <em>Finger Family</em> (gia đình ngón tay) cùng con, chỉ vào từng ngón tay: <em>Daddy finger, daddy finger, where are you?</em></p>
+<p><strong>Phút 3–8 — Học từ mới:</strong> dùng flashcards hoặc hình vẽ: mother, father, sister, brother, grandmother, grandfather. Mỗi từ: chỉ hình, đọc to 3 lần, trẻ lặp lại. Hỏi: <em>Who is this? — This is my mother.</em></p>
+<p><strong>Phút 8–12 — Chơi:</strong> trò "Ai đây?" — phụ huynh miêu tả một thành viên trong gia đình bằng tiếng Anh (<em>She cooks dinner. She is my…?</em>), trẻ đoán: <em>Mother!</em></p>
+<p><strong>Phút 12–15 — Ôn lại:</strong> trẻ vẽ gia đình mình và giới thiệu bằng tiếng Anh: <em>This is my family. This is my father. He is a driver. This is my sister. She is 5 years old.</em></p>
+<h2>Hướng dẫn cho phụ huynh</h2>
+<ul>
+<li><strong>Học cùng con, đừng chỉ giao bài cho con.</strong> Trẻ học tốt nhất khi phụ huynh cùng hát, cùng chơi, cùng đọc truyện. Bạn không cần giỏi tiếng Anh — bạn chỉ cần học cùng con, sai cùng con, sửa cùng con.</li>
+<li><strong>15–20 phút mỗi ngày tốt hơn 2 giờ cuối tuần.</strong> Đều đặn là chìa khóa. Gắn giờ học tiếng Anh vào một thói quen có sẵn: sau bữa tối, trước giờ đi ngủ.</li>
+<li><strong>Khen nỗ lực, không chê lỗi sai.</strong> Trẻ nói <em>"I is happy"</em> thì đừng sửa ngay thành "sai rồi, phải nói I am happy" — hãy lặp lại đúng một cách tự nhiên: <em>"Yes! You ARE happy!"</em> Trẻ sẽ tự sửa dần mà không sợ nói.</li>
+<li><strong>Cho trẻ nghe tiếng Anh thụ động mỗi ngày:</strong> bật nhạc, phim hoạt hình tiếng Anh (có phụ đề tiếng Anh, không phải tiếng Việt) trong lúc chơi. Tai trẻ cần quen với âm thanh tiếng Anh trước khi miệng nói được.</li>
+</ul>
+<h2>Lỗi thường gặp</h2>
+<ul>
+<li><strong>Ép trẻ học ngữ pháp quá sớm:</strong> trẻ 6 tuổi không cần biết "hiện tại đơn" là gì — trẻ cần biết nói <em>I like apples</em>. Ngữ pháp chỉ nên học từ khoảng 10–11 tuổi trở lên.</li>
+<li><strong>Dịch mọi từ sang tiếng Việt:</strong> hỏi trẻ <em>"Apple nghĩa là gì?"</em> rồi chờ trẻ trả lời "quả táo" là cách học chậm. Thay vào đó, chỉ vào quả táo và nói <em>apple</em> — trẻ hiểu trực tiếp bằng hình ảnh, không qua dịch.</li>
+<li><strong>Cho trẻ xem phim có phụ đề tiếng Việt:</strong> trẻ sẽ đọc phụ đề Việt và bỏ qua tiếng Anh. Dùng phụ đề tiếng Anh hoặc không phụ đề — trẻ nghe và đoán nghĩa qua hình ảnh.</li>
+<li><strong>Học từ rời rạc, không theo chủ đề:</strong> học 10 từ ngẫu nhiên mỗi ngày thì quên 9 từ sau 1 tuần. Học theo chủ đề và dùng từ trong câu, trong trò chơi thì nhớ lâu hơn nhiều.</li>
+<li><strong>Phụ huynh phát âm sai rồi dạy con theo:</strong> nếu bạn không chắc cách đọc một từ, hãy tra bằng <a href="/cong-cu/tu-vung.html">công cụ tra từ bằng AI</a> để nghe phát âm mẫu, hoặc mở từ điển có audio. Phát âm sai học từ nhỏ rất khó sửa sau này.</li>
+</ul>
+<h2>Luyện tập nhanh (cùng con)</h2>
+<details><summary><strong>Câu 1.</strong> Hỏi con: "What colour is the sky?" — Câu trả lời đúng là gì?</summary><p>Đáp án: <em>The sky is blue.</em> — Luyện mẫu câu <em>What colour is…? — It's…</em> với nhiều đồ vật trong nhà.</p></details>
+<details><summary><strong>Câu 2.</strong> Điền từ: "This is my ___. She cooks dinner for our family." (mother / teacher / dog)</summary><p>Đáp án: <strong>mother</strong>. — Luyện đoán từ qua ngữ cảnh, không học thuộc lòng.</p></details>
+<details><summary><strong>Câu 3.</strong> Sắp xếp thành câu đúng: "name / My / is / Lan / ."</summary><p>Đáp án: <em>My name is Lan.</em> — Đây là câu giới thiệu bản thân đầu tiên mọi trẻ em nên học.</p></details>
+<h2>Học tiếp ở đâu?</h2>
+<p>Chơi cùng con: <a href="/tro-choi/grade-4-quest.html">Grade 4 Quest — từ vựng, ngữ pháp theo sách lớp 4</a>, <a href="/tro-choi/starter-quest.html">Starter Quest — trò chơi cho người mới bắt đầu</a>. Học theo sách giáo khoa trên lớp: <a href="/sach/global-success.html">hướng dẫn học với sách Global Success</a> (lớp 3–12). Khi con lớn hơn và cần học có hệ thống, xem <a href="/trinh-do/a1.html">trình độ A1 — mới bắt đầu</a> và <a href="/trinh-do/a2.html">trình độ A2 — sơ cấp</a>.</p>
+""") + _guide_nav(None, ("Tiếng Anh công việc", "/cong-viec.html"), None, "Cho tôi lộ trình dạy tiếng Anh cho trẻ em."),
+    active="/tre-em.html", eyebrow="Trẻ em",
+    desc="Tiếng Anh cho trẻ em: từ vựng theo chủ đề, bài hát, truyện ngắn và trò chơi — bài học ngắn, hình ảnh lớn.")
 
 add("/cong-viec.html", "Tiếng Anh công việc", "Tiếng Anh cho công việc",
-    soon("Trang này sẽ có:",
-         ["Tiếng Anh theo từng ngành nghề: kinh doanh, y tế, công nghệ thông tin, du lịch, nhà hàng – khách sạn…",
-          "Mẫu email, họp, thuyết trình, phỏng vấn xin việc bằng tiếng Anh.",
-          "Từ vựng chuyên ngành kèm giải thích tiếng Việt."],
-         ai_question="Tôi muốn học tiếng Anh cho công việc, bắt đầu từ đâu?",
-         lead="Tiếng Anh cho công việc theo từng ngành nghề: mẫu email, họp, thuyết trình và phỏng vấn xin việc bằng tiếng Anh.",
-         do_now=("Chơi Workplace English Arcade — tiếng Anh công việc trình độ B2", "/tro-choi/workplace-english-arcade.html")),
-    active="/cong-viec.html", eyebrow="Tiếng Anh công việc", noindex=True,
-    desc="Tiếng Anh cho công việc theo từng ngành nghề: mẫu email, họp, thuyết trình và phỏng vấn xin việc bằng tiếng Anh. Sắp có.")
+    guide_sections("""
+<p class="lead">Tiếng Anh công việc không phải là tiếng Anh "khó hơn" — nó là tiếng Anh "đúng hoàn cảnh hơn": email trang trọng, họp bằng tiếng Anh, thuyết trình, phỏng vấn xin việc và từ vựng theo từng ngành nghề. Trang này dạy bạn mẫu câu dùng được ngay, theo từng tình huống công việc thật.</p>
+""" + AI_NOTE + """
+<h2>Tiếng Anh công việc khác tiếng Anh thường ngày ở điểm nào?</h2>
+<p>Khác ở <strong>giọng văn (register)</strong>: cùng một ý, nói với bạn bè thì dùng một kiểu, viết email cho sếp hoặc khách hàng thì dùng kiểu khác. Ví dụ: muốn xin thêm thời gian, nói với bạn thì <em>"I need more time"</em> là đủ; viết email cho sếp thì phải viết <em>"Could I please have an extension until Friday? I would really appreciate it."</em> — lịch sự hơn, gián tiếp hơn, và có lý do. Người Việt hay mắc lỗi nói quá thẳng trong email công việc (<em>"Give me the report now"</em>), khiến người đọc cảm thấy bị ra lệnh.</p>
+<p>Khác ở <strong>từ vựng chuyên ngành</strong>: mỗi ngành có bộ từ riêng — kế toán có <em>invoice, budget, revenue</em>; công nghệ có <em>deploy, bug, deadline</em>; y tế có <em>diagnosis, treatment, patient</em>. Bạn không cần biết hết — chỉ cần biết từ của ngành mình, và học chúng trong câu, không học danh sách từ rời rạc.</p>
+<h2>Mẫu email công việc (tự biên soạn, dùng được ngay)</h2>
+<p><strong>Email 1 — Xin nghỉ phép:</strong></p>
+<p><em>Subject: Annual Leave Request — 15–17 December<br>
+Dear Ms. Lan,<br>
+I am writing to request annual leave from 15 to 17 December. I have completed all urgent tasks, and my colleague Hung will cover my work during my absence.<br>
+Please let me know if this is possible. Thank you for your understanding.<br>
+Best regards,<br>
+Minh</em></p>
+<p><strong>Email 2 — Hỏi thông tin / nhắc việc lịch sự:</strong></p>
+<p><em>Subject: Follow-up — Contract for Project Alpha<br>
+Dear Mr. Smith,<br>
+I hope you are well. I am writing to follow up on the contract for Project Alpha, which we discussed last week. Could you please let me know when we can expect the signed copy?<br>
+Thank you for your time. I look forward to hearing from you.<br>
+Kind regards,<br>
+Hoa</em></p>
+<p><strong>Cấu trúc chung của email công việc:</strong> tiêu đề rõ ràng (nêu việc + thời gian nếu có) → chào hỏi trang trọng (<em>Dear Mr./Ms. + họ</em>) → câu mở đầu nêu mục đích (<em>I am writing to…</em>) → nội dung chính (ngắn gọn, mỗi đoạn 1 ý) → câu kết lịch sự (<em>Please let me know… / I look forward to hearing from you.</em>) → chữ ký (<em>Best regards / Kind regards + tên</em>). Nhớ: không dùng từ viết tắt (<em>don't, can't</em>) trong email trang trọng, và không dùng dấu chấm than (!!!).</p>
+<h2>Tiếng Anh trong cuộc họp</h2>
+<p><strong>Mở đầu cuộc họp:</strong> <em>Let's get started. The purpose of today's meeting is to discuss… / First, let's review…</em></p>
+<p><strong>Đưa ra ý kiến:</strong> <em>In my opinion… / I think we should… / From my point of view… / One option is to…</em></p>
+<p><strong>Đồng ý:</strong> <em>I agree with you. / That's a good point. / Exactly.</em></p>
+<p><strong>Không đồng ý một cách lịch sự:</strong> <em>I see your point, but… / I'm not sure I agree, because… / That's an interesting idea. Have we considered…?</em> — Đừng bao giờ nói <em>"You're wrong"</em> trong cuộc họp; nói <em>"I see it differently"</em> thì lịch sự hơn nhiều.</p>
+<p><strong>Hỏi lại khi không hiểu:</strong> <em>Could you explain that again, please? / Sorry, I didn't catch that. Could you repeat it? / Do you mean…?</em></p>
+<p><strong>Kết thúc cuộc họp:</strong> <em>To sum up, we agreed to… / So, the next step is… / Thank you, everyone. Let's meet again next Monday.</em></p>
+<h2>Phỏng vấn xin việc bằng tiếng Anh</h2>
+<p><strong>Câu hỏi kinh điển: "Tell me about yourself."</strong> Trả lời bằng cấu trúc hiện tại → quá khứ → tương lai (xem ví dụ đầy đủ ở <a href="/ky-nang/noi.html">hướng dẫn luyện nói</a>). Đừng kể lại CV; hãy kể câu chuyện: bạn là ai, bạn đã làm gì, và vì sao bạn muốn công việc này.</p>
+<p><strong>"What are your strengths?"</strong> — Nêu 2 điểm mạnh, mỗi điểm kèm 1 ví dụ cụ thể: <em>"One of my strengths is problem-solving. For example, in my last job, I found a way to reduce delivery time by 20% by reorganising our schedule."</em></p>
+<p><strong>"What is your weakness?"</strong> — Nêu 1 điểm yếu thật nhưng đã có cách khắc phục: <em>"I used to be nervous when speaking in public, so I joined a speaking club. Now I can present to a group of 30 people confidently."</em> Đừng nói <em>"I have no weaknesses"</em> (không ai tin) và đừng nói <em>"I am a perfectionist"</em> (câu trả lời sáo rỗng mà nhà tuyển dụng nghe hàng trăm lần).</p>
+<p><strong>"Why do you want to work here?"</strong> — Chứng tỏ bạn đã tìm hiểu về công ty: <em>"I admire your company's work in… and I believe my experience in… would be a good fit."</em> Đừng nói <em>"Because I need a job"</em> dù đó là sự thật.</p>
+<p><strong>"Do you have any questions for us?"</strong> — Luôn hỏi 1–2 câu: <em>"What does a typical day in this role look like?"</em> hoặc <em>"What are the opportunities for training and development?"</em> Không hỏi gì là dấu hiệu bạn không quan tâm.</p>
+<h2>Từ vựng theo ngành nghề</h2>
+<ul>
+<li><strong>Kinh doanh – văn phòng:</strong> <em>meeting, deadline, budget, report, colleague, client, invoice, contract, profit, target</em>. Cụm từ: <em>meet a deadline, sign a contract, set a target, send an invoice</em>.</li>
+<li><strong>Công nghệ thông tin:</strong> <em>software, hardware, bug, update, password, database, server, user</em>. Cụm từ: <em>fix a bug, update the software, back up data</em>.</li>
+<li><strong>Y tế:</strong> <em>patient, doctor, nurse, treatment, medicine, appointment, symptom, diagnosis</em>. Cụm từ: <em>make an appointment, take medicine, run a test</em>.</li>
+<li><strong>Du lịch – nhà hàng – khách sạn:</strong> <em>guest, reservation, check-in, check-out, menu, bill, room service</em>. Cụm từ: <em>make a reservation, check in, take an order</em>.</li>
+</ul>
+<h2>Lỗi thường gặp</h2>
+<ul>
+<li><strong>Viết email quá thẳng:</strong> <em>"Send me the file."</em> — nghe như ra lệnh. Viết đúng: <em>"Could you please send me the file?"</em> Thêm <em>please</em> và câu hỏi gián tiếp làm email lịch sự hơn rất nhiều.</li>
+<li><strong>Dùng <em>Dear Sir</em> khi biết tên người nhận:</strong> nếu biết tên, hãy dùng <em>Dear Mr. Nguyen</em> hoặc <em>Dear Ms. Lan</em>. <em>Dear Sir/Madam</em> chỉ dùng khi không biết tên người nhận.</li>
+<li><strong>Nhầm <em>borrow</em> và <em>lend</em> trong công việc:</strong> <em>Can I borrow your laptop?</em> (tôi mượn) / <em>Can you lend me your laptop?</em> (bạn cho tôi mượn).</li>
+<li><strong>Nói <em>"I will do it tomorrow"</em> khi không chắc làm được:</strong> trong công việc, hứa mà không làm được tệ hơn nói không làm được. Hãy nói: <em>"I'll try my best to finish it by tomorrow, and I'll update you if there is any delay."</em></li>
+<li><strong>Dùng tiếng lóng trong email công việc:</strong> <em>gonna, wanna, yeah, cool</em> không dùng trong email và báo cáo. Dùng <em>going to, want to, yes, good</em>.</li>
+</ul>
+<h2>Luyện tập nhanh</h2>
+<details><summary><strong>Câu 1.</strong> Chọn email lịch sự nhất để nhắc khách hàng thanh toán: (a) "Pay now." (b) "Could you please arrange payment at your earliest convenience?" (c) "Why haven't you paid yet?"</summary><p>Đáp án: <strong>(b)</strong>. Câu (b) lịch sự, gián tiếp và chuyên nghiệp. Câu (a) là ra lệnh; câu (c) nghe như trách móc.</p></details>
+<details><summary><strong>Câu 2.</strong> Sửa câu sau: "I am agree with your idea, it's very good."</summary><p>Đáp án: <em>I agree with your idea. It's very good.</em> — <em>Agree</em> là động từ, không cần <em>am</em>.</p></details>
+<details><summary><strong>Câu 3.</strong> Trong cuộc họp, bạn không đồng ý với đồng nghiệp. Câu nào lịch sự nhất? (a) "You're wrong." (b) "I see your point, but have we considered the cost?" (c) "No."</summary><p>Đáp án: <strong>(b)</strong>. Câu (b) công nhận ý kiến của người khác trước (<em>I see your point</em>) rồi mới nêu quan ngại của mình — cách không đồng ý lịch sự chuẩn trong môi trường công việc.</p></details>
+<h2>Học tiếp ở đâu?</h2>
+<p>Muốn luyện tiếng Anh công việc qua trò chơi? Chơi <a href="/tro-choi/workplace-english-arcade.html">Workplace English Arcade — tiếng Anh công việc trình độ B2</a>. Cần chứng chỉ TOEIC để xin việc? Xem <a href="/luyen-thi/toeic.html">luyện thi TOEIC</a> (mục tiêu 600–750 cho đa số vị trí). Muốn luyện viết email tốt hơn? Xem <a href="/ky-nang/viet.html">hướng dẫn luyện viết</a> và dùng <a href="/cong-cu/viet.html">công cụ chữa bài viết bằng AI</a> để kiểm tra email của bạn trước khi gửi. Chưa vững ngữ pháp nền tảng? Xem <a href="/trinh-do/b1.html">trình độ B1</a> và <a href="/trinh-do/b2.html">trình độ B2</a>.</p>
+""") + _guide_nav(("Trẻ em", "/tre-em.html"), ("Du học", "/du-hoc.html"), None, "Tôi muốn học tiếng Anh cho công việc, bắt đầu từ đâu?"),
+    active="/cong-viec.html", eyebrow="Tiếng Anh công việc",
+    desc="Tiếng Anh cho công việc theo từng ngành nghề: mẫu email, họp, thuyết trình và phỏng vấn xin việc bằng tiếng Anh.")
 
 add("/du-hoc.html", "Du học", "Chuẩn bị tiếng Anh đi du học",
-    soon("Trang này sẽ có:",
-         ["Tiếng Anh cần cho du học: thi IELTS/TOEFL/PTE, viết luận xin học bổng, phỏng vấn visa.",
-          "Học bổng toàn phần: Chevening, Fulbright, Australia Awards, DAAD, GKS, MEXT, Erasmus Mundus.",
-          "Đời sống ở nước ngoài: nhà ở, ngân hàng, giao tiếp hằng ngày."],
-         ai_question="Tôi muốn đi du học, cần chuẩn bị tiếng Anh như thế nào?",
-         lead="Chuẩn bị tiếng Anh đi du học: thi IELTS/TOEFL/PTE, học bổng toàn phần, phỏng vấn visa và đời sống ở nước ngoài.",
-         do_now=("Hướng dẫn học với sách Mindset for IELTS", "/sach/mindset-for-ielts.html")),
-    active="/du-hoc.html", eyebrow="Du học", noindex=True,
-    desc="Chuẩn bị tiếng Anh đi du học: thi IELTS/TOEFL/PTE, học bổng toàn phần, phỏng vấn visa và đời sống ở nước ngoài. Sắp có.")
+    guide_sections("""
+<p class="lead">Chuẩn bị tiếng Anh đi du học không chỉ là thi lấy chứng chỉ — bạn cần tiếng Anh để viết luận xin học bổng, phỏng vấn visa, nghe giảng trên lớp và sống tự lập ở nước ngoài. Trang này hướng dẫn cả 4 việc đó, theo thứ tự bạn sẽ gặp chúng.</p>
+""" + AI_NOTE + """
+<h2>Bước 1 — Chọn kỳ thi tiếng Anh phù hợp</h2>
+<p>Ba kỳ thi phổ biến nhất cho du học là IELTS, TOEFL iBT và PTE Academic. Kỳ thi nào phù hợp tùy thuộc vào nước bạn tới và yêu cầu của trường:</p>
+<ul>
+<li><strong><a href="/luyen-thi/ielts.html">IELTS</a>:</strong> phổ biến nhất, được chấp nhận rộng rãi ở Anh, Úc, Canada, châu Âu và nhiều trường tại Mỹ. Thi 4 kỹ năng, thang điểm 1–9, có thi trên giấy và trên máy tính, phần Nói thi trực tiếp với giám khảo.</li>
+<li><strong><a href="/luyen-thi/toefl.html">TOEFL iBT</a>:</strong> phổ biến nhất cho du học Mỹ. Từ 21/01/2026 thi theo định dạng mới (khoảng 90 phút làm bài, thang điểm 1–6). Thi hoàn toàn trên máy tính.</li>
+<li><strong><a href="/luyen-thi/pte.html">PTE Academic</a>:</strong> thi trên máy tính, chấm bằng AI, kết quả nhanh (thường trong khoảng 2 ngày), thang điểm 10–90. Đặc biệt phổ biến cho du học Úc.</li>
+</ul>
+<p><strong>Nguyên tắc chọn:</strong> xem yêu cầu của trường bạn nộp đơn trước — trường yêu cầu kỳ thi nào và mức điểm bao nhiêu thì thi kỳ thi đó. Về mức điểm: mỗi trường, mỗi ngành yêu cầu khác nhau — hãy xem trên trang của trường, đừng tin con số lan truyền trên mạng. Nhìn chung, bạn cần trình độ khoảng <a href="/trinh-do/b2.html">B2</a> trở lên để học đại học bằng tiếng Anh, và <a href="/trinh-do/c1.html">C1</a> cho bậc sau đại học.</p>
+<h2>Bước 2 — Viết luận xin học bổng và hồ sơ</h2>
+<p><strong>Luận xin học (Statement of Purpose / Personal Statement)</strong> là bài viết quan trọng nhất trong hồ sơ du học, sau điểm thi. Cấu trúc chuẩn:</p>
+<ul>
+<li><strong>Mở đầu (1 đoạn):</strong> một câu chuyện hoặc khoảnh khắc cụ thể khiến bạn chọn ngành này — không mở đầu bằng <em>"I have always wanted to…"</em> (câu mở đầu sáo rỗng mà hội đồng tuyển sinh đọc hàng nghìn lần).</li>
+<li><strong>Thân bài (2–3 đoạn):</strong> những gì bạn đã làm (học tập, dự án, công việc) và chúng chuẩn bị cho bạn như thế nào; vì sao bạn chọn trường này, chương trình này (nêu tên giáo sư, phòng lab, khóa học cụ thể — chứng tỏ bạn đã tìm hiểu kỹ).</li>
+<li><strong>Kết bài (1 đoạn):</strong> kế hoạch sau khi học xong và đóng góp của bạn — trường muốn biết bạn sẽ làm gì với tấm bằng, không chỉ muốn biết bạn giỏi thế nào.</li>
+</ul>
+<p><strong>Lỗi phổ biến:</strong> viết chung chung mà không có bằng chứng, kể lại CV bằng câu dài, hoặc sao chép mẫu trên mạng — hội đồng tuyển sinh nhận ra ngay. Hãy viết bằng lời của mình, rồi nhờ người giỏi tiếng Anh sửa giúp; bạn có thể dùng <a href="/cong-cu/viet.html">công cụ chữa bài viết bằng AI</a> để kiểm tra ngữ pháp.</p>
+<p><strong>Học bổng toàn phần:</strong> một số chương trình học bổng toàn phần nổi tiếng mà sinh viên Việt Nam hay nộp đơn gồm Chevening (Anh), Fulbright (Mỹ), Australia Awards (Úc), DAAD (Đức), GKS (Hàn Quốc), MEXT (Nhật Bản) và Erasmus Mundus (châu Âu). Mỗi chương trình có điều kiện và hạn nộp riêng, thay đổi theo năm — hãy xem trực tiếp trên trang chính thức của từng chương trình.</p>
+<h2>Bước 3 — Phỏng vấn visa và phỏng vấn trường</h2>
+<p><strong>Phỏng vấn visa</strong> thường ngắn (3–5 phút) và tập trung vào 3 câu hỏi: Bạn đi học cái gì, ở đâu? Ai trả tiền? Bạn có quay về sau khi học xong không? Trả lời ngắn gọn, trung thực, nhất quán với hồ sơ đã nộp. Đừng học thuộc lòng câu trả lời — viên chức lãnh sự nhận ra ngay. Chuẩn bị bằng cách trả lời các câu hỏi sau bằng tiếng Anh, mỗi câu 2–3 câu trả lời:</p>
+<ul>
+<li><em>Why did you choose this university?</em> — Nêu lý do cụ thể về trường và chương trình, không nói chung chung.</li>
+<li><em>How will you pay for your studies?</em> — Nêu rõ nguồn tài chính (gia đình, học bổng, tiết kiệm) với con số nếu có.</li>
+<li><em>What will you do after graduation?</em> — Nêu kế hoạch quay về Việt Nam làm việc (đây là câu hỏi quan trọng nhất với nhiều nước).</li>
+</ul>
+<p>Luyện phỏng vấn: xem kỹ thuật trả lời ở <a href="/ky-nang/noi.html">hướng dẫn luyện nói</a> và chơi <a href="/tro-choi/speaking-booth.html">Speaking Booth — luyện nói theo chủ đề</a>.</p>
+<h2>Bước 4 — Tiếng Anh cho đời sống ở nước ngoài</h2>
+<p>Thi xong chưa phải là xong — bạn còn cần tiếng Anh để sống. Những tình huống bạn sẽ gặp trong tuần đầu tiên:</p>
+<ul>
+<li><strong>Nhà ở:</strong> <em>I'd like to rent a room near the university. Is the rent per week or per month? Does it include electricity and internet?</em> — Học từ: <em>rent, deposit, landlord, lease, bills included</em>.</li>
+<li><strong>Trường học:</strong> <em>Excuse me, where is the lecture hall? Could you explain the assignment again, please?</em> — Học từ: <em>lecture, seminar, tutorial, assignment, deadline, plagiarism</em> (đạo văn — tuyệt đối tránh).</li>
+<li><strong>Giao tiếp hằng ngày:</strong> <em>Could I have a coffee, please? How much is it? Can I pay by card?</em> — Học cách nói lịch sự: <em>Could I…? / Would you mind…? / Excuse me…</em></li>
+</ul>
+<p><strong>Lưu ý:</strong> ở nước ngoài, sinh viên được kỳ vọng phát biểu trong lớp và làm việc nhóm — khác với lớp học ở Việt Nam. Luyện trước khi đi: xem <a href="/ky-nang/noi.html">hướng dẫn luyện nói</a>.</p>
+<h2>Lỗi thường gặp</h2>
+<ul>
+<li><strong>Chỉ luyện thi, không luyện tiếng Anh thật:</strong> đạt IELTS 7.0 nhưng không nghe được bài giảng, không viết được email cho giáo viên — vì luyện thi chỉ dạy làm bài thi. Hãy luyện cả tiếng Anh đời sống: xem phim, đọc báo, nói chuyện với người bản xứ.</li>
+<li><strong>Chọn trường theo "nghe nói" thay vì yêu cầu chính thức:</strong> mỗi trường có yêu cầu điểm và hồ sơ riêng. Xem trực tiếp trên trang của trường — đừng tin con số lan truyền.</li>
+<li><strong>Viết luận xin học bổng bằng mẫu có sẵn trên mạng:</strong> hội đồng tuyển sinh đọc hàng nghìn bài mỗi năm và nhận ra mẫu sao chép ngay. Viết bằng câu chuyện thật của bạn.</li>
+<li><strong>Không chuẩn bị câu trả lời phỏng vấn visa:</strong> trả lời ấp úng, mâu thuẫn với hồ sơ là lý do trượt visa phổ biến. Luyện trả lời 4 câu hỏi ở mục Bước 3 cho tới khi trôi chảy.</li>
+</ul>
+<h2>Luyện tập nhanh</h2>
+<details><summary><strong>Câu 1.</strong> Bạn muốn hỏi đường tới thư viện trong trường đại học. Câu nào lịch sự nhất? (a) "Where is the library?" (b) "Excuse me, could you tell me where the library is, please?" (c) "Library where?"</summary><p>Đáp án: <strong>(b)</strong>. Câu (b) có <em>Excuse me</em>, câu hỏi gián tiếp (<em>could you tell me where…</em>) và <em>please</em> — cách hỏi lịch sự chuẩn. Câu (a) không sai nhưng kém lịch sự hơn; câu (c) sai ngữ pháp.</p></details>
+<details><summary><strong>Câu 2.</strong> Sửa câu sau (viết email cho giáo viên): "Hi, I want more time for my assignment!!!"</summary><p>Đáp án: <em>Dear Professor Smith, I am writing to ask if I could please have an extension for my assignment, as I have been unwell this week. Thank you for your understanding. Best regards, Lan.</em> — Email học thuật cần chào hỏi trang trọng, câu hỏi gián tiếp, lý do rõ ràng và không dùng dấu chấm than.</p></details>
+<details><summary><strong>Câu 3.</strong> Trả lời câu hỏi phỏng vấn visa: "What will you do after graduation?" — Câu trả lời nào tốt nhất? (a) "I don't know." (b) "I will stay and find a job." (c) "I plan to return to Vietnam and work as a software engineer, because the tech industry there is growing fast and I want to contribute to it."</summary><p>Đáp án: <strong>(c)</strong>. Câu trả lời tốt nêu kế hoạch cụ thể (quay về Việt Nam, làm nghề gì) và lý do (ngành công nghệ đang phát triển, muốn đóng góp). Câu (a) và (b) đều yếu — (b) còn có thể gây nghi ngờ về ý định ở lại.</p></details>
+<h2>Học tiếp ở đâu?</h2>
+<p>Chọn kỳ thi: <a href="/luyen-thi/ielts.html">luyện thi IELTS</a>, <a href="/luyen-thi/toefl.html">luyện thi TOEFL iBT</a>, <a href="/luyen-thi/pte.html">luyện thi PTE Academic</a>. Học theo sách: <a href="/sach/mindset-for-ielts.html">hướng dẫn học với sách Mindset for IELTS</a> (tới band 7.5). Nâng trình độ nền tảng: <a href="/trinh-do/b2.html">trình độ B2</a> và <a href="/trinh-do/c1.html">trình độ C1</a>. Luyện nói và viết: <a href="/ky-nang/noi.html">hướng dẫn luyện nói</a>, <a href="/ky-nang/viet.html">hướng dẫn luyện viết</a>. Sau khi đi du học, bạn vẫn cần <a href="/cong-viec.html">tiếng Anh công việc</a> — học trước cũng không thừa.</p>
+""") + _guide_nav(("Tiếng Anh công việc", "/cong-viec.html"), None, None, "Tôi muốn đi du học, cần chuẩn bị tiếng Anh như thế nào?"),
+    active="/du-hoc.html", eyebrow="Du học",
+    desc="Chuẩn bị tiếng Anh đi du học: thi IELTS/TOEFL/PTE, học bổng toàn phần, phỏng vấn visa và đời sống ở nước ngoài.")
 
 add("/tai-nguyen.html", "Tài nguyên miễn phí", "Tài nguyên học tiếng Anh miễn phí",
     f"""
@@ -1190,6 +2242,39 @@ add("/tro-choi/index.html", "Trò chơi & Công cụ", "Trò chơi & Công cụ"
 <p>Chưa biết mình ở đâu? <a href="/tro-choi/english-level-check.html">Làm bài kiểm tra trình độ →</a> · <a href="/tro-choi/level-map.html">Xem bản đồ công cụ theo trình độ →</a></p>
 """, active="/tro-choi/", eyebrow="Trò chơi & Công cụ",
     desc="Trò chơi và công cụ học tiếng Anh miễn phí: luyện TOEIC, PTE, IELTS, kiểm tra trình độ, trò chơi theo lớp 4, 9, 10 và công cụ cho giáo viên.")
+
+# ---------------- Quyền riêng tư ----------------
+add("/quyen-rieng-tu.html", "Quyền riêng tư", "Quyền riêng tư",
+    f"""
+<p class="lead">Trang này giải thích David English thu thập dữ liệu gì, dùng để làm gì, và cách bạn kiểm soát dữ liệu của mình.</p>
+<section class="section">
+<div class="section-head"><h2>Chúng tôi dùng Google Analytics (GA4)</h2></div>
+<p>David English dùng Google Analytics 4 (GA4) — công cụ phân tích của Google — để biết nội dung nào hữu ích: ví dụ trang nào được đọc nhiều, bài học nào được mở tới cuối. GA4 chỉ chạy khi bạn bấm “Đồng ý” trên banner cookie. Nếu bạn bấm “Từ chối” hoặc chưa chọn gì, GA4 không chạy và không thu thập gì cả. Theo Luật Bảo vệ dữ liệu cá nhân 91/2025/QH15, chúng tôi chỉ thu thập dữ liệu phân tích khi bạn đồng ý rõ ràng. Mã đo lường (Measurement ID) của trang là {GA4_ID}.</p>
+</section>
+<section class="section section-alt">
+<div class="section-head"><h2>GA4 thu thập gì</h2></div>
+<p>Khi bạn đã đồng ý, GA4 thu thập: trang bạn xem, thời gian xem, loại thiết bị và trình duyệt bạn dùng, và khu vực chung (quốc gia/thành phố) suy ra từ địa chỉ IP. Địa chỉ IP của bạn được Google ẩn danh mặc định — chúng tôi không thấy địa chỉ IP đầy đủ của bạn.</p>
+<p>GA4 không thu thập tên, email, số điện thoại hay bất kỳ thông tin nào cho biết bạn là ai. Trang này không dùng cookie quảng cáo và không bán dữ liệu cho bất kỳ ai.</p>
+</section>
+<section class="section">
+<div class="section-head"><h2>Dùng để làm gì</h2></div>
+<p>Dữ liệu phân tích chỉ dùng để cải thiện nội dung: viết thêm bài học ở chủ đề được đọc nhiều, sửa bài học ít người đọc tới cuối. Dữ liệu được xem ở dạng tổng hợp (ví dụ: “500 lượt xem trang này trong tháng”), không theo dõi từng người.</p>
+</section>
+<section class="section section-alt">
+<div class="section-head"><h2>Lưu trữ bao lâu</h2></div>
+<p>Dữ liệu phân tích trong GA4 được lưu tối đa 14 tháng rồi tự xóa. Cookie GA4 trên trình duyệt của bạn (_ga) có hạn tối đa 2 năm, nhưng sẽ bị xóa ngay khi bạn rút lại sự đồng ý (xem bên dưới).</p>
+</section>
+<section class="section">
+<div class="section-head"><h2>Rút lại sự đồng ý và xóa dữ liệu</h2></div>
+<p>Bạn có thể rút lại sự đồng ý bất cứ lúc nào: bấm liên kết “Cài đặt cookie” ở chân trang, rồi bấm “Từ chối”. Thao tác này xóa cookie Google Analytics khỏi trình duyệt của bạn và dừng mọi thu thập tiếp theo ngay lập tức. Dữ liệu đã gửi trước đó được ẩn danh và tự xóa sau tối đa 14 tháng.</p>
+<p>Ngoài GA4, trang chỉ lưu dữ liệu trên chính máy của bạn: tiến độ trò chơi và bài kiểm tra được lưu trong trình duyệt của bạn (localStorage), không gửi về máy chủ của chúng tôi. Xóa dữ liệu trình duyệt là xóa luôn các dữ liệu này.</p>
+</section>
+<section class="section section-alt">
+<div class="section-head"><h2>Yêu cầu xóa dữ liệu</h2></div>
+<p>Hiện trang chưa có hộp thư liên hệ riêng, nên cách nhanh nhất để yêu cầu dừng và xóa dữ liệu phân tích liên quan tới bạn là dùng liên kết “Cài đặt cookie” ở chân trang như hướng dẫn ở trên — có hiệu lực ngay, không cần chờ ai xử lý. Địa chỉ liên hệ để gửi yêu cầu xóa dữ liệu sẽ được bổ sung tại đây khi trang có hộp thư liên hệ chính thức.</p>
+</section>
+""", active="/", eyebrow="David English",
+    desc="Chính sách quyền riêng tư của David English: Google Analytics thu thập gì, dùng để làm gì, lưu bao lâu, và cách rút lại sự đồng ý.")
 
 if __name__ == "__main__":
     for path, title, h1, body, active, desc, eyebrow, hero, noindex in PAGES:
