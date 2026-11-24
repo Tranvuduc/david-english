@@ -1272,7 +1272,8 @@ add("/hoc-voi-david.html", "Học với David", "Học tiếng Anh 1 kèm 1 vớ
 <div class="tutor-trust-item"><b>A1–B1</b><span>Trình độ học viên<br>học 1 kèm 1</span></div>
 </div>
 <h2>Học cùng ai</h2>
-<p>David — 10 năm kinh nghiệm giảng dạy tiếng Anh, TOEFL iBT 97/120 (tương đương IELTS 7.0–7.5). Dạy học viên trình độ A1–B1, học 1 kèm 1, online qua Zoom và trực tiếp. Phương pháp tập trung vào sự rõ ràng, thực hành và tiến bộ bền vững.</p>
+<p>David — 10 năm kinh nghiệm giảng dạy tiếng Anh, chứng chỉ TESOL, TOEFL iBT 97/120 (tương đương IELTS 7.0–7.5), và từng du học tại Hoa Kỳ. Dạy học viên trình độ A1–B1, học 1 kèm 1, online qua Zoom và trực tiếp. Phương pháp tập trung vào sự rõ ràng, thực hành và tiến bộ bền vững.</p>
+<p class="tutor-chips"><span>10 năm kinh nghiệm</span><span>TESOL</span><span>TOEFL iBT 97</span><span>Du học Hoa Kỳ</span></p>
 <h2>Chọn mục tiêu của bạn</h2>
 <p>Không học dàn trải. Tập trung vào kỹ năng và mục tiêu bạn cần sử dụng.</p>
 <div class="cards">
@@ -1288,7 +1289,13 @@ add("/hoc-voi-david.html", "Học với David", "Học tiếng Anh 1 kèm 1 vớ
 <article class="card"><h3>04 · Theo dõi tiến bộ</h3><p>Đánh giá định kỳ theo tiến độ của bạn; kết quả tùy nền tảng đầu vào và mức độ luyện tập.</p></article>
 </div>
 <h2>Lịch học</h2>
-<p>Lịch học được xếp theo từng học viên — không có khung giờ cố định chung. Sau khi đánh giá trình độ và thống nhất mục tiêu, bạn và David xếp lịch phù hợp với thời gian của bạn.</p>
+<p>Lịch học trao đổi qua Zalo — sau khi đánh giá trình độ và thống nhất mục tiêu, bạn và David xếp lịch phù hợp với thời gian của bạn. Không có khung giờ cố định chung.</p>
+<h2>Học phí minh bạch</h2>
+<p>Học phí tính theo giờ học và mỗi học viên. Ưu đãi áp dụng theo thời lượng đăng ký.</p>
+<div class="cards">
+<article class="card"><h3>Giao tiếp &amp; tiếng Anh công việc</h3><p class="tutor-amount">200.000đ <small>/ giờ / học viên</small></p><p>Học 1 kèm 1.</p><ul><li>Giảm 10% khi đăng ký 3 tháng</li><li>Giảm 15% khi đăng ký 6 tháng</li><li>Giáo trình Oxford &amp; Cambridge phù hợp trình độ</li></ul></article>
+<article class="card tutor-featured"><h3>IELTS</h3><p class="tutor-amount">300.000đ <small>/ giờ / học viên</small></p><p>Lộ trình luyện thi theo trình độ và mục tiêu.</p><ul><li>Đánh giá đầu vào và định hướng</li><li>Luyện kỹ năng có chiến lược</li><li>Phản hồi và bài tập theo tiến độ</li></ul></article>
+</div>
 <h2>Câu hỏi thường gặp</h2>
 <div class="tutor-faq">
 <details><summary>Lớp học có bao nhiêu học viên?</summary><p>Học 1 kèm 1 — chỉ có bạn và giáo viên, để đảm bảo thời gian thực hành và phản hồi cho từng buổi học.</p></details>
@@ -1298,9 +1305,10 @@ add("/hoc-voi-david.html", "Học với David", "Học tiếng Anh 1 kèm 1 vớ
 </div>
 <h2>Bắt đầu như thế nào</h2>
 <div class="tutor-cta">
-<h3>Bắt đầu bằng bài kiểm tra trình độ.</h3>
-<p>Làm bài English Level Check để biết mình đang ở đâu, rồi trao đổi về mục tiêu và lớp học phù hợp. Học phí và lịch học được trao đổi riêng sau khi đánh giá trình độ.</p>
-<p><a class="btn" href="/tro-choi/english-level-check.html">Làm bài English Level Check →</a></p>
+<h3>Bắt đầu bằng một cuộc trò chuyện.</h3>
+<p>Chia sẻ trình độ hiện tại và mục tiêu của bạn để được tư vấn lớp phù hợp — hoặc làm bài English Level Check trước rồi nhắn kết quả qua Zalo. Học phí và lịch học được trao đổi riêng sau khi đánh giá trình độ.</p>
+<p><a class="btn" href="https://zalo.me/0902821991" target="_blank" rel="noopener">Liên hệ qua Zalo · 0902821991 ↗</a></p>
+<p><a href="/tro-choi/english-level-check.html">Làm bài English Level Check trước →</a></p>
 </div>
 <p><a href="/trinh-do/">← Tự học miễn phí theo trình độ</a> · <a href="/ke-hoach-hoc.html">Xem kế hoạch học →</a> · <a href="/">← Về trang chủ</a></p>
 """), active="/hoc-voi-david.html", eyebrow="Học 1 kèm 1",

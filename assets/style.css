@@ -403,6 +403,12 @@ tbody tr:nth-child(even) td { background: #fbfaf6; }
 .tutor-cta .btn { background: var(--tutor-lime); color: var(--tutor-navy); border-color: transparent; }
 .tutor-cta .btn:hover { background: #d8efc0; color: var(--tutor-navy); }
 .tutor-cta a:focus-visible, .tutor-faq summary:focus-visible { outline: 2px solid var(--tutor-lime); outline-offset: 2px; }
+.tutor-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+.tutor-chips span { border: 1px solid var(--tutor-line); border-radius: 99px; padding: 7px 11px; font-size: 12px; color: var(--tutor-navy); }
+.tutor-amount { font-size: 32px; letter-spacing: -0.03em; color: var(--tutor-teal); font-weight: 800; margin: 8px 0; }
+.tutor-amount small { font-size: 13px; color: var(--tutor-muted); font-weight: 400; letter-spacing: 0; }
+.tutor-featured { border: 2px solid var(--tutor-teal); }
+.tutor-cta a:not(.btn) { color: var(--tutor-lime); }
 @media (max-width: 720px) {
   .tutor-trust { grid-template-columns: 1fr 1fr; }
   .tutor-cta { padding: 24px; }
