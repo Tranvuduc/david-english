@@ -1,4 +1,6 @@
-<!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Workplace English Arcade</title>
+<!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important} .hero h2{font-size:clamp(30px,6vw,52px);font-weight:800;letter-spacing:-.02em}
+ .hero h2 em{font-style:normal;color:var(--coral)}
+</style><title>Workplace English Arcade</title>
 <meta name="description" content="Vocabulary, grammar and four-skills games for the B2 Business English course">
 <meta property="og:title" content="Workplace English Arcade">
 <meta property="og:description" content="Vocabulary, grammar and four-skills games for the B2 Business English course">
@@ -611,7 +613,7 @@ function progress(){
   setTab('prog');stopTimers();
   const ri=rankOf(P.xp);
   const cols=GAMES.map(g=>g.name.split(' ')[0]);
-  let h=`<section style="margin-top:20px"><h1 style="font-size:clamp(28px,5vw,44px);font-weight:800">Your progress</h1>
+  let h=`<section style="margin-top:20px"><h2 style="font-size:clamp(28px,5vw,44px);font-weight:800">Your progress</h2>
   <div class="tiles4">
     <div class="stat"><span>Career level</span><b>${RANKS[ri][1]}</b></div>
     <div class="stat"><span>Total XP</span><b class="num">${P.xp.toLocaleString()}</b></div>
@@ -938,7 +940,7 @@ function examHome(){
   const card=(id,title,desc,meta,color,icon)=>`<button class="card" data-x="${id}"><div class="ic" style="background:${color}">${icon}</div><h3>${title}</h3><p>${desc}</p><div class="best">${meta}</div></button>`;
   const ic=(t)=>`<span style="font-family:var(--display);font-weight:800;font-size:15px;color:#fff">${t}</span>`;
   const accMeta=p=>acc(p)!=null?`<span class="num">${acc(p)}%</span> accuracy · ${P.ex[p].t} answered`:'Not practised yet';
-  let h=`<section class="hero" id="examRoot"><h1>Exam <em>Center</em></h1><p>Practise the real question types from the two business English tests most used in Vietnam: <b>TOEIC Listening &amp; Reading</b> and <b>Cambridge Linguaskill Business</b>, the replacement for the BEC exams.</p></section>
+  let h=`<section class="hero" id="examRoot"><h2>Exam <em>Center</em></h2><p>Practise the real question types from the two business English tests most used in Vietnam: <b>TOEIC Listening &amp; Reading</b> and <b>Cambridge Linguaskill Business</b>, the replacement for the BEC exams.</p></section>
   <div class="target"><div><span class="tag">Latest mock estimate</span><b class="num">${last?last.L+last.R:'—'}</b><small>${last?'Listening '+last.L+' ('+cefr(last.L,CEFR_L)+') · Reading '+last.R+' ('+cefr(last.R,CEFR_R)+')':'Take the mini mock to get an estimate'}</small></div>
   <div><span class="tag">B2 target (ETS)</span><b class="num">785+</b><small>Listening 400 · Reading 385</small></div>
   <div><span class="tag">Weekly plan</span><small>Daily: 15 min games + 1 exam part. Weekly: 1 mini mock, 1 writing task, 2 speaking parts.</small></div></div>

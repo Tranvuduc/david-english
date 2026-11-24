@@ -1,4 +1,5 @@
-<!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Starter Quest</title>
+<!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important} .fhead h2{font-size:clamp(28px,7vw,42px)}
+</style><title>Starter Quest</title>
 <meta name="description" content="Trò chơi từ vựng và ngữ pháp cho người mới bắt đầu: chào hỏi, số đếm, gia đình, động từ hằng ngày.">
 <meta property="og:title" content="Starter Quest">
 <meta property="og:description" content="Trò chơi từ vựng và ngữ pháp cho người mới bắt đầu: chào hỏi, số đếm, gia đình, động từ hằng ngày.">
@@ -483,7 +484,7 @@ function fileView(i){
   let html=`<section class="fhead anim" style="background:${bg};color:${fg}">
     <div class="row" style="justify-content:space-between"><button class="btn sm ghost" id="back">← Tất cả File</button><b>⭐ ${fileStars(i)}/${GAMES.length*3}</b></div>
     <span class="num label" style="color:${fg};opacity:.85">File ${i+1}</span>
-    <h1>${esc(f.t)}</h1>
+    <h2>${esc(f.t)}</h2>
     <div class="tagrow"><span class="tag">🧠 ${esc(f.g)}</span><span class="tag">🔤 ${esc(f.v)}</span><span class="tag">${f.vocab.length} từ</span></div>
   </section>`;
   const best=store.tests&&store.tests[i]!=null?store.tests[i]:null;
@@ -747,7 +748,7 @@ function finish(right,total,hearts,miss){
   const gi=GAMES.findIndex(g=>g.id===cur.g),next=cur.f>=0&&gi<GAMES.length-1?GAMES[gi+1]:null;
   app.innerHTML=`<section class="result anim">
     <span class="label">${cur.f<0?"Tổng hợp":"File "+(cur.f+1)+" · "+GAMES[gi].name}</span>
-    <h1 style="font-size:34px">${head}</h1>
+    <h2 style="font-size:34px">${head}</h2>
     <div class="bigstars stars">${starStr(stars)}</div>
     <div class="pct">${pct}%</div>
     <b>Đúng ${right}/${total} câu · +${bonus} XP thưởng${better&&prev>0?" · Kỷ lục mới!":""}</b>
@@ -902,7 +903,7 @@ function startTest(idx,key){
       <div style="text-align:center;display:grid;gap:6px;justify-items:center">
       <span class="label">${key==="final"?"🎓 Thi cuối khóa":"📝 Thi thử File "+(idx[0]+1)} · ${new Date().toLocaleString("vi-VN")}</span>
       <div class="pct" style="color:${band[1]}">${total}<span style="font-size:24px;color:var(--muted)">/100</span></div>
-      <h1 style="font-size:30px">${band[0]}</h1>
+      <h2 style="font-size:30px">${band[0]}</h2>
       <b>Thời gian: ${Math.floor(used/60)} phút ${used%60} giây${total>prev&&prev>0?" · Kỷ lục mới!":""}</b></div>
       <div class="secs">${Object.keys(SECT).map(k=>`<div class="srow"><span>${SECT[k][0]}</span><div class="bar"><i style="width:${secPts[k]/secMax[k]*100}%"></i></div><b>${secPts[k]}/${secMax[k]}</b></div>`).join("")}</div>
       ${weak.length?`<div class="fb bad" style="display:block"><b>Cần luyện thêm:</b><ul style="margin:6px 0 0;padding-left:20px">${weak.map(k=>`<li>${SECT[k][0]}: ${tips[k]}</li>`).join("")}</ul></div>`:`<div class="fb good">Tất cả các phần đều đạt từ 60% trở lên. Rất tốt!</div>`}

@@ -8,6 +8,7 @@
  "scripture": "Romans 3:21-26; 4:1-8; 5:1-5, 8",
  "grammar_topic": "Second conditional (If + past simple, would + base verb); wishes and hypotheticals",
  "pronunciation": "/θ/ vs /ð/ in context (faith, think, through, truth vs father, this, that, with)",
+ "pronunciation_detail": "Both sounds are made the same way: put the tip of your tongue between your teeth and blow air out. The difference is voice: /θ/ is voiceless (no vibration — put your fingers on your throat, you feel nothing), and /ð/ is voiced (your throat vibrates). Vietnamese has neither sound, so learners often replace them with /t/ or /d/ — \"tink\" for think, \"dis\" for this. Do not do that: keep the tongue between the teeth! /θ/ — voiceless (no vibration): faith /feɪθ/, think /θɪŋk/, through /θruː/, truth /truːθ/, three /θriː/, thank /θæŋk/. Whisper the sound: it is just air. /ð/ — voiced (throat vibrates): father /ˈfɑːðər/, this /ðɪs/, that /ðæt/, with /wɪð/, they /ðeɪ/, brother /ˈbrʌðər/. Hum the sound: you can feel it in your throat. In sentence context: \"I think this is the truth\" — think /θ/, this /ð/, the /ð/, truth /θ/. Listen for the vibration: if your throat buzzes, it is /ð/; if it is only air, it is /θ/. Practice: read Romans 5:1 aloud twice, slowly, feeling the difference — \"Therefore, since we have been justified by faith, we have peace with God through our Lord Jesus Christ.\" Faith /θ/, with /ð/, through /θ/.",
  "objectives": [
   "Học và thực hành: Second conditional (If + past simple, would + base verb); wishes and hypotheticals.",
   "Luyện phát âm: /θ/ vs /ð/ in context (faith, think, through, truth vs father, this, that, with).",
@@ -172,7 +173,7 @@
  "grammar": [
   {
    "title": "Second conditional (If + past simple, would + base verb); wishes and hypotheticals",
-   "explain": "Phần Grammar Blueprint đầy đủ (giải thích chi tiết và ví dụ) nằm trong file PDF bài học.",
+   "explain": "Form: If + past simple, would + base verb. \"If we were justified by works, grace would not be grace.\" — \"If Abraham had been justified by works, he would have something to boast about.\" Use were (not was) after if for all persons in formal English: \"If I were still under the law…\" (\"If I was…\" is common in speech, but were is correct in writing.)\n\nMeaning: the second conditional talks about unreal or imaginary situations — things that are not true now, or that we are only imagining. Paul uses it to show why salvation cannot be by works: \"If we were justified by works\" — but we are not! We are justified by faith.\n\nCompare the first conditional (real future): \"If you believe, you will have peace\" — with the second (imaginary): \"If you believed, you would have peace.\"\n\nWishes — the same past-simple form after wish: I wish + past simple — a wish about the present that is not true: \"I wish I had peace with God.\" (I do not have it yet.) — \"I wish I trusted Christ more.\" — \"I wish I were sure of my salvation.\"\n\nNote: wish takes were too: \"I wish I were free from fear.\"\n\nWould in the result clause: the main clause always uses would (not will): \"If we trusted in our works, we would never know if we had done enough.\"\n\nShort forms in speech: \"If I trusted Him, I'd have peace.\"\n\nWatch out: never use would in the If-clause: say \"If we were justified by works…\", not \"If we would be justified…\". And never use will in the result: say \"…grace would not be grace\", not \"…grace will not be grace\".",
    "examples": []
   }
  ],
@@ -182,7 +183,7 @@
   "words": 352,
   "script": "/tai-lieu/b1/scripts/b1-lesson-05-listening-script.txt"
  },
- "reading_passage": "",
+ "reading_passage": "Romans is Paul's greatest letter, and its heart is a question: how can a sinful person be right with a holy God? Paul's answer is clear: no one can earn God's favour by keeping the law. All have sinned and fall short of the glory of God. The law shows us our sin, but it cannot save us. If we were justified by works, grace would not be grace, and boasting would be possible. But God has made another way. The righteousness of God has been revealed apart from the law, through faith in Jesus Christ for all who believe. God put forward Jesus as a propitiation by His blood, to be received by faith. On the cross, Jesus took the punishment our sins deserved, so that God can be both just and the justifier of the one who has faith in Jesus. Paul proves this from Abraham. Abraham believed God, and it was credited to him as righteousness. Abraham lived about four hundred years before the law was given, so he could not have been saved by keeping the law. He was saved by faith, and so are we. God counts faith as righteousness for everyone who trusts in Christ. Then Paul tells us what justification changes. Since we have been justified by faith, we have peace with God through our Lord Jesus Christ. We have access by faith into this grace in which we stand, and we rejoice in hope of the glory of God. Hope does not put us to shame, because God's love has been poured into our hearts. And the greatest proof of that love is this: while we were still sinners, Christ died for us. If we trusted in our own works, we would never know if we had done enough. But because we trust in Jesus, we can rest in peace.",
  "reading_comprehension": [
   {
    "q": "1. According to the passage, why can no one earn God's favour by keeping the law?",
@@ -268,7 +269,7 @@
  },
  "_source": {
   "json": "teaching/b1/content/b1-lesson-05.json",
-  "json_sha256": "a01f76445dd82b1b603d317f6ff223195ec648404af6b6c7cd6a83b40265e35e",
+  "json_sha256": "a35fd47fd3d8d91f2361544c9f46bceea3c414e0b954a1fb335809c9c859dab6",
   "pdf": "teaching/b1/output/b1-lesson-05-romans-justification.pdf",
   "pdf_sha256": "8581bd41a36101aa7bd76d467a249201d7a6a2edd40c81721bda2d61097c30c5",
   "mp3": "teaching/b1/audio/b1-lesson-05-listening.mp3",

@@ -258,7 +258,7 @@ function renderPrompt(){
   var p=CURRENT;
   var html='<div class="panel">'+
     '<div class="kicker"><span class="dot"></span>'+esc(p.kicker)+'</div>'+
-    '<div class="prompt-title">'+esc(p.title)+'</div>'+
+    '<h2 class="prompt-title">'+esc(p.title)+'</h2>'+
     (p.bullets?'<ul class="bullets">'+p.bullets.map(function(b){return '<li>'+esc(b)+'</li>';}).join("")+'</ul>':'')+
     (p.passage?'<p class="passage" style="background:var(--paper);border-left:3px solid var(--amber);border-radius:6px;padding:10px 14px;font-size:14.5px;margin-top:10px">'+esc(p.passage)+'</p>':'')+
     (p.prep?'<p class="meta">'+p.prep+'s to prepare, then speak for about '+p.speak+'s.</p>':'<p class="meta">Speak for about '+p.speak+'s — no preparation time for this one.</p>')+
@@ -274,7 +274,7 @@ function runPrep(){
   function draw(){
     app.innerHTML='<div class="panel">'+
       '<div class="kicker"><span class="dot"></span>'+esc(p.kicker)+' · preparing</div>'+
-      '<div class="prompt-title">'+esc(p.title)+'</div>'+
+      '<h2 class="prompt-title">'+esc(p.title)+'</h2>'+
       (p.bullets?'<ul class="bullets">'+p.bullets.map(function(b){return '<li>'+esc(b)+'</li>';}).join("")+'</ul>':'')+
       '<div class="timerbar"><div class="clock" id="clk">'+left+'</div><div class="tbar"><i id="bar" style="width:100%"></i></div></div>'+
       '<div class="row"><button class="btn amber" id="now">Speak now</button></div>'+
@@ -297,7 +297,7 @@ function runSpeak(){
   var p=CURRENT,left=p.speak,total=p.speak;
   app.innerHTML='<div class="panel">'+
     '<div class="kicker"><span class="dot live"></span>'+esc(p.kicker)+' · speaking</div>'+
-    '<div class="prompt-title">'+esc(p.title)+'</div>'+
+    '<h2 class="prompt-title">'+esc(p.title)+'</h2>'+
     (p.bullets?'<ul class="bullets">'+p.bullets.map(function(b){return '<li>'+esc(b)+'</li>';}).join("")+'</ul>':'')+
     (p.passage?'<p class="passage">'+esc(p.passage)+'</p>':'')+
     '<div class="timerbar"><div class="clock" id="clk">'+left+'</div><div class="tbar rec"><i id="bar" style="width:100%"></i></div></div>'+
@@ -337,6 +337,7 @@ function getFeedback(responseText){
     if(res.ok){
       html='<div class="panel">'+
         '<div class="kicker">'+esc(p.kicker)+' · feedback</div>'+
+        '<h2 class="prompt-title">Nhận xét của AI</h2>'+
         '<div class="fb-sec"><p>'+aiTextHtml(res.answer)+'</p></div>'+
         '<p class="hint">AI feedback on an excerpt of your answer — AI, chưa duyệt.</p>'+
         '<div class="row"><button class="btn amber" id="again">Next prompt</button></div>'+

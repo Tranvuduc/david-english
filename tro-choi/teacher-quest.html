@@ -1186,7 +1186,7 @@ function bar(p,cls){return '<div class="bar '+(cls||'')+'"><i style="width:'+p+'
 function modeStars(id){var n=0;(S.stars[id]||[]).forEach(function(v){n+=v;});return n;}
 function gate(n){return n===0?0:(n>=4?2:1);}
 function isOpen(id,n){return n===0||S.stars[id][n-1]>=gate(n);}
-function topbar(title,back){var bk=back||'home';return '<div class="top"><button class="ibtn" data-a="'+bk+'"'+(bk==='mode'||bk==='grp'?' data-id="'+title.id+'"':'')+' aria-label="Back">'+ico('back')+'</button><div class="brand" style="flex:1"><h1 style="font-size:22px">'+esc(title.t||title)+'</h1></div></div>';}
+function topbar(title,back){var bk=back||'home';return '<div class="top"><button class="ibtn" data-a="'+bk+'"'+(bk==='mode'||bk==='grp'?' data-id="'+title.id+'"':'')+' aria-label="Back">'+ico('back')+'</button><div class="brand" style="flex:1"><h2 style="font-size:22px">'+esc(title.t||title)+'</h2></div></div>';}
 function unitText(m){return {mcq:'6 questions, 3 hearts',build:'5 puzzles, 3 hearts',listen:'6 listening items, 3 hearts',hunt:'2 passages',marker:'1 essay, 4 criteria',timer:'2 lesson plans'}[m.type]||'';}
 
 var ORDER=['grammar','vocab','wordorder','listen','hunt','traps','teach','ccq','lesson','kids','gpa','timer','ielts','marker','pte','toeic'];
@@ -1264,7 +1264,7 @@ function learnView(id,n,from){
   clearInterval(clock);stopSpeech();var m=modeOf(id),cards=D[id][n].learn;
   if(!L||L.id!==id||L.n!==n)L={id:id,n:n,i:0};
   var c=cards[L.i],last=L.i===cards.length-1,speak=m.grp==='lang'&&canSpeak();L.ex=c[2]||[];
-  var h='<div class="top"><button class="ibtn" data-a="mode" data-id="'+id+'" aria-label="Back">'+ico('back')+'</button><div class="brand" style="flex:1"><div><small>'+esc(m.name)+'</small><h1 style="font-size:20px">'+esc(lvLabel(id,n))+'</h1></div></div></div>';
+  var h='<div class="top"><button class="ibtn" data-a="mode" data-id="'+id+'" aria-label="Back">'+ico('back')+'</button><div class="brand" style="flex:1"><div><small>'+esc(m.name)+'</small><h2 style="font-size:20px">'+esc(lvLabel(id,n))+'</h2></div></div></div>';
   h+='<div class="dots" aria-hidden="true">';for(var i=0;i<cards.length;i++){h+='<i class="'+(i<=L.i?'on':'')+'"></i>';}h+='</div>';
   h+='<section class="panel lesson"><span class="tag">Lesson '+(L.i+1)+' of '+cards.length+'</span><h2>'+esc(c[0])+'</h2><p>'+esc(c[1])+'</p>';
   if(L.ex.length){h+='<div class="exs">';L.ex.forEach(function(x,k){h+='<div class="ex"><span>'+esc(x)+'</span>'+(speak?'<button class="spk" data-a="sayex" data-k="'+k+'" aria-label="Hear this example">'+ico('vol')+'</button>':'')+'</div>';});h+='</div>';}

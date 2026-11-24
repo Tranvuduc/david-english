@@ -38,7 +38,7 @@
     <p class="tagline">Học tiếng Anh miễn phí — giải thích bằng tiếng Việt</p>
     <details class="nav-toggle">
       <summary>☰ Danh mục</summary>
-      <nav class="site-nav" aria-label="Điều hướng chính">
+      <nav class="site-nav" aria-label="Điều hướng di động">
 <a href="/">Trang chủ</a>
 <a href="/bai-xep-lop.html">Bài xếp lớp</a>
 <a href="/trinh-do/">Theo trình độ</a>
@@ -78,6 +78,7 @@
 <form id="vocabForm">
   <label for="vocabWord">Từ hoặc cụm từ tiếng Anh:</label>
   <input id="vocabWord" type="text" maxlength="100" placeholder="VD: perseverance" autocomplete="off">
+  <p class="muted" id="vocabCount">0/100 ký tự</p>
   <button type="submit" class="btn">Tra từ</button>
 </form>
 <div id="vocabResult" class="result" hidden></div>
@@ -88,6 +89,11 @@
   var form = document.getElementById('vocabForm');
   var input = document.getElementById('vocabWord');
   var out = document.getElementById('vocabResult');
+  var count = document.getElementById('vocabCount');
+  input.addEventListener('input', function () {
+    if (input.value.length > 100) { input.value = input.value.slice(0, 100); }
+    count.textContent = input.value.length + '/100 ký tự' + (input.value.length >= 100 ? ' — đã đạt giới hạn 100 ký tự, hãy tra từ hoặc cụm từ ngắn hơn.' : '');
+  });
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var w = input.value.trim();

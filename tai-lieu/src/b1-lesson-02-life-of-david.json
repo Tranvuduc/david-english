@@ -8,6 +8,7 @@
  "scripture": "1 Samuel 16-17; Psalm 51",
  "grammar_topic": "Past perfect (had + past participle); past perfect vs past simple in narrative",
  "pronunciation": "Connected speech: linking /r/ and /w/",
+ "pronunciation_detail": "Why it matters: In natural English, words do not stand alone — they link together in a smooth stream. Vietnamese speakers often pronounce each word separately, with a small pause between words, so their English sounds slow and choppy. Linking makes you sound natural and helps you understand native speakers, who almost never pause between words. Linking /r/ — When a word ends in the letter r (or the sound /r/) and the next word begins with a vowel, the /r/ links across: “fear‿of God” (/fɪər əv ɡɒd/), “far‿away”, “law‿and order” (the /r/ in “law” is a linking /r/ in British English). Do not stop after “fear” — glide straight into “of”. Linking /w/ — When a word ends in a /uː/ or /əʊ/ sound (like go, how, do) and the next word begins with a vowel, a small /w/ glides between them: “go‿out” (/ɡəʊ‿waʊt/), “how‿old”, “do‿it”. Your lips round for the /w/ — feel them move! Weak “and”: In phrases like “David and Goliath”, “and” is weak — /ən/, not /ænd/. Say the whole name as one phrase: “David‿ən‿Goliath”. Practice: read each phrase in Exercise 4 aloud three times, faster each time, until the words join into one smooth sound.",
  "objectives": [
   "Học và thực hành: Past perfect (had + past participle); past perfect vs past simple in narrative.",
   "Luyện phát âm: Connected speech: linking /r/ and /w/.",
@@ -172,7 +173,7 @@
  "grammar": [
   {
    "title": "Past perfect (had + past participle); past perfect vs past simple in narrative",
-   "explain": "Phần Grammar Blueprint đầy đủ (giải thích chi tiết và ví dụ) nằm trong file PDF bài học.",
+   "explain": "Form: had + past participle — had chosen, had waited, had already looked, had given. The past perfect describes the earlier of two past actions. Think of a timeline: the past perfect is the action that happened first, further back in the past; the past simple is the action that happened second, closer to now.\n\nStructure 1: “By the time + past simple, … had + past participle” “By the time Samuel arrived, Jesse had already presented seven sons.” — Samuel’s arrival is the later past moment; Jesse’s presenting happened before it. “By the time Goliath fell, David had thrown only one stone.” Use already before the participle to stress that the earlier action was complete: had already chosen, had already promised.\n\nStructure 2: “After / Before” with two past actions “David repented after Nathan had told him the truth.” (Nathan’s telling came first.) “Samuel anointed David after God had rejected Saul.” With after, the past perfect follows it; with before, the past perfect comes first: “Before David became king, he had looked after his father’s sheep for many years.”\n\nStructure 3: Past perfect vs. past simple — don’t mix them up Past simple = a finished action in the past: “David killed Goliath.” Past perfect = an action finished before another past action: “David had killed a lion and a bear before he fought Goliath.” In a story, use the past simple for the main events and the past perfect only to “step back” and explain what had happened earlier. If you use the past perfect for everything, your story sounds wrong — use it like a flashback, not like the main plot. Common mistakes: (1) Forgetting had: “God chosen David” — wrong; say “God had chosen David.” (2) Past perfect for a single past event: “David had killed Goliath yesterday” — wrong; say “David killed Goliath.” (3) Base verb after had: “had choose” — wrong; say “had chosen.”",
    "examples": []
   }
  ],
@@ -182,8 +183,25 @@
   "words": 342,
   "script": "/tai-lieu/b1/scripts/b1-lesson-02-listening-script.txt"
  },
- "reading_passage": "",
- "reading_comprehension": [],
+ "reading_passage": "David was the youngest of Jesse’s eight sons, and nobody expected him to become king. While his older brothers joined King Saul’s army, David stayed home and looked after his father’s sheep. It taught him two things: how to fight wild animals, and how to trust God. When a lion or a bear attacked the flock, David fought it and saved the sheep. One day, the prophet Samuel came to Bethlehem. God had told Samuel to anoint a new king, and Samuel had already looked at David’s seven older brothers. But God said, “Man looks on the outward appearance, but the LORD looks on the heart.” So Samuel sent for David and anointed him king of Israel. God had chosen the youngest son, the one with a humble and faithful heart. Later, Israel faced the Philistines, whose champion was a giant named Goliath. For forty days, Goliath had shouted his challenge, and no soldier in Israel had dared to fight him. Then David arrived, and he heard the giant’s voice. “I will fight him,” David said. He refused Saul’s heavy armour — it was too big for him — and took his sling and five smooth stones from the stream, ran toward Goliath, and struck him down with one stone. The battle belonged to the LORD. But David was not perfect. Years later, he sinned against God and Uriah, and tried to hide his sin. God sent Nathan, and David repented. He prayed the words of Psalm 51: “Create in me a clean heart, O God, and renew a right spirit within me.” David was called “a man after God’s own heart” — not because he never sinned, but because he always came back to God in repentance and trusted in His mercy.",
+ "reading_comprehension": [
+  {
+   "q": "1. What two things did David’s job as a shepherd teach him?",
+   "a": "How to fight wild animals, and how to trust God."
+  },
+  {
+   "q": "2. Why did God choose David instead of his older brothers?",
+   "a": "God looks on the heart, not on outward appearance; David had a humble and faithful heart."
+  },
+  {
+   "q": "3. Why did David refuse to wear Saul’s armour?",
+   "a": "Saul’s armour was too big for him, so he refused to wear it."
+  },
+  {
+   "q": "4. What does the passage say was the reason David was called “a man after God’s own heart”?",
+   "a": "Not because he never sinned, but because he always came back to God in repentance and trusted in His mercy."
+  }
+ ],
  "listening_questions": [
   {
    "q": "1. True or False: David was the oldest of Jesse's sons.",
@@ -238,8 +256,8 @@
    "items": 1
   }
  ],
- "speaking_task": "",
- "writing_task": "",
+ "speaking_task": "In pairs (10 minutes): Student A retells the anointing of David (1 Samuel 16) in your own words; Student B retells David and Goliath (1 Samuel 17). Each story must use the past perfect at least 3 times (“By the time…, …had already…”). Then discuss together: “Why was David called ‘a man after God’s own heart’?” Use linking /r/ and /w/ in your answers (“fear of God”, “go out”, “David and Goliath”).",
+ "writing_task": "Retell the story of David and Goliath in your own words (80-100 words). Use the past perfect at least",
  "homework": {
   "written": [
    {
@@ -282,7 +300,7 @@
  },
  "_source": {
   "json": "teaching/b1/content/b1-lesson-02.json",
-  "json_sha256": "dda2ba5a97fb7bd488d884c13e9fc931f3ec88d0a472bfcf7050633e703a1805",
+  "json_sha256": "2887bda62d55305446773f5f219e1795579539731c2da2a38a16f113aef97745",
   "pdf": "teaching/b1/output/b1-lesson-02-life-of-david.pdf",
   "pdf_sha256": "94ad4ebd881c48f1f6c9b52e411fe6fb129004ec549fc6ce33896a3ca40e2ece",
   "mp3": "teaching/b1/audio/b1-lesson-02-listening.mp3",

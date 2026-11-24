@@ -1,4 +1,5 @@
-<!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>English Level Check</title>
+<!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important} h2.t1{font-size:clamp(32px,8.5vw,50px);letter-spacing:.01em;text-transform:uppercase}
+</style><title>English Level Check</title>
 <meta name="description" content="Bài kiểm tra trình độ tiếng Anh (A1–C2) rồi gợi ý công cụ luyện phù hợp.">
 <meta property="og:title" content="English Level Check">
 <meta property="og:description" content="Bài kiểm tra trình độ tiếng Anh (A1–C2) rồi gợi ý công cụ luyện phù hợp.">
@@ -508,7 +509,7 @@ function intro(id){
   CURRENT=id;var T=curT();var l=lastRes(id);
   app.innerHTML='<div class="ticket"><div class="ticket-main">'+
   '<div class="tk-row"><span class="tk-tag">'+esc(T.tag)+'</span><span class="tk-tag alt">'+esc(T.rangeTag)+'</span></div>'+
-  '<h1>'+esc(T.name)+'</h1>'+
+  '<h2 class="t1">'+esc(T.name)+'</h2>'+
   '<p>'+esc(T.blurb)+'</p>'+
   (T.lowVN?'<p class="vi">'+esc(T.blurbVi)+'</p>':'')+
   '<div class="parts"><div><b>8</b><span>Grammar &amp; vocabulary</span></div><div><b>4</b><span>Listening (2 clips)</span></div><div><b>6</b><span>Reading (2 passages)</span></div>'+
@@ -680,7 +681,7 @@ function final(){
 }
 function showResult(){
   var T=curT(),f=final(),wr=st.wres,pending=wr==="pending",d=T.display(f.comb,f.lo,f.hi);
-  var h='<div><div class="eyebrow">'+esc(T.name)+'</div><h1>Result</h1></div><div class="card">';
+  var h='<div><div class="eyebrow">'+esc(T.name)+'</div><h2 class="t1">Result</h2></div><div class="card">';
   h+='<div class="big"><div class="stamp"><div class="band">'+esc(d.big)+'</div><span class="stamp-lbl">'+esc(d.label)+'</span></div><div><b>'+esc(d.label)+'</b>'+(pending?' (updating when writing is marked)':'')+'<br><span class="muted">Likely between '+esc(d.range)+(d.extra?(' · '+esc(d.extra)):'')+'</span></div></div>';
   h+='<div style="display:flex;flex-direction:column;gap:10px">';
   ["G","L","R"].forEach(function(s){var r=pct(s),nm={G:"Grammar & vocab",L:"Listening",R:"Reading"}[s];h+=r.n?bar(nm,r.p,r.k+"/"+r.n):'<div class="note">'+nm+': not counted.</div>'});

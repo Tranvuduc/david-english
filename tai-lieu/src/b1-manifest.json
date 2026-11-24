@@ -11,7 +11,7 @@
    "script_words": 372,
    "sha256": {
     "json": "teaching/b1/content/b1-lesson-01.json",
-    "json_sha256": "6f1a9d5ce754440d5d814e0022c3ba655f6455efafe5a3e60e432c08aef4d731",
+    "json_sha256": "9937ea1646d88857721be3052e5f663e22a64e9e04720d35bfd38936c8fb1045",
     "pdf": "teaching/b1/output/b1-lesson-01-sermon-on-the-mount.pdf",
     "pdf_sha256": "5221fe9dd2fca3f11cdc2fc20a4af811096ef730f31cc8ff32345b8888695307",
     "mp3": "teaching/b1/audio/b1-lesson-01-listening.mp3",
@@ -24,12 +24,12 @@
    "title_en": "The Life of David",
    "vocab": 22,
    "exercises": 6,
-   "rc": 0,
+   "rc": 4,
    "listening_secs": 138,
    "script_words": 342,
    "sha256": {
     "json": "teaching/b1/content/b1-lesson-02.json",
-    "json_sha256": "dda2ba5a97fb7bd488d884c13e9fc931f3ec88d0a472bfcf7050633e703a1805",
+    "json_sha256": "2887bda62d55305446773f5f219e1795579539731c2da2a38a16f113aef97745",
     "pdf": "teaching/b1/output/b1-lesson-02-life-of-david.pdf",
     "pdf_sha256": "94ad4ebd881c48f1f6c9b52e411fe6fb129004ec549fc6ce33896a3ca40e2ece",
     "mp3": "teaching/b1/audio/b1-lesson-02-listening.mp3",
@@ -47,7 +47,7 @@
    "script_words": 349,
    "sha256": {
     "json": "teaching/b1/content/b1-lesson-03.json",
-    "json_sha256": "c29d223e1158c9fcb5037c6f260572af2fc3b50a8e1b0f72a6f28c87a36fd02b",
+    "json_sha256": "38ad8a5d5780535dfa2fc26de2cba7d58d8dcada34be0801d66f7a1e3de971e1",
     "pdf": "teaching/b1/output/b1-lesson-03-prophets-isaiah.pdf",
     "pdf_sha256": "518878688f44125af15bf2833fc49d461b5001f9bc13f2f61b3eb2fe5f45f661",
     "mp3": "teaching/b1/audio/b1-lesson-03-listening.mp3",
@@ -65,7 +65,7 @@
    "script_words": 393,
    "sha256": {
     "json": "teaching/b1/content/b1-lesson-04.json",
-    "json_sha256": "6c6e1654d683c82c8e23ea619b82eac8c5deda06c4a988242cbcb0b61570294f",
+    "json_sha256": "a916cd2cfadebd0d33eba343c76c601033da6c9ec9eede38491f105023509cc8",
     "pdf": "teaching/b1/output/b1-lesson-04-wisdom-proverbs-psalms.pdf",
     "pdf_sha256": "e7a0823523364773ef39d8bb32ac4fecb8f7d53047a88b825e8ff4c524602720",
     "mp3": "teaching/b1/audio/b1-lesson-04-listening.mp3",
@@ -83,7 +83,7 @@
    "script_words": 352,
    "sha256": {
     "json": "teaching/b1/content/b1-lesson-05.json",
-    "json_sha256": "a01f76445dd82b1b603d317f6ff223195ec648404af6b6c7cd6a83b40265e35e",
+    "json_sha256": "a35fd47fd3d8d91f2361544c9f46bceea3c414e0b954a1fb335809c9c859dab6",
     "pdf": "teaching/b1/output/b1-lesson-05-romans-justification.pdf",
     "pdf_sha256": "8581bd41a36101aa7bd76d467a249201d7a6a2edd40c81721bda2d61097c30c5",
     "mp3": "teaching/b1/audio/b1-lesson-05-listening.mp3",
@@ -101,7 +101,7 @@
    "script_words": 383,
    "sha256": {
     "json": "teaching/b1/content/b1-lesson-06.json",
-    "json_sha256": "1daeb9de29c13dfe07305b1c963deae83cb37beebdb71e89a5df25c9ff377bd4",
+    "json_sha256": "4abed38ccc5b97d3beda4ae2cb7aef73db17246ac341d1642eb4b985db673eb2",
     "pdf": "teaching/b1/output/b1-lesson-06-parables-kingdom.pdf",
     "pdf_sha256": "c8d36e4da069313a30dbb2f7522f65ba6448b39bd24bfcda916152e60947724e",
     "mp3": "teaching/b1/audio/b1-lesson-06-listening.mp3",
@@ -119,7 +119,7 @@
    "script_words": 413,
    "sha256": {
     "json": "teaching/b1/content/b1-lesson-07.json",
-    "json_sha256": "edc76fed63b96f7f5bb9afc4f6a1aee65e9974656fb779538c94ca2060165ff9",
+    "json_sha256": "d817d382a9a940adbb431e4529adda89dccd96cd2e5a14828e60f9b4a8e05a37",
     "pdf": "teaching/b1/output/b1-lesson-07-holy-spirit-acts.pdf",
     "pdf_sha256": "45f281108a0ab7bc612f9be433cee3b1884503d22bba161bf7f001d54086bcff",
     "mp3": "teaching/b1/audio/b1-lesson-07-listening.mp3",
@@ -137,7 +137,7 @@
    "script_words": 365,
    "sha256": {
     "json": "teaching/b1/content/b1-lesson-08.json",
-    "json_sha256": "65686ee211294ba7e7883313479acd00b8247f74e606ab9cc7814825e381b75b",
+    "json_sha256": "81c3d00b6ab216bd3cad6b338ffc4252e557ed78e13d69974718c74be33b771d",
     "pdf": "teaching/b1/output/b1-lesson-08-prayer-worship.pdf",
     "pdf_sha256": "ca3d6226d167d189e275faf25eb33000cbde8377abe5a3b3e7d5e09969284d38",
     "mp3": "teaching/b1/audio/b1-lesson-08-listening.mp3",
@@ -151,15 +151,15 @@
    "vocab": 24,
    "exercises": 6,
    "rc": 5,
-   "listening_secs": 138,
+   "listening_secs": 136,
    "script_words": 394,
    "sha256": {
     "json": "teaching/b1/content/b1-lesson-09.json",
-    "json_sha256": "d03c9ff91403302249ce5f066d9e93d74ca90f7d1377d0c0d122b4f793151134",
+    "json_sha256": "182c2b8eb3a7bfb59f98ecfa4132232f32daca8653dafb1ab039dac68cf1e935",
     "pdf": "teaching/b1/output/b1-lesson-09-church-one-body.pdf",
-    "pdf_sha256": "63a6e432e19cc3c8407a3b5165524a9e3d6863b5b4e032daee514adf60264ce8",
+    "pdf_sha256": "9b4de569f7bb634301524ed1be3c57691657c65a64f9636c15fcd65d7b15c224",
     "mp3": "teaching/b1/audio/b1-lesson-09-listening.mp3",
-    "mp3_sha256": "adc06ca7d4e50e8cb36da9183ec7bc73a3162a01022f0ef3b7f02a812e9d2cd0"
+    "mp3_sha256": "7479d5252164823eabb233c2353af41639e80ebeb8cbb6e3071f1d39f3a37863"
    }
   },
   {
@@ -173,7 +173,7 @@
    "script_words": 392,
    "sha256": {
     "json": "teaching/b1/content/b1-lesson-10.json",
-    "json_sha256": "d400cb130f3fd143747c058590f26ee9d301ae7dbdca934c3424912ece19458b",
+    "json_sha256": "4913346384848bc76118a945536f0bc43f3aee0d6470865ea0c953465d4e9277",
     "pdf": "teaching/b1/output/b1-lesson-10-money-work-contentment.pdf",
     "pdf_sha256": "02a86168d27c07a8bc61e30009a38885254d938ce12ee3b0315890d623ab61dc",
     "mp3": "teaching/b1/audio/b1-lesson-10-listening.mp3",
@@ -191,7 +191,7 @@
    "script_words": 394,
    "sha256": {
     "json": "teaching/b1/content/b1-lesson-11.json",
-    "json_sha256": "149e6d5d443d685030ade628e2c58e1584f38b244b92b8460f692a46e4ef3aee",
+    "json_sha256": "6d5814a9ca98f8ba6e2c08aaa5628e8cbc4b1122f382e2acbc8a2576c676acfa",
     "pdf": "teaching/b1/output/b1-lesson-11-mission-nations.pdf",
     "pdf_sha256": "20a33f62b569dbbc080c585022a7fa06d95b7a7e4422704df78e39904ae4959e",
     "mp3": "teaching/b1/audio/b1-lesson-11-listening.mp3",
@@ -209,7 +209,7 @@
    "script_words": 412,
    "sha256": {
     "json": "teaching/b1/content/b1-lesson-12.json",
-    "json_sha256": "e6cf222474c05b9d713f5a3ebe0ab8b0f5dc08aebc5a30765e00f8c22aded97e",
+    "json_sha256": "9d8e6a1c50beedeccc873b0a7192a1d0994a730abcca98eaabd330020af26490",
     "pdf": "teaching/b1/output/b1-lesson-12-revelation-hope.pdf",
     "pdf_sha256": "c0ba2fe31b2ea25e63e155cb3d2206b7efbe9ff6eb65ab98170e279b4b90dae0",
     "mp3": "teaching/b1/audio/b1-lesson-12-listening.mp3",
@@ -220,6 +220,6 @@
  "totals": {
   "lessons": 12,
   "vocab": 278,
-  "listening_secs": 1743
+  "listening_secs": 1741
  }
 }

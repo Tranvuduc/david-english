@@ -8,6 +8,7 @@
  "scripture": "Matthew 13 (sower, mustard seed, treasure, pearl); Matthew 25 (ten virgins, talents)",
  "grammar_topic": "Reported speech: statements (say/tell + that-clause, tense backshift), questions (ask + if/whether/wh-word), commands (tell/ask + to-infinitive)",
  "pronunciation": "Connected speech — elision: the /t/ and /d/ that disappear between consonants (next day, first time, must be, kind of)",
+ "pronunciation_detail": "In natural, connected English, sounds often disappear. When /t/ or /d/ sits between two consonants, native speakers usually drop it — the word is still understood from the context. Vietnamese learners often pronounce every sound carefully (\"next day\" with a clear /t/), which sounds slow and foreign. Learn to drop the sound: next day — the /t/ disappears: \"neks day\" /neks deɪ/. first time — the /t/ disappears: \"firs time\" /fɜːs taɪm/. must be — the /t/ disappears: \"mus be\" /mʌs biː/. kind of — the /d/ disappears: \"kine of\" /kaɪn əv/. last night — the /t/ disappears: \"las night\" /lɑːs naɪt/. old friend — the /d/ disappears: \"ol friend\" /əʊl frend/. Rule: the sound disappears only between consonants, and only in fast, natural speech. In slow, careful speech — reading the Bible aloud in church, for example — you may keep the sound. Never drop a sound at the start of a word, and never drop /t/ or /d/ before a vowel: say \"next hour\" with the /t/ (next + vowel), but \"next day\" without it (next + consonant). Practice: listen to the lesson audio and shadow it — copy the elision exactly. Then read these sentences aloud twice: once slow and careful (all sounds), once natural (with elision): \"The first time I heard the parable, I must be honest — it was kind of hard to understand.\"",
  "objectives": [
   "Học và thực hành: Reported speech: statements (say/tell + that-clause, tense backshift), questions (ask + if/whether/wh-word), commands (tell/ask + to-infinitive).",
   "Luyện phát âm: Connected speech — elision: the /t/ and /d/ that disappear between consonants (next day, first time, must be, kind of).",
@@ -186,7 +187,7 @@
  "grammar": [
   {
    "title": "Reported speech: statements (say/tell + that-clause, tense backshift), questions (ask + if/whether/wh-word), commands (tell/ask + to-infinitive)",
-   "explain": "Phần Grammar Blueprint đầy đủ (giải thích chi tiết và ví dụ) nằm trong file PDF bài học.",
+   "explain": "When we tell someone what another person said, we usually shift the tense back one step — because the words were spoken in the past. This is called reported speech (or indirect speech).\n\nStructure 1: Reported Statements — say / tell + that Direct: Jesus said, “The kingdom of heaven is like a mustard seed.” Reported: Jesus said that the kingdom of heaven was like a mustard seed. (In Bible retelling, the present tense is often kept when the truth is still true: “Jesus said that the kingdom of heaven is like a mustard seed” is also correct.) Use say with no person, and tell with a person: “He said that he would return.” — “He told his servants that he would return.” Never say “He said me that…” Backshift table — direct speech to reported speech: Present simple to past simple: “The seed is the word of God.” to “The teacher said that the seed was the word of God.”\n\nPresent continuous to past continuous: “The thorns are growing.” to “He said that the thorns were growing.” Will to would: “I will return.” to “The master said that he would return.” Can to could: “I can explain it.” to “Hoa said that she could explain it.” Present perfect to past perfect: “I have found the treasure.” to “He said that he had found the treasure.”\n\nStructure 2: Reported Questions — ask + if / whether / Wh-word Yes/No questions use if or whether, and the word order becomes statement order (no do / does / did, no question mark): Direct: “Is the kingdom like a pearl?” Reported: “Lan asked if the kingdom was like a pearl.” Wh-questions keep the question word: Direct: “What does the parable mean?” Reported: “The disciple asked what the parable meant.”\n\nStructure 3: Reported Commands — tell / ask + person + to + verb Direct: “Watch and be ready.” Reported: “Jesus told the disciples to watch and be ready.” Direct: “Use my money well.” Reported: “The master told his servants to use his money well.” For a negative command, use not to: “Do not be afraid” to “He told them not to be afraid.”\n\nWatch out: do not keep the question word order in reported questions — say “He asked what the parable meant”, not “He asked what did the parable mean”. And remember: say takes no person (“He said that…”), tell always takes a person (“He told me that…”).",
    "examples": []
   }
  ],
@@ -290,7 +291,7 @@
  },
  "_source": {
   "json": "teaching/b1/content/b1-lesson-06.json",
-  "json_sha256": "1daeb9de29c13dfe07305b1c963deae83cb37beebdb71e89a5df25c9ff377bd4",
+  "json_sha256": "4abed38ccc5b97d3beda4ae2cb7aef73db17246ac341d1642eb4b985db673eb2",
   "pdf": "teaching/b1/output/b1-lesson-06-parables-kingdom.pdf",
   "pdf_sha256": "c8d36e4da069313a30dbb2f7522f65ba6448b39bd24bfcda916152e60947724e",
   "mp3": "teaching/b1/audio/b1-lesson-06-listening.mp3",

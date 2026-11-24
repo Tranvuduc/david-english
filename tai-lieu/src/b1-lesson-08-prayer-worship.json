@@ -8,9 +8,10 @@
  "scripture": "Psalm 95 (come, let us worship and bow down); John 4:19-26 (worship in spirit and truth)",
  "grammar_topic": "Modals — advice (should / ought to), obligation (must / have to), possibility (might / may / could); prohibition (mustn't) vs no obligation (don't have to)",
  "pronunciation": "Intonation — polite requests vs commands: rising, softer intonation for “Could you please...?” vs falling, firm intonation for “Kneel down and pray.”",
+ "pronunciation_detail": "In English, the melody of a sentence can change its meaning completely. The same words can sound like a gentle request or a strict order — it all depends on your intonation. Vietnamese learners often use the same flat tone for both, so a polite request can sound like a command, and a command can sound weak. Learn the two melodies: Polite requests — RISING intonation (voice goes UP, softer and slower): “Could you please pray for my family?” — “Would you sing with us this morning?” — “Might I ask you to lead us in prayer?” The voice rises at the end, the words are soft, and the speaker often adds please. Use this melody when you ask someone for help, especially an older person or a guest. Commands — FALLING intonation (voice goes DOWN, firm and strong): “Kneel down and pray.” — “Bow down before the Lord!” — “Let us worship the Lord together.” The voice falls at the end, the words are firm and clear. Use this melody for commands in Scripture, for leading a group in worship, and for exhortations — never for asking a friend a favour. Watch out: if you say “Pray for my family” with falling intonation, it sounds like an order — and your friend may feel hurt. Add Could you please…? and let your voice rise, and the same request becomes kind. Practice: listen to the lesson audio and notice how the Friend says “Could you please pray with me now?” (rising, soft) and how the Narrator says “Let us bow down and pray together” (falling, firm). Shadow both lines, then read the pairs in Exercise 1 aloud with the correct melody.",
  "objectives": [
   "Học và thực hành: Modals — advice (should / ought to), obligation (must / have to), possibility (might / may / could); prohibition (mustn't) vs no obligation (don't have to).",
-  "Luyện phát âm: Intonation — polite requests vs commands: rising, softer intonation for “Could you please...?” vs falling, firm intonation for “Kneel down and pray.”.",
+  "Luyện phát âm: Intonation — polite requests vs commands: rising, softer intonation for “Could you please...?” vs falling, firm intonation for “Kneel down and pray.”",
   "Đọc và hiểu đoạn Kinh Thánh Psalm 95 (come, let us worship and bow down); John 4:19-26 (worship in spirit and truth)."
  ],
  "vocabulary": [
@@ -172,7 +173,7 @@
  "grammar": [
   {
    "title": "Modals — advice (should / ought to), obligation (must / have to), possibility (might / may / could); prohibition (mustn't) vs no obligation (don't have to)",
-   "explain": "Phần Grammar Blueprint đầy đủ (giải thích chi tiết và ví dụ) nằm trong file PDF bài học.",
+   "explain": "Modal verbs (should, ought to, must, have to, might, may, could) show the speaker's attitude: is this good advice, a duty, or only a possibility? The modal is always followed by the base verb (no -s, no to) — except ought to, which keeps its to. The form never changes for he / she / it: “He should pray”, not “He should prays”.\n\nStructure 1: Advice — should / ought to (something is a good idea) “We should pray every day.” — “We ought to worship God with a sincere heart.” — “You should thank God for His goodness before you ask for more.” Ought to is a little stronger and more formal than should, and it is common in Bible teaching. Note the form: should + base verb but ought to + base verb. Never say “You should to pray” or “We ought worship”.\n\nStructure 2: Obligation — must / have to (something is necessary) “True worshipers must worship the Father in spirit and truth.” (John 4:24) — “Christians have to gather together to worship God.” (Heb 10:25) Must is the speaker's own strong command — Jesus Himself uses it in John 4:24. Have to is an obligation that comes from outside — a rule, a situation, or someone else. In the negative they are very different: mustn't means “do not do it” (“We mustn't worship with a proud heart”), but don't have to means “it is not necessary” (“You don't have to pray for a long time — a short, sincere prayer is precious”).\n\nStructure 3: Possibility & Permission — might / may / could “God might answer our prayer in a way we do not expect.” — “You may come to the prayer meeting tonight if you are free.” — “You could begin with a simple prayer.” Might shows a small possibility (less sure than may); may gives permission; could offers a gentle suggestion or a possibility. All three take the base verb: “God might answer”, not “God might answers”. Modal strength — from weakest to strongest: might / could (maybe) — may (permission / possibility) — should / ought to (good advice) — have to (necessary, from outside) — must (necessary, the speaker's command).\n\nWatch out: never use to after should, must, might, may, could; only ought to and have to keep the to.",
    "examples": []
   }
  ],
@@ -272,12 +273,12 @@
    "C. Write 5 sentences about your own prayer life, using a different modal in each: should, ought to, must, might, could."
   ],
   "listening": "Listen to the audio again. Fill in the missing words: “God is spirit, and those who worship him ______ worship in spirit and ______. To worship in spirit means to worship with a ______ heart, not just with words. God ______ answer your prayer in a way you do not expect, but he always hears you.” Then answer: What did the Friend decide to do this week?",
-  "memory_verse": "“Oh come, let us worship and bow down; let us kneel before the LORD, our Maker! For He is our God, and we are the people of His pasture, and the sheep of His hand.” — Psalm 95:6–7 (ESV)",
+  "memory_verse": "“Oh come, let us worship and bow down; let us kneel before the LORD, our Maker! For he is our God, and we are the people of his pasture, and the sheep of his hand.” — Psalm 95:6–7 (ESV)",
   "memory_verse_vi": ""
  },
  "_source": {
   "json": "teaching/b1/content/b1-lesson-08.json",
-  "json_sha256": "65686ee211294ba7e7883313479acd00b8247f74e606ab9cc7814825e381b75b",
+  "json_sha256": "81c3d00b6ab216bd3cad6b338ffc4252e557ed78e13d69974718c74be33b771d",
   "pdf": "teaching/b1/output/b1-lesson-08-prayer-worship.pdf",
   "pdf_sha256": "ca3d6226d167d189e275faf25eb33000cbde8377abe5a3b3e7d5e09969284d38",
   "mp3": "teaching/b1/audio/b1-lesson-08-listening.mp3",

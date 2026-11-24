@@ -8,6 +8,7 @@
  "scripture": "Isaiah 53; Isaiah 55",
  "grammar_topic": "Passive voice (present/past simple passive; passive with by)",
  "pronunciation": "Weak forms: of, to, and, have in connected speech",
+ "pronunciation_detail": "In natural English, small grammar words are usually weak: short, quiet, and pronounced with the vowel /ə/ (schwa). Vietnamese learners often say every word strongly — \"Kingdom OF God\" — which sounds slow and foreign. Native speakers say \"Kingdom əv God\". Learn the weak forms: of — strong /ɒv/ to weak /əv/: \"the Kingdom of God\" sounds like \"Kingdom-əv-God\". to — strong /tuː/ to weak /tə/: \"come to the waters\" sounds like \"come-tə-the waters\". and — strong /ænd/ to weak /ən/ or /n/: \"bread and water\" sounds like \"bread-n-water\". have — strong /hæv/ to weak /əv/ (written 've): \"should have come\" sounds like \"should-əv come\" — \"should've\". Rule: content words (prophet, wounded, thirsty) stay strong; grammar words (of, to, and, have, for) go weak — unless you stress them for meaning: \"He was wounded FOR US\" (for us, not for Himself). Practice: listen to the lesson audio and shadow it — copy the weak forms exactly. Then read Isaiah 53:5 aloud twice: once strong (wrong), once weak (natural).",
  "objectives": [
   "Học và thực hành: Passive voice (present/past simple passive; passive with by).",
   "Luyện phát âm: Weak forms: of, to, and, have in connected speech.",
@@ -172,7 +173,7 @@
  "grammar": [
   {
    "title": "Passive voice (present/past simple passive; passive with by)",
-   "explain": "Phần Grammar Blueprint đầy đủ (giải thích chi tiết và ví dụ) nằm trong file PDF bài học.",
+   "explain": "Form: be + past participle. Present simple: am / is / are + past participle — \"Forgiveness is given freely.\" Past simple: was / were + past participle — \"He was wounded for our transgressions.\" The by-phrase names the agent: \"He was despised by men.\" — \"Our iniquity was laid on Him by the Lord.\" Active to passive: move the object to the front, and the subject goes to the end with by (or disappears). Active: \"Men despised Him.\" Passive: \"He was despised by men.\" Active: \"God invites the thirsty.\" Passive: \"The thirsty are invited by God.\"\n\nWhen to use the passive — three reasons: 1. The receiver matters more than the doer: \"He was wounded for us\" — the focus is on the Servant, not on who wounded Him. Bible English loves the passive for this reason. 2. The doer is unknown or unimportant: \"The invitation was written in Isaiah 55\" — who wrote it does not matter here. 3. The doer is God, and the focus is on grace: \"We are saved by grace\" — the gift matters, not our part in it.\n\nWatch out: do not use the passive when the doer is the point: \"Isaiah wrote these words\" is better than \"These words were written by Isaiah.\" And never forget the be verb: say \"He was wounded\", not \"He wounded\".",
    "examples": []
   }
  ],
@@ -182,7 +183,7 @@
   "words": 349,
   "script": "/tai-lieu/b1/scripts/b1-lesson-03-listening-script.txt"
  },
- "reading_passage": "",
+ "reading_passage": "Isaiah lived about seven hundred years before Jesus was born. God called him to be a prophet, a man who speaks God's words to God's people. Isaiah warned Israel about its sins, but he also gave the people wonderful promises about the future. His greatest prophecy is about the Servant of the Lord, in chapter 53. The Servant was not a king in a palace. He was despised and rejected by men, a man of sorrows, acquainted with grief. He was wounded for our transgressions and crushed for our iniquities. The punishment that brought us peace was laid on Him, and by His wounds we are healed. Isaiah's words were written long before Jesus came, but Christians believe they describe Jesus on the cross. Jesus took our place. He was pierced for our sins, and because He suffered, we can be forgiven and have peace with God. Then, in chapter 55, God gives a free invitation: \"Come, all you who are thirsty, come to the waters.\" Forgiveness cannot be bought. It is given by grace to everyone who comes. Isaiah says we should seek the Lord while He may be found, and forsake our wicked ways and return to Him. God will have mercy on us, and He will abundantly pardon. The Servant suffered, so that we could be invited home. When we read Isaiah today, we are reading a letter written to people long ago, yet it speaks directly to us: our sins were carried by Another, and God's door stands open to everyone who will come.",
  "reading_comprehension": [
   {
    "q": "1. When did Isaiah live, and who was he?",
@@ -268,7 +269,7 @@
  },
  "_source": {
   "json": "teaching/b1/content/b1-lesson-03.json",
-  "json_sha256": "c29d223e1158c9fcb5037c6f260572af2fc3b50a8e1b0f72a6f28c87a36fd02b",
+  "json_sha256": "38ad8a5d5780535dfa2fc26de2cba7d58d8dcada34be0801d66f7a1e3de971e1",
   "pdf": "teaching/b1/output/b1-lesson-03-prophets-isaiah.pdf",
   "pdf_sha256": "518878688f44125af15bf2833fc49d461b5001f9bc13f2f61b3eb2fe5f45f661",
   "mp3": "teaching/b1/audio/b1-lesson-03-listening.mp3",

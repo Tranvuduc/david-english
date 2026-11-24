@@ -83,7 +83,7 @@ audio{width:100%;margin-top:10px}
 <div class="wrap">
 <header class="top">
   <h1>Open<br><span>Shelf</span></h1>
-  <p class="lede">Free books to read and hear. Every title here is in the public domain. No accounts, no fees.</p>
+  <p class="lede">Free books to read and hear — 18 titles, all in the public domain. No accounts, no fees.</p>
   <div class="tools"><button class="btn" id="theme" type="button">Light / Dark</button></div>
 </header>
 
@@ -134,7 +134,7 @@ audio{width:100%;margin-top:10px}
   </aside>
 </main>
 
-<p class="foot">Ebooks link to Project Gutenberg and Internet Archive. Audiobooks link to LibriVox, where volunteers record public-domain books. Editions and recordings vary, so pick the reader you like best. Translations and modern editions may still be under copyright.</p>
+<p class="foot">Read, Listen and Archive open search pages on Project Gutenberg, LibriVox and Internet Archive — not the book itself. Pick the edition or recording you want from the search results. Editions and recordings vary, so pick the reader you like best. Translations and modern editions may still be under copyright.</p>
 </div>
 
 <script>
@@ -179,7 +179,7 @@ function render(){
     if((state.f==="theology"||state.f==="classic")&&b.c!==state.f)return;
     if(q&&(b.t+" "+b.a+" "+b.n+" "+b.c).toLowerCase().indexOf(q)<0)return;
     var s=state.saved.indexOf(b.t)>=0;
-    out.push('<article class="book"><div class="spine" style="background:'+b.col+'"><b>'+(b.c==="theology"?"Theology":"Classic")+' · '+(b.y<0?Math.abs(b.y)+" BC":b.y)+'</b><i>'+esc(b.t)+'</i></div><div class="body"><h3>'+esc(b.t)+'</h3><p class="by">'+esc(b.a)+'</p><p class="note">'+esc(b.n)+'</p><div class="links"><a href="'+G(b.q)+'" target="_blank" rel="noopener">Read</a><a href="'+L(b.t)+'" target="_blank" rel="noopener">Listen</a><a href="'+A(b.q)+'" target="_blank" rel="noopener">Archive</a></div><button type="button" class="fav" data-i="'+i+'" aria-pressed="'+s+'">'+(s?"★ Saved":"☆ Save")+'</button></div></article>');
+    out.push('<article class="book"><div class="spine" style="background:'+b.col+'"><b>'+(b.c==="theology"?"Theology":"Classic")+' · '+(b.y<0?Math.abs(b.y)+" BC":b.y)+'</b><i>'+esc(b.t)+'</i></div><div class="body"><h3>'+esc(b.t)+'</h3><p class="by">'+esc(b.a)+'</p><p class="note">'+esc(b.n)+'</p><div class="links"><a href="'+G(b.q)+'" target="_blank" rel="noopener">Read (search)</a><a href="'+L(b.t)+'" target="_blank" rel="noopener">Listen (search)</a><a href="'+A(b.q)+'" target="_blank" rel="noopener">Archive (search)</a></div><button type="button" class="fav" data-i="'+i+'" aria-pressed="'+s+'">'+(s?"★ Saved":"☆ Save")+'</button></div></article>');
   });
   $("grid").innerHTML=out.length?out.join(""):'<div class="empty">'+(state.f==="saved"?"Nothing saved yet. Tap Save on a book and it will appear here on this device.":"No titles match that search.")+'</div>';
   $("count").textContent=out.length+" of "+BOOKS.length+" titles";

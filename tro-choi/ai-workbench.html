@@ -1,7 +1,7 @@
 <!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>AI Workbench</title>
-<meta name="description" content="Học cách dùng AI (ChatGPT, Claude, Gemini…) để học và dạy tiếng Anh: 9 bài học ngắn, thư viện prompt mẫu.">
+<meta name="description" content="Học cách dùng AI (ChatGPT, Claude, Gemini…) để học và dạy tiếng Anh: 15 bài học ngắn, thư viện prompt mẫu.">
 <meta property="og:title" content="AI Workbench">
-<meta property="og:description" content="Học cách dùng AI (ChatGPT, Claude, Gemini…) để học và dạy tiếng Anh: 9 bài học ngắn, thư viện prompt mẫu.">
+<meta property="og:description" content="Học cách dùng AI (ChatGPT, Claude, Gemini…) để học và dạy tiếng Anh: 15 bài học ngắn, thư viện prompt mẫu.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://davidenglish.vercel.app/tro-choi/ai-workbench.html">
 <meta property="og:image" content="https://davidenglish.vercel.app/assets/og-default.png">
@@ -852,6 +852,8 @@ function renderHome(){
   const answeredToday = state.daily.date === todayStr();
 
   return `
+  <h1 style="margin:0 0 6px; font-size:1.9rem;">AI Workbench</h1>
+  <p style="margin:0 0 18px; color:var(--text-muted);">Học cách dùng AI (ChatGPT, Claude, Gemini…) để học và dạy tiếng Anh: 15 bài học ngắn, thư viện prompt mẫu.</p>
   <div class="grid cols-2" style="align-items:stretch; margin-bottom:18px;">
     <div class="card">
       <p class="eyebrow">Your progress</p>
@@ -879,7 +881,7 @@ function renderHome(){
 
   <div class="section-title"><h2>Where to start</h2></div>
   <div class="grid cols-3">
-    ${cardLink('Learn the tools', 'Nine short lessons on ChatGPT, Claude, NotebookLM and more.', ()=>"go('learn')")}
+    ${cardLink('Learn the tools', 'Fifteen short lessons on ChatGPT, Claude, NotebookLM and more.', ()=>"go('learn')")}
     ${cardLink('Ask AI right now', 'A live chat, tuned for your ESL & theology work.', ()=>"go('ask')")}
     ${cardLink('Try a project', 'Six guided, hands-on mini-projects to apply what you learn.', ()=>"go('projects')")}
   </div>
@@ -977,7 +979,7 @@ function renderLessonDetail(id){
   <div class="card" style="margin-top:12px;">
     <div style="display:flex; gap:14px; align-items:center; margin-bottom:8px;">
       <span class="badge lg" style="background:${TOOL_COLORS[l.id]}">${TOOL_INITIALS[l.id]}</span>
-      <div><p class="eyebrow" style="margin:0 0 4px;">${l.tag}</p><h1 style="margin:0 0 6px; font-size:1.6rem;">${l.title}</h1><span class="pill" style="background:${LEVEL_BG[l.level]}; color:${LEVEL_COLORS[l.level]}; border-color:transparent;">${l.level}</span></div>
+      <div><p class="eyebrow" style="margin:0 0 4px;">${l.tag}</p><h2 style="margin:0 0 6px; font-size:1.6rem;">${l.title}</h2><span class="pill" style="background:${LEVEL_BG[l.level]}; color:${LEVEL_COLORS[l.level]}; border-color:transparent;">${l.level}</span></div>
     </div>
     <div class="prose">${l.body.map(p=>'<p>'+p+'</p>').join('')}</div>
     <div class="callout"><div class="label">Try this prompt</div><p>${l.tryIt}</p></div>
@@ -1293,7 +1295,7 @@ function renderProjectDetail(id){
   const toolBadges = p.tools.map(t=>`<span class="pill">${LESSONS.find(l=>l.id===t).title}</span>`).join(' ');
   return `<button class="btn ghost sm" onclick="go('projects')">← All projects</button>
   <div class="card" style="margin-top:12px;">
-    <h1 style="margin:0 0 8px; font-size:1.4rem;">${p.title}</h1>
+    <h2 style="margin:0 0 8px; font-size:1.4rem;">${p.title}</h2>
     <div style="margin-bottom:16px;">${toolBadges}</div>
     <div class="project-card" style="border:none; padding:0;">${stepsHtml}</div>
   </div>`;

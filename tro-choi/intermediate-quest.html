@@ -1,4 +1,6 @@
-<!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Intermediate Quest</title>
+<!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important} .hero h2{font-size:clamp(24px,5vw,34px);font-weight:800}
+ .lhead h2{font-size:clamp(22px,4.5vw,30px)}
+</style><title>Intermediate Quest</title>
 <meta name="description" content="Interactive B1 Intermediate English practice game — vocabulary, grammar, reading, listening, speaking and writing.">
 <meta property="og:title" content="Intermediate Quest">
 <meta property="og:description" content="Interactive B1 Intermediate English practice game — vocabulary, grammar, reading, listening, speaking and writing.">
@@ -1087,7 +1089,7 @@ function bindCommon(m){
 function renderLesson(m, l){
   const c = fileColor(l), p = mastery(l);
   let h = '<button class="back" id="bk">'+IC.back+' Bản đồ</button>'+
-    '<div class="lhead" style="--fc:'+c+'"><span class="code">'+l.code+'</span><div><div class="eyebrow">'+(l.file==='PE'?'Practical English':'File '+l.file)+' · '+esc(l.topic)+'</div><h1>'+esc(l.title)+'</h1><div class="row" style="gap:8px;margin-top:4px">'+starHTML(starsOf(p))+'<span class="muted">Thành thạo '+p+'%</span></div></div></div>';
+    '<div class="lhead" style="--fc:'+c+'"><span class="code">'+l.code+'</span><div><div class="eyebrow">'+(l.file==='PE'?'Practical English':'File '+l.file)+' · '+esc(l.topic)+'</div><h2>'+esc(l.title)+'</h2><div class="row" style="gap:8px;margin-top:4px">'+starHTML(starsOf(p))+'<span class="muted">Thành thạo '+p+'%</span></div></div></div>';
   if (l.rule) h += '<details class="card rule" open><summary>Ghi nhớ ngữ pháp: '+esc(l.gram)+' <span class="muted">▾</span></summary><div class="body">'+l.rule+'</div></details>';
   h += '<div class="modes">'+modesFor(l).map(md => {
     const b = S.best[l.code+':'+md.id]||0;
@@ -1497,7 +1499,7 @@ function renderReview(m){
   const weak = all.filter(([k,v]) => v.b <= 1).map(([k]) => k);
   const labels = ['Mới sai','1 ngày','3 ngày','1 tuần','2 tuần','Đã thuộc'];
   const mx = Math.max(1, ...boxes);
-  let h = '<section class="card hero"><div class="blob"></div><div style="position:relative;z-index:1"><div class="eyebrow">Lặp lại ngắt quãng</div><h1>'+(due.length ? due.length+' mục đến hạn ôn' : 'Bạn đã ôn xong hôm nay!')+'</h1>'+
+  let h = '<section class="card hero"><div class="blob"></div><div style="position:relative;z-index:1"><div class="eyebrow">Lặp lại ngắt quãng</div><h2>'+(due.length ? due.length+' mục đến hạn ôn' : 'Bạn đã ôn xong hôm nay!')+'</h2>'+
     '<p>Mỗi từ hoặc câu ngữ pháp bạn làm sai sẽ vào hộp ôn tập. Trả lời đúng thì mục đó chuyển sang hộp tiếp theo và quay lại sau 1, 3, 7, 16 ngày. Trả lời sai thì mục đó quay về hộp đầu.</p>'+
     '<div class="row">'+(due.length ? '<button class="btn primary" id="rv">Ôn ngay '+Math.min(15,due.length)+' mục</button>' : '')+(weak.length ? '<button class="btn" id="rw">Luyện '+Math.min(15,weak.length)+' mục yếu nhất</button>' : '')+
     '<button class="btn" id="rm">Ôn trộn ngẫu nhiên</button></div></div></section>';
@@ -1636,7 +1638,7 @@ function renderTests(m){
   S.tests = S.tests || [];
   const bestOf = id => { const r = S.tests.filter(t => t.id === id); return r.length ? Math.max(...r.map(t => t.score)) : null; };
   const recent = S.tests.slice(-8);
-  let h = '<section class="card hero"><div class="blob"></div><div style="position:relative;z-index:1"><div class="eyebrow">Luyện thi · mô phỏng bài kiểm tra thật</div><h1>Phòng thi</h1>'+
+  let h = '<section class="card hero"><div class="blob"></div><div style="position:relative;z-index:1"><div class="eyebrow">Luyện thi · mô phỏng bài kiểm tra thật</div><h2>Phòng thi</h2>'+
     '<p>Mỗi đề được thiết kế theo cấu trúc <b>File Test</b> của American English File: Ngữ pháp 20 · Từ vựng 20 · Phát âm 10 · Đọc 20 · Nghe 20 · Viết 10 = <b>100 điểm</b>. Phải <b>tự gõ đáp án</b> như khi làm bài trên giấy. Mỗi lần làm, câu hỏi được chọn ngẫu nhiên nên đề luôn khác.</p>'+
     '<div class="tmodes"><label class="chip" style="cursor:pointer"><input type="radio" name="tm" value="exam" '+(S.tmode!=='practice'?'checked':'')+'> Thi thật · 75 phút, nghe tối đa 2 lần, chấm cuối bài</label>'+
     '<label class="chip" style="cursor:pointer"><input type="radio" name="tm" value="practice" '+(S.tmode==='practice'?'checked':'')+'> Luyện tập · không giới hạn, chấm từng phần</label></div></div></section>';
@@ -1936,7 +1938,7 @@ function renderProgress(m){
   const avg = Math.round(LESSONS.reduce((a,l) => a + mastery(l), 0) / LESSONS.length);
   const week = [-6,-5,-4,-3,-2,-1,0].map(o => ({k:dayKey(o), o})), mx = Math.max(S.goal, ...week.map(d => S.days[d.k]||0));
   const dn = ['CN','T2','T3','T4','T5','T6','T7'];
-  let h = '<section class="card hero"><div class="blob"></div><div style="position:relative;z-index:1"><div class="eyebrow">Tiến độ của bạn</div><h1>Cấp '+lv+' · '+S.xp+' XP</h1><p>Còn <b>'+(nx-S.xp)+' XP</b> nữa để lên Cấp '+(lv+1)+'.</p>'+
+  let h = '<section class="card hero"><div class="blob"></div><div style="position:relative;z-index:1"><div class="eyebrow">Tiến độ của bạn</div><h2>Cấp '+lv+' · '+S.xp+' XP</h2><p>Còn <b>'+(nx-S.xp)+' XP</b> nữa để lên Cấp '+(lv+1)+'.</p>'+
     '<div class="mbar" style="height:12px;max-width:360px"><i style="width:'+lp+'%;background:var(--accent)"></i></div></div><div class="ring" style="--p:'+avg+'"><span>'+avg+'%<small>thành thạo khóa học</small></span></div></section>';
   h += '<div class="statgrid" style="margin-top:14px">'+
     [['Chuỗi ngày', S.streak+' ngày'],['Từ đã thuộc', learnedWords()+' / '+ALL.reduce((a,l)=>a+l.v.length,0)],['Bài 3 sao', mastered+' / 20'],['Lượt chơi', S.games],['Mục đã ôn', S.reviews],['Huy hiệu', Object.keys(S.badges).length+' / '+BADGES.length]]

@@ -8,6 +8,7 @@
  "scripture": "Matthew 5-7",
  "grammar_topic": "Present perfect: since/for, already/yet; present perfect vs past simple",
  "pronunciation": "Word stress in longer words + sentence stress",
+ "pronunciation_detail": "Word Stress In English, every word with more than one syllable has one stressed syllable: it is louder, longer, and higher. The other syllables are weak and quick. Vietnamese speakers often stress every syllable equally, so English listeners hear the wrong word. Learn the stress of this lesson’s key words: BEATitudes, KINGdom, RIGHTeousness, MERciful, PERsecuted, tempTAtion, HYpocrite, disCIple.\n\nSentence Stress In a sentence, we stress the content words (nouns, main verbs, adjectives, adverbs) and we say the grammar words (the, are, in, of) quickly and quietly. Say this sentence and stress only the words in bold: “Blessed are the poor in spirit.” Now try: “You are the salt of the earth.” and “Let your light shine before others.” Read each sentence aloud twice — once flat (wrong), once with the correct stress. Feel the rhythm!",
  "objectives": [
   "Học và thực hành: Present perfect: since/for, already/yet; present perfect vs past simple.",
   "Luyện phát âm: Word stress in longer words + sentence stress.",
@@ -172,7 +173,7 @@
  "grammar": [
   {
    "title": "Present perfect: since/for, already/yet; present perfect vs past simple",
-   "explain": "Phần Grammar Blueprint đầy đủ (giải thích chi tiết và ví dụ) nằm trong file PDF bài học.",
+   "explain": "Structure: have/has + past participle — I have read; she has studied; they have lived. The present perfect connects the past to NOW. Use it for a past action with a result that matters today, or for an experience in your life up to now.\n\nRule 1: since + a point in time; for + a length of time I have believed in Jesus since 2018 (a point: 2018). — We have studied the Sermon on the Mount for three weeks (a length: three weeks). Other points: since Monday, since I was a child, since last year. Other lengths: for five years, for a long time, for two days.\n\nRule 2: already (affirmative) and yet (negative and question) I have already read the Beatitudes twice this week. — She has already memorized Matthew 5:3. I have not memorized them yet. — Have you read the Sermon on the Mount yet? Already goes before the main verb; yet goes at the end.\n\nRule 3: Present perfect vs past simple — finished time or not? Use the past simple when the time is FINISHED: Jesus taught the Sermon on the Mount about two thousand years ago. — They visited the church last Sunday. Use the present perfect when NO finished time is given and the result matters now: I have read the Beatitudes twice this week. — Have you ever been to a Bible study on a mountain? Signal words for the past simple: yesterday, last week, in 2019, ago. Signal words for the present perfect: ever, never, already, yet, since, for, this week (the week is not finished).",
    "examples": []
   }
  ],
@@ -182,7 +183,7 @@
   "words": 372,
   "script": "/tai-lieu/b1/scripts/b1-lesson-01-listening-script.txt"
  },
- "reading_passage": "",
+ "reading_passage": "One day, large crowds followed Jesus up a mountainside. He sat down, His disciples came to Him, and He began to teach them. These words, in Matthew 5 to 7, are called the Sermon on the Mount, and they are the most famous teaching in the world. Jesus began with the Beatitudes, eight promises of blessing. He said that God blesses the poor in spirit, those who mourn, the meek, and those who hunger and thirst for righteousness. The world says that the rich, the strong, and the famous are blessed. Jesus says the opposite: God blesses the humble people who know they need Him.\n\nThen Jesus gave His followers two pictures of their life in the world. They are the salt of the earth: just as salt gives flavor to food and keeps it from rotting, Christians should make life better for everyone around them. They are also the light of the world: just as a lamp on a hill cannot be hidden, a Christian life cannot be hidden. Their good works should shine before others so that people give glory to God. Jesus also taught His disciples how to pray. He gave them the Lord's Prayer, which begins with God's name and God's kingdom, and only then asks for daily bread, forgiveness, and protection from temptation. He warned them not to pray like hypocrites who love to be seen by others. Finally, Jesus taught about treasures. Earthly treasures are destroyed by moth and rust and stolen by thieves, but treasures in heaven last forever. 'For where your treasure is,' Jesus said, 'there your heart will be also.'",
  "reading_comprehension": [
   {
    "q": "1. According to Matthew 5:3-10, who receives the kingdom of heaven?",
@@ -201,7 +202,28 @@
    "a": "In heaven, because earthly treasures are destroyed by moth and rust and stolen by thieves, but heavenly treasures last forever; and where our treasure is, there our heart will be also."
   }
  ],
- "listening_questions": [],
+ "listening_questions": [
+  {
+   "q": "1. Where did Jesus sit to teach His disciples?",
+   "a": "On a mountainside."
+  },
+  {
+   "q": "2. What promises does Jesus give in the Beatitudes in the audio? Name three.",
+   "a": "Any three of: the poor in spirit receive the kingdom of heaven; those who mourn will be comforted; the meek will inherit the earth; those who hunger and thirst for righteousness will be filled."
+  },
+  {
+   "q": "3. What does 'meek' mean, according to the narrator?",
+   "a": "Gentle and patient; not fighting for your own rights; trusting God to defend you."
+  },
+  {
+   "q": "4. True or False: 'Blessed' means exactly the same as 'happy'.",
+   "a": "False. Blessed is deeper than happy: it means God is pleased with you and you have His favor."
+  },
+  {
+   "q": "5. Has the narrator already memorized the Beatitudes? How do you know?",
+   "a": "No. He says, 'Not yet, but I have studied them for many years.'"
+  }
+ ],
  "exercises": [
   {
    "title": "Exercise 1: Word Stress — Mark the Stressed Syllable",
@@ -234,8 +256,8 @@
    "items": 3
   }
  ],
- "speaking_task": "",
- "writing_task": "",
+ "speaking_task": "In pairs, discuss: (1) Which Beatitude is hardest for you to live, and why? (2) What does it mean to be “salt and light” in your family, your office, or your school? (3) Have you ever forgiven someone who hurt you? What happened? Use the present perfect (have/has) and at least 3 vocabulary words from Section 3. Then role-play the dialogue in Section 6, swapping roles.",
+ "writing_task": "Write 80–100 words: “Salt and Light in My Life.” Describe one way you have been salt or light this month. Use at least 3 present perfect sentences (with since, for, already, or yet) and 3 vocabulary words from Section 3.",
  "homework": {
   "written": [
    "Write 5 sentences about your own life using the present perfect: 2 with since, 2 with for, 1 with already or yet. Example: I have believed in Jesus since 2018.",
@@ -248,7 +270,7 @@
  },
  "_source": {
   "json": "teaching/b1/content/b1-lesson-01.json",
-  "json_sha256": "6f1a9d5ce754440d5d814e0022c3ba655f6455efafe5a3e60e432c08aef4d731",
+  "json_sha256": "9937ea1646d88857721be3052e5f663e22a64e9e04720d35bfd38936c8fb1045",
   "pdf": "teaching/b1/output/b1-lesson-01-sermon-on-the-mount.pdf",
   "pdf_sha256": "5221fe9dd2fca3f11cdc2fc20a4af811096ef730f31cc8ff32345b8888695307",
   "mp3": "teaching/b1/audio/b1-lesson-01-listening.mp3",

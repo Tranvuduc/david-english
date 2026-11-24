@@ -8,6 +8,7 @@
  "scripture": "Proverbs 3:5–6; 18:10; 27:17; Psalm 1; 19:7–11; 119:105",
  "grammar_topic": "Relative clauses: who / which / that; defining vs non-defining",
  "pronunciation": "Intonation: questions vs statements (rising in yes/no questions, falling in statements and Wh-questions)",
+ "pronunciation_detail": "In English, the music of your voice — intonation — tells the listener what kind of sentence you are saying. Vietnamese is a tonal language, so every syllable carries its own tone; English uses the rise and fall of the whole sentence. Three patterns cover almost everything: 1. Yes/no questions RISE at the end: \"Do you trust in the Lord?\" — your voice goes up on \"Lord\". Rising sounds like a real question; if your voice falls, it sounds like a statement, and the listener may not answer. 2. Statements FALL at the end: \"The fear of the LORD is the beginning of wisdom.\" — your voice goes down on \"wisdom\". A falling voice sounds sure and finished. 3. Wh-questions FALL too (who, what, where, why, when, how): \"Where does true wisdom come from?\" — your voice falls at the end, even though it is a question. Wh-questions ask for information, so they sound like statements with a question word at the front. Rule to remember: rise only for yes/no questions. Fall for everything else — statements, Wh-questions, and commands: \"Trust in the Lord.\" \"Seek wisdom.\" Practice: listen to the lesson audio and copy the rise and fall exactly. Then read Proverbs 3:5–6 aloud: fall on the statements (\"Trust in the LORD...\"), and rise on the question, \"Do you trust Him with all your heart?\"",
  "objectives": [
   "Học và thực hành: Relative clauses: who / which / that; defining vs non-defining.",
   "Luyện phát âm: Intonation: questions vs statements (rising in yes/no questions, falling in statements and Wh-questions).",
@@ -186,7 +187,7 @@
  "grammar": [
   {
    "title": "Relative clauses: who / which / that; defining vs non-defining",
-   "explain": "Phần Grammar Blueprint đầy đủ (giải thích chi tiết và ví dụ) nằm trong file PDF bài học.",
+   "explain": "A relative clause is a small sentence inside a sentence. It begins with a relative pronoun — who, which, or that — and it describes a noun: \"The friend who gave me wise counsel is a true friend.\" \"The lamp which guides my feet is God's word.\" \"The path that leads to life is narrow.\" Which pronoun? Use who for people: \"the man who meditates on God's law\". Use which for things: \"the law which makes wise the simple\". Use that for people or things: \"the counsel that you gave me\" / \"the tree that stands by the water\". Defining clauses (no commas) tell us which one — the information is essential. \"The friend who tells the truth is a treasure.\" (Which friend? The one who tells the truth.) Without the clause, we do not know which friend is meant. Non-defining clauses (with commas) add extra information about someone we already know. \"Solomon, who was the son of David, asked God for wisdom.\" (We already know who Solomon is; the clause is a bonus. You can remove it and the sentence still works.) Note: that is never used in a non-defining clause — say \"Solomon, who was the son of David\", never \"Solomon, that was...\".\n\nWatch out: never use which for a person (\"the man which meditates\" is wrong — use who), and never drop the pronoun when it is the subject of the clause: \"The man who meditates on God's law is blessed\" — not \"The man meditates on God's law is blessed\".",
    "examples": []
   }
  ],
@@ -196,7 +197,7 @@
   "words": 393,
   "script": "/tai-lieu/b1/scripts/b1-lesson-04-listening-script.txt"
  },
- "reading_passage": "",
+ "reading_passage": "Solomon became king of Israel when he was still young. One night God said to him, \"Ask what I shall give you.\" Solomon did not ask for riches or a long life. He asked for wisdom — a heart that could judge God's people rightly. God was pleased, and gave Solomon great wisdom — and riches and honour as well. Proverbs collects the wisdom that Solomon and other wise men taught in Israel. Its first words tell us its purpose: to know wisdom, to understand words of insight. The fear of the Lord is the beginning of knowledge, but fools despise wisdom and instruction. A wise person listens to counsel; a foolish person trusts only his own opinion. The Psalms sing the same wisdom: Psalm 1 pictures the wise person as a tree planted by streams of water. He does not walk in the counsel of the wicked; his delight is in the law of the Lord, and he meditates on it day and night. His leaf does not wither. Psalm 19 says the law of the Lord is perfect, reviving the soul; it makes wise the simple, rejoices the heart, and enlightens the eyes. God's words are more to be desired than gold, sweeter than honey. And Psalm 119 gives the most famous picture of all: \"Your word is a lamp to my feet and a light to my path.\" God's word does not show us the whole road, but it shows us the next step — enough light to walk by. Proverbs adds: the name of the Lord is a strong tower, and the righteous run into it and are safe; and iron sharpens iron, so one person sharpens another. Wisdom grows when we trust the Lord, listen to His word, and walk with friends who tell the truth.",
  "reading_comprehension": [
   {
    "q": "1. What did Solomon ask God for, and why?",
@@ -286,7 +287,7 @@
  },
  "_source": {
   "json": "teaching/b1/content/b1-lesson-04.json",
-  "json_sha256": "6c6e1654d683c82c8e23ea619b82eac8c5deda06c4a988242cbcb0b61570294f",
+  "json_sha256": "a916cd2cfadebd0d33eba343c76c601033da6c9ec9eede38491f105023509cc8",
   "pdf": "teaching/b1/output/b1-lesson-04-wisdom-proverbs-psalms.pdf",
   "pdf_sha256": "e7a0823523364773ef39d8bb32ac4fecb8f7d53047a88b825e8ff4c524602720",
   "mp3": "teaching/b1/audio/b1-lesson-04-listening.mp3",

@@ -38,7 +38,7 @@
     <p class="tagline">Học tiếng Anh miễn phí — giải thích bằng tiếng Việt</p>
     <details class="nav-toggle">
       <summary>☰ Danh mục</summary>
-      <nav class="site-nav" aria-label="Điều hướng chính">
+      <nav class="site-nav" aria-label="Điều hướng di động">
 <a href="/">Trang chủ</a>
 <a href="/bai-xep-lop.html">Bài xếp lớp</a>
 <a href="/trinh-do/">Theo trình độ</a>
@@ -82,6 +82,7 @@
   <button type="submit" class="btn">Nhờ AI chữa bài</button>
 </form>
 <div id="writingResult" class="result" hidden></div>
+<button type="button" class="btn ghost" id="copyWriting" hidden>Sao chép kết quả</button>
 </section>
 <p class="muted">Nếu công cụ chưa sẵn sàng, trang sẽ báo “đang được chuẩn bị” — bạn thử lại sau.</p>
 <script>
@@ -90,6 +91,20 @@
   var input = document.getElementById('writingText');
   var out = document.getElementById('writingResult');
   var count = document.getElementById('writingCount');
+  var copyBtn = document.getElementById('copyWriting');
+  copyBtn.addEventListener('click', function () {
+    var text = out.innerText || out.textContent || '';
+    function done() { copyBtn.textContent = 'Đã sao chép!'; setTimeout(function () { copyBtn.textContent = 'Sao chép kết quả'; }, 2000); }
+    function fallbackCopy() {
+      var ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) { copyBtn.textContent = 'Không sao chép được'; }
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(); });
+    } else { fallbackCopy(); }
+  });
   input.addEventListener('input', function () {
     count.textContent = input.value.length + '/350 ký tự';
   });
@@ -103,6 +118,7 @@
       return;
     }
     out.hidden = false;
+    copyBtn.hidden = true;
     out.innerHTML = '<p>Đang chữa bài…</p>';
     fetch('/api/chat', {
       method: 'POST',
@@ -114,6 +130,7 @@
         var d = res.d || {};
         if (res.status === 200 && d.answer) {
           out.innerHTML = '<p>' + d.answer.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>') + '</p><p class="muted">AI, chưa duyệt.</p>';
+          copyBtn.hidden = false;
         } else {
           out.innerHTML = '<p>' + (d.message || 'Có lỗi xảy ra, mời thử lại sau.') + '</p>';
         }

@@ -1,4 +1,5 @@
-<!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>EFEC Helper</title>
+<!doctype html><html lang="vi"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important} h2.t1{font-size:28px}
+</style><title>EFEC Helper</title>
 <meta name="description" content="Tiếng Anh cho điều dưỡng: chào hỏi bệnh nhân, giao tiếp trong bệnh viện — giải thích bằng tiếng Việt.">
 <meta property="og:title" content="EFEC Helper">
 <meta property="og:description" content="Tiếng Anh cho điều dưỡng: chào hỏi bệnh nhân, giao tiếp trong bệnh viện — giải thích bằng tiếng Việt.">
@@ -767,7 +768,7 @@ function todayHTML() {
   }
   return `<div class="stack">
     ${Object.keys(S.done).length === 0 ? `<img class="banner" src="${BANNER}" alt="EFEC Helper">` : ''}
-    <div class="pagehead"><h1>${g[0]}${S.name ? ', ' + esc(S.name) : ''}</h1><p class="vi">${g[1]}. ${L.i === 0 && !doneToday ? 'Hãy bắt đầu bài đầu tiên.' : 'Mười phút hôm nay là đủ.'}</p></div>
+    <div class="pagehead"><h2 class="t1">${g[0]}${S.name ? ', ' + esc(S.name) : ''}</h2><p class="vi">${g[1]}. ${L.i === 0 && !doneToday ? 'Hãy bắt đầu bài đầu tiên.' : 'Mười phút hôm nay là đủ.'}</p></div>
     ${storageOK ? '' : '<div class="card" style="border-color:var(--warn)"><b>This browser is not saving progress.</b><p class="sm muted">Open Settings and copy your backup code so you do not lose your streak.</p></div>'}
     ${hero}
     <div class="card"><div class="row between"><h3>This week</h3><span class="sm muted mono">${act7}/5 days · goal</span></div>
@@ -781,7 +782,7 @@ function todayHTML() {
 
 /* ---------- Path ---------- */
 function pathHTML() {
-  let out = `<div class="stack"><div class="pagehead"><h1>Your path</h1><p class="vi">Lộ trình 365 ngày · 52 tuần</p></div>`;
+  let out = `<div class="stack"><div class="pagehead"><h2 class="t1">Your path</h2><p class="vi">Lộ trình 365 ngày · 52 tuần</p></div>`;
   LV.forEach(l => {
     const from = LSTART[l], to = LEND[l];
     let n = 0; for (let i = from; i <= to; i++) if (S.done[i]) n++;
@@ -809,7 +810,7 @@ function reviewHTML() {
   const cnt = [0, 0, 0, 0, 0]; keys.forEach(k => cnt[S.box[k].b]++);
   const names = ['New', 'Learning', 'Getting there', 'Strong', 'Mastered'];
   const max = Math.max(1, ...cnt);
-  return `<div class="stack"><div class="pagehead"><h1>Review</h1><p class="vi">Ôn tập ngắt quãng</p></div>
+  return `<div class="stack"><div class="pagehead"><h2 class="t1">Review</h2><p class="vi">Ôn tập ngắt quãng</p></div>
     <div class="card" style="text-align:center;display:grid;gap:10px">
       <div class="stat" style="justify-items:center"><b style="font-size:44px">${due.length}</b><span class="muted">phrase${due.length === 1 ? '' : 's'} due today</span></div>
       ${due.length ? `<button class="btn p w" data-act="review">Review ${Math.min(10, due.length)} now</button>` : keys.length ? `<p class="muted">You are all caught up. Come back tomorrow.</p><button class="btn s w" data-act="review">Practise 10 random phrases</button>` : `<p class="muted">Finish your first lesson and your phrases will appear here.</p>`}
@@ -870,7 +871,7 @@ function progressHTML() {
   const wkKeys = Object.keys(S.wk).map(Number).sort((a, b) => a - b);
   const chk = Object.keys(S.chk).map(Number).sort((a, b) => a - b);
   const certs = LV.filter(certOK);
-  return `<div class="stack"><div class="pagehead"><h1>Progress</h1><p class="vi">Tiến độ học tập</p></div>
+  return `<div class="stack"><div class="pagehead"><h2 class="t1">Progress</h2><p class="vi">Tiến độ học tập</p></div>
   <div class="card row" style="gap:16px"><div class="ring" style="--p:${pct}"><div><span>${pct}%<small>of 365</small></span></div></div>
     <div class="grow"><h2>Day ${Math.min(S.pos + 1, TOTAL)}</h2><p class="muted sm">${doneCount()} lessons finished · best streak ${S.best} days</p>
     <p class="sm" style="margin-top:6px">${S.pos >= TOTAL ? 'Course complete.' : TOTAL - S.pos + ' days to go'}</p></div></div>
@@ -903,7 +904,7 @@ function bookRows() {
 }
 function bookHTML() {
   const fs = [['all', 'All'], ['A1', 'A1'], ['A2', 'A2'], ['B1', 'B1'], ['B2', 'B2'], ['fav', 'Saved']];
-  return `<div class="stack"><div class="pagehead"><h1>Phrasebook</h1><p class="vi">Sổ tay · ${PH.length} câu, tra cứu nhanh</p></div>
+  return `<div class="stack"><div class="pagehead"><h2 class="t1">Phrasebook</h2><p class="vi">Sổ tay · ${PH.length} câu, tra cứu nhanh</p></div>
     <input id="q" type="text" placeholder="Search English or Vietnamese" value="${esc(bookQ)}" autocomplete="off" aria-label="Search phrases">
     <div class="seg">${fs.map(f => `<button data-act="bf" data-f="${f[0]}" aria-pressed="${bookF === f[0]}">${f[1]}</button>`).join('')}</div>
     <div id="bl" class="card" style="padding-block:4px">${bookRows()}</div></div>`;
@@ -1007,7 +1008,7 @@ function doneHTML(s) {
   const nextOK = ['lesson', 'dlg', 'rev', '4wk'].includes(s.kind) && s.idx === S.pos - 1 && S.pos < TOTAL;
   const nextL = nextOK ? LESS[S.pos] : null;
   let body = `<div class="done"><div class="ring" style="--p:${s.acc}"><div><span>${s.acc}%<small>${s.cor}/${s.tot} correct</small></span></div></div>
-    <div><h1>${title}</h1><p class="muted" style="margin-top:6px">${sub}</p></div>
+    <div><h2 class="t1">${title}</h2><p class="muted" style="margin-top:6px">${sub}</p></div>
     <div class="stats"><div class="card stat"><b>+${s.xp}</b><span class="xs muted">points</span></div><div class="card stat"><b>${s.streak}</b><span class="xs muted">day streak</span></div><div class="card stat"><b>${doneCount()}</b><span class="xs muted">lessons done</span></div></div>`;
   if (s.levelUp) body += `<div class="card" style="text-align:left;border-color:var(--accent)"><b>Level ${s.levelUp} complete.</b><p class="sm muted">You finished all 91 days. Your certificate is ready.</p><button class="btn p" style="margin-top:10px" data-act="cert" data-l="${s.levelUp}">View certificate</button></div>`;
   if (s.kind === 'grad') body += `<div class="card" style="text-align:left;border-color:var(--accent)"><b>365 days, A1 to B2.</b><p class="sm muted">Your graduate certificate is ready.</p><button class="btn p" style="margin-top:10px" data-act="cert" data-l="GRAD">View certificate</button></div>`;
