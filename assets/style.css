@@ -376,3 +376,34 @@ tbody tr:nth-child(even) td { background: #fbfaf6; }
 .de-progress-box p:last-child { margin-bottom: 0; }
 .de-done-btn.is-done { background: var(--ok); }
 .de-done-btn.is-done:hover { background: var(--green); }
+
+/* ==========================================================================
+   Học với David (/hoc-voi-david.html) — tokens từ bản mockup thiết kế
+   (navy #102d3a / teal #1b827c / lime #c9e5a6 / mint #dff2eb).
+   ========================================================================== */
+:root {
+  --tutor-navy: #102d3a;
+  --tutor-teal: #1b827c;
+  --tutor-lime: #c9e5a6;
+  --tutor-mint: #dff2eb;
+  --tutor-muted: #687b7d;
+  --tutor-line: #e2eae7;
+}
+.hero-title .tutor-lime { color: var(--tutor-lime); }
+.tutor-trust { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 24px 0; }
+.tutor-trust-item { background: #fff; border: 1px solid var(--tutor-line); border-radius: var(--radius); padding: 16px; }
+.tutor-trust-item b { display: block; font-size: 20px; color: var(--tutor-teal); }
+.tutor-trust-item span { font-size: 13px; color: var(--tutor-muted); line-height: 1.4; }
+.tutor-faq details { border-bottom: 1px solid var(--tutor-line); padding: 16px 0; }
+.tutor-faq summary { font-weight: 600; color: var(--tutor-navy); font-size: 16px; cursor: pointer; }
+.tutor-faq p { font-size: 15px; color: var(--muted); margin-bottom: 0; }
+.tutor-cta { background: var(--tutor-navy); color: #fff; border-radius: var(--radius); padding: 32px; margin: 16px 0; }
+.tutor-cta h3 { color: #fff; margin-top: 0; font-size: 26px; }
+.tutor-cta p { color: #c5d6d5; }
+.tutor-cta .btn { background: var(--tutor-lime); color: var(--tutor-navy); border-color: transparent; }
+.tutor-cta .btn:hover { background: #d8efc0; color: var(--tutor-navy); }
+.tutor-cta a:focus-visible, .tutor-faq summary:focus-visible { outline: 2px solid var(--tutor-lime); outline-offset: 2px; }
+@media (max-width: 720px) {
+  .tutor-trust { grid-template-columns: 1fr 1fr; }
+  .tutor-cta { padding: 24px; }
+}

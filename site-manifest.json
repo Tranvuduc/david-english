@@ -59,6 +59,12 @@
       "status": "available"
     },
     {
+      "name": "Học với David (học 1 kèm 1)",
+      "url": "/hoc-voi-david.html",
+      "status": "available",
+      "note": "lớp học 1 kèm 1 với David; học phí và lịch học trao đổi sau khi đánh giá trình độ"
+    },
+    {
       "name": "Theo kỹ năng (Nghe, Nói, Đọc, Viết)",
       "url": "/ky-nang/",
       "status": "available"

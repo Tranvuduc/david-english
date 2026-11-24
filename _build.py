@@ -100,6 +100,7 @@ NAV = [
     ("Sách học", "/sach/"),
     ("Trò chơi & Công cụ", "/tro-choi/"),
     ("Trò chuyện AI", "/tro-chuyen-ai.html"),
+    ("Học với David", "/hoc-voi-david.html"),
 ]
 
 STYLE = "/assets/style.css"
@@ -454,6 +455,7 @@ add("/", "Học tiếng Anh miễn phí", "Học tiếng Anh miễn phí, từ �
   <article class="card card-resource">{card_icon("resource")}<h2><a href="/tai-nguyen.html">Tài nguyên miễn phí</a></h2><p>Link tới tài nguyên học tiếng Anh miễn phí chất lượng cao trên mạng (British Council, BBC, Cambridge…).</p></article>
   <article class="card card-book">{card_icon("book")}<h2><a href="/sach/">Sách học</a></h2><p>Hướng dẫn tự học với các sách tiếng Anh phổ biến: Global Success, American English File, Barron's TOEIC, Mindset for IELTS.</p></article>
   <article class="card card-tool">{card_icon("dice")}<h2><a href="/tro-choi/">Trò chơi &amp; Công cụ</a></h2><p>Học tiếng Anh bằng trò chơi: luyện TOEIC, PTE, IELTS, kiểm tra trình độ, trò chơi theo lớp 4, 9, 10 và công cụ cho giáo viên.</p></article>
+  <article class="card card-skill">{card_icon("cap")}<h2><a href="/hoc-voi-david.html">Học với David</a></h2><p>Học tiếng Anh 1 kèm 1 với David — giao tiếp, tiếng Anh công việc, IELTS / TOEIC, trình độ A1–B1, học online và trực tiếp.</p></article>
 </div>
 </section>
 <section class="section section-alt">
@@ -1253,6 +1255,63 @@ add("/ke-hoach-hoc.html", "Kế hoạch học", "Kế hoạch học tiếng Anh 
 <p><a href="/trinh-do/">← Tất cả trình độ</a> · <a href="/tro-choi/english-level-check.html">Làm bài English Level Check →</a> · <a href="/">← Về trang chủ</a></p>
 """), active="/trinh-do/", eyebrow="Theo trình độ",
     desc="Kế hoạch học tiếng Anh: làm bài English Level Check trước, bắt đầu đúng trình độ, học theo thứ tự A1 → A2 → B1 → B2, và theo dõi tiến độ ngay trên trang.")
+
+# ---------------- Học với David (học 1 kèm 1) ----------------
+# Trang giới thiệu lớp học 1 kèm 1 với David — KHÔNG thay trang chủ (thư viện
+# tự học miễn phí vẫn là cửa chính). Chỉ ghi sự thật đã kiểm chứng: 10 năm dạy,
+# TOEFL iBT 97, trình độ A1–B1, học 1 kèm 1 online (Zoom) và trực tiếp.
+# KHÔNG ghi: chứng chỉ TESOL, du học Mỹ (chưa kiểm chứng); KHÔNG ghi học phí
+# hay khung giờ cố định (chưa có số liệu); KHÔNG ghi "tối đa 3 học viên".
+add("/hoc-voi-david.html", "Học với David", "Học tiếng Anh 1 kèm 1 với David",
+    guide_sections(f"""
+<p class="lead">Trang này là lớp học 1 kèm 1 với David — khác với thư viện tự học miễn phí của trang web. Bạn học trực tiếp với giáo viên, theo lộ trình riêng của mình, trình độ A1–B1, online qua Zoom và trực tiếp.</p>
+<div class="tutor-trust">
+<div class="tutor-trust-item"><b>10 năm</b><span>Kinh nghiệm<br>giảng dạy tiếng Anh</span></div>
+<div class="tutor-trust-item"><b>TOEFL 97</b><span>TOEFL iBT 97/120<br>tương đương IELTS 7.0–7.5</span></div>
+<div class="tutor-trust-item"><b>1 kèm 1</b><span>Học riêng với giáo viên<br>không học theo lớp đông</span></div>
+<div class="tutor-trust-item"><b>A1–B1</b><span>Trình độ học viên<br>học 1 kèm 1</span></div>
+</div>
+<h2>Học cùng ai</h2>
+<p>David — 10 năm kinh nghiệm giảng dạy tiếng Anh, TOEFL iBT 97/120 (tương đương IELTS 7.0–7.5). Dạy học viên trình độ A1–B1, học 1 kèm 1, online qua Zoom và trực tiếp. Phương pháp tập trung vào sự rõ ràng, thực hành và tiến bộ bền vững.</p>
+<h2>Chọn mục tiêu của bạn</h2>
+<p>Không học dàn trải. Tập trung vào kỹ năng và mục tiêu bạn cần sử dụng.</p>
+<div class="cards">
+<article class="card card-skill">{card_icon("chat")}<h3>Giao tiếp tiếng Anh</h3><p>Xây nền tảng nghe — nói và phản xạ trong những tình huống đời sống.</p><ul><li>Trình độ A1 đến B1</li><li>Phát âm và phản xạ</li><li>Chủ đề đời sống hằng ngày</li></ul></article>
+<article class="card card-work">{card_icon("work")}<h3>English for Work</h3><p>Dùng tiếng Anh tự tin hơn trong môi trường làm việc và giao tiếp chuyên nghiệp.</p><ul><li>Email và trao đổi công việc</li><li>Họp và thuyết trình</li><li>Tình huống nghề nghiệp</li></ul></article>
+<article class="card card-exam">{card_icon("exam")}<h3>IELTS / TOEIC</h3><p>Ôn luyện có chiến lược, củng cố nền tảng và luyện kỹ năng theo mục tiêu.</p><ul><li>Đánh giá đầu vào</li><li>Chiến lược làm bài</li><li>Bài tập và phản hồi</li></ul></article>
+</div>
+<h2>Vì sao học 1 kèm 1</h2>
+<div class="cards">
+<article class="card"><h3>01 · Đánh giá đầu vào</h3><p>Xác định trình độ, điểm mạnh và khoảng trống cần cải thiện — bắt đầu bằng bài English Level Check.</p></article>
+<article class="card"><h3>02 · Mục tiêu rõ ràng</h3><p>Thống nhất mục tiêu học tập và cách theo dõi tiến độ, theo trình độ và nhu cầu thật của bạn.</p></article>
+<article class="card"><h3>03 · Thực hành chủ động</h3><p>Thời lượng học dành cho giao tiếp, bài tập và phản hồi — vì chỉ có một học viên, bạn được nói nhiều.</p></article>
+<article class="card"><h3>04 · Theo dõi tiến bộ</h3><p>Đánh giá định kỳ theo tiến độ của bạn; kết quả tùy nền tảng đầu vào và mức độ luyện tập.</p></article>
+</div>
+<h2>Lịch học</h2>
+<p>Lịch học được xếp theo từng học viên — không có khung giờ cố định chung. Sau khi đánh giá trình độ và thống nhất mục tiêu, bạn và David xếp lịch phù hợp với thời gian của bạn.</p>
+<h2>Câu hỏi thường gặp</h2>
+<div class="tutor-faq">
+<details><summary>Lớp học có bao nhiêu học viên?</summary><p>Học 1 kèm 1 — chỉ có bạn và giáo viên, để đảm bảo thời gian thực hành và phản hồi cho từng buổi học.</p></details>
+<details><summary>Tôi chưa biết trình độ của mình thì sao?</summary><p>Làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> trước để được đánh giá trình độ, rồi trao đổi về lớp phù hợp.</p></details>
+<details><summary>Học bao lâu thì đạt A2, B1 hoặc IELTS 6.5?</summary><p>Thời gian phụ thuộc trình độ đầu vào, thời lượng tự học, mức độ tham gia và năng lực từng người. Các mốc trình độ là mục tiêu tham khảo, không phải cam kết kết quả.</p></details>
+<details><summary>Lớp học diễn ra ở đâu?</summary><p>Học online qua Zoom và trực tiếp. Hình thức học và lịch cụ thể được thống nhất sau khi đánh giá trình độ.</p></details>
+</div>
+<h2>Bắt đầu như thế nào</h2>
+<div class="tutor-cta">
+<h3>Bắt đầu bằng bài kiểm tra trình độ.</h3>
+<p>Làm bài English Level Check để biết mình đang ở đâu, rồi trao đổi về mục tiêu và lớp học phù hợp. Học phí và lịch học được trao đổi riêng sau khi đánh giá trình độ.</p>
+<p><a class="btn" href="/tro-choi/english-level-check.html">Làm bài English Level Check →</a></p>
+</div>
+<p><a href="/trinh-do/">← Tự học miễn phí theo trình độ</a> · <a href="/ke-hoach-hoc.html">Xem kế hoạch học →</a> · <a href="/">← Về trang chủ</a></p>
+"""), active="/hoc-voi-david.html", eyebrow="Học 1 kèm 1",
+    desc="Học tiếng Anh 1 kèm 1 với David — giao tiếp, tiếng Anh công việc, IELTS / TOEIC, trình độ A1–B1, học online qua Zoom và trực tiếp. Bắt đầu bằng bài English Level Check.",
+    hero={
+        "eyebrow": "Học 1 kèm 1 · Online và trực tiếp",
+        "title_html": "Tiếng Anh thực tế.<br><span class=\"tutor-lime\">Tiến bộ có định hướng.</span>",
+        "lead": "Học giao tiếp, tiếng Anh công việc, IELTS hoặc TOEIC cùng David — học 1 kèm 1, có lộ trình, có phản hồi và có người đồng hành.",
+        "cta_primary": ("Làm bài English Level Check", "/tro-choi/english-level-check.html"),
+        "cta_secondary": ("Tự học miễn phí trước", "/trinh-do/"),
+    })
 
 # ---------------- Nội dung đầy đủ cho B1–C2, kỹ năng, luyện thi, trẻ em, công việc, du học ----------------
 # Các trang dưới đây từng là stub "Sắp có" (noindex). Nội dung do AI soạn, gắn nhãn
@@ -2745,6 +2804,7 @@ if __name__ == "__main__":
         {"name": "Trình độ C1 (hướng dẫn học)", "url": "/trinh-do/c1.html", "status": "available", "note": "hướng dẫn học, chưa có bài học theo bài"},
         {"name": "Trình độ C2 (hướng dẫn học)", "url": "/trinh-do/c2.html", "status": "available", "note": "hướng dẫn học, chưa có bài học theo bài"},
         {"name": "Kế hoạch học", "url": "/ke-hoach-hoc.html", "status": "available"},
+        {"name": "Học với David (học 1 kèm 1)", "url": "/hoc-voi-david.html", "status": "available", "note": "lớp học 1 kèm 1 với David; học phí và lịch học trao đổi sau khi đánh giá trình độ"},
         {"name": "Theo kỹ năng (Nghe, Nói, Đọc, Viết)", "url": "/ky-nang/", "status": "available"},
         {"name": "Luyện thi (IELTS, TOEIC, PTE, TOEFL, VSTEP)", "url": "/luyen-thi/", "status": "available"},
         {"name": "Trẻ em", "url": "/tre-em.html", "status": "available"},
