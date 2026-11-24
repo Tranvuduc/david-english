@@ -319,7 +319,7 @@ def page(path, title, h1, body_html, active="/", desc=None, eyebrow=None, hero=N
     <p class="tagline">{TAGLINE}</p>
     <details class="nav-toggle">
       <summary>☰ Danh mục</summary>
-      <nav class="site-nav" aria-label="Điều hướng chính">
+      <nav class="site-nav" aria-label="Điều hướng di động">
 {nav_html(active)}
       </nav>
     </details>
@@ -399,7 +399,7 @@ def add(path, title, h1, body, active="/", desc=None, eyebrow=None, hero=None, n
 
 
 # ---------------- Trang chủ ----------------
-add("/", "Trang chủ", "Học tiếng Anh miễn phí, từ đầu tới giỏi",
+add("/", "Học tiếng Anh miễn phí", "Học tiếng Anh miễn phí, từ đầu tới giỏi",
     f"""
 <p>Trang đang được xây dựng dần: bài học A1–B1, trò chơi và sách học đã có — các mục còn lại sẽ thêm sau.</p>
 <section class="section">
@@ -437,7 +437,7 @@ add("/", "Trang chủ", "Học tiếng Anh miễn phí, từ đầu tới giỏi
 # ---------------- Bài xếp lớp (stub tương tác) ----------------
 add("/bai-xep-lop.html", "Bài xếp lớp", "Bài xếp lớp",
     """
-<p class="lead">Bài kiểm tra ngắn giúp bạn biết mình đang ở trình độ nào (A1–C2), để chọn lộ trình học phù hợp.</p>
+<p class="lead">Bản demo giao diện bài xếp lớp — 3 câu mẫu để thử, chưa phải bài kiểm tra thật. 3 câu hỏi không thể đo trình độ của bạn, vì vậy trang này không đưa ra kết quả xếp lớp.</p>
 <p><span class="badge">Đang hoàn thiện</span> Đây là bản demo giao diện — bộ câu hỏi chính thức và cách chấm điểm thật chưa có. Kết quả dưới đây chỉ để thử giao diện, chưa dùng để xếp lớp thật.</p>
 <section class="section">
 <form id="placementForm">
@@ -460,6 +460,7 @@ add("/bai-xep-lop.html", "Bài xếp lớp", "Bài xếp lớp",
     <label><input type="radio" name="q3" value="1"> Could you help me, please?</label>
   </fieldset>
   <button type="submit" class="btn">Xem kết quả demo</button>
+  <button type="button" class="btn ghost" id="placementReset">Làm lại từ đầu</button>
 </form>
 <div id="placementResult" class="result" hidden></div>
 </section>
@@ -480,15 +481,54 @@ add("/bai-xep-lop.html", "Bài xếp lớp", "Bài xếp lớp",
       out.innerHTML = '<p>Vui lòng trả lời cả 3 câu mẫu.</p>';
       return;
     }
-    var level = score === 3 ? 'A2 (tạm tính)' : score === 2 ? 'A1–A2 (tạm tính)' : 'A1 (tạm tính)';
+    var expl = [
+      '<strong>Câu 1:</strong> “She doesn\\'t like coffee.” — ngôi thứ ba số ít (she) dùng <em>doesn\\'t</em> + động từ nguyên mẫu. “She don\\'t…” sai trợ động từ; “She not like…” thiếu trợ động từ.',
+      '<strong>Câu 2:</strong> “book” là <em>danh từ</em> — tên một vật, ở đây làm tân ngữ của động từ “read” (đọc sách).',
+      '<strong>Câu 3:</strong> “Could you help me, please?” là cách nhờ giúp đỡ lịch sự nhất — <em>could</em> + <em>please</em>. “Help me now.” là mệnh lệnh, nghe thô và thiếu lịch sự.'
+    ];
     out.hidden = false;
-    out.innerHTML = '<p><strong>Kết quả demo: ' + level + '</strong> — ' + score + '/3 câu đúng.</p>'
-      + '<p>Đây là kết quả tạm tính từ 3 câu mẫu, <strong>không phải kết quả xếp lớp thật</strong>. Bộ câu hỏi chính thức đang hoàn thiện.</p>'
+    out.innerHTML = '<p><strong>Kết quả demo: bạn trả lời đúng ' + score + '/3 câu mẫu.</strong></p>'
+      + '<p><strong>3 câu hỏi không thể đo trình độ của bạn.</strong> Đây không phải kết quả xếp lớp — chỉ là bản demo để thử giao diện. Bộ câu hỏi chính thức (nhiều câu, đủ 4 kỹ năng, chấm theo khung CEFR) đang được hoàn thiện.</p>'
+      + '<p><strong>Giải thích từng câu:</strong></p><ul><li>' + expl.join('</li><li>') + '</li></ul>'
       + '<p><a href="/trinh-do/">Xem lộ trình theo trình độ →</a></p>';
+  });
+  var resetBtn = document.getElementById('placementReset');
+  resetBtn.addEventListener('click', function () {
+    form.reset();
+    out.hidden = true;
+    out.innerHTML = '';
   });
 })();
 </script>
 """, active="/bai-xep-lop.html", eyebrow="Bài xếp lớp", desc="Bài xếp lớp demo: 3 câu mẫu để thử giao diện và gợi ý lộ trình học theo trình độ A1–C2. Bộ câu hỏi chính thức đang hoàn thiện.")
+
+
+# ETA "sắp bổ sung" cho 15 trang hướng dẫn đã có nội dung đầy đủ
+# (lead đã có trên cả 15 trang; ETA là kế hoạch cập nhật tiếp theo, không phải ngày ra mắt).
+GUIDE_ETA = {
+    "/trinh-do/b2.html": ("bài tập ôn B2 theo chủ đề và đề thi thử ngắn", "15/12/2026"),
+    "/trinh-do/c1.html": ("bài tập nâng cao C1 và đề thi thử ngắn", "18/12/2026"),
+    "/trinh-do/c2.html": ("bài đọc nâng cao và đề thi thử ngắn", "20/12/2026"),
+    "/ky-nang/nghe.html": ("bài nghe mới có phụ đề và bài tập nghe – điền từ", "12/12/2026"),
+    "/ky-nang/noi.html": ("mẫu câu giao tiếp theo tình huống và bài luyện nói có ghi âm", "14/12/2026"),
+    "/ky-nang/doc.html": ("bài đọc mới theo chủ đề kèm câu hỏi đọc hiểu", "16/12/2026"),
+    "/ky-nang/viet.html": ("mẫu đoạn văn và bài tập viết có chữa mẫu", "18/12/2026"),
+    "/luyen-thi/ielts.html": ("đề thi thử mẫu kèm đáp án giải thích", "15/12/2026"),
+    "/luyen-thi/toeic.html": ("đề thi thử mẫu kèm đáp án giải thích", "17/12/2026"),
+    "/luyen-thi/toefl.html": ("đề thi thử mẫu kèm đáp án giải thích", "19/12/2026"),
+    "/luyen-thi/pte.html": ("đề thi thử mẫu kèm đáp án giải thích", "21/12/2026"),
+    "/luyen-thi/vstep.html": ("đề thi thử mẫu kèm đáp án giải thích", "22/12/2026"),
+    "/tre-em.html": ("bài hát và truyện ngắn mới có audio", "13/12/2026"),
+    "/cong-viec.html": ("mẫu email và câu phỏng vấn theo ngành", "19/12/2026"),
+    "/du-hoc.html": ("cập nhật hạn nộp học bổng năm 2027 và checklist hồ sơ", "21/12/2026"),
+}
+
+
+def _eta_html(path):
+    eta = GUIDE_ETA.get(path)
+    if not eta:
+        return ""
+    return f'<p class="muted">Sắp bổ sung: {eta[0]} — dự kiến {eta[1]}.</p>\n'
 
 # ---------------- Theo trình độ ----------------
 LEVELS = [
@@ -518,7 +558,7 @@ LESSON_FILES = [
     ("a2", "a2-thoi-tiet-va-mua.json"),
 ]
 LESSONS = []  # mỗi mục: dict JSON + level + path + pdf_href
-LESSONS_BY_LEVEL = {"a1": [], "a2": [], "b1": []}
+LESSONS_BY_LEVEL = {"a1": [], "a2": [], "b1": [], "b2": []}
 for _lv, _fn in LESSON_FILES:
     with open(os.path.join(ROOT, "tai-lieu", "src", _fn), encoding="utf-8") as _f:
         _d = _json.load(_f)
@@ -636,6 +676,38 @@ def _mmss(secs):
     return f"{int(secs) // 60}:{int(secs) % 60:02d}"
 
 
+def _paras(text):
+    """Split '\n\n'-separated teaching text into paragraphs."""
+    return [p.strip() for p in (text or "").split("\n\n") if p.strip()]
+
+
+def _hw_list(items):
+    """Render homework items as a numbered list.
+
+    Strings render as-is. {'q': ..., 'a': ...} dicts render the question
+    only; the answer key goes into a collapsed <details> "Đáp án" block so
+    it is never visible in the page text. A leading "1. " in the question
+    is stripped because the <ol> already numbers the items.
+    """
+    qs, ans = [], []
+    for x in items or []:
+        if isinstance(x, dict):
+            qs.append(re.sub(r"^\d+\.\s*", "", x.get("q", "")))
+            ans.append(x.get("a", ""))
+        else:
+            qs.append(str(x))
+    out = ""
+    q_html = "".join(f"<li>{_esc(q)}</li>" for q in qs if q)
+    if q_html:
+        out += f"<ol>{q_html}</ol>\n"
+    if any(ans):
+        a_html = "".join(f"<li>{_esc(a)}</li>" for a in ans if a)
+        out += ("<details><summary><strong>Đáp án</strong> "
+                "(bấm để xem)</summary>\n"
+                f"<ol>{a_html}</ol></details>\n")
+    return out
+
+
 def b1_lesson_body(d, prev_lesson, next_lesson):
     vocab_rows = "".join(
         f"<tr><td><strong>{_esc(v['word'])}</strong></td>"
@@ -647,8 +719,12 @@ def b1_lesson_body(d, prev_lesson, next_lesson):
     grammar_html = ""
     for g in d.get("grammar", []):
         exs = "".join(f"<li><em>{_esc(e)}</em></li>" for e in g.get("examples", []))
-        grammar_html += (f"<h3>{_esc(g['title'])}</h3>\n"
-                         f"<p>{_esc(g['explain'])}</p>\n<ul>{exs}</ul>\n")
+        paras = "".join(f"<p>{_esc(p)}</p>\n" for p in _paras(g.get("explain", "")))
+        grammar_html += f"<h3>{_esc(g['title'])}</h3>\n{paras}"
+        if exs:
+            grammar_html += f"<ul>{exs}</ul>\n"
+        if g.get("note"):
+            grammar_html += f"<p><em>{_esc(g['note'])}</em></p>\n"
     lis = d.get("listening", {})
     audio_html = ""
     if lis.get("audio"):
@@ -673,27 +749,29 @@ def b1_lesson_body(d, prev_lesson, next_lesson):
     hw_html = ""
     if hw:
         written = hw.get("written", "")
-        if isinstance(written, list):
-            written = " ".join(str(x) for x in written)
         listening = hw.get("listening", "")
-        if isinstance(listening, list):
-            listening = " ".join(
-                str(x.get("q", x)) if isinstance(x, dict) else str(x)
-                for x in listening)
         verse = hw.get("memory_verse", "")
         verse_vi = hw.get("memory_verse_vi", "")
         hw_html = ("<section class=\"section section-alt\">\n"
                    "<div class=\"section-head\"><h2>Bài tập về nhà</h2></div>\n"
-                   + (f"<p><strong>Viết:</strong> {_esc(written)}</p>\n" if written else "")
-                   + (f"<p><strong>Nghe:</strong> {_esc(listening)}</p>\n" if listening else "")
+                   + (f"<p><strong>Viết:</strong></p>\n{_hw_list(written)}"
+                      if isinstance(written, list) and written else "")
+                   + (f"<p><strong>Viết:</strong> {_esc(written)}</p>\n"
+                      if isinstance(written, str) and written else "")
+                   + (f"<p><strong>Nghe:</strong></p>\n{_hw_list(listening)}"
+                      if isinstance(listening, list) and listening else "")
+                   + (f"<p><strong>Nghe:</strong> {_esc(listening)}</p>\n"
+                      if isinstance(listening, str) and listening else "")
                    + (f"<p><strong>Câu ghi nhớ:</strong> <em>{_esc(verse)}</em></p>\n" if verse else "")
                    + (f"<p><em>{_esc(verse_vi)}</em></p>\n" if verse_vi else "")
                    + "</section>\n")
     extra = ""
     if d.get("reading_passage"):
+        passage_paras = "".join(
+            f"<p>{_esc(p)}</p>\n" for p in _paras(d["reading_passage"]))
         extra += ("<section class=\"section\">\n<div class=\"section-head\">"
                   "<h2>Bài đọc</h2></div>\n"
-                  f"<p>{_esc(d['reading_passage'])}</p></section>\n")
+                  f"{passage_paras}</section>\n")
     if d.get("speaking_task"):
         extra += ("<section class=\"section section-alt\">\n<div class=\"section-head\">"
                   "<h2>Nói</h2></div>\n"
@@ -702,6 +780,18 @@ def b1_lesson_body(d, prev_lesson, next_lesson):
         extra += ("<section class=\"section\">\n<div class=\"section-head\">"
                   "<h2>Viết</h2></div>\n"
                   f"<p>{_esc(d['writing_task'])}</p></section>\n")
+    n_lq = len(d.get("listening_questions", []))
+    if n_lq:
+        listen_sub = (f"Nghe toàn bộ bài, rồi trả lời {n_lq} câu hỏi bên dưới. "
+                      "Giọng đọc: Casper (người dẫn) và Aria (đối thoại).")
+    else:
+        listen_sub = ("Nghe toàn bộ bài. Giọng đọc: Casper (người dẫn) "
+                      "và Aria (đối thoại).")
+    pron_paras = "".join(
+        f"<p>{_esc(p)}</p>\n" for p in _paras(d.get("pronunciation_detail", "")))
+    if not pron_paras:
+        pron_paras = ("<p>Phần luyện phát âm chi tiết nằm trong "
+                      "file PDF bài học.</p>\n")
     nav = []
     if prev_lesson:
         nav.append(f"<a href=\"{prev_lesson['_path']}\">← {prev_lesson['title']}</a>")
@@ -725,15 +815,15 @@ def b1_lesson_body(d, prev_lesson, next_lesson):
 <div class="table-wrap"><table><thead><tr><th>Từ</th><th>Loại</th><th>IPA</th><th>Nghĩa</th><th>Ví dụ</th></tr></thead><tbody>{vocab_rows}</tbody></table></div>
 </section>
 <section class="section">
-<div class="section-head"><h2>Ngữ pháp</h2><p class="section-sub">Chủ đề ngữ pháp của bài — phần giải thích chi tiết và ví dụ đầy đủ nằm trong file PDF.</p></div>
+<div class="section-head"><h2>Ngữ pháp</h2><p class="section-sub">Giải thích và ví dụ từ chính bài học.</p></div>
 {grammar_html}</section>
 <section class="section section-alt">
-<div class="section-head"><h2>Phát âm</h2></div>
-<p><strong>{_esc(d.get("pronunciation", ""))}</strong> — phần luyện phát âm chi tiết nằm trong file PDF bài học.</p>
-<p>Đoạn Kinh Thánh của bài: <strong>{_esc(d.get("scripture", ""))}</strong></p>
+<div class="section-head"><h2>Phát âm</h2><p class="section-sub">Luyện phát âm theo bài — nghe audio và đọc to theo.</p></div>
+<p><strong>{_esc(d.get("pronunciation", ""))}</strong></p>
+{pron_paras}<p>Đoạn Kinh Thánh của bài: <strong>{_esc(d.get("scripture", ""))}</strong></p>
 </section>
 <section class="section">
-<div class="section-head"><h2>Bài nghe</h2><p class="section-sub">Nghe toàn bộ bài, rồi trả lời 5 câu hỏi bên dưới. Giọng đọc: Casper (người dẫn) và Aria (đối thoại).</p></div>
+<div class="section-head"><h2>Bài nghe</h2><p class="section-sub">{listen_sub}</p></div>
 {audio_html}</section>
 {f'<section class="section section-alt"><div class="section-head"><h2>Câu hỏi nghe hiểu</h2></div>{lq}</section>' if lq else ""}
 {extra}
@@ -755,6 +845,183 @@ for _i, _d in enumerate(B1_LESSONS):
         b1_lesson_body(_d, _prev, _next),
         active="/trinh-do/", eyebrow="Trình độ B1 — Kingdom English",
         desc=_d.get("subtitle", ""))
+
+# ---------------- Bài học B2 — Kingdom English (tạo từ tai-lieu/src/b2-*.json) ----------------
+# JSON do convert_b2.py sinh từ teaching/b2/content/*.json (nguồn duy nhất).
+# Song song với B1: renderer riêng b2_lesson_body (bản sao của b1_lesson_body
+# hiện hành, chỉ đổi nav mặc định và liên kết về hub B2). Grammar và
+# pronunciation đầy đủ nằm ngay trên trang (không chỉ trỏ sang PDF).
+B2_FILES = sorted(
+    os.path.basename(p) for p in _glob.glob(
+        os.path.join(ROOT, "tai-lieu", "src", "b2-lesson-*.json")))
+B2_LESSONS = []
+for _fn in B2_FILES:
+    with open(os.path.join(ROOT, "tai-lieu", "src", _fn), encoding="utf-8") as _f:
+        _d = _json.load(_f)
+    _d["_level"] = "b2"
+    _d["_path"] = f"/trinh-do/b2/{_d['slug']}.html"
+    _d["_pdf"] = f"/tai-lieu/b2/{_d['slug']}.pdf"
+    B2_LESSONS.append(_d)
+    LESSONS_BY_LEVEL["b2"].append(_d)
+
+
+def b2_lesson_body(d, prev_lesson, next_lesson):
+    vocab_rows = "".join(
+        f"<tr><td><strong>{_esc(v['word'])}</strong></td>"
+        f"<td>{_esc(v.get('pos', ''))}</td>"
+        f"<td>/{_esc(v.get('ipa', ''))}/</td>"
+        f"<td>{_esc(v.get('vi', ''))}</td>"
+        f"<td><em>{_esc(v.get('ex', ''))}</em></td></tr>"
+        for v in d.get("vocabulary", []))
+    grammar_html = ""
+    for g in d.get("grammar", []):
+        exs = "".join(f"<li><em>{_esc(e)}</em></li>" for e in g.get("examples", []))
+        paras = "".join(f"<p>{_esc(p)}</p>\n" for p in _paras(g.get("explain", "")))
+        grammar_html += f"<h3>{_esc(g['title'])}</h3>\n{paras}"
+        if exs:
+            grammar_html += f"<ul>{exs}</ul>\n"
+        if g.get("note"):
+            grammar_html += f"<p><em>{_esc(g['note'])}</em></p>\n"
+    lis = d.get("listening", {})
+    audio_html = ""
+    if lis.get("audio"):
+        audio_html = (
+            f'<audio controls preload="none" src="{lis["audio"]}"></audio>\n'
+            f"<p>Thời lượng: {_mmss(lis.get('duration_secs', 0))} · "
+            f"{lis.get('words', 0)} từ · "
+            f"<a href=\"{lis.get('script', '')}\">Xem transcript (TXT)</a></p>\n")
+    rc = "".join(
+        f"<details><summary><strong>Câu {i}.</strong> {_esc(r['q'])}</summary>"
+        f"<p>Đáp án: {_esc(r['a'])}</p></details>\n"
+        for i, r in enumerate(d.get("reading_comprehension", []), 1))
+    lq = "".join(
+        f"<details><summary><strong>Câu {i}.</strong> {_esc(r['q'])}</summary>"
+        f"<p>Đáp án: {_esc(r['a'])}</p></details>\n"
+        for i, r in enumerate(d.get("listening_questions", []), 1))
+    exs_html = "".join(
+        f"<li><strong>{_esc(e['title'])}.</strong> {_esc(e['instruction'])} "
+        f"({e['items']} câu)</li>"
+        for e in d.get("exercises", []))
+    hw = d.get("homework", {})
+    hw_html = ""
+    if hw:
+        written = hw.get("written", "")
+        listening = hw.get("listening", "")
+        verse = hw.get("memory_verse", "")
+        verse_vi = hw.get("memory_verse_vi", "")
+        hw_html = ("<section class=\"section section-alt\">\n"
+                   "<div class=\"section-head\"><h2>Bài tập về nhà</h2></div>\n"
+                   + (f"<p><strong>Viết:</strong></p>\n{_hw_list(written)}"
+                      if isinstance(written, list) and written else "")
+                   + (f"<p><strong>Viết:</strong> {_esc(written)}</p>\n"
+                      if isinstance(written, str) and written else "")
+                   + (f"<p><strong>Nghe:</strong></p>\n{_hw_list(listening)}"
+                      if isinstance(listening, list) and listening else "")
+                   + (f"<p><strong>Nghe:</strong> {_esc(listening)}</p>\n"
+                      if isinstance(listening, str) and listening else "")
+                   + (f"<p><strong>Câu ghi nhớ:</strong> <em>{_esc(verse)}</em></p>\n" if verse else "")
+                   + (f"<p><em>{_esc(verse_vi)}</em></p>\n" if verse_vi else "")
+                   + "</section>\n")
+    extra = ""
+    if d.get("reading_passage"):
+        passage_paras = "".join(
+            f"<p>{_esc(p)}</p>\n" for p in _paras(d["reading_passage"]))
+        extra += ("<section class=\"section\">\n<div class=\"section-head\">"
+                  "<h2>Bài đọc</h2></div>\n"
+                  f"{passage_paras}</section>\n")
+    if d.get("speaking_task"):
+        extra += ("<section class=\"section section-alt\">\n<div class=\"section-head\">"
+                  "<h2>Nói</h2></div>\n"
+                  f"<p>{_esc(d['speaking_task'])}</p></section>\n")
+    if d.get("writing_task"):
+        extra += ("<section class=\"section\">\n<div class=\"section-head\">"
+                  "<h2>Viết</h2></div>\n"
+                  f"<p>{_esc(d['writing_task'])}</p></section>\n")
+    n_lq = len(d.get("listening_questions", []))
+    if n_lq:
+        listen_sub = (f"Nghe toàn bộ bài, rồi trả lời {n_lq} câu hỏi bên dưới. "
+                      "Giọng đọc: Casper (người dẫn) và Aria (đối thoại).")
+    else:
+        listen_sub = ("Nghe toàn bộ bài. Giọng đọc: Casper (người dẫn) "
+                      "và Aria (đối thoại).")
+    pron_paras = "".join(
+        f"<p>{_esc(p)}</p>\n" for p in _paras(d.get("pronunciation_detail", "")))
+    if not pron_paras:
+        pron_paras = ("<p>Phần luyện phát âm chi tiết nằm trong "
+                      "file PDF bài học.</p>\n")
+    nav = []
+    if prev_lesson:
+        nav.append(f"<a href=\"{prev_lesson['_path']}\">← {prev_lesson['title']}</a>")
+    else:
+        nav.append("<a href=\"/trinh-do/b1/b1-lesson-12-revelation-hope.html\">← Ôn lại B1: Khải Huyền và Hy Vọng</a>")
+    if next_lesson:
+        nav.append(f"<a href=\"{next_lesson['_path']}\">{next_lesson['title']} →</a>")
+    else:
+        nav.append("<a href=\"/trinh-do/c1.html\">Lên trình độ C1 →</a>")
+    nav.append("<a href=\"/trinh-do/b2.html\">← Về trình độ B2</a>")
+    nav.append("<a href=\"/\">← Về trang chủ</a>")
+    return f"""
+<p class="lead">{_esc(d.get("subtitle", ""))}</p>
+{AI_NOTE}
+<section class="section">
+<div class="section-head"><h2>Mục tiêu bài học</h2><p class="section-sub">Mục tiêu rút từ chính nội dung bài: ngữ pháp, phát âm và đoạn Kinh Thánh của bài.</p></div>
+<ul>{''.join(f"<li>{_esc(o)}</li>" for o in d.get("objectives", []))}</ul>
+</section>
+<section class="section section-alt">
+<div class="section-head"><h2>Từ vựng</h2><p class="section-sub">{len(d.get("vocabulary", []))} từ — mỗi từ có phiên âm IPA, nghĩa tiếng Việt và câu ví dụ.</p></div>
+<div class="table-wrap"><table><thead><tr><th>Từ</th><th>Loại</th><th>IPA</th><th>Nghĩa</th><th>Ví dụ</th></tr></thead><tbody>{vocab_rows}</tbody></table></div>
+</section>
+<section class="section">
+<div class="section-head"><h2>Ngữ pháp</h2><p class="section-sub">Giải thích và ví dụ từ chính bài học.</p></div>
+{grammar_html}</section>
+<section class="section section-alt">
+<div class="section-head"><h2>Phát âm</h2><p class="section-sub">Luyện phát âm theo bài — nghe audio và đọc to theo.</p></div>
+<p><strong>{_esc(d.get("pronunciation", ""))}</strong></p>
+{pron_paras}<p>Đoạn Kinh Thánh của bài: <strong>{_esc(d.get("scripture", ""))}</strong></p>
+</section>
+<section class="section">
+<div class="section-head"><h2>Bài nghe</h2><p class="section-sub">{listen_sub}</p></div>
+{audio_html}</section>
+{f'<section class="section section-alt"><div class="section-head"><h2>Câu hỏi nghe hiểu</h2></div>{lq}</section>' if lq else ""}
+{extra}
+{f'<section class="section"><div class="section-head"><h2>Đọc hiểu</h2></div>{rc}</section>' if rc else ""}
+<section class="section section-alt">
+<div class="section-head"><h2>Bài tập</h2><p class="section-sub">6 bài tập trong file PDF — đáp án đầy đủ nằm ở cuối PDF.</p></div>
+<ul>{exs_html}</ul>
+</section>
+{hw_html}
+<p><a class="btn btn-primary" href="{d['_pdf']}">Tải PDF bài học (miễn phí, 9 trang)</a></p>
+<p>{' · '.join(nav)}</p>
+"""
+
+for _i, _d in enumerate(B2_LESSONS):
+    _prev = B2_LESSONS[_i - 1] if _i > 0 else None
+    _next = B2_LESSONS[_i + 1] if _i < len(B2_LESSONS) - 1 else None
+    add(_d["_path"], _d["title"], _d["title"],
+        b2_lesson_body(_d, _prev, _next),
+        active="/trinh-do/", eyebrow="Trình độ B2 — Kingdom English",
+        desc=_d.get("subtitle", ""))
+
+
+def b2_hub_lessons_html():
+    items = "".join(
+        f"<li><a href=\"{l['_path']}\">Bài {l['lesson_no']}: {l['title_en']}</a> — "
+        f"{l.get('subtitle', '')} · "
+        f"<a href=\"{l['_pdf']}\">PDF</a> · "
+        f"<a href=\"{l['listening']['audio']}\">Nghe ({_mmss(l['listening'].get('duration_secs', 0))})</a></li>"
+        for l in B2_LESSONS)
+    total_vocab = sum(len(l.get("vocabulary", [])) for l in B2_LESSONS)
+    total_secs = sum(l["listening"].get("duration_secs", 0) for l in B2_LESSONS)
+    return f"""
+<section class="section">
+<div class="section-head"><h2>Bài học B2 — Kingdom English</h2><p class="section-sub">6 bài học tiếng Anh trung cấp cao theo chủ đề Kinh Thánh — mỗi bài có từ vựng, ngữ pháp, phát âm đầy đủ trên trang, bài nghe (audio + transcript) và file PDF 9 trang miễn phí.</p></div>
+{AI_NOTE}
+<p>Tổng cộng: 6 bài · {total_vocab} từ vựng · {_mmss(total_secs)} bài nghe. Học theo thứ tự từ Bài 1 tới Bài 6 — tiếp nối mạch B1 (từ Bài Giảng Trên Núi tới Khải Huyền và Hy Vọng) ở mức sâu hơn: sống như khách lạ, đau khổ và hy vọng, khôn ngoan khi quyết định, đổi mới tâm trí, lãnh đạo phục vụ, và truyền giáo trong thế giới đa nguyên. Giọng đọc: Casper (người dẫn) và Aria (đối thoại).</p>
+<ol>{items}</ol>
+<p><strong>Lộ trình gợi ý:</strong> 1 bài/tuần trong 6 tuần (mỗi buổi 45–60 phút). Mỗi bài: học từ vựng → nghe 2 lần (lần 1 không nhìn transcript, lần 2 đối chiếu) → làm bài tập trong PDF → học thuộc câu ghi nhớ.</p>
+</section>
+"""
+
 
 
 def b1_hub_lessons_html():
@@ -790,6 +1057,9 @@ def level_cards():
         elif slug == "b1":
             badge = ""
             note = " Đã có 12 bài học Kingdom English kèm PDF + audio miễn phí."
+        elif slug == "b2":
+            badge = ""
+            note = " Đã có 6 bài học Kingdom English kèm PDF + audio miễn phí."
         else:
             badge = ""
             note = " Đã có hướng dẫn học đầy đủ."
@@ -1134,8 +1404,11 @@ for i, (slug, name, desc) in enumerate(LEVELS):
     if slug == "b1":
         # B1 đã có bài học thật: đặt danh sách bài lên đầu trang hướng dẫn.
         _body = b1_hub_lessons_html() + _body
+    if slug == "b2":
+        # B2 đã có bài học thật: đặt danh sách bài lên đầu trang hướng dẫn.
+        _body = b2_hub_lessons_html() + _body
     add(f"/trinh-do/{slug}.html", name, name,
-        _body + _guide_nav(
+        _body + _eta_html(f"/trinh-do/{slug}.html") + _guide_nav(
             prev, next_, ("Tất cả trình độ", "/trinh-do/"),
             f"Cho tôi lộ trình học tiếng Anh trình độ {slug.upper()}."),
         active="/trinh-do/", eyebrow="Theo trình độ", desc=desc)
@@ -1324,7 +1597,7 @@ for i, (slug, name, desc) in enumerate(SKILLS):
     prev = (SKILLS[i - 1][1], f"/ky-nang/{SKILLS[i - 1][0]}.html") if i > 0 else None
     next_ = (SKILLS[i + 1][1], f"/ky-nang/{SKILLS[i + 1][0]}.html") if i < len(SKILLS) - 1 else None
     add(f"/ky-nang/{slug}.html", name, f"Luyện {name.lower()}",
-        guide_sections(SKILL_BODIES[slug]) + _guide_nav(
+        guide_sections(SKILL_BODIES[slug]) + _eta_html(f"/ky-nang/{slug}.html") + _guide_nav(
             prev, next_, ("Tất cả kỹ năng", "/ky-nang/"),
             f"Làm sao để luyện {name.lower()} tiếng Anh hiệu quả?"),
         active="/ky-nang/", eyebrow="Theo kỹ năng", desc=desc)
@@ -1611,7 +1884,7 @@ for i, (slug, name, desc) in enumerate(TESTS):
     next_ = (TESTS[i + 1][1], f"/luyen-thi/{TESTS[i + 1][0]}.html") if i < len(TESTS) - 1 else None
     extra = LUYEN_THI_GUIDE_EXTRA.get(slug, "")
     add(f"/luyen-thi/{slug}.html", name, f"Luyện thi {name}",
-        guide_sections(TEST_BODIES[slug]) + (f"<section class=\"section\">{extra}</section>\n" if extra else "") + _guide_nav(
+        guide_sections(TEST_BODIES[slug]) + (f"<section class=\"section\">{extra}</section>\n" if extra else "") + _eta_html(f"/luyen-thi/{slug}.html") + _guide_nav(
             prev, next_, ("Tất cả kỳ thi", "/luyen-thi/"),
             f"Lộ trình luyện thi {name} như thế nào?"),
         active="/luyen-thi/", eyebrow="Luyện thi", desc=desc)
@@ -1663,7 +1936,7 @@ add("/tre-em.html", "Trẻ em", "Tiếng Anh cho trẻ em",
 <details><summary><strong>Câu 3.</strong> Sắp xếp thành câu đúng: "name / My / is / Lan / ."</summary><p>Đáp án: <em>My name is Lan.</em> — Đây là câu giới thiệu bản thân đầu tiên mọi trẻ em nên học.</p></details>
 <h2>Học tiếp ở đâu?</h2>
 <p>Chơi cùng con: <a href="/tro-choi/grade-4-quest.html">Grade 4 Quest — từ vựng, ngữ pháp theo sách lớp 4</a>, <a href="/tro-choi/starter-quest.html">Starter Quest — trò chơi cho người mới bắt đầu</a>. Học theo sách giáo khoa trên lớp: <a href="/sach/global-success.html">hướng dẫn học với sách Global Success</a> (lớp 3–12). Khi con lớn hơn và cần học có hệ thống, xem <a href="/trinh-do/a1.html">trình độ A1 — mới bắt đầu</a> và <a href="/trinh-do/a2.html">trình độ A2 — sơ cấp</a>.</p>
-""") + _guide_nav(None, ("Tiếng Anh công việc", "/cong-viec.html"), None, "Cho tôi lộ trình dạy tiếng Anh cho trẻ em."),
+""") + _eta_html("/tre-em.html") + _guide_nav(None, ("Tiếng Anh công việc", "/cong-viec.html"), None, "Cho tôi lộ trình dạy tiếng Anh cho trẻ em."),
     active="/tre-em.html", eyebrow="Trẻ em",
     desc="Tiếng Anh cho trẻ em: từ vựng theo chủ đề, bài hát, truyện ngắn và trò chơi — bài học ngắn, hình ảnh lớn.")
 
@@ -1724,7 +1997,7 @@ Hoa</em></p>
 <details><summary><strong>Câu 3.</strong> Trong cuộc họp, bạn không đồng ý với đồng nghiệp. Câu nào lịch sự nhất? (a) "You're wrong." (b) "I see your point, but have we considered the cost?" (c) "No."</summary><p>Đáp án: <strong>(b)</strong>. Câu (b) công nhận ý kiến của người khác trước (<em>I see your point</em>) rồi mới nêu quan ngại của mình — cách không đồng ý lịch sự chuẩn trong môi trường công việc.</p></details>
 <h2>Học tiếp ở đâu?</h2>
 <p>Muốn luyện tiếng Anh công việc qua trò chơi? Chơi <a href="/tro-choi/workplace-english-arcade.html">Workplace English Arcade — tiếng Anh công việc trình độ B2</a>. Cần chứng chỉ TOEIC để xin việc? Xem <a href="/luyen-thi/toeic.html">luyện thi TOEIC</a> (mục tiêu 600–750 cho đa số vị trí). Muốn luyện viết email tốt hơn? Xem <a href="/ky-nang/viet.html">hướng dẫn luyện viết</a> và dùng <a href="/cong-cu/viet.html">công cụ chữa bài viết bằng AI</a> để kiểm tra email của bạn trước khi gửi. Chưa vững ngữ pháp nền tảng? Xem <a href="/trinh-do/b1.html">trình độ B1</a> và <a href="/trinh-do/b2.html">trình độ B2</a>.</p>
-""") + _guide_nav(("Trẻ em", "/tre-em.html"), ("Du học", "/du-hoc.html"), None, "Tôi muốn học tiếng Anh cho công việc, bắt đầu từ đâu?"),
+""") + _eta_html("/cong-viec.html") + _guide_nav(("Trẻ em", "/tre-em.html"), ("Du học", "/du-hoc.html"), None, "Tôi muốn học tiếng Anh cho công việc, bắt đầu từ đâu?"),
     active="/cong-viec.html", eyebrow="Tiếng Anh công việc",
     desc="Tiếng Anh cho công việc theo từng ngành nghề: mẫu email, họp, thuyết trình và phỏng vấn xin việc bằng tiếng Anh.")
 
@@ -1748,7 +2021,7 @@ add("/du-hoc.html", "Du học", "Chuẩn bị tiếng Anh đi du học",
 <li><strong>Kết bài (1 đoạn):</strong> kế hoạch sau khi học xong và đóng góp của bạn — trường muốn biết bạn sẽ làm gì với tấm bằng, không chỉ muốn biết bạn giỏi thế nào.</li>
 </ul>
 <p><strong>Lỗi phổ biến:</strong> viết chung chung mà không có bằng chứng, kể lại CV bằng câu dài, hoặc sao chép mẫu trên mạng — hội đồng tuyển sinh nhận ra ngay. Hãy viết bằng lời của mình, rồi nhờ người giỏi tiếng Anh sửa giúp; bạn có thể dùng <a href="/cong-cu/viet.html">công cụ chữa bài viết bằng AI</a> để kiểm tra ngữ pháp.</p>
-<p><strong>Học bổng toàn phần:</strong> một số chương trình học bổng toàn phần nổi tiếng mà sinh viên Việt Nam hay nộp đơn gồm Chevening (Anh), Fulbright (Mỹ), Australia Awards (Úc), DAAD (Đức), GKS (Hàn Quốc), MEXT (Nhật Bản) và Erasmus Mundus (châu Âu). Mỗi chương trình có điều kiện và hạn nộp riêng, thay đổi theo năm — hãy xem trực tiếp trên trang chính thức của từng chương trình.</p>
+<p><strong>Học bổng toàn phần:</strong> một số chương trình học bổng toàn phần nổi tiếng mà sinh viên Việt Nam hay nộp đơn gồm <a href="https://www.chevening.org/" target="_blank" rel="noopener">Chevening</a> (Anh), Fulbright (Mỹ), Australia Awards (Úc), <a href="https://www.daad.de/en/" target="_blank" rel="noopener">DAAD</a> (Đức), <a href="https://www.studyinkorea.go.kr/en/main.do" target="_blank" rel="noopener">GKS</a> (Hàn Quốc), <a href="https://www.studyinjapan.go.jp/en/" target="_blank" rel="noopener">MEXT</a> (Nhật Bản) và <a href="https://erasmus-plus.ec.europa.eu/opportunities/opportunities-for-individuals/students/erasmus-mundus-joint-masters" target="_blank" rel="noopener">Erasmus Mundus</a> (châu Âu). Mỗi chương trình có điều kiện và hạn nộp riêng, thay đổi theo năm — hãy xem trực tiếp trên trang chính thức của từng chương trình trước khi nộp đơn. Hai chương trình Fulbright (Mỹ) và Australia Awards (Úc) chưa có liên kết đã kiểm chứng ở đây, nên chúng tôi không gắn link — hãy tìm trang chính thức của chương trình để xem điều kiện và hạn nộp mới nhất.</p>
 <h2>Bước 3 — Phỏng vấn visa và phỏng vấn trường</h2>
 <p><strong>Phỏng vấn visa</strong> thường ngắn (3–5 phút) và tập trung vào 3 câu hỏi: Bạn đi học cái gì, ở đâu? Ai trả tiền? Bạn có quay về sau khi học xong không? Trả lời ngắn gọn, trung thực, nhất quán với hồ sơ đã nộp. Đừng học thuộc lòng câu trả lời — viên chức lãnh sự nhận ra ngay. Chuẩn bị bằng cách trả lời các câu hỏi sau bằng tiếng Anh, mỗi câu 2–3 câu trả lời:</p>
 <ul>
@@ -1778,7 +2051,7 @@ add("/du-hoc.html", "Du học", "Chuẩn bị tiếng Anh đi du học",
 <details><summary><strong>Câu 3.</strong> Trả lời câu hỏi phỏng vấn visa: "What will you do after graduation?" — Câu trả lời nào tốt nhất? (a) "I don't know." (b) "I will stay and find a job." (c) "I plan to return to Vietnam and work as a software engineer, because the tech industry there is growing fast and I want to contribute to it."</summary><p>Đáp án: <strong>(c)</strong>. Câu trả lời tốt nêu kế hoạch cụ thể (quay về Việt Nam, làm nghề gì) và lý do (ngành công nghệ đang phát triển, muốn đóng góp). Câu (a) và (b) đều yếu — (b) còn có thể gây nghi ngờ về ý định ở lại.</p></details>
 <h2>Học tiếp ở đâu?</h2>
 <p>Chọn kỳ thi: <a href="/luyen-thi/ielts.html">luyện thi IELTS</a>, <a href="/luyen-thi/toefl.html">luyện thi TOEFL iBT</a>, <a href="/luyen-thi/pte.html">luyện thi PTE Academic</a>. Học theo sách: <a href="/sach/mindset-for-ielts.html">hướng dẫn học với sách Mindset for IELTS</a> (tới band 7.5). Nâng trình độ nền tảng: <a href="/trinh-do/b2.html">trình độ B2</a> và <a href="/trinh-do/c1.html">trình độ C1</a>. Luyện nói và viết: <a href="/ky-nang/noi.html">hướng dẫn luyện nói</a>, <a href="/ky-nang/viet.html">hướng dẫn luyện viết</a>. Sau khi đi du học, bạn vẫn cần <a href="/cong-viec.html">tiếng Anh công việc</a> — học trước cũng không thừa.</p>
-""") + _guide_nav(("Tiếng Anh công việc", "/cong-viec.html"), None, None, "Tôi muốn đi du học, cần chuẩn bị tiếng Anh như thế nào?"),
+""") + _eta_html("/du-hoc.html") + _guide_nav(("Tiếng Anh công việc", "/cong-viec.html"), None, None, "Tôi muốn đi du học, cần chuẩn bị tiếng Anh như thế nào?"),
     active="/du-hoc.html", eyebrow="Du học",
     desc="Chuẩn bị tiếng Anh đi du học: thi IELTS/TOEFL/PTE, học bổng toàn phần, phỏng vấn visa và đời sống ở nước ngoài.")
 
@@ -1849,6 +2122,7 @@ add("/cong-cu/tu-vung.html", "Tra từ bằng AI", "Tra từ bằng AI",
 <form id="vocabForm">
   <label for="vocabWord">Từ hoặc cụm từ tiếng Anh:</label>
   <input id="vocabWord" type="text" maxlength="100" placeholder="VD: perseverance" autocomplete="off">
+  <p class="muted" id="vocabCount">0/100 ký tự</p>
   <button type="submit" class="btn">Tra từ</button>
 </form>
 <div id="vocabResult" class="result" hidden></div>
@@ -1859,6 +2133,11 @@ add("/cong-cu/tu-vung.html", "Tra từ bằng AI", "Tra từ bằng AI",
   var form = document.getElementById('vocabForm');
   var input = document.getElementById('vocabWord');
   var out = document.getElementById('vocabResult');
+  var count = document.getElementById('vocabCount');
+  input.addEventListener('input', function () {
+    if (input.value.length > 100) { input.value = input.value.slice(0, 100); }
+    count.textContent = input.value.length + '/100 ký tự' + (input.value.length >= 100 ? ' — đã đạt giới hạn 100 ký tự, hãy tra từ hoặc cụm từ ngắn hơn.' : '');
+  });
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var w = input.value.trim();
@@ -1902,6 +2181,7 @@ add("/cong-cu/viet.html", "Chữa bài viết bằng AI", "Chữa bài viết b�
   <button type="submit" class="btn">Nhờ AI chữa bài</button>
 </form>
 <div id="writingResult" class="result" hidden></div>
+<button type="button" class="btn ghost" id="copyWriting" hidden>Sao chép kết quả</button>
 </section>
 <p class="muted">Nếu công cụ chưa sẵn sàng, trang sẽ báo “đang được chuẩn bị” — bạn thử lại sau.</p>
 <script>
@@ -1910,6 +2190,20 @@ add("/cong-cu/viet.html", "Chữa bài viết bằng AI", "Chữa bài viết b�
   var input = document.getElementById('writingText');
   var out = document.getElementById('writingResult');
   var count = document.getElementById('writingCount');
+  var copyBtn = document.getElementById('copyWriting');
+  copyBtn.addEventListener('click', function () {
+    var text = out.innerText || out.textContent || '';
+    function done() { copyBtn.textContent = 'Đã sao chép!'; setTimeout(function () { copyBtn.textContent = 'Sao chép kết quả'; }, 2000); }
+    function fallbackCopy() {
+      var ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) { copyBtn.textContent = 'Không sao chép được'; }
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(); });
+    } else { fallbackCopy(); }
+  });
   input.addEventListener('input', function () {
     count.textContent = input.value.length + '/350 ký tự';
   });
@@ -1923,6 +2217,7 @@ add("/cong-cu/viet.html", "Chữa bài viết bằng AI", "Chữa bài viết b�
       return;
     }
     out.hidden = false;
+    copyBtn.hidden = true;
     out.innerHTML = '<p>Đang chữa bài…</p>';
     fetch('/api/chat', {
       method: 'POST',
@@ -1934,6 +2229,7 @@ add("/cong-cu/viet.html", "Chữa bài viết bằng AI", "Chữa bài viết b�
         var d = res.d || {};
         if (res.status === 200 && d.answer) {
           out.innerHTML = '<p>' + d.answer.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\\n/g, '<br>') + '</p><p class="muted">AI, chưa duyệt.</p>';
+          copyBtn.hidden = false;
         } else {
           out.innerHTML = '<p>' + (d.message || 'Có lỗi xảy ra, mời thử lại sau.') + '</p>';
         }
@@ -1956,6 +2252,15 @@ add("/sach/index.html", "Sách học", "Hướng dẫn sử dụng sách học",
 <article class="card card-book">{card_icon("book")}<h2><a href="/sach/global-success.html">Hướng dẫn học với sách Global Success</a></h2><p>Cách tự học hiệu quả với sách giáo khoa tiếng Anh Global Success (lớp 3–12): cấu trúc sách, cách học từng unit, kế hoạch theo tuần.</p></article><article class="card card-book">{card_icon("book")}<h2><a href="/sach/american-english-file.html">Hướng dẫn học với sách American English File</a></h2><p>Hướng dẫn tự học American English File (Oxford) từ A1 đến C1: chọn đúng trình độ, học từng File, luyện nghe–nói và mua sách chính hãng.</p></article><article class="card card-book">{card_icon("book")}<h2><a href="/sach/barrons-toeic.html">Hướng dẫn học với sách Barron&#x27;s TOEIC</a></h2><p>Hướng dẫn học TOEIC với bộ sách Barron&#x27;s của Lin Lougheed: chọn đúng cuốn, học theo tuần và luyện đề hiệu quả.</p></article><article class="card card-book">{card_icon("book")}<h2><a href="/sach/mindset-for-ielts.html">Hướng dẫn học với sách Mindset for IELTS</a></h2><p>Hướng dẫn tự học bộ sách Mindset for IELTS theo từng cấp độ, từ Foundation đến Level 3, kèm kế hoạch tuần và mẹo thi.</p></article>
 </div>
 </section>
+<section class="section">
+<div class="section-head"><h2>Chọn sách nào?</h2><p class="section-sub">Chọn theo trình độ và mục tiêu của bạn.</p></div>
+<ul>
+<li><strong>Học sinh lớp 3–12, học theo chương trình trên lớp:</strong> <a href="/sach/global-success.html">Global Success</a> — sách giáo khoa tiếng Anh theo chương trình GDPT 2018.</li>
+<li><strong>Người mới bắt đầu đến C1, muốn học tiếng Anh Mỹ tổng quát:</strong> <a href="/sach/american-english-file.html">American English File</a> — giáo trình của Oxford, từ A1 đến C1.</li>
+<li><strong>Mục tiêu thi TOEIC (Listening &amp; Reading):</strong> <a href="/sach/barrons-toeic.html">Barron's TOEIC</a> — luyện thi TOEIC với bộ sách của Lin Lougheed.</li>
+<li><strong>Mục tiêu thi IELTS Academic, tới band 7.5:</strong> <a href="/sach/mindset-for-ielts.html">Mindset for IELTS</a> — theo từng cấp độ, từ Foundation đến Level 3.</li>
+</ul>
+</section>
 <p class="muted">Sẽ bổ sung thêm hướng dẫn cho các sách khác — hiện mới có 4 cuốn trên đây.</p>
 """, active="/sach/", eyebrow="Sách học",
     desc="Hướng dẫn tự học với các sách tiếng Anh phổ biến: Global Success, American English File, Barron's TOEIC, Mindset for IELTS.")
@@ -1973,7 +2278,7 @@ add("/sach/global-success.html", "Hướng dẫn học với sách Global Succes
 <ul><li><strong>Học sinh từ lớp 3 đến lớp 12</strong> đang học tiếng Anh theo chương trình GDPT 2018 tại trường — đây là sách giáo khoa chính trên lớp của rất nhiều trường trên cả nước.</li><li><strong>Phụ huynh</strong> muốn kèm con học ở nhà theo đúng tiến độ trên lớp, đặc biệt ở bậc tiểu học, nơi trẻ cần người lớn hướng dẫn nghe và đọc cùng.</li><li><strong>Người tự học lại từ đầu</strong> muốn có một lộ trình có sẵn: mỗi lớp là một nấc, học hết một lớp thì lên lớp tiếp theo.</li><li><strong>Giáo viên và gia sư</strong> cần một khung tham khảo để lên kế hoạch ôn tập theo unit cho học sinh.</li></ul>
 <p>Hướng dẫn này tập trung vào lớp 3–12. Bộ sách có cả sách lớp 1 và lớp 2, nhưng ở hai lớp đầu tiếng Anh chỉ là môn làm quen, nên cách học khác hẳn (chủ yếu là nghe, hát và chơi) và không nằm trong trọng tâm của bài này.</p>
 <h2>Cấu trúc sách</h2>
-<p>Mỗi lớp có một cuốn sách học sinh (ở tiểu học thường chia thành hai tập, một tập cho mỗi học kỳ). Số unit đã kiểm chứng được:</p>
+<p>Mỗi lớp có sách học sinh riêng. Lớp 3 và lớp 6 chia thành hai tập, một tập cho mỗi học kỳ (đã kiểm chứng — xem mục "Nguồn đã kiểm chứng"). Số unit đã kiểm chứng được:</p>
 <ul><li><strong>Lớp 3:</strong> 20 unit, chia thành hai tập (Tập 1: Starter và Unit 1–10; Tập 2: Unit 11–20). Cứ sau mỗi 5 unit có một phần Review và Fun time để ôn tập qua trò chơi, bài hát và hoạt động nhóm.</li><li><strong>Lớp 6, 7, 8, 9:</strong> mỗi lớp 12 unit. Ví dụ lớp 7 có Review sau Unit 3, 6, 9 và 12; lớp 8 có 4 phần Review và Glossary cuối sách.</li><li><strong>Lớp 10 và lớp 12:</strong> mỗi lớp 10 unit và 4 phần Review. Ví dụ lớp 10: Review 1 ôn Unit 1–3, Review 2 ôn Unit 4–5, Review 3 ôn Unit 6–8, Review 4 ôn Unit 9–10.</li></ul>
 <p>Cấu trúc một unit ở bậc THCS và THPT (lớp 6–12) gồm các phần sau, theo thứ tự trong sách:</p>
 <ol><li><strong>Getting Started</strong> — mở đầu chủ đề bằng một đoạn hội thoại hoặc tình huống quen thuộc, giới thiệu từ vựng và ý chính của unit.</li><li><strong>Language</strong> — từ vựng, phát âm và ngữ pháp trọng tâm của unit.</li><li><strong>Reading</strong> — đọc hiểu một bài đọc theo chủ đề, luyện cách tìm thông tin cụ thể và thông tin tổng quát.</li><li><strong>Speaking</strong> — luyện nói theo chủ đề, thường là trình bày ngắn hoặc trao đổi theo cặp/nhóm.</li><li><strong>Listening</strong> — nghe và tìm thông tin.</li><li><strong>Writing</strong> — viết đoạn văn hoặc email ngắn theo chủ đề.</li><li><strong>Communication and Culture / CLIL</strong> — giao tiếp mở rộng và kiến thức liên môn, văn hóa.</li><li><strong>Looking Back &amp; Project</strong> — ôn lại kiến thức của unit và làm một dự án nhỏ (thuyết trình, áp phích, bài viết ngắn) để vận dụng những gì đã học.</li></ol>
@@ -2007,7 +2312,7 @@ add("/sach/global-success.html", "Hướng dẫn học với sách Global Succes
 <p>Chỉ liệt kê các kênh đã kiểm chứng. Không tải sách từ các trang chia sẻ file không rõ nguồn gốc.</p>
 <ul><li><strong>Nhà xuất bản Giáo dục Việt Nam — bài giới thiệu chính thức về bộ sách Global Success:</strong> <a href="https://nxbgd.vn/bai-viet/global-success-bo-sach-giao-khoa-tieng-anh-cua-nguoi-viet-nam" target="_blank" rel="noopener">https://nxbgd.vn/bai-viet/global-success-bo-sach-giao-khoa-tieng-anh-cua-nguoi-viet-nam</a> — đã mở và đọc trực tiếp ngày 23/11/2026; bài viết xác nhận bộ sách dùng cho lớp 1–12, Tổng chủ biên Hoàng Văn Vân, đối tác Macmillan (tiểu học) và Pearson (THCS, THPT), cùng các kênh học liệu số chính thức.</li><li><strong>Học Liệu (hoclieu.vn) — thư viện học liệu số chính thức của Nhà xuất bản Giáo dục Việt Nam:</strong> <a href="https://hoclieu.vn/" target="_blank" rel="noopener">https://hoclieu.vn/</a> — đã mở trực tiếp ngày 23/11/2026, trang tải được; đây là nơi đọc sách điện tử và dùng học liệu số của bộ sách theo như bài viết chính thức của NXB.</li><li><strong>Sách Mềm (sachmem.vn) — hệ thống phần mềm hỗ trợ giảng dạy và học tập của bộ sách:</strong> <a href="https://sachmem.vn/" target="_blank" rel="noopener">https://sachmem.vn/</a> — đã mở trực tiếp ngày 23/11/2026; trang giới thiệu xác nhận lộ trình xuyên suốt lớp 1–12 và các học liệu đi kèm (sách học sinh, sách giáo viên, sách bài tập, giáo án, bài giảng).</li><li><strong>Mua sách in:</strong> mua tại các nhà sách lớn, uy tín (nhà sách của NXB Giáo dục Việt Nam hoặc các chuỗi nhà sách lớn) và kiểm tra sách có tem, mã kích hoạt bản điện tử đầy đủ. Chúng tôi không đưa link tới một cửa hàng cụ thể vì chưa kiểm chứng được từng cửa hàng; bài viết chính thức của NXB có nhắc tới cửa hàng trực tuyến edubook.com.vn, nhưng chúng tôi đã thử mở trang này ngày 23/11/2026 và không tải được, nên không đưa làm link mua hàng đã kiểm chứng (xem mục &quot;Chưa kiểm chứng được&quot;).</li></ul>
 <h2>Nguồn đã kiểm chứng</h2>
-<ul><li>Bài viết chính thức của Nhà xuất bản Giáo dục Việt Nam: &quot;Global Success: Bộ sách giáo khoa tiếng Anh của người Việt Nam&quot; — <a href="https://nxbgd.vn/bai-viet/global-success-bo-sach-giao-khoa-tieng-anh-cua-nguoi-viet-nam" target="_blank" rel="noopener">https://nxbgd.vn/bai-viet/global-success-bo-sach-giao-khoa-tieng-anh-cua-nguoi-viet-nam</a> — đã mở và đọc trực tiếp ngày 23/11/2026. Xác nhận: bộ sách từ lớp 1 đến lớp 12; Tổng chủ biên GS.TS. Hoàng Văn Vân, tác giả 100% người Việt Nam; hợp tác Macmillan Education (tiểu học) và Pearson Education (THCS, THPT); hệ thống học liệu tại hoclieu.vn; Sách Mềm tại sachmem.vn; cửa hàng trực tuyến edubook.com.vn.</li><li>Trang chủ Học Liệu — <a href="https://hoclieu.vn/" target="_blank" rel="noopener">https://hoclieu.vn/</a> — đã mở trực tiếp ngày 23/11/2026, trang tải được.</li><li>Trang chủ Sách Mềm — <a href="https://sachmem.vn/" target="_blank" rel="noopener">https://sachmem.vn/</a> — đã mở trực tiếp ngày 23/11/2026; xác nhận lộ trình lớp 1–12 và các học liệu đi kèm.</li><li>Hội thảo giới thiệu sách giáo khoa lớp 3 (Sở GD&amp;ĐT Hải Phòng): <a href="http://anhp.vn/hoi-thao-gioi-thieu-sach-giao-khoa-lop-3-d46091.html" target="_blank" rel="noopener">http://anhp.vn/hoi-thao-gioi-thieu-sach-giao-khoa-lop-3-d46091.html</a> — xác nhận Tiếng Anh 3 Global Success (Hoàng Văn Vân) nằm trong danh mục sách lớp 3 được phê duyệt theo Quyết định 438 ngày 28/01/2022, dùng từ năm học 2022–2023; bộ sách theo khung năng lực ngoại ngữ 6 bậc và chương trình GDPT 2018.</li><li>Tổng quan sách Tiếng Anh 3 Global Success — <a href="https://vus.edu.vn/blog-vus/sach-tieng-anh-lop-3" target="_blank" rel="noopener">https://vus.edu.vn/blog-vus/sach-tieng-anh-lop-3</a> và <a href="https://apaxfranklin.com/sach-tieng-anh-3-global-success-pdf/" target="_blank" rel="noopener">https://apaxfranklin.com/sach-tieng-anh-3-global-success-pdf/</a> — xác nhận lớp 3 có 20 unit, hai tập, Review và Fun time sau mỗi 5 unit, cấu trúc mỗi unit gồm Getting Started, Lesson 1–3.</li><li>Tổng quan sách Tiếng Anh 6 Global Success — <a href="https://vus.edu.vn/blog-vus/sach-tieng-anh-lop-6" target="_blank" rel="noopener">https://vus.edu.vn/blog-vus/sach-tieng-anh-lop-6</a> — xác nhận lớp 6 có 12 unit, hai tập, tác giả và đối tác Pearson.</li><li>Tổng quan sách Tiếng Anh 8 Global Success — <a href="https://vus.edu.vn/blog-vus/tieng-anh-8?leadcdpid=sitemap" target="_blank" rel="noopener">https://vus.edu.vn/blog-vus/tieng-anh-8?leadcdpid=sitemap</a> và <a href="https://apaxfranklin.com/sach-tieng-anh-8-global-success-pdf/" target="_blank" rel="noopener">https://apaxfranklin.com/sach-tieng-anh-8-global-success-pdf/</a> — xác nhận lớp 8 có 12 unit, 4 phần Review, Glossary; audio nằm trên bản điện tử chính thức (hoclieu.vn và hanhtrangso.nxbgd.vn).</li><li>Tổng quan sách Tiếng Anh 10 Global Success — <a href="https://vus.edu.vn/blog-vus/sach-tieng-anh-lop-10" target="_blank" rel="noopener">https://vus.edu.vn/blog-vus/sach-tieng-anh-lop-10</a> — xác nhận lớp 10 có 10 unit, 4 phần Review, Book Map, Glossary, các phần Communication and Culture/CLIL và Looking Back &amp; Project.</li><li>Danh mục unit lớp 7, 8, 9, 12 — <a href="https://www.studywithping.com/ngu-phap" target="_blank" rel="noopener">https://www.studywithping.com/ngu-phap</a> và <a href="https://timdapan.com/sach-giao-khoa/tieng-anh-7-global-success" target="_blank" rel="noopener">https://timdapan.com/sach-giao-khoa/tieng-anh-7-global-success</a> — xác nhận lớp 7, 8, 9 mỗi lớp 12 unit, lớp 12 có 10 unit; lớp 7 có Review sau Unit 3, 6, 9, 12.</li></ul>
+<ul><li>Bài viết chính thức của Nhà xuất bản Giáo dục Việt Nam: &quot;Global Success: Bộ sách giáo khoa tiếng Anh của người Việt Nam&quot; — <a href="https://nxbgd.vn/bai-viet/global-success-bo-sach-giao-khoa-tieng-anh-cua-nguoi-viet-nam" target="_blank" rel="noopener">https://nxbgd.vn/bai-viet/global-success-bo-sach-giao-khoa-tieng-anh-cua-nguoi-viet-nam</a> — đã mở và đọc trực tiếp ngày 23/11/2026. Xác nhận: bộ sách từ lớp 1 đến lớp 12; Tổng chủ biên GS.TS. Hoàng Văn Vân, tác giả 100% người Việt Nam; hợp tác Macmillan Education (tiểu học) và Pearson Education (THCS, THPT); hệ thống học liệu tại hoclieu.vn; Sách Mềm tại sachmem.vn; cửa hàng trực tuyến edubook.com.vn.</li><li>Trang chủ Học Liệu — <a href="https://hoclieu.vn/" target="_blank" rel="noopener">https://hoclieu.vn/</a> — đã mở trực tiếp ngày 23/11/2026, trang tải được.</li><li>Trang chủ Sách Mềm — <a href="https://sachmem.vn/" target="_blank" rel="noopener">https://sachmem.vn/</a> — đã mở trực tiếp ngày 23/11/2026; xác nhận lộ trình lớp 1–12 và các học liệu đi kèm.</li><li>Hội thảo giới thiệu sách giáo khoa lớp 3 (Sở GD&amp;ĐT Hải Phòng): <a href="http://anhp.vn/hoi-thao-gioi-thieu-sach-giao-khoa-lop-3-d46091.html" target="_blank" rel="noopener">http://anhp.vn/hoi-thao-gioi-thieu-sach-giao-khoa-lop-3-d46091.html</a> — xác nhận Tiếng Anh 3 Global Success (Hoàng Văn Vân) nằm trong danh mục sách lớp 3 được phê duyệt theo Quyết định 438 ngày 28/01/2022, dùng từ năm học 2022–2023; bộ sách theo khung năng lực ngoại ngữ 6 bậc và chương trình GDPT 2018.</li><li>Tổng quan sách Tiếng Anh 3 Global Success — <a href="https://vus.edu.vn/blog-vus/sach-tieng-anh-lop-3" target="_blank" rel="noopener">https://vus.edu.vn/blog-vus/sach-tieng-anh-lop-3</a> — xác nhận lớp 3 có 20 unit, hai tập, Review và Fun time sau mỗi 5 unit, cấu trúc mỗi unit gồm Getting Started, Lesson 1–3.</li><li>Tổng quan sách Tiếng Anh 6 Global Success — <a href="https://vus.edu.vn/blog-vus/sach-tieng-anh-lop-6" target="_blank" rel="noopener">https://vus.edu.vn/blog-vus/sach-tieng-anh-lop-6</a> — xác nhận lớp 6 có 12 unit, hai tập, tác giả và đối tác Pearson.</li><li>Tổng quan sách Tiếng Anh 8 Global Success — <a href="https://vus.edu.vn/blog-vus/tieng-anh-8?leadcdpid=sitemap" target="_blank" rel="noopener">https://vus.edu.vn/blog-vus/tieng-anh-8?leadcdpid=sitemap</a> — xác nhận lớp 8 có 12 unit, 4 phần Review, Glossary; audio nằm trên bản điện tử chính thức (hoclieu.vn và hanhtrangso.nxbgd.vn).</li><li>Tổng quan sách Tiếng Anh 10 Global Success — <a href="https://vus.edu.vn/blog-vus/sach-tieng-anh-lop-10" target="_blank" rel="noopener">https://vus.edu.vn/blog-vus/sach-tieng-anh-lop-10</a> — xác nhận lớp 10 có 10 unit, 4 phần Review, Book Map, Glossary, các phần Communication and Culture/CLIL và Looking Back &amp; Project.</li><li>Danh mục unit lớp 7, 8, 9, 12 — <a href="https://www.studywithping.com/ngu-phap" target="_blank" rel="noopener">https://www.studywithping.com/ngu-phap</a> — xác nhận lớp 7, 8, 9 mỗi lớp 12 unit, lớp 12 có 10 unit; lớp 7 có Review sau Unit 3, 6, 9, 12.</li></ul>
 <h2>Chưa kiểm chứng được</h2>
 <ul><li><strong>Số unit của lớp 1, 2, 4, 5 và lớp 11:</strong> chúng tôi chưa kiểm chứng riêng từng lớp này nên không ghi con số cụ thể trong bài. Chỉ ghi những lớp đã có nguồn xác nhận (lớp 3: 20 unit; lớp 6–9: 12 unit; lớp 10 và 12: 10 unit).</li><li><strong>Nền tảng hanhtrangso.nxbgd.vn:</strong> một nguồn thứ cấp cho biết đây là nền tảng sách điện tử chính thức, mở bằng mã kích hoạt dưới tem cào trong sách in. Chúng tôi đã thử mở trang này ngày 23/11/2026 nhưng trang không tải được (hết thời gian chờ), nên chưa xác nhận trực tiếp được và không đưa làm link đã kiểm chứng.</li><li><strong>Cửa hàng trực tuyến edubook.com.vn:</strong> được chính bài viết của NXB nêu là cửa hàng online, nhưng chúng tôi đã thử mở ngày 23/11/2026 và trang không tải được, nên không đưa làm link mua hàng đã kiểm chứng.</li><li><strong>Giá bán từng cuốn và giá sách điện tử:</strong> giá thay đổi theo thời điểm và nhà sách; chúng tôi không ghi giá cụ thể. Hãy xem giá tại nhà sách nơi bạn mua.</li><li><strong>Danh sách nhà sách cụ thể bán sách chính hãng (ví dụ Fahasa):</strong> chưa kiểm chứng từng nhà sách nên không liệt kê; hãy mua ở nhà sách lớn, uy tín và kiểm tra tem, mã kích hoạt.</li><li><strong>Ứng dụng di động riêng của bộ sách:</strong> chúng tôi chưa tìm thấy và chưa kiểm chứng được có ứng dụng chính thức nào mang tên Global Success trên kho ứng dụng; học liệu số chính thức hiện nay dùng qua web (hoclieu.vn, sachmem.vn).</li><li><strong>Mức độ tương ứng với khung năng lực (CEFR) của từng lớp:</strong> chưa kiểm chứng được con số chính thức cho từng lớp nên không ghi trong bài.</li></ul>
 <p><a href="/sach/">← Tất cả sách học</a> · <a href="/">← Về trang chủ</a> · <a href="/tro-chuyen-ai.html?q=H%C6%B0%E1%BB%9Bng%20d%E1%BA%ABn%20t%C3%B4i%20h%E1%BB%8Dc%20v%E1%BB%9Bi%20s%C3%A1ch%20Global%20Success">Hỏi AI về sách này →</a></p>
@@ -2136,7 +2441,7 @@ add("/sach/mindset-for-ielts.html", "Hướng dẫn học với sách Mindset fo
 <p>Một số tác giả đã kiểm chứng được: Foundation gồm Greg Archer, Lucy Passmore và Jishan Uddin (một số bản ghi ISBN viết &quot;Lucy Pasmore&quot;); Level 1 gồm Peter Crosthwaite, Susan Hutchison, Claire Wijayatilake và Natasha De Souza. Tác giả của Level 2 và Level 3 chưa được kiểm chứng từ nguồn chính thức trong lần nghiên cứu này — xem mục &quot;Chưa kiểm chứng được&quot;.</p>
 <h2>Cấu trúc sách</h2>
 <p>Mỗi cấp độ có một cuốn Student&#x27;s Book (sách học sinh) kèm phần học trực tuyến (Digital Pack / online modules). Cấu trúc chung, theo tài liệu giới thiệu của chính Cambridge:</p>
-<ul><li><strong>Foundation: 10 unit theo chủ đề</strong>, sắp xếp theo kỹ năng, tương đương 60–90 giờ học trên lớp cho một cấp độ. Sách có đáp án (answer key) và bản ghi âm bài nghe (listening scripts) ở cuối sách.</li><li><strong>Level 1, 2 và 3: mỗi cấp độ 8 unit theo chủ đề</strong>, cũng sắp xếp theo kỹ năng, tương đương 60–90 giờ học cho một cấp độ.</li><li><strong>Mỗi unit gồm 4 phần kỹ năng:</strong> Reading, Writing, Listening và Speaking, kèm phần từ vựng và ngữ pháp lồng trong quá trình luyện kỹ năng. Mỗi bài học đều ghi rõ mục tiêu cần đạt (&quot;In this unit you will learn how to…&quot;).</li><li><strong>Học trực tuyến đi kèm:</strong> các module luyện từng kỹ năng (Reading, Writing, Listening, Speaking, cộng thêm Grammar and Vocabulary), mỗi kỹ năng khoảng 8 giờ luyện tập cho một cấp độ; module Academic Study Skills (kỹ năng học thuật, khoảng 6 giờ) giúp chuẩn bị cho việc học đại học bằng tiếng Anh; và các bài thi thử trực tuyến (ở bản 2017 gọi là Testbank; ở bản 2023 gọi là Digital Pack, truy cập bằng mã code trong sách qua nền tảng Cambridge One).</li><li><strong>Teacher&#x27;s Book:</strong> có sách giáo viên riêng cho từng cấp độ, dành cho giáo viên đứng lớp — người tự học không cần mua cuốn này.</li></ul>
+<ul><li><strong>Foundation: 10 unit theo chủ đề</strong>, sắp xếp theo kỹ năng, tương đương 60–90 giờ học trên lớp cho một cấp độ. Sách có đáp án (answer key) và bản ghi âm bài nghe (listening scripts) ở cuối sách.</li><li><strong>Level 1: 8 unit theo chủ đề</strong>, sắp xếp theo kỹ năng, tương đương 60–90 giờ học cho một cấp độ.</li><li><strong>Level 2 và 3: 8 unit theo chủ đề theo các nguồn thứ cấp</strong> — con số này chưa được kiểm chứng trực tiếp từ tài liệu chính thức của Cambridge (xem mục "Chưa kiểm chứng được" ở cuối bài). Ngoài số unit, cấu trúc hai cấp độ này giống Level 1: sắp xếp theo kỹ năng, tương đương 60–90 giờ học cho một cấp độ.</li><li><strong>Mỗi unit gồm 4 phần kỹ năng:</strong> Reading, Writing, Listening và Speaking, kèm phần từ vựng và ngữ pháp lồng trong quá trình luyện kỹ năng. Mỗi bài học đều ghi rõ mục tiêu cần đạt (&quot;In this unit you will learn how to…&quot;).</li><li><strong>Học trực tuyến đi kèm:</strong> các module luyện từng kỹ năng (Reading, Writing, Listening, Speaking, cộng thêm Grammar and Vocabulary), mỗi kỹ năng khoảng 8 giờ luyện tập cho một cấp độ; module Academic Study Skills (kỹ năng học thuật, khoảng 6 giờ) giúp chuẩn bị cho việc học đại học bằng tiếng Anh; và các bài thi thử trực tuyến (ở bản 2017 gọi là Testbank; ở bản 2023 gọi là Digital Pack, truy cập bằng mã code trong sách qua nền tảng Cambridge One).</li><li><strong>Teacher&#x27;s Book:</strong> có sách giáo viên riêng cho từng cấp độ, dành cho giáo viên đứng lớp — người tự học không cần mua cuốn này.</li></ul>
 <p>Điểm khác biệt đáng chú ý của bộ sách là tính linh hoạt: bạn có thể học lần lượt từng unit theo chủ đề, hoặc học theo kỹ năng (ví dụ chỉ tập trung vào Writing trong một thời gian). Sách cũng nhấn mạnh các chiến lược làm bài (learning strategies), luyện kỹ năng (skills practice) và luyện thi (exam practice), chứ không chỉ cung cấp bài tập.</p>
 <h2>Cách học một bài (unit)</h2>
 <p>Dưới đây là quy trình tự học một unit mà chúng tôi đề xuất. Đây là lời khuyên của chúng tôi, không phải hướng dẫn trong sách. Một unit nên học trong khoảng 5–7 ngày, mỗi ngày 60–90 phút, thay vì học dồn một buổi.</p>
@@ -2219,7 +2524,7 @@ TRO_CHOI = [
     ("game-room-lobby", "Game Room Lobby", "tool",
      "Sảnh trò chơi: chọn lớp 4, 9 hoặc 10 để vào Grade Quest."),
     ("ai-workbench", "AI Workbench", "tool",
-     "Học cách dùng AI (ChatGPT, Claude, Gemini…) để học và dạy tiếng Anh: 9 bài học ngắn, thư viện prompt mẫu."),
+     "Học cách dùng AI (ChatGPT, Claude, Gemini…) để học và dạy tiếng Anh: 15 bài học ngắn, thư viện prompt mẫu."),
     ("efec-helper", "EFEC Helper", "work",
      "Tiếng Anh cho điều dưỡng: chào hỏi bệnh nhân, giao tiếp trong bệnh viện — giải thích bằng tiếng Việt."),
     ("open-shelf", "Open Shelf", "book",
