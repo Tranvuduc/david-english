@@ -1,4 +1,4 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important} h2.t1{font-size:28px}
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#f7f5ef;color:#1d2733}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important} h2.t1{font-size:28px}
 </style><title>EFEC Helper | David English</title>
 <meta name="description" content="Tiếng Anh cho điều dưỡng: chào hỏi bệnh nhân, giao tiếp trong bệnh viện — giải thích bằng tiếng Việt.">
 <meta property="og:title" content="EFEC Helper">
@@ -15,44 +15,27 @@
   gtag('consent', 'default', {'analytics_storage': 'denied'});
 </script>
 <style>
-.cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:100;background:#fff;color:#1a1a1a;border-top:3px solid #123a6d;box-shadow:0 -4px 24px rgba(0,0,0,.18);padding:16px 0}
+.cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:100;background:#fff;color:#1d2733;border-top:3px solid #123a6d;box-shadow:0 -4px 24px rgba(0,0,0,.18);padding:16px 0}
 .cookie-banner p{margin:0 0 12px}
 .cookie-actions{display:flex;gap:12px;flex-wrap:wrap}
 .cookie-actions .btn{flex:1 1 160px;margin-top:0}
 </style>
-</head><body><style>.de-back{margin:0;text-align:left;background:#123a6d;color:#fff;padding:0 16px}.de-back a{display:inline-flex;align-items:center;min-height:44px;color:#fff;font:600 15px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;text-decoration:none}.de-back a:hover{color:#e8a020;text-decoration:underline}.de-back a:focus-visible{outline:3px solid #e8a020;outline-offset:2px}</style><header class="de-back"><a href="/">← David English</a></header>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+</head><body><style>.de-back{margin:0;text-align:left;background:linear-gradient(135deg,#123a6d 0%,#0c2a50 100%);color:#fff;padding:0 16px;border-bottom:3px solid #e8a020}.de-back a{display:inline-flex;align-items:center;min-height:44px;color:#fff;font:600 15px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;text-decoration:none}.de-back a:hover{color:#e8a020;text-decoration:underline}.de-back a:focus-visible{outline:3px solid #e8a020;outline-offset:2px}</style><header class="de-back"><a href="/">← David English</a></header>
 <style>
 /* Layout concept: phone-first shell. Sticky brand header, scrolling page, fixed bottom tab bar.
    Lessons open as a full-screen layer above it. Progress is drawn like a ward observation chart. */
 :root{
-  --bg: #f7f5ef;--surface:#FFFFFF;--surface2:#E8EFEC;--ink:#10231E;--muted:#587068;--line:#D3DDD8;
-  --accent:#0B6E8A;--accent-ink:#FFFFFF;--accent-soft:#D8EDF3;
-  --good:#1E8A5B;--good-soft:#DCF1E6;--bad:#C2413A;--bad-soft:#F8DFDC;--warn:#A96508;--warn-soft:#F7EACF;
-  --l-a1:#3C9A6C;--l-a2:#2B8FA0;--l-b1:#3F6DBF;--l-b2:#7250B5;
-  --f-display:'Bricolage Grotesque','Be Vietnam Pro',system-ui,sans-serif;
-  --f-body:'Be Vietnam Pro',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --bg:#f7f5ef;--surface:#ffffff;--surface2:#eaf1f8;--ink:#1d2733;--muted:#5b6b7d;--line:#dfe3e8;
+  --accent:#123a6d;--accent-ink:#ffffff;--accent-soft:#eaf1f8;
+  --good:#1a7f4b;--good-soft:#e6f3ec;--bad:#b3382e;--bad-soft:#fbeae7;--warn:#7a5200;--warn-soft:#fdf3d7;
+  --l-a1:#177245;--l-a2:#0e7c6b;--l-b1:#2f6da3;--l-b2:#6d4a8f;
+  --f-display:Georgia,'Palatino Linotype','Book Antiqua','Times New Roman',serif;
+  --f-body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --f-mono:ui-monospace,Menlo,Consolas,monospace;
   --r:14px;
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#0B1512;--surface:#13221D;--surface2:#1B2E27;--ink:#E5F0EC;--muted:#93AAA1;--line:#25392F;
-    --accent:#4FBBDA;--accent-ink:#04222B;--accent-soft:#12323C;
-    --good:#4CC38A;--good-soft:#12301F;--bad:#F0837B;--bad-soft:#3A1B19;--warn:#E5A94B;--warn-soft:#3A2A10;
-    --l-a1:#5CC793;--l-a2:#55BFD1;--l-b1:#7FA2E8;--l-b2:#A48BDC;
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0B1512;--surface:#13221D;--surface2:#1B2E27;--ink:#E5F0EC;--muted:#93AAA1;--line:#25392F;
-  --accent:#4FBBDA;--accent-ink:#04222B;--accent-soft:#12323C;
-  --good:#4CC38A;--good-soft:#12301F;--bad:#F0837B;--bad-soft:#3A1B19;--warn:#E5A94B;--warn-soft:#3A2A10;
-  --l-a1:#5CC793;--l-a2:#55BFD1;--l-b1:#7FA2E8;--l-b2:#A48BDC;
-  color-scheme:dark;
-}
+
+
 *{box-sizing:border-box}
 html.lock{overflow:hidden}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
