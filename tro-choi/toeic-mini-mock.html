@@ -147,7 +147,7 @@ function renderQuestions() {
     let html = "<p class=\"muted\">Câu " + (qi + 1) + "/20 · " + esc(q.partVi) +
       " · " + esc(q.topic) + "</p>";
     if (q.lines) {
-      html += "<div style=\"background:#f0ede4;border-radius:8px;padding:10px 12px;margin:8px 0\">";
+      html += "<div style=\"background:#f7f5ef;border-radius:8px;padding:10px 12px;margin:8px 0\">";
       q.lines.forEach(l => {
         html += "<p><strong>" + esc(l[0]) + ":</strong> " + esc(l[1]) + "</p>";
       });
@@ -173,7 +173,7 @@ function tick() {
   timeLeft--;
   const t = $("#timer");
   t.textContent = fmt(Math.max(0, timeLeft));
-  if (timeLeft <= 5 * 60) t.style.color = "#b3261e";
+  if (timeLeft <= 5 * 60) t.style.color = "#b3382e";
   if (timeLeft <= 0) { stopTimer(); submit(true); }
 }
 function startTimer() {
@@ -214,7 +214,7 @@ function submit(auto) {
     sec.className = "card";
     let html = "<p class=\"muted\">Câu " + (qi + 1) + "/20 · " + esc(q.partVi) + " · " + esc(q.topic) + "</p>";
     if (q.lines) {
-      html += "<div style=\"background:#f0ede4;border-radius:8px;padding:10px 12px;margin:8px 0\">";
+      html += "<div style=\"background:#f7f5ef;border-radius:8px;padding:10px 12px;margin:8px 0\">";
       q.lines.forEach(l => {
         html += "<p><strong>" + esc(l[0]) + ":</strong> " + esc(l[1]) + "</p>";
       });
@@ -223,15 +223,15 @@ function submit(auto) {
     html += "<p style=\"font-weight:700\">" + esc(q.prompt) + "</p><ul>";
     d.options.forEach((opt, oi) => {
       let mark = "";
-      if (oi === d.correctIdx) mark = " — <strong style=\"color:#1d7a3d\">Đáp án đúng</strong>";
-      else if (oi === ch) mark = " — <strong style=\"color:#b3261e\">Bạn chọn (sai)</strong>";
+      if (oi === d.correctIdx) mark = " — <strong style=\"color:#1a7f4b\">Đáp án đúng</strong>";
+      else if (oi === ch) mark = " — <strong style=\"color:#b3382e\">Bạn chọn (sai)</strong>";
       html += "<li>" + String.fromCharCode(65 + oi) + ". " + esc(opt) + mark + "</li>";
     });
     html += "</ul>";
     html += "<p>" + (ch === null
       ? "<strong>Bạn chưa trả lời câu này.</strong>"
-      : ok ? "<strong style=\"color:#1d7a3d\">Bạn trả lời đúng.</strong>"
-           : "<strong style=\"color:#b3261e\">Bạn trả lời sai.</strong>") + "</p>";
+      : ok ? "<strong style=\"color:#1a7f4b\">Bạn trả lời đúng.</strong>"
+           : "<strong style=\"color:#b3382e\">Bạn trả lời sai.</strong>") + "</p>";
     if (q.exp) html += "<p class=\"muted\">Giải thích: " + esc(q.exp) + "</p>";
     sec.innerHTML = html;
     review.appendChild(sec);

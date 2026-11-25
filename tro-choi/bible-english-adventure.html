@@ -814,7 +814,7 @@ function vFinish(){const u=UNITS[view.u];const all=unitDone(u.id);const nextU=UN
  '<blockquote class="card verse-card" style="margin:8px 0;text-align:left;max-width:460px">'+h(u.mv.text)+'<cite>'+h(u.mv.ref)+'</cite></blockquote>'+
  '<div class="stack" style="width:100%;max-width:360px">'+(all&&nextU?'<button class="btn primary block" data-act="unit" data-arg="'+(view.u+1)+'">Next: Unit '+nextU.id+' · '+h(nextU.title)+icon("next")+'</button>':'')+'<button class="btn block" data-act="game" data-arg="match">'+icon("games")+'Review these words in a game</button><button class="btn ghost block" data-act="go" data-arg="home">Back to home</button></div></div></div>'}
 function confetti(){const c=document.createElement("canvas");c.className="confetti";document.body.appendChild(c);const x=c.getContext("2d");const W_=c.width=innerWidth,H_=c.height=innerHeight;
- const cs=getComputedStyle(document.documentElement);const cols=["--accent","--gold","--good"].map(v=>cs.getPropertyValue(v).trim()||"#1d7469");
+ const cs=getComputedStyle(document.documentElement);const cols=["--accent","--gold","--good"].map(v=>cs.getPropertyValue(v).trim()||"#0e7c6b");
  const ps=Array.from({length:90},()=>({x:Math.random()*W_,y:-20-Math.random()*H_*.5,vx:(Math.random()-.5)*2,vy:2+Math.random()*3,r:Math.random()*6,s:4+Math.random()*5,c:cols[Math.floor(Math.random()*3)]}));
  let t=0;(function f(){x.clearRect(0,0,W_,H_);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.r+=.1;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);x.restore()});if(++t<160)requestAnimationFrame(f);else c.remove()})()}
 

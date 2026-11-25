@@ -815,7 +815,7 @@ const DAY = 86400000;
 
 const ALL = LESSONS.concat(PE);
 const byCode = c => ALL.find(l => l.code === c);
-const FILE_COLORS = ['#FF6A2B','#2C86F0','#0FA37A','#E6457A','#E0A100','#7458F2','#0B9BB0','#D9582B','#3D6BE0','#C23B7A'];
+const FILE_COLORS = ['#b3382e','#2f6da3','#0e7c6b','#7c2128','#7a5200','#6d4a8f','#0e7c6b','#b3382e','#2f6da3','#7c2128'];
 const fileColor = l => l.file === 'PE' ? 'var(--violet)' : FILE_COLORS[(l.file-1)%10];
 const FILE_NAMES = {1:'Food & family',2:'Money & change',3:'Travel & people',4:'Manners & ability',5:'Sports & relationships',6:'Movies & the body',7:'School & home',8:'Shopping & work',9:'Luck & technology',10:'Icons & crime'};
 
@@ -935,21 +935,21 @@ const IC = {
 
 /* ============ modes ============ */
 const MODES = [
-  {id:'flash', n:'Thẻ từ vựng', e:'Flashcards', skill:'vocab', c:'#FF6A2B', ic:'cards', need:'v'},
-  {id:'match', n:'Ghép đôi', e:'Match pairs', skill:'vocab', c:'#E6457A', ic:'match', need:'v'},
-  {id:'rush', n:'Đua tốc độ', e:'Word Rush · 60s', skill:'vocab', c:'#E0A100', ic:'bolt', need:'v'},
-  {id:'spell', n:'Nghe & viết từ', e:'Listen & Spell', skill:'listening', c:'#0B9BB0', ic:'ear', need:'spell'},
-  {id:'gram', n:'Thử thách ngữ pháp', e:'Grammar Hearts', skill:'grammar', c:'#7458F2', ic:'heart', need:'g'},
-  {id:'order', n:'Xếp câu', e:'Sentence Builder', skill:'grammar', c:'#3D6BE0', ic:'puzzle', need:'u'},
-  {id:'read', n:'Đọc hiểu', e:'Reading', skill:'reading', c:'#0FA37A', ic:'book', need:'r'},
-  {id:'listen', n:'Nghe hiểu', e:'Listening', skill:'listening', c:'#2C86F0', ic:'headph', need:'l'},
-  {id:'speak', n:'Luyện nói', e:'Speaking', skill:'speaking', c:'#D9582B', ic:'mic', need:'s'},
-  {id:'write', n:'Luyện viết', e:'Writing', skill:'writing', c:'#C23B7A', ic:'pen', need:'w'}
+  {id:'flash', n:'Thẻ từ vựng', e:'Flashcards', skill:'vocab', c:'#b3382e', ic:'cards', need:'v'},
+  {id:'match', n:'Ghép đôi', e:'Match pairs', skill:'vocab', c:'#7c2128', ic:'match', need:'v'},
+  {id:'rush', n:'Đua tốc độ', e:'Word Rush · 60s', skill:'vocab', c:'#7a5200', ic:'bolt', need:'v'},
+  {id:'spell', n:'Nghe & viết từ', e:'Listen & Spell', skill:'listening', c:'#0e7c6b', ic:'ear', need:'spell'},
+  {id:'gram', n:'Thử thách ngữ pháp', e:'Grammar Hearts', skill:'grammar', c:'#6d4a8f', ic:'heart', need:'g'},
+  {id:'order', n:'Xếp câu', e:'Sentence Builder', skill:'grammar', c:'#2f6da3', ic:'puzzle', need:'u'},
+  {id:'read', n:'Đọc hiểu', e:'Reading', skill:'reading', c:'#0e7c6b', ic:'book', need:'r'},
+  {id:'listen', n:'Nghe hiểu', e:'Listening', skill:'listening', c:'#2f6da3', ic:'headph', need:'l'},
+  {id:'speak', n:'Luyện nói', e:'Speaking', skill:'speaking', c:'#b3382e', ic:'mic', need:'s'},
+  {id:'write', n:'Luyện viết', e:'Writing', skill:'writing', c:'#7c2128', ic:'pen', need:'w'}
 ];
 const SKILLS = [
-  {id:'vocab', n:'Từ vựng', c:'#FF6A2B'},{id:'grammar', n:'Ngữ pháp', c:'#7458F2'},
-  {id:'listening', n:'Nghe', c:'#2C86F0'},{id:'speaking', n:'Nói', c:'#D9582B'},
-  {id:'reading', n:'Đọc', c:'#0FA37A'},{id:'writing', n:'Viết', c:'#C23B7A'}
+  {id:'vocab', n:'Từ vựng', c:'#b3382e'},{id:'grammar', n:'Ngữ pháp', c:'#6d4a8f'},
+  {id:'listening', n:'Nghe', c:'#2f6da3'},{id:'speaking', n:'Nói', c:'#b3382e'},
+  {id:'reading', n:'Đọc', c:'#0e7c6b'},{id:'writing', n:'Viết', c:'#7c2128'}
 ];
 const modesFor = l => MODES.filter(m => m.need === 'spell' ? (l.file !== 'PE' && l.v) : !!l[m.need]);
 function mastery(l){ const ms = modesFor(l); return Math.round(ms.reduce((a,m) => a + (S.best[l.code+':'+m.id]||0), 0) / ms.length); }
@@ -989,7 +989,7 @@ function confetti(){
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const cv = $('#confetti'), cx = cv.getContext('2d');
   cv.width = innerWidth; cv.height = innerHeight;
-  const cols = ['#FF6A2B','#FFB81F','#0FA37A','#2C86F0','#E6457A','#7458F2'];
+  const cols = ['#b3382e','#7a5200','#0e7c6b','#2f6da3','#7c2128','#6d4a8f'];
   const P = Array.from({length:140}, () => ({x:innerWidth/2 + (Math.random()-.5)*120, y:innerHeight*0.35, vx:(Math.random()-.5)*14, vy:-Math.random()*14-4, s:Math.random()*7+4, r:Math.random()*6, vr:(Math.random()-.5)*.3, c:cols[Math.floor(Math.random()*cols.length)]}));
   let f = 0;
   (function loop(){
@@ -1484,7 +1484,7 @@ function startReview(keys){
   stopAll(); V.game = 'review'; V.lesson = null; scrollTo(0,0);
   const qs = keys.map(reviewQ).filter(Boolean);
   if (!qs.length) { V.game = null; toast('Không có mục nào để ôn.'); return render(); }
-  const G = frame('Ôn tập thông minh · '+qs.length+' mục', '#E6457A', () => { stopAll(); V.game = null; go('review'); });
+  const G = frame('Ôn tập thông minh · '+qs.length+' mục', '#7c2128', () => { stopAll(); V.game = null; go('review'); });
   runMCQ(G, qs, {review:true}, (r, n) => finish({key:'review', noBest:true, pct:r/n*100, xp:r*3+5, note:'Đúng '+r+'/'+n+'. Mục trả lời đúng sẽ quay lại sau vài ngày; mục sai sẽ gặp lại sớm.', again:() => { const d = dueItems(); d.length ? startReview(d.slice(0,15)) : go('review'); }}));
 }
 function renderReview(m){

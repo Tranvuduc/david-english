@@ -1712,8 +1712,8 @@ const today=()=>ymd(new Date());
 const yesterday=()=>ymd(new Date(Date.now()-DAY));
 const LETTERS='ABCD';
 const ICON={
- play:'<svg viewBox="0 0 24 24" fill="#fff" stroke="#0A0C22" stroke-width="2" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>',
- say:'<svg viewBox="0 0 24 24" fill="#0A0C22"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 8.5a5 5 0 0 1 0 7" fill="none" stroke="#0A0C22" stroke-width="2.4" stroke-linecap="round"/></svg>',
+ play:'<svg viewBox="0 0 24 24" fill="#fff" stroke="#0c2a50" stroke-width="2" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>',
+ say:'<svg viewBox="0 0 24 24" fill="#0c2a50"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 8.5a5 5 0 0 1 0 7" fill="none" stroke="#0c2a50" stroke-width="2.4" stroke-linecap="round"/></svg>',
  on:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg>',
  off:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M17 9l5 6M22 9l-5 6"/></svg>'
 };
@@ -1776,7 +1776,7 @@ function sayW(id){const w=WMAP[id];if(w)speak(w.w)}
 
 /* ---- fx ---- */
 const fx=$('#fx'),cx=fx.getContext('2d');let bits=[],raf=0;
-function confetti(n=120){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const r=devicePixelRatio||1;fx.width=innerWidth*r;fx.height=innerHeight*r;const cols=['#FFCC33','#FF4F9A','#35C4F0','#9BE22E','#FF7A2F','#8C6BFF'];for(let i=0;i<n;i++)bits.push({x:fx.width/2+(Math.random()-.5)*fx.width*.4,y:fx.height*.38,vx:(Math.random()-.5)*18*r,vy:(-Math.random()*17-5)*r,s:(7+Math.random()*8)*r,c:cols[i%6],a:Math.random()*6,va:(Math.random()-.5)*.4,life:0,g:.5*r});if(!raf)raf=requestAnimationFrame(tick)}
+function confetti(n=120){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const r=devicePixelRatio||1;fx.width=innerWidth*r;fx.height=innerHeight*r;const cols=['#7a5200','#7c2128','#2f6da3','#177245','#b3382e','#6d4a8f'];for(let i=0;i<n;i++)bits.push({x:fx.width/2+(Math.random()-.5)*fx.width*.4,y:fx.height*.38,vx:(Math.random()-.5)*18*r,vy:(-Math.random()*17-5)*r,s:(7+Math.random()*8)*r,c:cols[i%6],a:Math.random()*6,va:(Math.random()-.5)*.4,life:0,g:.5*r});if(!raf)raf=requestAnimationFrame(tick)}
 function tick(){cx.clearRect(0,0,fx.width,fx.height);bits=bits.filter(p=>p.life<170&&p.y<fx.height+50);bits.forEach(p=>{p.life++;p.vy+=p.g;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.a+=p.va;cx.save();cx.translate(p.x,p.y);cx.rotate(p.a);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);cx.restore()});raf=bits.length?requestAnimationFrame(tick):0}
 function toast(msg,cls=''){const d=document.createElement('div');d.className='toast '+cls;d.textContent=msg;$('#toasts').appendChild(d);setTimeout(()=>d.remove(),2300)}
 function buzz(ms){try{navigator.vibrate&&navigator.vibrate(ms)}catch(e){}}
@@ -1910,7 +1910,7 @@ VIEWS.home=()=>{
       <p style="color:var(--line);font-weight:600;margin-top:6px">${n<LEVELS.length?`Còn ${nx-S.xp} XP nữa để thăng chức lên <b>${titleOf(n+1)}</b>.`:'Bạn đã lên đỉnh công ty. Giữ vững chuỗi ngày học nhé!'}</p>
       <div class="row" style="margin-top:12px"><span class="chip" style="background:#fff">🔥 Chuỗi ${streakNow()} ngày</span><span class="chip" style="background:#fff">🏅 ${Object.keys(S.badges).length}/${BADGES.length} huy hiệu</span></div>
     </div>
-    <div class="ring" aria-label="Mục tiêu hôm nay ${g} trên ${goal} XP"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="rgba(10,12,34,.15)" stroke-width="11"/><circle cx="50" cy="50" r="44" fill="none" stroke="#FF4F9A" stroke-width="11" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct)}"/></svg><b><span>${g}<small>/ ${goal} XP<br>HÔM NAY</small></span></b></div>
+    <div class="ring" aria-label="Mục tiêu hôm nay ${g} trên ${goal} XP"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="rgba(10,12,34,.15)" stroke-width="11"/><circle cx="50" cy="50" r="44" fill="none" stroke="#7c2128" stroke-width="11" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct)}"/></svg><b><span>${g}<small>/ ${goal} XP<br>HÔM NAY</small></span></b></div>
   </section>
   <div class="grid2" style="margin-top:18px">
     <button class="btn big c-pink" onclick="startMix()">🎲 Trộn mỗi ngày</button>
@@ -2461,4 +2461,4 @@ VIEWS.examrun=()=>{
   }
 })();
 </script>
-</body></html>
+<style>.brandmark{color:#c9d6e6}.brandmark b{color:#fff}.logo span{color:#fff}.logo span:nth-child(n+6){color:#e8a020}.hero h1,.hero .lv{color:#0c2a50}</style></body></html>

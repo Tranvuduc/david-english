@@ -370,21 +370,21 @@ read2:{t:"It's Saturday morning and the weather is beautiful. My family is at th
 ];
 EXTRA.forEach((x,i)=>{const F=FILES[i];F.gram=F.gram.concat(x.gram);F.sent=F.sent.concat(x.sent);F.rw=F.rw.concat(x.rw);F.talk=F.talk.concat(x.talk);F.reads=[F.read,x.read2];});
 
-const COLORS=[["#FF4F8B","#fff"],["#FFB627","#231942"],["#17C3B2","#231942"],["#3A86FF","#fff"],["#8338EC","#fff"],["#FB5607","#fff"]];
+const COLORS=[["#7c2128","#fff"],["#7a5200","#0c2a50"],["#0e7c6b","#0c2a50"],["#2f6da3","#fff"],["#6d4a8f","#fff"],["#b3382e","#fff"]];
 const GAMES=[
-{id:"flash",sec:"Vocabulary",icon:"🃏",name:"Thẻ từ vựng",desc:"Lật thẻ, nghe và học từng từ",c:"#FFE3EE"},
-{id:"match",sec:"Vocabulary",icon:"🧩",name:"Nối từ",desc:"Nối mỗi từ với nghĩa của nó",c:"#FFF0C9"},
-{id:"pick",sec:"Vocabulary",icon:"🖼️",name:"Nhìn hình chọn từ",desc:"Xem hình, chọn từ tiếng Anh đúng",c:"#D4F6F2"},
-{id:"ear",sec:"Vocabulary",icon:"👂",name:"Nghe và chọn",desc:"Nghe một từ, chạm vào từ đó",c:"#DCE9FF"},
-{id:"spell",sec:"Vocabulary",icon:"🔤",name:"Đánh vần",desc:"Ghép chữ cái thành từ",c:"#EBDDFF"},
-{id:"gap",sec:"Grammar",icon:"✏️",name:"Điền chỗ trống",desc:"Chọn từ còn thiếu trong câu",c:"#FFE3EE"},
-{id:"build",sec:"Grammar",icon:"🧱",name:"Xếp câu",desc:"Sắp xếp các từ thành câu đúng",c:"#FFF0C9"},
-{id:"fix",sec:"Grammar",icon:"🕵️",name:"Đúng hay sai?",desc:"Tìm lỗi ngữ pháp trong câu",c:"#D4F6F2"},
-{id:"hear",sec:"Skills",icon:"🎧",name:"Nghe",desc:"Nghe một câu, chọn câu bạn nghe được",c:"#DCE9FF"},
-{id:"read",sec:"Skills",icon:"📖",name:"Đọc",desc:"Đọc đoạn văn ngắn, chọn đúng hoặc sai",c:"#EBDDFF"},
-{id:"talk",sec:"Skills",icon:"💬",name:"Nói",desc:"Chọn câu đáp, rồi đọc to câu đó",c:"#FFE3EE"},
-{id:"write",sec:"Skills",icon:"⌨️",name:"Viết",desc:"Gõ lại câu bạn nghe được",c:"#FFF0C9"},
-{id:"boss",sec:"Challenge",icon:"👾",name:"Đấu Trùm",desc:"Bài kiểm tra tổng hợp cả File, có 3 mạng",c:"#D4F6F2"}];
+{id:"flash",sec:"Vocabulary",icon:"🃏",name:"Thẻ từ vựng",desc:"Lật thẻ, nghe và học từng từ",c:"#f9e9ea"},
+{id:"match",sec:"Vocabulary",icon:"🧩",name:"Nối từ",desc:"Nối mỗi từ với nghĩa của nó",c:"#fdf3d7"},
+{id:"pick",sec:"Vocabulary",icon:"🖼️",name:"Nhìn hình chọn từ",desc:"Xem hình, chọn từ tiếng Anh đúng",c:"#e3f2ef"},
+{id:"ear",sec:"Vocabulary",icon:"👂",name:"Nghe và chọn",desc:"Nghe một từ, chạm vào từ đó",c:"#e7f0f8"},
+{id:"spell",sec:"Vocabulary",icon:"🔤",name:"Đánh vần",desc:"Ghép chữ cái thành từ",c:"#efe9f5"},
+{id:"gap",sec:"Grammar",icon:"✏️",name:"Điền chỗ trống",desc:"Chọn từ còn thiếu trong câu",c:"#f9e9ea"},
+{id:"build",sec:"Grammar",icon:"🧱",name:"Xếp câu",desc:"Sắp xếp các từ thành câu đúng",c:"#fdf3d7"},
+{id:"fix",sec:"Grammar",icon:"🕵️",name:"Đúng hay sai?",desc:"Tìm lỗi ngữ pháp trong câu",c:"#e3f2ef"},
+{id:"hear",sec:"Skills",icon:"🎧",name:"Nghe",desc:"Nghe một câu, chọn câu bạn nghe được",c:"#e7f0f8"},
+{id:"read",sec:"Skills",icon:"📖",name:"Đọc",desc:"Đọc đoạn văn ngắn, chọn đúng hoặc sai",c:"#efe9f5"},
+{id:"talk",sec:"Skills",icon:"💬",name:"Nói",desc:"Chọn câu đáp, rồi đọc to câu đó",c:"#f9e9ea"},
+{id:"write",sec:"Skills",icon:"⌨️",name:"Viết",desc:"Gõ lại câu bạn nghe được",c:"#fdf3d7"},
+{id:"boss",sec:"Challenge",icon:"👾",name:"Đấu Trùm",desc:"Bài kiểm tra tổng hợp cả File, có 3 mạng",c:"#e3f2ef"}];
 const SECS={Vocabulary:"🔤",Grammar:"🧠",Skills:"🎯",Challenge:"🏆"};
 const SECVI={Vocabulary:"Từ vựng",Grammar:"Ngữ pháp",Skills:"Kỹ năng",Challenge:"Thử thách"};
 const PRAISE=["Great!","Awesome!","Nice one!","Perfect!","Super!","You got it!","Brilliant!","Excellent!"];
@@ -778,7 +778,7 @@ function confetti(){
   if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   const cv=$("#fx");cv.hidden=false;const ctx=cv.getContext("2d");
   const W=cv.width=innerWidth,H=cv.height=innerHeight;
-  const cols=["#FF4F8B","#FFB627","#17C3B2","#3A86FF","#8338EC","#FB5607"];
+  const cols=["#7c2128","#7a5200","#0e7c6b","#2f6da3","#6d4a8f","#b3382e"];
   const ps=Array.from({length:140},()=>({x:W/2+(Math.random()-.5)*W*.3,y:H*.35,vx:(Math.random()-.5)*12,vy:-Math.random()*13-4,s:6+Math.random()*7,r:Math.random()*6,vr:(Math.random()-.5)*.3,c:cols[Math.floor(Math.random()*6)]}));
   let t=0;
   (function step(){
@@ -902,7 +902,7 @@ function startTest(idx,key){
     store.xp+=total;const t=today();
     if(store.last!==t){const y=new Date(Date.now()-864e5).toLocaleDateString("en-CA");store.streak=store.last===y?(store.streak||0)+1:1;store.last=t;}
     save();chips();
-    const band=total>=85?["Xuất sắc 🏆","#12B76A"]:total>=70?["Khá 🎉","#3A86FF"]:total>=50?["Đạt 👍","#FFB627"]:["Chưa đạt 💪","#F0384A"];
+    const band=total>=85?["Xuất sắc 🏆","#1a7f4b"]:total>=70?["Khá 🎉","#2f6da3"]:total>=50?["Đạt 👍","#7a5200"]:["Chưa đạt 💪","#b3382e"];
     total>=50?sfx.win():sfx.lose();if(total>=70)confetti();
     const weak=Object.keys(SECT).filter(k=>secPts[k]/secMax[k]<0.6);
     const tips={G:"Ôn lại Gap Fill và Right or Wrong? của File này.",V:"Ôn Flashcards và Spell It, chú ý chính tả.",P:"Nghe lại từ trong Flashcards, chú ý âm nào được đọc mạnh.",R:"Làm lại trò Đọc, đọc kỹ từng câu trước khi chọn.",L:"Luyện Nghe và Viết (chính tả) mỗi ngày.",W:"Dùng đúng cấu trúc ngữ pháp của File và viết đủ 25 từ trở lên."};

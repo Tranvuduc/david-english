@@ -621,7 +621,7 @@ function progress(){
   <p class="note">Accuracy in each game per unit. Flashcards show the share of words mastered. Tap a unit name to practise it.</p>
   <div class="heat"><table><thead><tr><th>Unit</th>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>
   ${DATA.map(u=>`<tr><th><button class="tab" style="padding:2px 4px;color:var(--ink)" data-u="${u.n}">${u.n} ${esc(u.t)}</button></th>${GAMES.map(g=>{const p=unitGamePct(u.n,g.id);const s=P.stats[u.n+'|'+g.id];const has=g.id==='flash'?p>0:!!(s&&s.t);
-    const bg=!has?'':p>=80?'var(--good)':p>=60?'var(--gold)':'var(--coral)';return `<td style="${bg?'background:'+bg+';color:'+(p>=60&&p<80?'#1A2140':'#fff'):''}">${has?p+'%':'–'}</td>`}).join('')}</tr>`).join('')}
+    const bg=!has?'':p>=80?'var(--good)':p>=60?'var(--gold)':'var(--coral)';return `<td style="${bg?'background:'+bg+';color:'+(p>=60&&p<80?'#0c2a50':'#fff'):''}">${has?p+'%':'–'}</td>`}).join('')}</tr>`).join('')}
   </tbody></table></div>
   <h2 class="sec">Exam readiness</h2>
   <div class="heat" style="min-width:0"><div class="pbars">${Object.keys(PARTS).map(p=>{const s=P.ex&&P.ex[p];const v=s&&s.t?Math.round(100*s.c/s.t):0;return `<div class="pbar"><span>TOEIC ${PARTS[p]}</span><div class="track"><i style="width:${v}%;background:${v>=80?'var(--good)':v>=60?'var(--gold)':'var(--coral)'}"></i></div><b class="num">${s&&s.t?v+'% · '+s.t:'–'}</b></div>`}).join('')}</div>
@@ -651,7 +651,7 @@ function progress(){
 function confetti(n=120){
   if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   const c=$('#confetti'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;
-  const cols=['#F2542D','#3B49D6','#0E9E8C','#E89B00','#D63C78','#2E9E4F'];
+  const cols=['#b3382e','#444a8a','#0e7c6b','#7a5200','#7c2128','#177245'];
   const ps=Array.from({length:n},()=>({x:c.width/2+(Math.random()-.5)*c.width*.4,y:c.height*.35,vx:(Math.random()-.5)*14,vy:-Math.random()*14-4,r:Math.random()*6+4,c:cols[Math.random()*6|0],a:Math.random()*6,s:(Math.random()-.5)*.3}));
   let f=0;(function loop(){x.clearRect(0,0,c.width,c.height);ps.forEach(p=>{p.vy+=.35;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.a+=p.s;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;x.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);x.restore()});if(++f<150)requestAnimationFrame(loop);else x.clearRect(0,0,c.width,c.height)})();
 }

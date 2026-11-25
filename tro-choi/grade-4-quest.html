@@ -345,7 +345,7 @@ const ICON = {
 function renderSoundBtn(){ $("#sound").innerHTML = state.sound ? ICON.on : ICON.off; }
 $("#sound").onclick = () => { state.sound = !state.sound; LS.set("sound", state.sound); renderSoundBtn(); if(state.sound) sfx.tap(); };
 
-const UCOL = ["#2B6CB0","#FF6B6B","#4DABF7","#F783AC","#51CF66","#FFA94D","#9775FA","#22B573","#F4574B","#3BC9DB","#FFD43B","#845EF7","#FF922B","#20C997","#E64980","#748FFC","#82C91E","#FAB005","#5C7CFA","#FF8787","#15AABF"];
+const UCOL = ["#2f6da3","#b3382e","#2f6da3","#7c2128","#177245","#b3382e","#6d4a8f","#0e7c6b","#b3382e","#0e7c6b","#7a5200","#6d4a8f","#b3382e","#0e7c6b","#7c2128","#444a8a","#177245","#7a5200","#444a8a","#b3382e","#0e7c6b"];
 function pop(text, el){
   try{ const r = el.getBoundingClientRect(); const p = document.createElement("div"); p.className = "pop"; p.textContent = text;
     p.style.left = (r.left + r.width/2) + "px"; p.style.top = (r.top) + "px"; document.body.appendChild(p); setTimeout(()=>p.remove(), 1000); }catch(e){}
@@ -355,7 +355,7 @@ function confetti(){
   if(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const cv = document.getElementById("confetti"), ctx = cv.getContext("2d");
   cv.width = innerWidth; cv.height = innerHeight;
-  const C = ["#FF5A5F","#FFD23F","#16A34A","#0EA5E9","#7C5CFF","#EC4899","#FF9500"];
+  const C = ["#b3382e","#7a5200","#1a7f4b","#2f6da3","#6d4a8f","#7c2128","#b3382e"];
   const ps = Array.from({length:160}, () => ({x: innerWidth/2 + (Math.random()-.5)*200, y: innerHeight*0.35, vx:(Math.random()-.5)*14, vy: -Math.random()*14-4, s: 5+Math.random()*7, r: Math.random()*6, vr:(Math.random()-.5)*.4, c: C[Math.random()*C.length|0]}));
   let f = 0;
   (function step(){
@@ -402,16 +402,16 @@ const comment = m => m>=9 ? "Xuất sắc!" : m>=8 ? "Giỏi lắm!" : m>=6.5 ? 
 
 /* ---------- games registry ---------- */
 const GAMES = [
-  {id:"mock", c:"#845EF7", name:"Mock Test", tag:"Full exam practice", desc:"A full 5-part practice test — odd one out, grammar, error hunt, reading and word order — just like the real school exam.", icon:'<svg viewBox="0 0 24 24"><path d="M9 2h6l1 4h4v4l-4 1v9a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-9l-4-1V6h4z"/><path d="M9 12l2 2 4-4"/></svg>', run:gameMock},
-  {id:"odd", c:"#FF922B", name:"Odd One Out", tag:"Vocabulary", desc:"Spot the word that doesn't belong in each group of four.", icon:'<svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><rect x="15" y="15" width="6" height="6" rx="1"/></svg>', run:gameOdd},
-  {id:"flash", c:"#FF6B6B", name:"Flashcards", tag:"Learn", desc:"20 cards per round. Flip, listen and sort the words you know.", icon:'<svg viewBox="0 0 24 24"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="M7 3h12a2 2 0 0 1 2 2v10"/></svg>', run:gameFlash},
-  {id:"memory", c:"#2B6CB0", name:"Memory Match", tag:"Vocabulary", desc:"Pair each English word with its Vietnamese meaning.", icon:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>', run:gameMemory},
-  {id:"quiz", c:"#FFA94D", name:"Quiz Blitz", tag:"Grammar + vocab", desc:"10 timed questions. Keep your hearts for bonus points. Keys 1–4.", icon:'<svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>', run:gameQuiz},
-  {id:"fall", c:"#4DABF7", name:"Word Rain", tag:"Arcade", desc:"Catch the English word that matches the meaning before it lands.", icon:'<svg viewBox="0 0 24 24"><path d="M8 3v6M16 6v6M12 12v6M5 20h14"/></svg>', run:gameFall},
-  {id:"scramble", c:"#F783AC", name:"Word Scramble", tag:"Spelling", desc:"Rebuild the word from mixed-up letters.", icon:'<svg viewBox="0 0 24 24"><path d="M4 7h4l8 10h4M4 17h4l2.5-3M14 10l2-3h4M18 4l2 3-2 3M18 14l2 3-2 3"/></svg>', run:gameScramble},
-  {id:"form", c:"#51CF66", name:"Word Form", tag:"Word building", desc:"Type the right form: responsible, pollution, equally…", icon:'<svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg>', run:gameForm},
-  {id:"order", c:"#9775FA", name:"Sentence Builder", tag:"Grammar", desc:"Tap the word tiles into the right order.", icon:'<svg viewBox="0 0 24 24"><rect x="2" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/><rect x="16" y="9" width="6" height="6" rx="1"/></svg>', run:gameOrder},
-  {id:"error", c:"#FFD43B", name:"Error Hunter", tag:"Accuracy", desc:"Find the underlined part that is wrong.", icon:'<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4M8.5 8.5l5 5M13.5 8.5l-5 5"/></svg>', run:gameError},
+  {id:"mock", c:"#6d4a8f", name:"Mock Test", tag:"Full exam practice", desc:"A full 5-part practice test — odd one out, grammar, error hunt, reading and word order — just like the real school exam.", icon:'<svg viewBox="0 0 24 24"><path d="M9 2h6l1 4h4v4l-4 1v9a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-9l-4-1V6h4z"/><path d="M9 12l2 2 4-4"/></svg>', run:gameMock},
+  {id:"odd", c:"#b3382e", name:"Odd One Out", tag:"Vocabulary", desc:"Spot the word that doesn't belong in each group of four.", icon:'<svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><rect x="15" y="15" width="6" height="6" rx="1"/></svg>', run:gameOdd},
+  {id:"flash", c:"#b3382e", name:"Flashcards", tag:"Learn", desc:"20 cards per round. Flip, listen and sort the words you know.", icon:'<svg viewBox="0 0 24 24"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="M7 3h12a2 2 0 0 1 2 2v10"/></svg>', run:gameFlash},
+  {id:"memory", c:"#2f6da3", name:"Memory Match", tag:"Vocabulary", desc:"Pair each English word with its Vietnamese meaning.", icon:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>', run:gameMemory},
+  {id:"quiz", c:"#b3382e", name:"Quiz Blitz", tag:"Grammar + vocab", desc:"10 timed questions. Keep your hearts for bonus points. Keys 1–4.", icon:'<svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>', run:gameQuiz},
+  {id:"fall", c:"#2f6da3", name:"Word Rain", tag:"Arcade", desc:"Catch the English word that matches the meaning before it lands.", icon:'<svg viewBox="0 0 24 24"><path d="M8 3v6M16 6v6M12 12v6M5 20h14"/></svg>', run:gameFall},
+  {id:"scramble", c:"#7c2128", name:"Word Scramble", tag:"Spelling", desc:"Rebuild the word from mixed-up letters.", icon:'<svg viewBox="0 0 24 24"><path d="M4 7h4l8 10h4M4 17h4l2.5-3M14 10l2-3h4M18 4l2 3-2 3M18 14l2 3-2 3"/></svg>', run:gameScramble},
+  {id:"form", c:"#177245", name:"Word Form", tag:"Word building", desc:"Type the right form: responsible, pollution, equally…", icon:'<svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg>', run:gameForm},
+  {id:"order", c:"#6d4a8f", name:"Sentence Builder", tag:"Grammar", desc:"Tap the word tiles into the right order.", icon:'<svg viewBox="0 0 24 24"><rect x="2" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/><rect x="16" y="9" width="6" height="6" rx="1"/></svg>', run:gameOrder},
+  {id:"error", c:"#7a5200", name:"Error Hunter", tag:"Accuracy", desc:"Find the underlined part that is wrong.", icon:'<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4M8.5 8.5l5 5M13.5 8.5l-5 5"/></svg>', run:gameError},
 ];
 
 /* ---------- home ---------- */
@@ -762,7 +762,7 @@ function gameForm(stage, hud){
     if(i >= items.length){ finish(stage, {correct, total: items.length, xp: correct*12 - hints*3, review}); return; }
     const it = items[i]; const ans = it.a.trim(); let hintN = 0, done = false, tries = 0;
     hud.innerHTML = `<span class="pill">Item <b>${i+1}</b>/${items.length}</span><span class="pill">Correct <b>${correct}</b></span>`;
-    const q = it.q.replace(/\(([^)]+)\)\s*$/, '<mark style="background:var(--hl);color:#1F2433;border-radius:4px;padding:0 5px">$1</mark>');
+    const q = it.q.replace(/\(([^)]+)\)\s*$/, '<mark style="background:var(--hl);color:#1d2733;border-radius:4px;padding:0 5px">$1</mark>');
     stage.innerHTML = `<div class="panel">
       <div class="progress"><i style="width:${i/items.length*100}%"></i></div>
       <p class="tag">${it.u? "Unit "+it.u : "Final review"}</p>
@@ -1114,4 +1114,4 @@ renderSoundBtn(); renderStats(); home();
   }
 })();
 </script>
-</body></html>
+<style>.brand h1 .rb i{color:#0c2a50!important}</style></body></html>
