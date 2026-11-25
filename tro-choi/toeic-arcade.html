@@ -363,7 +363,7 @@ venue|n|địa điểm tổ chức|The venue can hold up to 300 guests.
 confirm|v|xác nhận|Please confirm your attendance by e-mail.
 address|v|giải quyết (vấn đề); phát biểu|The CEO will address the staff at noon.
 unanimous|adj|nhất trí hoàn toàn|The board's decision was unanimous.`},
-{id:'fin',name:'Finance',vi:'Tài chính',c:'var(--sun)',ic:'💰',raw:`
+{id:'fin',name:'Finance',vi:'Tài chính',c:'#7a5200',ic:'💰',raw:`
 budget|n|ngân sách|The project is still within budget.
 invoice|n|hóa đơn|The invoice must be paid within 30 days.
 expense|n|chi phí, khoản chi|Every travel expense must be approved in advance.
@@ -489,7 +489,7 @@ passenger|n|hành khách|Every passenger should arrive two hours early.
 customs|n|hải quan|You must go through customs after landing.
 excursion|n|chuyến tham quan ngắn|The hotel offers a boat excursion.
 connecting flight|n|chuyến bay nối chuyến|I missed my connecting flight in Dubai.`},
-{id:'dine',name:'Dining & Events',vi:'Ăn uống & Sự kiện',c:'var(--sun)',ic:'🍽️',raw:`
+{id:'dine',name:'Dining & Events',vi:'Ăn uống & Sự kiện',c:'#7a5200',ic:'🍽️',raw:`
 cater|v|cung cấp đồ ăn cho tiệc|A local restaurant will cater the party.
 caterer|n|nhà cung cấp dịch vụ ăn uống|The caterer arrived early to set up.
 banquet|n|tiệc lớn|The awards banquet is on Saturday night.
@@ -859,7 +859,7 @@ dental|adj|thuộc nha khoa|The plan covers dental care.
 recover|v|hồi phục|She needs a week to recover.
 precaution|n|biện pháp phòng ngừa|Wear a helmet as a precaution.
 hygiene|n|vệ sinh|Good hygiene is important in the kitchen.`},
-{id:'env',name:'Environment & Energy',vi:'Môi trường & Năng lượng',c:'var(--sun)',ic:'🌱',raw:`
+{id:'env',name:'Environment & Energy',vi:'Môi trường & Năng lượng',c:'#7a5200',ic:'🌱',raw:`
 environment|n|môi trường|We must protect the environment.
 recycle|v|tái chế|Please recycle paper and plastic.
 renewable|adj|tái tạo được|Solar power is a renewable energy source.
@@ -971,7 +971,7 @@ inform|v|thông báo|Please inform us of any changes.`}
 
 /* Ngữ pháp: q = [câu, [đáp án đúng, nhiễu1, nhiễu2, nhiễu3], giải thích]. Đáp án đúng luôn đứng đầu; khi chơi sẽ được xáo trộn. */
 const GRAMMAR=[
-{id:'wf',name:'Word Forms',vi:'Từ loại',c:'var(--sun)',rule:'Nhìn các từ đứng cạnh chỗ trống. Sau a/the/his/its hoặc trước "of" → danh từ. Trước danh từ → tính từ. Bổ nghĩa cho động từ, tính từ hoặc cả câu → trạng từ (-ly). Sau to / will / can / must → động từ nguyên mẫu.',tip:'Nếu 4 đáp án cùng một gốc từ (analyze, analysis, analytical…), thường bạn không cần đọc hết câu.',ex:'The staff responded <b>quickly</b> (trạng từ) to the <b>urgent</b> (tính từ) <b>request</b> (danh từ).',qs:[
+{id:'wf',name:'Word Forms',vi:'Từ loại',c:'#7a5200',rule:'Nhìn các từ đứng cạnh chỗ trống. Sau a/the/his/its hoặc trước "of" → danh từ. Trước danh từ → tính từ. Bổ nghĩa cho động từ, tính từ hoặc cả câu → trạng từ (-ly). Sau to / will / can / must → động từ nguyên mẫu.',tip:'Nếu 4 đáp án cùng một gốc từ (analyze, analysis, analytical…), thường bạn không cần đọc hết câu.',ex:'The staff responded <b>quickly</b> (trạng từ) to the <b>urgent</b> (tính từ) <b>request</b> (danh từ).',qs:[
 ["Ms. Park's ____ of the budget was very detailed.",["analysis","analyze","analytical","analytically"],"Sau sở hữu cách (Ms. Park's) và trước \"of\" cần một danh từ."],
 ["The staff responded ____ to the customer's request.",["quickly","quick","quickness","quicker"],"Cần trạng từ để bổ nghĩa cho động từ \"responded\"."],
 ["Please make sure the documents are ____ before you submit them.",["complete","completion","completely","completing"],"Sau \"be\" (are) dùng tính từ để mô tả tài liệu."],
@@ -1020,7 +1020,7 @@ const GRAMMAR=[
 ["The package should arrive ____ three business days.",["within","among","since","along"],"within = trong vòng một khoảng thời gian."],
 ["The museum is located ____ the bank and the post office.",["between","among","across","within"],"between + hai địa điểm."],
 ["Ms. Kim has worked here ____ ten years.",["for","since","during","by"],"for + khoảng thời gian."]]},
-{id:'conj',name:'Conjunction vs Preposition',vi:'Liên từ vs Giới từ',c:'var(--sun)',rule:'Liên từ (although, because, while, unless, if) + mệnh đề (chủ ngữ + động từ). Giới từ (despite, in spite of, because of, due to, during) + danh từ hoặc V-ing.',tip:'Xem sau chỗ trống là cụm danh từ hay một mệnh đề đầy đủ.',ex:'<b>Although</b> it rained, … / <b>Despite</b> the rain, …',qs:[
+{id:'conj',name:'Conjunction vs Preposition',vi:'Liên từ vs Giới từ',c:'#7a5200',rule:'Liên từ (although, because, while, unless, if) + mệnh đề (chủ ngữ + động từ). Giới từ (despite, in spite of, because of, due to, during) + danh từ hoặc V-ing.',tip:'Xem sau chỗ trống là cụm danh từ hay một mệnh đề đầy đủ.',ex:'<b>Although</b> it rained, … / <b>Despite</b> the rain, …',qs:[
 ["____ the heavy rain, the event was a success.",["Despite","Although","Even though","However"],"\"the heavy rain\" là cụm danh từ → giới từ."],
 ["____ the flight was delayed, we arrived on time.",["Although","Despite","In spite of","Because of"],"\"the flight was delayed\" là mệnh đề → liên từ."],
 ["The store closed early ____ a power failure.",["because of","because","since","so that"],"Theo sau là cụm danh từ → \"because of\"."],
@@ -1062,7 +1062,7 @@ const GRAMMAR=[
 ["Anyone ____ to attend should contact Ms. Ito.",["wishing","wished","wish","wishes"],"Anyone who wishes → wishing (chủ động)."],
 ["____ in 1990, the company now has 500 employees.",["Founded","Founding","Found","To found"],"Công ty được thành lập (bị động) → V3."],
 ["Please read the ____ instructions carefully.",["attached","attaching","attach","attachment"],"Hướng dẫn được đính kèm (bị động) → tính từ -ed."]]},
-{id:'quant',name:'Quantifiers',vi:'Từ chỉ số lượng',c:'var(--sun)',rule:'each/every + danh từ số ít. many/few/a few + danh từ đếm được số nhiều. much/little/a little + danh từ không đếm được. neither/either = một trong hai. none = không cái nào (trong ba trở lên).',tip:'"a few / a little" = một vài (tích cực). "few / little" = hầu như không (tiêu cực).',ex:'<b>Every</b> employee must wear a badge. There is <b>little</b> time left.',qs:[
+{id:'quant',name:'Quantifiers',vi:'Từ chỉ số lượng',c:'#7a5200',rule:'each/every + danh từ số ít. many/few/a few + danh từ đếm được số nhiều. much/little/a little + danh từ không đếm được. neither/either = một trong hai. none = không cái nào (trong ba trở lên).',tip:'"a few / a little" = một vài (tích cực). "few / little" = hầu như không (tiêu cực).',ex:'<b>Every</b> employee must wear a badge. There is <b>little</b> time left.',qs:[
 ["____ employee must wear a badge.",["Every","All","Most","Many"],"Danh từ số ít (employee) → every."],
 ["There is ____ time left before the deadline.",["little","few","many","a few"],"\"time\" không đếm được → little."],
 ["____ of the participants received a certificate.",["Each","Every","Much","Little"],"\"Each of the + số nhiều\" đúng; không có \"every of\"."],
@@ -1091,7 +1091,7 @@ const GRAMMAR=[
 ["The hotel is ____ located near the airport.",["conveniently","comfortably","eagerly","previously"],"conveniently located = ở vị trí thuận tiện."],
 ["Please ____ from smoking in the building.",["refrain","avoid","prevent","stop"],"refrain from + V-ing = kiềm chế, không làm."],
 ["Employees are ____ for a bonus after one year.",["eligible","available","capable","possible"],"eligible for = đủ điều kiện nhận."]]},
-{id:'art',name:'Articles',vi:'Mạo từ',c:'var(--sun)',rule:'Mạo từ a/an + danh từ đếm được số ít lần đầu nhắc đến. the + thứ đã xác định, duy nhất, hoặc đã nhắc trước đó. Không mạo từ + danh từ số nhiều/không đếm được nói chung, tên riêng, bữa ăn, môn thể thao.',tip:'Thấy "first/last/only/best" hoặc một thứ duy nhất → thường dùng the.',ex:'She is <b>an</b> engineer. <b>The</b> engineer from Seoul will visit us next week.',qs:[
+{id:'art',name:'Articles',vi:'Mạo từ',c:'#7a5200',rule:'Mạo từ a/an + danh từ đếm được số ít lần đầu nhắc đến. the + thứ đã xác định, duy nhất, hoặc đã nhắc trước đó. Không mạo từ + danh từ số nhiều/không đếm được nói chung, tên riêng, bữa ăn, môn thể thao.',tip:'Thấy "first/last/only/best" hoặc một thứ duy nhất → thường dùng the.',ex:'She is <b>an</b> engineer. <b>The</b> engineer from Seoul will visit us next week.',qs:[
 ["Ms. Lee is ____ engineer at our Seoul office.",["an","a","the","—"],"Trước \"engineer\" (âm /e/) dùng \"an\"; đây là lần đầu nhắc, chưa xác định."],
 ["Please send the report to ____ manager before noon.",["the","a","an","—"],"Người quản lý đã xác định (quản lý của bạn) → the."],
 ["We had ____ lunch with our clients yesterday.",["—","a","the","an"],"Bữa ăn nói chung không dùng mạo từ."],
@@ -1126,7 +1126,7 @@ const GRAMMAR=[
 ["They plan to ____ a new branch in Da Nang next year.",["set up","set off","set out","set in"],"Thành lập chi nhánh → set up."],
 ["After the merger, the larger company will ____ the smaller one.",["take over","take up","take in","take on"],"Tiếp quản công ty nhỏ hơn → take over."],
 ["We cannot ____ the launch any longer; the product must ship in May.",["put off","put up","put on","put in"],"Hoãn việc ra mắt → put off."]]},
-{id:'emb',name:'Embedded Questions',vi:'Câu hỏi gián tiếp',c:'var(--sun)',rule:'Câu hỏi gián tiếp: không đảo ngữ, không dùng do/does/did. Dùng: Can you tell me + where/when/how... + chủ ngữ + động từ. Câu hỏi Yes/No → if/whether + chủ ngữ + động từ.',tip:'Sau "Do you know / Could you tell me" luôn là thứ tự chủ ngữ + động từ, không đảo.',ex:'Do you know <b>where the meeting is</b>? (không phải "where is the meeting")',qs:[
+{id:'emb',name:'Embedded Questions',vi:'Câu hỏi gián tiếp',c:'#7a5200',rule:'Câu hỏi gián tiếp: không đảo ngữ, không dùng do/does/did. Dùng: Can you tell me + where/when/how... + chủ ngữ + động từ. Câu hỏi Yes/No → if/whether + chủ ngữ + động từ.',tip:'Sau "Do you know / Could you tell me" luôn là thứ tự chủ ngữ + động từ, không đảo.',ex:'Do you know <b>where the meeting is</b>? (không phải "where is the meeting")',qs:[
 ["Could you tell me ____ the conference room is?",["where","where is","where does","where did"],"Câu hỏi gián tiếp: không đảo → where the conference room is."],
 ["Do you know ____ the manager arrives?",["when","when does","when is","when will"],"Khi nào quản lý đến → when the manager arrives (không đảo, không trợ động từ)."],
 ["I wonder ____ the shipment has arrived.",["whether","whether has","whether does","whether is"],"whether + chủ ngữ + động từ → whether the shipment has arrived."],
@@ -1404,7 +1404,7 @@ const PARTS=[
 {p:1,sec:'Nghe',name:'Photographs',vn:'Mô tả tranh',n:6,c:'var(--sky)',time:'~4 phút',tips:['Trước khi nghe, quét nhanh bức tranh: ai, đang làm gì, ở đâu, có đồ vật gì.','Đoán trước các động từ và danh từ có thể xuất hiện.','Loại bỏ đáp án nhắc đến thứ không có trong tranh.'],traps:'Từ có âm giống nhau (walk/work, copy/coffee). Đúng danh từ nhưng sai động từ. "is being + V3" khi không có ai đang làm hành động đó.'},
 {p:2,sec:'Nghe',name:'Question–Response',vn:'Hỏi – Đáp',n:25,c:'var(--pink)',time:'~9 phút',tips:['Chỉ có âm thanh, không có chữ in. Bắt thật chắc TỪ ĐẦU TIÊN (Who/What/When/Where/Why/How).','Câu trả lời gián tiếp thường đúng: "Let me check the schedule."','Yes/No không trả lời được câu hỏi Wh-.','Lỡ một câu thì đoán luôn và tập trung ngay vào câu tiếp theo.'],traps:'Từ lặp lại hoặc âm na ná (copy/coffee, project/projector). Sai loại câu trả lời (When → địa điểm). Từ cùng chủ đề (invoice → paid).'},
 {p:3,sec:'Nghe',name:'Conversations',vn:'Hội thoại',n:39,c:'var(--lime)',time:'~17 phút',tips:['13 đoạn hội thoại × 3 câu hỏi; một số đoạn có 3 người nói hoặc có bảng biểu.','Đọc trước 3 câu hỏi (chưa cần đọc đáp án) trước mỗi đoạn.','Câu hỏi theo thứ tự hội thoại: câu 1 ≈ phần đầu (chủ đề, nơi chốn, ai), câu 3 ≈ phần cuối (việc tiếp theo, lời đề nghị).','Câu có bảng: xem bảng và nghe thông tin ở cột CÒN LẠI.','"Why does the man say…?" hỏi về ý ngầm.'],traps:'Đáp án lặp y nguyên từ trong bài nghe thường sai; đáp án đúng diễn đạt lại.'},
-{p:4,sec:'Nghe',name:'Talks',vn:'Bài nói',n:30,c:'var(--sun)',time:'~15 phút',tips:['10 bài nói × 3 câu hỏi: thông báo, tin nhắn thoại, quảng cáo, hướng dẫn tham quan, bản tin, bài phát biểu.','Câu đầu tiên cho biết bối cảnh, người nói và người nghe.','Phần cuối cho biết yêu cầu hoặc việc người nghe cần làm tiếp.','Tận dụng khoảng nghỉ sau mỗi bài để đọc trước câu hỏi của bài tiếp theo.'],traps:'Chi tiết nhắc ở đầu bài được dùng lại trong đáp án sai của câu hỏi khác.'},
+{p:4,sec:'Nghe',name:'Talks',vn:'Bài nói',n:30,c:'#7a5200',time:'~15 phút',tips:['10 bài nói × 3 câu hỏi: thông báo, tin nhắn thoại, quảng cáo, hướng dẫn tham quan, bản tin, bài phát biểu.','Câu đầu tiên cho biết bối cảnh, người nói và người nghe.','Phần cuối cho biết yêu cầu hoặc việc người nghe cần làm tiếp.','Tận dụng khoảng nghỉ sau mỗi bài để đọc trước câu hỏi của bài tiếp theo.'],traps:'Chi tiết nhắc ở đầu bài được dùng lại trong đáp án sai của câu hỏi khác.'},
 {p:5,sec:'Đọc',name:'Incomplete Sentences',vn:'Điền câu',n:30,c:'var(--tang)',time:'~10 phút',tips:['Nhìn 4 đáp án trước.','Cùng gốc từ (analyze/analysis) → ngữ pháp: chỉ cần đọc quanh chỗ trống.','Khác từ → từ vựng: đọc cả câu và chú ý kết hợp từ.','Mục tiêu khoảng 20 giây mỗi câu để dành thời gian cho Part 7.'],traps:'its/it\'s, by/until, despite/although, look forward to + V-ing.'},
 {p:6,sec:'Đọc',name:'Text Completion',vn:'Điền đoạn văn',n:16,c:'var(--grape)',time:'~8 phút',tips:['4 đoạn văn × 4 chỗ trống, mỗi đoạn có một câu chèn câu.','Đọc cả đoạn; thì, đại từ và từ nối phụ thuộc ngữ cảnh.','Câu chèn câu: kiểm tra liên kết với cả câu TRƯỚC và câu SAU.'],traps:'Đáp án đúng ngữ pháp khi đứng riêng nhưng sai mốc thời gian của đoạn văn.'},
 {p:7,sec:'Đọc',name:'Reading Comprehension',vn:'Đọc hiểu',n:54,c:'var(--sky)',time:'~55 phút',tips:['29 câu cho bài đọc đơn, 25 câu cho bài đọc kép và bài đọc ba.','Đọc câu hỏi trước, rồi quét tìm từ khóa và cách diễn đạt tương đương.','Câu NOT/true: đối chiếu từng đáp án với bài.','Bộ nhiều bài luôn có câu cần thông tin từ hai bài.','Không bỏ trống câu nào: trả lời sai không bị trừ điểm.'],traps:'Đáp án chép nguyên từ trong bài nhưng đổi một chi tiết (ngày, số, người).'}
@@ -1967,11 +1967,11 @@ VIEWS.gram=id=>{
 
 /* ---- PLAY ---- */
 const GAMES=[
-{id:'exam',sec:'Luyện đề',n:'Thi thử như thật',d:'Nửa đề 100 câu hoặc đề đầy đủ ≈200 câu. Nghe chạy liên tục, Đọc tính giờ, có điểm ước tính 10–990.',c:'var(--sun)',g:'🏁',tag:'MÔ PHỎNG',f:"go('exam')"},
+{id:'exam',sec:'Luyện đề',n:'Thi thử như thật',d:'Nửa đề 100 câu hoặc đề đầy đủ ≈200 câu. Nghe chạy liên tục, Đọc tính giờ, có điểm ước tính 10–990.',c:'#7a5200',g:'🏁',tag:'MÔ PHỎNG',f:"go('exam')"},
 {id:'mini',sec:'Luyện đề',n:'Thi thử mini',d:'26 câu theo thứ tự Part 1 → 7, tính giờ, chấm điểm từng Part. Không hiện đáp án cho đến cuối.',c:'var(--lime)',g:'📝',tag:'PART 1–7',f:'startMini()'},
-{id:'mix',sec:'Luyện đề',n:'Daily Mix',d:'10 câu trộn: từ vựng, ngữ pháp, nghe và cụm từ.',c:'var(--sun)',g:'🎲',tag:'MỌI PART',f:'startMix()'},
+{id:'mix',sec:'Luyện đề',n:'Daily Mix',d:'10 câu trộn: từ vựng, ngữ pháp, nghe và cụm từ.',c:'#7a5200',g:'🎲',tag:'MỌI PART',f:'startMix()'},
 {id:'talk3',sec:'Nghe',n:'Talk Time: Hội thoại',d:'Nghe hội thoại 2–3 người, trả lời 3 câu hỏi như thi thật.',c:'var(--lime)',g:'🗣️',tag:'PART 3',f:"go('talk',3)"},
-{id:'talk4',sec:'Nghe',n:'Talk Time: Bài nói',d:'Thông báo, tin nhắn thoại, quảng cáo, bản tin…',c:'var(--sun)',g:'📢',tag:'PART 4',f:"go('talk',4)"},
+{id:'talk4',sec:'Nghe',n:'Talk Time: Bài nói',d:'Thông báo, tin nhắn thoại, quảng cáo, bản tin…',c:'#7a5200',g:'📢',tag:'PART 4',f:"go('talk',4)"},
 {id:'read6',sec:'Đọc & Ngữ pháp',n:'Text Fix',d:'Điền 4 chỗ trống trong e-mail, thông báo, thư — có câu chèn câu.',c:'var(--grape)',g:'🧷',tag:'PART 6',f:"go('read',6)"},
 {id:'read7',sec:'Đọc & Ngữ pháp',n:'Read & Hunt',d:'Đọc e-mail, bài báo, tin nhắn, bài đọc kép và săn đáp án.',c:'var(--tang)',g:'🔎',tag:'PART 7',f:"go('read',7)"},
 {id:'readm',sec:'Đọc & Ngữ pháp',n:'Double Trouble',d:'Bài đọc kép và bài đọc ba: nối thông tin giữa các văn bản.',c:'var(--pink)',g:'🧩',tag:'PART 7+',f:"go('read','m')"},
@@ -1983,7 +1983,7 @@ const GAMES=[
 {id:'snap',sec:'Từ vựng',n:'Sentence Snap',d:'Điền từ vào câu kiểu TOEIC.',c:'var(--lime)',g:'✍️',tag:'TỪ VỰNG',f:'startSnap()'},
 {id:'spell',sec:'Từ vựng',n:'Spell It',d:'Nghe từ rồi gõ lại cho đúng chính tả.',c:'var(--tang)',g:'🔤',tag:'TỪ + NGHE',f:"go('spell')"},
 {id:'cards',sec:'Từ vựng',n:'Flashcards',d:'Lật thẻ, nghe phát âm, đánh dấu từ đã thuộc.',c:'var(--grape)',g:'🃏',tag:'HỌC TỪ',f:"go('cards')"},
-{id:'para',sec:'Kỹ năng',n:'Paraphrase Pop',d:'Nhận ra cùng một ý được nói theo cách khác.',c:'var(--sun)',g:'🔁',tag:'PART 3·4·7',f:'startPara()'},
+{id:'para',sec:'Kỹ năng',n:'Paraphrase Pop',d:'Nhận ra cùng một ý được nói theo cách khác.',c:'#7a5200',g:'🔁',tag:'PART 3·4·7',f:'startPara()'},
 {id:'strat',sec:'Kỹ năng',n:'Strategy Check',d:'Bạn đã nắm cách làm bài thi chưa?',c:'var(--tang)',g:'🧭',tag:'CHIẾN LƯỢC',f:'startStrat()'}
 ];
 function setScope(s){S.set.scope=s;save();go('play')}
@@ -2461,4 +2461,4 @@ VIEWS.examrun=()=>{
   }
 })();
 </script>
-<style>.brandmark{color:#c9d6e6}.brandmark b{color:#fff}.logo span{color:#fff}.logo span:nth-child(n+6){color:#e8a020}.hero h1,.hero .lv{color:#0c2a50}</style></body></html>
+<style>.brandmark{color:#c9d6e6}.brandmark b{color:#fff}.logo span{color:#fff!important}.logo span:nth-child(n+6){color:#e8a020!important}.hero h1,.hero .lv{color:#0c2a50}.hero p{color:#0c2a50!important}.ring b{color:#0c2a50}.btn{color:#1d2733}.c-pink,.c-sky,.c-lime,.c-tang,.c-grape{color:#fff}.topic{color:#fff;border-color:#dfe3e8;box-shadow:0 1px 2px rgba(12,42,80,.07),0 4px 16px rgba(12,42,80,.08)}.topic .bar i{background:#fff}</style></body></html>
