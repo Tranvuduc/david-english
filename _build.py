@@ -2724,6 +2724,8 @@ TRO_CHOI = [
      "Ôn từ vựng các bài học A1–B2 bằng thẻ lật: lật thẻ xem nghĩa, đánh dấu đã biết hay chưa biết, ôn lại từ chưa biết."),
     ("toeic-mini-mock", "TOEIC Mini-Mock", "exam",
      "Đề thi thử TOEIC mini 20 câu, 20 phút: ngữ pháp, hội thoại và cụm từ — chép từ ngân hàng câu hỏi TOEIC Arcade."),
+    ("class-quiz-games", "Class Quiz Games", "tool",
+     "Trò chơi trắc nghiệm trực tiếp kiểu Kahoot cho cả lớp: tạo phòng, vào bằng mã, thi đua theo bảng xếp hạng và bục vinh danh."),
 ]
 add("/tro-choi/index.html", "Trò chơi & Công cụ", "Trò chơi & Công cụ",
     """

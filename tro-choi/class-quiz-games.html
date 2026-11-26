@@ -1,0 +1,2809 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Class Quiz Games | David English</title>
+<meta name="description" content="Trò chơi trắc nghiệm trực tiếp kiểu Kahoot: giáo viên tạo phòng, học sinh vào bằng mã, trả lời cùng lúc và xem bảng xếp hạng.">
+<meta property="og:title" content="Class Quiz Games">
+<meta property="og:description" content="Trò chơi trắc nghiệm trực tiếp kiểu Kahoot: giáo viên tạo phòng, học sinh vào bằng mã, trả lời cùng lúc và xem bảng xếp hạng.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://davidenglish.vercel.app/tro-choi/class-quiz-games.html">
+<meta property="og:image" content="https://davidenglish.vercel.app/assets/og-default.png">
+<link rel="canonical" href="https://davidenglish.vercel.app/tro-choi/class-quiz-games.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg">
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {'analytics_storage': 'denied'});
+</script>
+<style>
+.cookie-banner{position:fixed;left:0;right:0;bottom:0;z-index:100;background:#fff;color:#1d2733;border-top:3px solid #123a6d;box-shadow:0 -4px 24px rgba(0,0,0,.18);padding:16px 0}
+.cookie-banner p{margin:0 0 12px}
+.cookie-actions{display:flex;gap:12px;flex-wrap:wrap}
+.cookie-actions .btn{flex:1 1 160px;margin-top:0}
+</style>
+    <style>
+      button, [role="button"], select, summary, input:not([type="checkbox"], [type="radio"]) { min-height: 2rem; }
+    </style>
+    <style>
+      /* ---------- Tokens ---------- */
+      :root {
+        color-scheme: light dark;
+        --bg: #f7f5ef;
+        --surface: #fffdf7;
+        --surface-2: #efe9da;
+        --surface-3: #e5ddc9;
+        --ink: #1b2a3d;
+        --muted: #5b6a79;
+        --line: #ddd4bf;
+        --navy: #123a6d;
+        --navy-solid: #123a6d;
+        --teal: #0e7c6b;
+        --teal-strong: #0a6355;
+        --gold: #7a5200;
+        --accent: #0e7c6b;
+        --good: #1e7d46;
+        --bad: #c62f3b;
+        --a-red: #c62f3b;
+        --a-blue: #2456a6;
+        --a-amber: #b96a00;
+        --a-green: #1e7d46;
+        --podium-1: #fdf3d7;
+        --podium-2: #eef0f2;
+        --podium-3: #f7e8dc;
+        --r-card: 16px;
+        --r-btn: 10px;
+        --r-input: 8px;
+        --shadow: 0 1px 2px rgba(27, 42, 61, 0.08);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #14181d;
+          --surface: #1f242c;
+          --surface-2: #272e37;
+          --surface-3: #313a45;
+          --ink: #f2efe6;
+          --muted: #a3aeb9;
+          --line: #39424d;
+          --navy: #8fb2dd;
+          --teal: #35b79e;
+          --teal-strong: #35b79e;
+          --gold: #e0aa3e;
+          --accent: #35b79e;
+          --good: #4cc07a;
+          --bad: #f0685f;
+          --podium-1: #3a3520;
+          --podium-2: #2c333c;
+          --podium-3: #38302a;
+          --shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      main { max-width: 880px; margin: 0 auto; padding: 24px 16px 48px; }
+      .view.hidden, .hidden { display: none !important; }
+
+      h1 { font-size: clamp(26px, 6vw, 40px); line-height: 1.2; font-weight: 700; margin: 0 0 8px; color: var(--navy); }
+      h2 { font-size: clamp(20px, 4.5vw, 28px); line-height: 1.25; font-weight: 700; margin: 0 0 8px; color: var(--navy); }
+      h3 { font-size: 17px; font-weight: 600; margin: 24px 0 8px; }
+      p { margin: 0 0 16px; }
+      .muted { color: var(--muted); }
+      .small { font-size: 13px; }
+      .vi { color: var(--muted); font-size: 14px; }
+      .center { text-align: center; }
+
+      /* ---------- Buttons & inputs ---------- */
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        min-height: 48px; padding: 10px 20px;
+        border: 1px solid transparent; border-radius: var(--r-btn);
+        background: var(--teal); color: #fff;
+        font: inherit; font-weight: 600; font-size: 16px;
+        cursor: pointer; text-decoration: none;
+        transition: background 150ms ease-out, transform 120ms ease-out;
+      }
+      .btn:hover { background: var(--teal-strong); }
+      .btn:active { transform: scale(0.98); }
+      .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+      .btn-navy { background: var(--navy-solid); }
+      .btn-navy:hover { background: #0d2c54; }
+      .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+      .btn-ghost:hover { background: var(--surface-2); }
+      .btn-quiet { background: transparent; color: var(--muted); border-color: transparent; min-height: 40px; padding: 8px 12px; }
+      .btn-quiet:hover { background: var(--surface-2); color: var(--ink); }
+      .btn-block { width: 100%; }
+      .btn-big { min-height: 60px; font-size: 18px; }
+      button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+        outline: 2px solid var(--accent); outline-offset: 2px;
+      }
+      .btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+      .btn-row .btn { flex: 1 1 auto; }
+
+      label.field { display: block; font-weight: 600; font-size: 14px; margin: 16px 0 6px; }
+      input[type="text"], input[type="url"], select, textarea {
+        width: 100%; min-height: 48px; padding: 10px 12px;
+        border: 1px solid var(--line); border-radius: var(--r-input);
+        background: var(--surface); color: var(--ink);
+        font: inherit; font-size: 16px;
+      }
+      textarea { min-height: 120px; resize: vertical; line-height: 1.45; }
+      input.code-input {
+        text-transform: uppercase; letter-spacing: 0.18em; font-weight: 700;
+        font-size: 22px; text-align: center;
+      }
+
+      /* ---------- Cards & layout ---------- */
+      .card {
+        background: var(--surface); border-radius: var(--r-card);
+        padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px;
+      }
+      .role-grid { display: grid; gap: 16px; margin-top: 24px; }
+      @media (min-width: 640px) { .role-grid { grid-template-columns: repeat(3, 1fr); } }
+      .role-card {
+        display: block; width: 100%; text-align: left; cursor: pointer;
+        background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card);
+        padding: 24px; font: inherit; color: var(--ink); box-shadow: var(--shadow);
+        transition: border-color 150ms ease-out, background 150ms ease-out;
+      }
+      .role-card:hover { border-color: var(--accent); background: var(--surface-2); }
+      .role-card .role-title { font-size: 20px; font-weight: 700; color: var(--navy); display: block; margin-bottom: 4px; }
+      .role-card .role-desc { color: var(--muted); font-size: 14px; display: block; }
+
+      .note {
+        background: var(--surface-2); border-radius: var(--r-btn);
+        padding: 12px 16px; font-size: 14px; margin: 16px 0;
+      }
+      .note strong { color: var(--navy); }
+      .error-box {
+        background: var(--surface); border: 1px solid var(--bad); color: var(--ink);
+        border-radius: var(--r-btn); padding: 16px; margin: 16px 0; font-size: 15px;
+      }
+      .error-box .err-title { color: var(--bad); font-weight: 700; display: block; margin-bottom: 4px; }
+
+      /* Pack picker */
+      .pack-list { display: grid; gap: 8px; margin-top: 8px; }
+      .pack-option {
+        display: flex; align-items: center; gap: 12px; width: 100%;
+        padding: 14px 16px; min-height: 56px; text-align: left; cursor: pointer;
+        background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-btn);
+        font: inherit; color: var(--ink);
+      }
+      .pack-option:hover { background: var(--surface-2); }
+      .pack-option.selected { border-color: var(--accent); background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--accent); }
+      .pack-option .pack-name { font-weight: 600; display: block; }
+      .pack-option .pack-meta { font-size: 13px; color: var(--muted); display: block; }
+      .pack-option .pack-check { margin-left: auto; font-weight: 700; color: var(--accent); visibility: hidden; }
+      .pack-option.selected .pack-check { visibility: visible; }
+
+      .seg { display: inline-flex; background: var(--surface-2); border-radius: var(--r-btn); padding: 4px; gap: 4px; }
+      .seg button {
+        border: 0; background: transparent; color: var(--ink); font: inherit; font-weight: 600;
+        min-height: 44px; padding: 8px 20px; border-radius: 8px; cursor: pointer;
+      }
+      .seg button.selected { background: var(--surface); box-shadow: var(--shadow); color: var(--navy); }
+
+      /* Lobby */
+      .room-code {
+        font-size: clamp(56px, 14vw, 96px); font-weight: 700; letter-spacing: 0.12em;
+        color: var(--navy); line-height: 1.1; text-align: center; margin: 8px 0;
+        font-variant-numeric: tabular-nums;
+      }
+      .join-link-row { display: flex; gap: 8px; align-items: stretch; margin: 8px 0 16px; }
+      .join-link-row input { flex: 1; font-size: 13px; min-height: 44px; }
+      .join-link-row .btn { min-height: 44px; white-space: nowrap; }
+      .qr-wrap { display: flex; justify-content: center; padding: 16px 0 8px; }
+      .qr-wrap > div { background: #fff; padding: 12px; border-radius: var(--r-btn); line-height: 0; }
+      .player-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+      .chip {
+        background: var(--surface-2); border-radius: 999px; padding: 8px 14px;
+        font-weight: 600; font-size: 15px;
+      }
+      .chip.offline { opacity: 0.45; font-weight: 400; }
+      .count-big { font-size: 20px; font-weight: 700; color: var(--navy); }
+
+      /* Question screens */
+      .q-progress { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; color: var(--muted); margin-bottom: 8px; }
+      .q-progress .q-count { font-weight: 700; color: var(--ink); }
+      .timer-track { height: 12px; background: var(--surface-3); border-radius: 999px; overflow: hidden; margin: 8px 0 24px; }
+      .timer-fill { height: 100%; width: 100%; background: var(--teal); border-radius: 999px; }
+      .timer-fill.low { background: var(--bad); }
+      .q-text { font-size: clamp(24px, 4.5vw, 40px); font-weight: 700; line-height: 1.3; margin: 0 0 8px; }
+      .host .q-text { font-size: clamp(30px, 5.5vw, 54px); }
+      .q-speak-text { font-size: clamp(20px, 3.5vw, 30px); font-weight: 600; color: var(--navy); margin: 0 0 16px; }
+      .answers-grid { display: grid; gap: 12px; margin-top: 24px; }
+      @media (min-width: 640px) { .answers-grid { grid-template-columns: 1fr 1fr; } }
+      .answers-grid.two { grid-template-columns: 1fr; }
+      @media (min-width: 640px) { .answers-grid.two { grid-template-columns: 1fr 1fr; } }
+      .ans-btn {
+        display: flex; align-items: center; gap: 14px; width: 100%;
+        min-height: 64px; padding: 14px 18px;
+        border: 0; border-radius: var(--r-btn); cursor: pointer;
+        color: #fff; font: inherit; font-size: 18px; font-weight: 600; text-align: left;
+        transition: transform 120ms ease-out, opacity 150ms ease-out, filter 150ms ease-out;
+      }
+      .ans-btn:hover { filter: brightness(1.08); }
+      .ans-btn:active { transform: scale(0.98); }
+      .ans-btn:disabled { cursor: default; }
+      .ans-btn.picked { box-shadow: inset 0 0 0 3px #fff; }
+      .ans-btn.dim { opacity: 0.35; }
+      .ans-btn.correct { box-shadow: inset 0 0 0 4px #fff; }
+      .ans-btn.wrong-pick { opacity: 0.55; }
+      .ans-display {
+        display: flex; align-items: center; gap: 14px; width: 100%;
+        min-height: 64px; padding: 14px 18px;
+        border-radius: var(--r-btn); color: #fff; font-size: 18px; font-weight: 600;
+      }
+      .ans-display.dim { opacity: 0.35; }
+      .ans-display.correct { box-shadow: inset 0 0 0 4px #fff; }
+      .bg-0 { background: var(--a-red); } .bg-1 { background: var(--a-blue); }
+      .bg-2 { background: var(--a-amber); } .bg-3 { background: var(--a-green); }
+      .shape { flex: 0 0 auto; width: 24px; height: 24px; background: #fff; display: inline-block; }
+      .shape-tri { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+      .shape-dia { transform: rotate(45deg) scale(0.78); }
+      .shape-cir { border-radius: 50%; }
+      .shape-squ { border-radius: 3px; }
+      .ans-count { font-size: 20px; font-weight: 700; color: var(--navy); text-align: center; margin: 16px 0 0; }
+      .ans-count .of { color: var(--muted); font-weight: 400; font-size: 16px; }
+
+      /* Reveal / results */
+      .verdict { text-align: center; padding: 16px 0 8px; }
+      .verdict .v-title { font-size: clamp(28px, 6vw, 40px); font-weight: 700; margin: 0 0 4px; }
+      .verdict.good .v-title { color: var(--good); }
+      .verdict.bad .v-title { color: var(--bad); }
+      .verdict .v-points { font-size: 22px; font-weight: 700; color: var(--navy); }
+      .explain {
+        background: var(--surface-2); border-radius: var(--r-btn);
+        padding: 16px; margin: 16px 0; font-size: 16px;
+      }
+      .explain .ex-label { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 4px; }
+      .dist-row { display: flex; align-items: center; gap: 12px; margin: 6px 0; font-size: 14px; }
+      .dist-row .dist-label { width: 110px; flex: 0 0 auto; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .dist-row .dist-track { flex: 1; height: 14px; background: var(--surface-3); border-radius: 999px; overflow: hidden; }
+      .dist-row .dist-fill { height: 100%; }
+      .dist-row .dist-num { width: 28px; text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+
+      .board-list { list-style: none; margin: 16px 0; padding: 0; }
+      .board-list li {
+        display: flex; align-items: center; gap: 12px;
+        padding: 12px 16px; border-radius: var(--r-btn); margin-bottom: 8px;
+        background: var(--surface); box-shadow: var(--shadow); font-size: 17px;
+      }
+      .board-list .rank { font-weight: 700; color: var(--muted); width: 32px; font-variant-numeric: tabular-nums; }
+      .board-list .b-name { flex: 1; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .board-list .b-score { font-weight: 700; font-variant-numeric: tabular-nums; }
+      .board-list li.me { box-shadow: inset 0 0 0 2px var(--accent); }
+      .board-list li.p1 { background: var(--podium-1); }
+      .board-list li.p2 { background: var(--podium-2); }
+      .board-list li.p3 { background: var(--podium-3); }
+      .medal { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); }
+
+      .waiting-pulse { text-align: center; padding: 32px 0; }
+      .waiting-pulse .w-title { font-size: 24px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+      .dots::after { content: ""; animation: dots 1.4s steps(4) infinite; }
+      @keyframes dots { 0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75% { content: "..."; } }
+      @media (prefers-reduced-motion: reduce) { .dots::after { animation: none; content: "..."; } }
+
+      .stat-row { display: flex; gap: 16px; flex-wrap: wrap; margin: 16px 0; }
+      .stat { flex: 1 1 120px; background: var(--surface-2); border-radius: var(--r-btn); padding: 16px; text-align: center; }
+      .stat .stat-num { font-size: 28px; font-weight: 700; color: var(--navy); display: block; font-variant-numeric: tabular-nums; }
+      .stat .stat-label { font-size: 13px; color: var(--muted); }
+
+      .review-list { list-style: none; margin: 8px 0; padding: 0; }
+      .review-list li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+      .review-list li:last-child { border-bottom: 0; }
+      .tag { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-right: 8px; vertical-align: 1px; }
+      .tag.good { background: var(--good); color: #fff; }
+      .tag.bad { background: var(--bad); color: #fff; }
+
+      .topbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 16px; }
+      .topbar .who { font-weight: 600; font-size: 14px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      details.custom-box { background: var(--surface); border-radius: var(--r-card); box-shadow: var(--shadow); padding: 8px 24px 24px; margin-bottom: 16px; }
+      details.custom-box summary { font-weight: 700; color: var(--navy); cursor: pointer; padding: 16px 0 8px; min-height: 44px; }
+      code.format { display: block; background: var(--surface-2); border-radius: var(--r-input); padding: 12px; font-size: 13px; white-space: pre-wrap; margin: 8px 0; }
+      .form-grid { display: grid; gap: 8px; }
+      @media (min-width: 640px) { .form-grid { grid-template-columns: 1fr 1fr; } }
+
+      /* ---------- Upgrade: status, settings, teams, celebration ---------- */
+      .conn-pill {
+        display: inline-flex; align-items: center; gap: 8px;
+        font-size: 13px; font-weight: 600; color: var(--muted);
+        background: var(--surface-2); border-radius: 999px; padding: 6px 12px;
+      }
+      .conn-pill .cdot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); flex: 0 0 auto; }
+      .conn-pill.ok .cdot { background: var(--good); }
+      .conn-pill.ok { color: var(--ink); }
+      .conn-pill.warn .cdot { background: var(--a-amber); }
+      .conn-pill.bad .cdot { background: var(--bad); }
+      .conn-pill.warn, .conn-pill.bad { color: var(--ink); }
+
+      .set-row {
+        display: flex; align-items: center; gap: 12px; width: 100%;
+        padding: 12px 16px; min-height: 56px; margin-top: 8px; text-align: left; cursor: pointer;
+        background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-btn);
+        font: inherit; color: var(--ink);
+      }
+      .set-row .set-text { flex: 1; }
+      .set-row .set-name { font-weight: 600; display: block; }
+      .set-row .set-desc { font-size: 13px; color: var(--muted); display: block; }
+      .switch {
+        flex: 0 0 auto; width: 52px; height: 30px; border-radius: 999px;
+        background: var(--surface-3); position: relative; transition: background 150ms ease-out;
+      }
+      .switch::after {
+        content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px;
+        border-radius: 50%; background: var(--surface); box-shadow: var(--shadow);
+        transition: left 150ms ease-out;
+      }
+      .set-row[aria-checked="true"] .switch { background: var(--teal); }
+      .set-row[aria-checked="true"] .switch::after { left: 25px; }
+
+      .chip { display: inline-flex; align-items: center; gap: 8px; }
+      .chip .kick {
+        border: 0; background: transparent; color: var(--bad); cursor: pointer;
+        font: inherit; font-weight: 700; font-size: 13px; padding: 4px 6px; min-height: 32px;
+        border-radius: 6px;
+      }
+      .chip .kick:hover { background: var(--surface); }
+      .chip .team-dot { width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; }
+      .team-0 { background: var(--a-red); } .team-1 { background: var(--a-blue); }
+      .team-2 { background: var(--a-amber); } .team-3 { background: var(--a-green); }
+      .board-list .b-sub { display: block; font-size: 13px; color: var(--muted); font-weight: 400; white-space: normal; }
+      .board-list .b-name { white-space: normal; }
+
+      .steps { margin: 8px 0 16px; padding-left: 22px; font-size: 15px; }
+      .steps li { margin-bottom: 6px; }
+      .steps .vi { display: block; }
+
+      .rate-seg button { min-height: 40px; padding: 6px 14px; font-size: 14px; }
+      .paused-banner {
+        background: var(--surface-2); border-radius: var(--r-btn); padding: 12px 16px;
+        font-weight: 700; color: var(--navy); text-align: center; margin: 16px 0; font-size: 17px;
+      }
+
+      .confetti-wrap { position: relative; height: 0; }
+      .confetti {
+        position: absolute; top: -8px; width: 10px; height: 16px; border-radius: 2px;
+        opacity: 0; pointer-events: none;
+        animation: confetti-fall 2.8s ease-in forwards;
+      }
+      @keyframes confetti-fall {
+        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(340px) rotate(560deg); opacity: 0; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .confetti { display: none; animation: none; }
+      }
+      .podium-pop { animation: podium-pop 450ms ease-out; }
+      @keyframes podium-pop { 0% { transform: scale(0.96); } 100% { transform: scale(1); } }
+      @media (prefers-reduced-motion: reduce) { .podium-pop { animation: none; } }
+    </style>
+  </head>
+  <body><style>.de-back{margin:0;text-align:left;background:linear-gradient(135deg,#123a6d 0%,#0c2a50 100%);color:#fff;padding:0 16px;border-bottom:3px solid #e8a020}.de-back a{display:inline-flex;align-items:center;min-height:44px;color:#fff;font:600 15px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;text-decoration:none}.de-back a:hover{color:#e8a020;text-decoration:underline}.de-back a:focus-visible{outline:3px solid #e8a020;outline-offset:2px}</style><header class="de-back"><a href="/">← David English</a></header>
+    <main id="app">
+
+      <!-- ============ HOME ============ -->
+      <section class="view" id="view-home">
+        <h1>Class Quiz Games</h1>
+        <p class="muted">Live quiz games for the whole class — the teacher hosts on the big screen, students join on their phones with a room code. No accounts, nothing to install.<br>
+        <span class="vi">Thầy/cô mở phòng, học sinh nhập mã phòng trên điện thoại để chơi cùng nhau.</span></p>
+
+        <div class="role-grid">
+          <button class="role-card" id="btn-role-host" type="button">
+            <span class="role-title">Host a game</span>
+            <span class="role-desc">For the teacher. Create a room, share the code, run the quiz on Zoom.</span>
+          </button>
+          <button class="role-card" id="btn-role-join" type="button">
+            <span class="role-title">Join a game</span>
+            <span class="role-desc">For students. Enter the room code and your name. <span class="vi">Học sinh: nhập mã phòng và tên của em.</span></span>
+          </button>
+          <button class="role-card" id="btn-role-solo" type="button">
+            <span class="role-title">Practice alone</span>
+            <span class="role-desc">Play any pack by yourself with timer and score. <span class="vi">Tự luyện tập một mình.</span></span>
+          </button>
+        </div>
+
+        <div class="note">
+          <strong>How it works:</strong> the host's browser runs the game, so the host must keep this tab open from start to finish. Students connect directly to the host — if the host tab closes, the game ends.
+        </div>
+        <div class="note hidden" id="home-custom-note">
+          <strong>Custom pack loaded.</strong> A question pack from your saved code is ready — choose <em>Host a game</em> or <em>Practice alone</em> and pick “My Custom Pack”.
+        </div>
+      </section>
+
+      <!-- ============ HOST SETUP ============ -->
+      <section class="view hidden" id="view-host-setup">
+        <div class="topbar">
+          <h2 style="margin:0">Host a game</h2>
+          <button class="btn btn-quiet" data-home type="button">Back</button>
+        </div>
+
+        <label class="field" id="host-pack-label">1. Choose a question pack</label>
+        <div class="pack-list" id="host-pack-list" role="radiogroup" aria-labelledby="host-pack-label"></div>
+
+        <label class="field">2. Seconds per question</label>
+        <div class="seg" id="host-seconds" role="radiogroup" aria-label="Seconds per question">
+          <button type="button" data-sec="10">10s</button>
+          <button type="button" data-sec="20" class="selected">20s</button>
+          <button type="button" data-sec="30">30s</button>
+        </div>
+
+        <label class="field">3. Game settings</label>
+        <button class="set-row" type="button" id="set-shuffle-q" role="switch" aria-checked="false">
+          <span class="set-text"><span class="set-name">Shuffle question order</span><span class="set-desc">Questions come in a random order each game.</span></span>
+          <span class="switch" aria-hidden="true"></span>
+        </button>
+        <button class="set-row" type="button" id="set-shuffle-a" role="switch" aria-checked="false">
+          <span class="set-text"><span class="set-name">Shuffle answer order</span><span class="set-desc">The four answers are shuffled for every question.</span></span>
+          <span class="switch" aria-hidden="true"></span>
+        </button>
+        <button class="set-row" type="button" id="set-double-final" role="switch" aria-checked="true">
+          <span class="set-text"><span class="set-name">Final question counts double</span><span class="set-desc">Points on the last question are worth twice as much.</span></span>
+          <span class="switch" aria-hidden="true"></span>
+        </button>
+        <button class="set-row" type="button" id="set-sound" role="switch" aria-checked="true">
+          <span class="set-text"><span class="set-name">Sound effects</span><span class="set-desc">Short tones for correct / wrong answers, the last-seconds countdown and the winners. Students control sound on their own phones too.</span></span>
+          <span class="switch" aria-hidden="true"></span>
+        </button>
+
+        <label class="field">4. Teams</label>
+        <div class="seg" id="host-teams" role="radiogroup" aria-label="Team mode">
+          <button type="button" data-teams="0" class="selected">Individual</button>
+          <button type="button" data-teams="2">2 teams</button>
+          <button type="button" data-teams="3">3 teams</button>
+          <button type="button" data-teams="4">4 teams</button>
+        </div>
+        <p class="muted small" style="margin-top:8px">In team mode, students are split evenly when the game starts. Team scores add up from everyone's answers, and the leaderboard shows teams.</p>
+
+        <h3>5. Create the room</h3>
+        <p class="muted small">Up to 30+ students can join. Keep this tab open during the whole game — if it closes, the room closes too.</p>
+        <button class="btn btn-navy btn-big btn-block" id="btn-create-room" type="button">Create room</button>
+        <p class="small muted center hidden" id="host-create-status" role="status" style="margin-top:12px"></p>
+        <div class="error-box hidden" id="host-create-error"></div>
+
+        <details class="custom-box" id="custom-box">
+          <summary>Add your own questions (optional)</summary>
+          <p class="small muted">Paste questions in this format — one block per question, blocks separated by a blank line. The letter line is the correct answer (A, B, C or D). The last line (explanation) is optional.</p>
+          <code class="format">What is the past tense of "go"?
+goes
+went
+gone
+going
+B
+"Went" là quá khứ của "go".</code>
+          <label class="field" for="custom-paste">Paste your questions</label>
+          <textarea id="custom-paste" placeholder="Question?&#10;Option A&#10;Option B&#10;Option C&#10;Option D&#10;B&#10;Giải thích ngắn (không bắt buộc)"></textarea>
+          <div class="btn-row">
+            <button class="btn" id="btn-custom-load" type="button">Load pasted pack</button>
+          </div>
+          <p class="small" id="custom-paste-msg" role="status"></p>
+
+          <h3 style="margin-top:24px">…or build it with the form</h3>
+          <div class="form-grid">
+            <div style="grid-column:1/-1">
+              <label class="field" for="cf-q">Question</label>
+              <input type="text" id="cf-q" placeholder="Type the question">
+            </div>
+            <div><label class="field" for="cf-a">Option A</label><input type="text" id="cf-a"></div>
+            <div><label class="field" for="cf-b">Option B</label><input type="text" id="cf-b"></div>
+            <div><label class="field" for="cf-c">Option C</label><input type="text" id="cf-c"></div>
+            <div><label class="field" for="cf-d">Option D</label><input type="text" id="cf-d"></div>
+            <div>
+              <label class="field" for="cf-correct">Correct answer</label>
+              <select id="cf-correct">
+                <option value="0">A</option><option value="1">B</option>
+                <option value="2">C</option><option value="3">D</option>
+              </select>
+            </div>
+            <div><label class="field" for="cf-vi">Explanation in Vietnamese (optional)</label><input type="text" id="cf-vi"></div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-ghost" id="btn-cf-add" type="button">Add question</button>
+            <button class="btn" id="btn-cf-use" type="button" disabled>Use form pack (0 questions)</button>
+          </div>
+          <p class="small" id="custom-form-msg" role="status"></p>
+
+          <div id="custom-share" class="hidden">
+            <h3>Save this pack for later</h3>
+            <p class="small muted">This pack code carries your whole pack in it. Copy it and save it anywhere (notes, email to yourself…). Next time, paste it into “Load a saved pack” below — no retyping.</p>
+            <label class="field" for="custom-share-code">Your pack code</label>
+            <textarea id="custom-share-code" readonly rows="3" style="min-height:72px;font-size:12px"></textarea>
+            <div class="btn-row">
+              <button class="btn" id="btn-custom-copy" type="button">Copy pack code</button>
+            </div>
+            <p class="small" id="custom-copy-msg" role="status"></p>
+          </div>
+
+          <h3 style="margin-top:24px">Load a saved pack</h3>
+          <label class="field" for="custom-import">Paste a pack code you saved earlier</label>
+          <textarea id="custom-import" rows="3" style="min-height:72px;font-size:12px" placeholder="Paste the pack code here"></textarea>
+          <div class="btn-row">
+            <button class="btn btn-ghost" id="btn-custom-import" type="button">Load pack code</button>
+          </div>
+          <p class="small" id="custom-import-msg" role="status"></p>
+        </details>
+      </section>
+
+      <!-- ============ HOST LOBBY ============ -->
+      <section class="view hidden host" id="view-host-lobby">
+        <div class="topbar">
+          <h2 style="margin:0">Room is open</h2>
+          <span style="display:inline-flex;gap:8px;align-items:center">
+            <span class="conn-pill ok" data-conn-pill><span class="cdot"></span><span data-conn-text>Connected</span></span>
+            <button class="btn btn-quiet" id="btn-host-close-room" type="button">Close room</button>
+          </span>
+        </div>
+        <p class="center muted" style="margin-bottom:0">Students: open this page, choose <strong>Join a game</strong>, and enter the code</p>
+        <div class="room-code" id="lobby-code">------</div>
+        <div class="center">
+          <button class="btn btn-ghost" id="btn-copy-code" type="button">Copy room code</button>
+          <p class="small" id="copy-code-msg" role="status" style="margin-top:8px"></p>
+        </div>
+        <div class="note">If your students don't have this page open yet, send it to them first with the app's <strong>Share</strong> button — then they just type the code above. The code is all they need.</div>
+
+        <button class="set-row" type="button" id="set-lock-room" role="switch" aria-checked="false">
+          <span class="set-text"><span class="set-name">Lock room</span><span class="set-desc">No new students can join. Students already in can still reconnect.</span></span>
+          <span class="switch" aria-hidden="true"></span>
+        </button>
+        <button class="set-row" type="button" id="set-late-join" role="switch" aria-checked="true">
+          <span class="set-text"><span class="set-name">Allow late joins</span><span class="set-desc">New students may join after the game has started and play from the next question.</span></span>
+          <span class="switch" aria-hidden="true"></span>
+        </button>
+
+        <div class="card" style="margin-top:24px">
+          <p style="margin:0"><span class="count-big" id="lobby-count">0</span> <span class="muted">students in the room</span></p>
+          <div class="player-chips" id="lobby-players">
+            <span class="muted small">Waiting for the first student to join…</span>
+          </div>
+        </div>
+
+        <p class="muted small" id="lobby-pack-info"></p>
+        <button class="btn btn-navy btn-big btn-block" id="btn-start-game" type="button" disabled>Start game</button>
+        <div class="note"><strong>Keep this tab open.</strong> Your browser is running the game for everyone. Closing the tab ends the game for all students.</div>
+      </section>
+
+      <!-- ============ HOST GAME ============ -->
+      <section class="view hidden host" id="view-host-game">
+        <div class="topbar">
+          <span class="conn-pill ok" data-conn-pill><span class="cdot"></span><span data-conn-text>Connected</span></span>
+          <button class="btn btn-quiet btn-sound" type="button">Sound: on</button>
+        </div>
+        <div id="host-live">
+          <div class="q-progress">
+            <span class="q-count" id="host-q-count">Question 1 of 15</span>
+            <span id="host-q-pack"></span>
+          </div>
+          <div class="timer-track"><div class="timer-fill" id="host-timer"></div></div>
+          <div class="paused-banner hidden" id="host-paused">Paused — the timer is stopped for everyone</div>
+          <p class="q-speak-text hidden" id="host-speak-text"></p>
+          <p class="q-text" id="host-q-text"></p>
+          <div id="host-listen-row" class="hidden" style="margin-bottom:8px">
+            <button class="btn" id="btn-host-speak" type="button">Play the sentence aloud</button>
+            <span class="seg rate-seg" role="radiogroup" aria-label="Speech speed" style="margin-left:8px">
+              <button type="button" data-rate="slow">Slow</button>
+              <button type="button" data-rate="normal" class="selected">Normal</button>
+            </span>
+            <span class="vi" style="margin-left:8px">Phát câu tiếng Anh cho cả lớp nghe</span>
+          </div>
+          <div class="answers-grid" id="host-answers"></div>
+          <p class="ans-count"><span id="host-ans-count">0</span> <span class="of">/ <span id="host-ans-total">0</span> answered</span></p>
+          <div class="btn-row">
+            <button class="btn btn-navy" id="btn-host-reveal" type="button">Reveal answer now</button>
+            <button class="btn btn-ghost" id="btn-host-pause" type="button">Pause</button>
+            <button class="btn btn-ghost" id="btn-host-skip" type="button">Skip question</button>
+            <button class="btn btn-quiet" id="btn-host-end-early" type="button">End game</button>
+          </div>
+        </div>
+
+        <div id="host-reveal" class="hidden">
+          <div class="q-progress">
+            <span class="q-count" id="host-reveal-count">Question 1 of 15</span>
+            <span>Answer revealed</span>
+          </div>
+          <p class="q-speak-text hidden" id="host-reveal-speak"></p>
+          <p class="q-text" id="host-reveal-q"></p>
+          <div class="answers-grid" id="host-reveal-answers"></div>
+          <div class="explain" id="host-reveal-explain">
+            <span class="ex-label">Explanation · Giải thích</span>
+            <span id="host-reveal-explain-text"></span>
+          </div>
+          <h3>How the class answered</h3>
+          <div id="host-dist"></div>
+          <div class="btn-row">
+            <button class="btn btn-navy" id="btn-host-to-board" type="button">Show leaderboard</button>
+            <button class="btn btn-quiet" id="btn-host-end-early-2" type="button">End game</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ HOST LEADERBOARD ============ -->
+      <section class="view hidden host" id="view-host-board">
+        <h2 id="board-title">Leaderboard</h2>
+        <p class="muted" id="board-subtitle">Top 5 so far</p>
+        <ol class="board-list" id="host-board-list"></ol>
+        <div class="btn-row">
+          <button class="btn btn-navy btn-big" id="btn-host-next" type="button">Next question</button>
+          <button class="btn btn-quiet" id="btn-host-end-early-3" type="button">End game</button>
+        </div>
+      </section>
+
+      <!-- ============ HOST PODIUM ============ -->
+      <section class="view hidden host" id="view-host-podium">
+        <div class="confetti-wrap" data-confetti></div>
+        <h2 class="center">Final results</h2>
+        <p class="center muted">Well played, everyone! <span class="vi">Cả lớp chơi rất tốt!</span></p>
+        <div id="host-podium-teams" class="hidden">
+          <h3>Team standings</h3>
+          <ol class="board-list" id="host-podium-team-list"></ol>
+          <h3>All players</h3>
+        </div>
+        <ol class="board-list" id="host-podium-list"></ol>
+        <div class="btn-row">
+          <button class="btn" id="btn-copy-results" type="button">Copy results</button>
+          <button class="btn btn-navy" id="btn-host-again" type="button">Play again (same room)</button>
+          <button class="btn btn-ghost" id="btn-host-finish" type="button">End game &amp; close room</button>
+        </div>
+        <p class="small" id="copy-results-msg" role="status"></p>
+      </section>
+
+      <!-- ============ PLAYER JOIN ============ -->
+      <section class="view hidden" id="view-join">
+        <div class="topbar">
+          <h2 style="margin:0">Join a game</h2>
+          <button class="btn btn-quiet" data-home type="button">Back</button>
+        </div>
+        <p class="vi" style="margin-top:0">Nhập mã phòng thầy/cô đưa và tên của em.</p>
+        <ol class="steps">
+          <li>Enter the 6-character room code from your teacher.<span class="vi">Nhập mã phòng gồm 6 ký tự mà thầy/cô đưa.</span></li>
+          <li>Type your name — use the same name every time.<span class="vi">Nhập tên của em — luôn dùng đúng tên này để giữ điểm khi bị mất kết nối.</span></li>
+          <li>Tap <strong>Join game</strong> and wait for the teacher to start.<span class="vi">Bấm “Join game” và chờ thầy/cô bắt đầu.</span></li>
+        </ol>
+        <label class="field" for="join-code">Room code</label>
+        <input type="text" class="code-input" id="join-code" maxlength="6" autocomplete="off" autocapitalize="characters" placeholder="ABC123">
+        <label class="field" for="join-name">Your name <span class="vi" style="font-weight:400">(tên của em)</span></label>
+        <input type="text" id="join-name" maxlength="24" autocomplete="off" placeholder="e.g. Minh Anh">
+        <div class="error-box hidden" id="join-error"></div>
+        <button class="btn btn-navy btn-big btn-block" id="btn-join" type="button" style="margin-top:16px">Join game</button>
+        <p class="small muted" style="margin-top:12px">Joining with the same name on the same device brings your score back if you get disconnected. <span class="vi">Nếu bị mất kết nối, nhập lại đúng tên cũ để lấy lại điểm.</span></p>
+      </section>
+
+      <!-- ============ PLAYER GAME ============ -->
+      <section class="view hidden" id="view-player">
+        <div class="topbar">
+          <span class="who" id="player-who"></span>
+          <span style="display:inline-flex;gap:8px;align-items:center">
+            <span class="conn-pill ok" data-conn-pill><span class="cdot"></span><span data-conn-text>Connected</span></span>
+            <button class="btn btn-quiet btn-sound" type="button">Sound: on</button>
+            <button class="btn btn-quiet" id="btn-player-leave" type="button">Leave</button>
+          </span>
+        </div>
+
+        <div id="p-wait">
+          <div class="waiting-pulse">
+            <p class="w-title">You're in<span class="dots"></span></p>
+            <p class="muted">Waiting for your teacher to start the game.<br><span class="vi">Em đã vào phòng! Chờ thầy/cô bắt đầu nhé.</span></p>
+            <p class="muted small" id="p-wait-count"></p>
+          </div>
+        </div>
+
+        <div id="p-question" class="hidden">
+          <div class="q-progress">
+            <span class="q-count" id="p-q-count">Question 1 of 15</span>
+            <span id="p-q-score"></span>
+          </div>
+          <div class="timer-track"><div class="timer-fill" id="p-timer"></div></div>
+          <div class="paused-banner hidden" id="p-paused">Paused by your teacher<span class="dots"></span><br><span class="vi" style="font-weight:400;font-size:14px">Thầy/cô đang tạm dừng.</span></div>
+          <p class="q-text" id="p-q-text" style="font-size:clamp(21px,5vw,30px)"></p>
+          <div id="p-listen-row" class="hidden">
+            <button class="btn" id="btn-p-replay" type="button">Listen again</button>
+            <span class="seg rate-seg" role="radiogroup" aria-label="Speech speed" style="margin-left:8px">
+              <button type="button" data-rate="slow">Slow</button>
+              <button type="button" data-rate="normal" class="selected">Normal</button>
+            </span>
+            <span class="vi" style="margin-left:8px">Nghe lại câu</span>
+          </div>
+          <div class="answers-grid" id="p-answers"></div>
+          <p class="small muted center hidden" id="p-timeup" style="margin-top:16px">Time's up! Waiting for the answer… <span class="vi">Hết giờ!</span></p>
+        </div>
+
+        <div id="p-answered" class="hidden">
+          <div class="waiting-pulse">
+            <p class="w-title">Answer locked in<span class="dots"></span></p>
+            <p class="muted">Waiting for everyone else.<br><span class="vi">Đã ghi nhận đáp án của em. Chờ các bạn khác nhé.</span></p>
+          </div>
+        </div>
+
+        <div id="p-reveal" class="hidden">
+          <div class="verdict" id="p-verdict">
+            <p class="v-title" id="p-verdict-title">Correct!</p>
+            <p class="v-points" id="p-verdict-points"></p>
+            <p class="muted" id="p-verdict-rank" style="margin-top:8px"></p>
+          </div>
+          <div class="explain">
+            <span class="ex-label">Explanation · Giải thích</span>
+            <span id="p-reveal-explain"></span>
+          </div>
+          <h3>How the class answered · Cả lớp đã chọn</h3>
+          <div id="p-dist"></div>
+          <p class="center muted small">Waiting for the next question… <span class="vi">Chờ câu tiếp theo…</span></p>
+        </div>
+
+        <div id="p-board" class="hidden">
+          <h3 style="margin-top:8px" id="p-board-title">Top 5</h3>
+          <ol class="board-list" id="p-board-list"></ol>
+          <p class="center muted small">Next question coming up… <span class="vi">Sắp có câu tiếp theo…</span></p>
+        </div>
+
+        <div id="p-final" class="hidden">
+          <div class="confetti-wrap" data-confetti></div>
+          <div class="verdict good">
+            <p class="v-title" id="p-final-rank">You finished #1</p>
+            <p class="v-points" id="p-final-score"></p>
+            <p class="muted" id="p-final-detail" style="margin-top:8px"></p>
+          </div>
+          <h3 id="p-final-list-title">Top 3</h3>
+          <ol class="board-list" id="p-final-list"></ol>
+          <div id="p-review-wrap" class="hidden">
+            <h3>Review what you missed · Ôn lại câu sai</h3>
+            <ul class="review-list" id="p-review"></ul>
+          </div>
+          <p class="center muted">Thanks for playing! <span class="vi">Cảm ơn em đã tham gia!</span></p>
+          <button class="btn btn-ghost btn-block" data-home type="button">Back to start</button>
+        </div>
+
+        <div id="p-blocked" class="hidden">
+          <div class="error-box">
+            <span class="err-title" id="p-blocked-title">Can't join this room</span>
+            <span id="p-blocked-text">The teacher has locked this room.</span>
+          </div>
+          <button class="btn btn-ghost btn-block" data-home type="button">Back to start</button>
+        </div>
+
+        <div id="p-ended" class="hidden">
+          <div class="waiting-pulse">
+            <p class="w-title">The game has ended</p>
+            <p class="muted">Your teacher closed the game.<br><span class="vi">Thầy/cô đã kết thúc trò chơi.</span></p>
+          </div>
+          <button class="btn btn-ghost btn-block" data-home type="button">Back to start</button>
+        </div>
+
+        <div id="p-lost" class="hidden">
+          <div class="waiting-pulse">
+            <p class="w-title">Reconnecting<span class="dots"></span></p>
+            <p class="muted">The link to your teacher's game dropped — this page is reconnecting by itself. Keep it open.<br><span class="vi">Mất kết nối — trang đang tự kết nối lại, em đừng đóng trang nhé.</span></p>
+          </div>
+          <button class="btn btn-navy btn-block" id="btn-p-rejoin" type="button">Rejoin now with the same name</button>
+          <p class="small muted" style="margin-top:8px">Your score comes back when you rejoin with the same name.</p>
+        </div>
+      </section>
+
+      <!-- ============ SOLO SETUP ============ -->
+      <section class="view hidden" id="view-solo-setup">
+        <div class="topbar">
+          <h2 style="margin:0">Practice alone</h2>
+          <button class="btn btn-quiet" data-home type="button">Back</button>
+        </div>
+        <p class="muted">Pick a pack and play at your own pace — same questions, timer and scoring as the class game. <span class="vi">Chọn bộ câu hỏi và tự luyện tập.</span></p>
+        <label class="field" id="solo-pack-label">Question pack</label>
+        <div class="pack-list" id="solo-pack-list" role="radiogroup" aria-labelledby="solo-pack-label"></div>
+        <label class="field">Seconds per question</label>
+        <div class="seg" id="solo-seconds" role="radiogroup" aria-label="Seconds per question">
+          <button type="button" data-sec="10">10s</button>
+          <button type="button" data-sec="20" class="selected">20s</button>
+          <button type="button" data-sec="30">30s</button>
+        </div>
+        <button class="btn btn-navy btn-big btn-block" id="btn-solo-start" type="button" style="margin-top:24px">Start practice</button>
+      </section>
+
+      <!-- ============ SOLO GAME ============ -->
+      <section class="view hidden" id="view-solo-game">
+        <div class="topbar">
+          <span class="who" id="solo-who"></span>
+          <span style="display:inline-flex;gap:8px;align-items:center">
+            <button class="btn btn-quiet btn-sound" type="button">Sound: on</button>
+            <button class="btn btn-quiet" id="btn-solo-quit" type="button">Quit</button>
+          </span>
+        </div>
+        <div class="q-progress">
+          <span class="q-count" id="solo-q-count">Question 1 of 15</span>
+          <span id="solo-q-score">Score: 0</span>
+        </div>
+        <div class="timer-track"><div class="timer-fill" id="solo-timer"></div></div>
+        <p class="q-text" id="solo-q-text" style="font-size:clamp(22px,5vw,32px)"></p>
+        <div id="solo-listen-row" class="hidden">
+          <button class="btn" id="btn-solo-replay" type="button">Listen again</button>
+          <span class="seg rate-seg" role="radiogroup" aria-label="Speech speed" style="margin-left:8px">
+            <button type="button" data-rate="slow">Slow</button>
+            <button type="button" data-rate="normal" class="selected">Normal</button>
+          </span>
+          <span class="vi" style="margin-left:8px">Nghe lại câu</span>
+        </div>
+        <div class="answers-grid" id="solo-answers"></div>
+        <div id="solo-feedback" class="hidden">
+          <div class="explain">
+            <span class="ex-label" id="solo-fb-label">Explanation · Giải thích</span>
+            <span id="solo-fb-text"></span>
+          </div>
+          <button class="btn btn-navy btn-big btn-block" id="btn-solo-next" type="button">Next question</button>
+        </div>
+      </section>
+
+      <!-- ============ SOLO RESULTS ============ -->
+      <section class="view hidden" id="view-solo-results">
+        <h2 class="center">Practice complete</h2>
+        <p class="center muted"><span class="vi">Hoàn thành! Xem lại kết quả của em bên dưới.</span></p>
+        <div class="stat-row">
+          <div class="stat"><span class="stat-num" id="solo-res-score">0</span><span class="stat-label">Total score</span></div>
+          <div class="stat"><span class="stat-num" id="solo-res-correct">0/15</span><span class="stat-label">Correct answers</span></div>
+          <div class="stat"><span class="stat-num" id="solo-res-streak">0</span><span class="stat-label">Best streak</span></div>
+        </div>
+        <h3>Review what you missed · Ôn lại câu sai</h3>
+        <p class="muted small" id="solo-review-note"></p>
+        <ul class="review-list" id="solo-review"></ul>
+        <div class="btn-row">
+          <button class="btn btn-navy" id="btn-solo-again" type="button">Play again</button>
+          <button class="btn btn-ghost" data-home type="button">Back to start</button>
+        </div>
+      </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <script>
+      "use strict";
+      /* ================= QUESTION PACKS ================= */
+      /* Each question: q (text), o (4 options, or 2 for True/False), a (index of correct), vi (Vietnamese explanation).
+         Listen pack also has s: the English sentence read aloud. */
+      var PACKS = [
+        {
+          id: "a1-vocab", name: "A1 Vocabulary", mode: "quiz",
+          desc: "Everyday words for beginners",
+          questions: [
+            { q: "What is the opposite of “hot”?", o: ["fast", "warm", "big", "cold"], a: 3, vi: "“Cold” (lạnh) là từ trái nghĩa với “hot” (nóng)." },
+            { q: "You drink water from a ___.", o: ["cup", "chair", "book", "shoe"], a: 0, vi: "“Cup” là cái cốc — ta uống nước bằng cốc." },
+            { q: "How many days are there in a week?", o: ["five", "six", "seven", "ten"], a: 2, vi: "Một tuần có 7 ngày — “seven”." },
+            { q: "The colour of the sky on a sunny day is ___.", o: ["green", "black", "red", "blue"], a: 3, vi: "Bầu trời ngày nắng có màu xanh dương — “blue”." },
+            { q: "Which one is a fruit?", o: ["carrot", "potato", "banana", "onion"], a: 2, vi: "“Banana” (chuối) là trái cây; các từ còn lại là rau củ." },
+            { q: "You use your ___ to read a book.", o: ["ears", "feet", "nose", "eyes"], a: 3, vi: "Ta dùng mắt — “eyes” — để đọc sách." },
+            { q: "My mother's sister is my ___.", o: ["aunt", "uncle", "cousin", "sister"], a: 0, vi: "Chị hoặc em gái của mẹ là “aunt” (dì / cô)." },
+            { q: "What is the opposite of “happy”?", o: ["angry", "sad", "tired", "hungry"], a: 1, vi: "“Sad” (buồn) là từ trái nghĩa với “happy” (vui)." },
+            { q: "A baby dog is a ___.", o: ["kitten", "puppy", "calf", "cub"], a: 1, vi: "Chó con gọi là “puppy”; “kitten” là mèo con." },
+            { q: "You sleep in the ___.", o: ["kitchen", "bathroom", "bedroom", "garden"], a: 2, vi: "Ta ngủ trong “bedroom” (phòng ngủ)." },
+            { q: "Which word means “very big”?", o: ["tiny", "huge", "thin", "weak"], a: 1, vi: "“Huge” nghĩa là rất to lớn." },
+            { q: "In the morning, you eat ___.", o: ["breakfast", "lunch", "dinner", "supper"], a: 0, vi: "Bữa ăn sáng trong tiếng Anh là “breakfast”." },
+            { q: "What do you wear on your feet?", o: ["a hat", "gloves", "shoes", "a scarf"], a: 2, vi: "Ta mang “shoes” (giày) ở chân." },
+            { q: "The first month of the year is ___.", o: ["March", "June", "January", "December"], a: 2, vi: "Tháng đầu tiên của năm là “January” (tháng 1)." },
+            { q: "Which animal can fly?", o: ["fish", "bird", "cat", "horse"], a: 1, vi: "“Bird” (chim) biết bay." },
+            { q: "What is the opposite of “easy”?", o: ["difficult", "early", "empty", "even"], a: 0, vi: "“Difficult” (khó) trái nghĩa với “easy” (dễ)." },
+            { q: "Which word is a colour?", o: ["table", "happy", "yellow", "quickly"], a: 2, vi: "“Yellow” (màu vàng) là từ chỉ màu sắc." },
+            { q: "You wash your hands with ___.", o: ["soap", "rice", "paper", "milk"], a: 0, vi: "Ta rửa tay bằng “soap” (xà phòng)." },
+            { q: "How do you say “cảm ơn” in English?", o: ["Hello", "Sorry", "Please", "Thank you"], a: 3, vi: "“Cảm ơn” trong tiếng Anh là “Thank you”." },
+            { q: "A ___ works in a hospital and helps sick people.", o: ["teacher", "nurse", "driver", "cook"], a: 1, vi: "“Nurse” (y tá) làm việc ở bệnh viện, chăm sóc người bệnh." },
+            { q: "What is the opposite of “old” for things?", o: ["new", "cold", "long", "full"], a: 0, vi: "“New” (mới) trái nghĩa với “old” (cũ)." },
+            { q: "Which animal lives in water?", o: ["dog", "fish", "bird", "cow"], a: 1, vi: "“Fish” (cá) sống dưới nước." },
+            { q: "We go to ___ to learn.", o: ["hospital", "market", "cinema", "school"], a: 3, vi: "Ta đến “school” (trường học) để học." },
+            { q: "What time is it? — It's ___ (7:00).", o: ["seven o'clock", "seven clock", "o'clock seven", "seven hour"], a: 0, vi: "Cách nói giờ đúng: “seven o'clock”." },
+            { q: "My father and mother are my ___.", o: ["friends", "parents", "teachers", "children"], a: 1, vi: "Cha và mẹ là “parents” (bố mẹ)." }
+          ]
+        },
+        {
+          id: "a2-grammar", name: "A2 Grammar", mode: "quiz",
+          desc: "Core tenses and everyday structures",
+          questions: [
+            { q: "She ___ to school every day.", o: ["gone", "go", "going", "goes"], a: 3, vi: "Chủ ngữ “she” + thói quen hằng ngày → động từ thêm -es: “goes”." },
+            { q: "I ___ my homework yesterday.", o: ["do", "doing", "does", "did"], a: 3, vi: "“Yesterday” (hôm qua) → thì quá khứ đơn: “did”." },
+            { q: "There ___ some milk in the fridge.", o: ["is", "are", "be", "am"], a: 0, vi: "“Milk” là danh từ không đếm được → dùng “is”." },
+            { q: "He is taller ___ his brother.", o: ["then", "to", "that", "than"], a: 3, vi: "So sánh hơn luôn đi với “than”." },
+            { q: "We ___ TV when the phone rang.", o: ["watch", "watched", "are watching", "were watching"], a: 3, vi: "Hành động đang diễn ra thì bị cắt ngang → quá khứ tiếp diễn “were watching”." },
+            { q: "___ you ever been to Da Lat?", o: ["Has", "Do", "Did", "Have"], a: 3, vi: "Hiện tại hoàn thành với “you” → “Have you ever been…?”" },
+            { q: "I have lived here ___ 2020.", o: ["for", "from", "since", "at"], a: 2, vi: "“Since” + mốc thời gian (2020); “for” + khoảng thời gian." },
+            { q: "She is good ___ English.", o: ["at", "on", "in", "for"], a: 0, vi: "Cụm cố định “good at” = giỏi về điều gì." },
+            { q: "If it rains tomorrow, we ___ at home.", o: ["stay", "will stay", "stayed", "stays"], a: 1, vi: "Câu điều kiện loại 1: If + hiện tại đơn, mệnh đề chính dùng “will”." },
+            { q: "This is the ___ day of my life!", o: ["happy", "happier", "happiest", "most happy"], a: 2, vi: "So sánh nhất với “the”: “the happiest”." },
+            { q: "You ___ wear a helmet when you ride a motorbike. It's the law.", o: ["must", "would", "may to", "used"], a: 0, vi: "“Must” diễn tả việc bắt buộc phải làm." },
+            { q: "A new bridge ___ here last year.", o: ["builds", "built", "was built", "is building"], a: 2, vi: "Câu bị động ở quá khứ: “was built” (đã được xây)." },
+            { q: "I'm looking forward ___ you again.", o: ["see", "to see", "to seeing", "seeing"], a: 2, vi: "Cụm “look forward to” đi với V-ing: “to seeing”." },
+            { q: "He asked me where I ___.", o: ["live", "lived", "lives", "living"], a: 1, vi: "Câu tường thuật phải lùi thì: “lived”." },
+            { q: "___ it was raining, we went out.", o: ["Despite", "Although", "In spite", "However"], a: 1, vi: "“Although” + mệnh đề đầy đủ (it was raining)." },
+            { q: "My dad ___ in a bank. He is a manager there.", o: ["work", "works", "working", "worked"], a: 1, vi: "Chủ ngữ số ít “my dad” + hiện tại đơn → “works”." },
+            { q: "They ___ in a small house near the river.", o: ["live", "lives", "living", "lived yesterday"], a: 0, vi: "Chủ ngữ “they” dùng động từ nguyên mẫu: “live”." },
+            { q: "I was tired, ___ I went to bed early.", o: ["but", "so", "because", "or"], a: 1, vi: "“So” nối kết quả: mệt nên đi ngủ sớm." },
+            { q: "She ___ a letter to her friend last night.", o: ["write", "writes", "wrote", "writing"], a: 2, vi: "“Last night” → quá khứ đơn: “wrote”." },
+            { q: "This exercise is ___ than the last one.", o: ["easy", "easier", "easiest", "more easy"], a: 1, vi: "So sánh hơn của “easy” là “easier” + than." },
+            { q: "Would you like ___ tea?", o: ["some", "any", "many", "a few"], a: 0, vi: "Trong lời mời, dùng “some”: “Would you like some tea?”" },
+            { q: "He ___ his keys. He can't find them anywhere.", o: ["loses", "has lost", "lose", "losing"], a: 1, vi: "Việc đã xảy ra, hậu quả còn ở hiện tại → hiện tại hoàn thành “has lost”." },
+            { q: "The train arrives ___ 6:30.", o: ["in", "on", "at", "by"], a: 2, vi: "Giờ cụ thể dùng giới từ “at”." },
+            { q: "My sister is interested ___ music.", o: ["in", "on", "at", "for"], a: 0, vi: "Cụm cố định “interested in” = quan tâm, thích thú với." },
+            { q: "If you heat ice, it ___.", o: ["melts", "will melts", "melted", "melting"], a: 0, vi: "Câu điều kiện loại 0 (sự thật hiển nhiên): cả hai vế đều dùng hiện tại đơn." }
+          ]
+        },
+        {
+          id: "b1-grammar", name: "B1 Grammar", mode: "quiz",
+          desc: "Intermediate structures and patterns",
+          questions: [
+            { q: "By this time tomorrow, I ___ on the beach.", o: ["will lie", "am lie", "lie", "will be lying"], a: 3, vi: "Tương lai tiếp diễn: “will be lying” — việc đang diễn ra tại một thời điểm tương lai." },
+            { q: "The report ___ by the team yesterday.", o: ["wrote", "is writing", "has write", "was written"], a: 3, vi: "Bị động quá khứ đơn: “was written”." },
+            { q: "I wish I ___ more time to study.", o: ["have", "having", "will have", "had"], a: 3, vi: "Sau “I wish” dùng quá khứ đơn cho điều ước ở hiện tại: “had”." },
+            { q: "She suggested ___ a short break.", o: ["take", "to take", "taking", "taken"], a: 2, vi: "“Suggest” đi với V-ing: “suggested taking”." },
+            { q: "The man ___ lives next door is a doctor.", o: ["who", "which", "whose", "whom"], a: 0, vi: "Đại từ quan hệ chỉ người, làm chủ ngữ: “who”." },
+            { q: "You ___ have told me earlier!", o: ["should", "would to", "must to", "can"], a: 0, vi: "“Should have + V3” = lẽ ra nên làm (nhưng đã không làm)." },
+            { q: "Hardly ___ the door when the phone rang.", o: ["I had closed", "I close", "had I closed", "did I closed"], a: 2, vi: "Đảo ngữ với “Hardly”: “had I closed”." },
+            { q: "He denied ___ the money.", o: ["take", "to take", "taking", "taken"], a: 2, vi: "“Deny” đi với V-ing: “denied taking”." },
+            { q: "The longer you wait, ___ it gets.", o: ["the harder", "harder", "more hard", "the hard"], a: 0, vi: "So sánh kép: “The longer…, the harder…”." },
+            { q: "Neither the teacher nor the students ___ in the room.", o: ["was", "be", "is", "were"], a: 3, vi: "Với “neither… nor…”, động từ chia theo chủ ngữ gần nhất (students → were)." },
+            { q: "It was ___ a good film that we watched it twice.", o: ["such", "so", "very", "too"], a: 0, vi: "Cấu trúc “such a + tính từ + danh từ + that”." },
+            { q: "By 2030, they ___ the new airport.", o: ["will finish", "finish", "will have finished", "finished"], a: 2, vi: "“By + thời điểm tương lai” → tương lai hoàn thành: “will have finished”." },
+            { q: "I'd rather you ___ smoke in here.", o: ["don't", "not", "won't", "didn't"], a: 3, vi: "“Would rather + S + quá khứ đơn” khi muốn người khác làm gì." },
+            { q: "The thief is believed ___ through the window.", o: ["to escape", "to have escaped", "escapes", "escaping"], a: 1, vi: "Việc đã xảy ra trước → “to have escaped”." },
+            { q: "Only after the exam ___ relax.", o: ["we could", "could we", "we can", "we did could"], a: 1, vi: "Đảo ngữ sau “Only after…”: “could we relax”." },
+            { q: "The students ___ for three hours when the teacher arrived.", o: ["study", "have studied", "had been studying", "are studying"], a: 2, vi: "Quá khứ hoàn thành tiếp diễn: hành động kéo dài trước một điểm trong quá khứ." },
+            { q: "The documents ___ yet, so we can't sign them.", o: ["haven't prepared", "haven't been prepared", "didn't prepare", "aren't preparing"], a: 1, vi: "Bị động hiện tại hoàn thành: “haven't been prepared” (chưa được chuẩn bị)." },
+            { q: "He apologised ___ late.", o: ["for be", "for being", "to be", "of being"], a: 1, vi: "“Apologise for + V-ing”: “for being late” (xin lỗi vì đến muộn)." },
+            { q: "The reason ___ he left is still unknown.", o: ["which", "why", "what", "whose"], a: 1, vi: "Sau “the reason” dùng “why” để chỉ lý do." },
+            { q: "You ___ better see a doctor about that cough.", o: ["had", "would", "should to", "must to"], a: 0, vi: "Cụm “had better” = nên (lời khuyên mạnh)." },
+            { q: "___ the bad weather, the flight took off on time.", o: ["Although", "Despite", "However", "Because"], a: 1, vi: "“Despite” + cụm danh từ (the bad weather)." },
+            { q: "I'm not used ___ up so early.", o: ["get", "to get", "to getting", "getting"], a: 2, vi: "“Be used to + V-ing”: “to getting up” (quen với việc dậy sớm)." },
+            { q: "She asked me if I ___ her pen.", o: ["see", "saw", "have seen", "had seen"], a: 3, vi: "Câu hỏi Yes/No trong câu tường thuật lùi thì về quá khứ hoàn thành: “had seen”." },
+            { q: "The new shop ___ in our street next month.", o: ["opens", "is opened", "opening", "open"], a: 0, vi: "Lịch trình tương lai dùng hiện tại đơn: “opens” — cửa hàng “tự mở”, không dùng bị động ở đây." },
+            { q: "Not only ___ late, but he also forgot the report.", o: ["he was", "was he", "he is", "did he"], a: 1, vi: "Đảo ngữ với “Not only” ở đầu câu: “was he late”." }
+          ]
+        },
+        {
+          id: "b2-vocab", name: "B2 Vocabulary", mode: "quiz",
+          desc: "Upper-intermediate words and collocations",
+          questions: [
+            { q: "“Reluctant” means ___.", o: ["eager", "confident", "excited", "unwilling"], a: 3, vi: "“Reluctant” = miễn cưỡng, không sẵn lòng." },
+            { q: "The meeting was ___ because the manager was sick.", o: ["given in", "put on", "taken up", "put off"], a: 3, vi: "“Put off” = hoãn lại." },
+            { q: "She has a ___ knowledge of history — she knows almost nothing about it.", o: ["vast", "deep", "thorough", "superficial"], a: 3, vi: "“Superficial” = hời hợt, nông cạn." },
+            { q: "“Generous” is closest in meaning to ___.", o: ["selfish", "stingy", "giving", "rude"], a: 2, vi: "“Generous” = hào phóng, sẵn lòng cho đi." },
+            { q: "We need to ___ a decision by Friday.", o: ["give", "do", "reach to", "make"], a: 3, vi: "Cụm cố định: “make a decision” (đưa ra quyết định)." },
+            { q: "“Inevitable” means ___.", o: ["avoidable", "unlikely", "certain to happen", "optional"], a: 2, vi: "“Inevitable” = không thể tránh khỏi, chắc chắn xảy ra." },
+            { q: "The instructions were so ___ that nobody understood them.", o: ["clear", "precise", "ambiguous", "obvious"], a: 2, vi: "“Ambiguous” = mơ hồ, có nhiều cách hiểu." },
+            { q: "He ___ his father's company when his father retired.", o: ["took over", "took off", "took after", "took up"], a: 0, vi: "“Take over” = tiếp quản, nắm quyền điều hành." },
+            { q: "“Frugal” describes someone who ___.", o: ["wastes money", "is careful with money", "is always late", "loves parties"], a: 1, vi: "“Frugal” = tiết kiệm, biết cân nhắc khi tiêu tiền." },
+            { q: "The new law will come into ___ next month.", o: ["effect", "affect", "action", "duty"], a: 0, vi: "Cụm “come into effect” = bắt đầu có hiệu lực." },
+            { q: "“Compulsory” means ___.", o: ["optional", "required", "forbidden", "expensive"], a: 1, vi: "“Compulsory” = bắt buộc." },
+            { q: "She gave a ___ answer — short, clear and to the point.", o: ["lengthy", "vague", "concise", "rough"], a: 2, vi: "“Concise” = ngắn gọn, súc tích." },
+            { q: "Don't worry about the noise; it's perfectly ___.", o: ["harmful", "harmless", "harm", "harmed"], a: 1, vi: "“Harmless” = vô hại." },
+            { q: "He is known for his ___ — he always tells the truth.", o: ["honesty", "hostility", "hurry", "humour"], a: 0, vi: "“Honesty” = tính trung thực." },
+            { q: "“Postpone” is closest in meaning to ___.", o: ["cancel forever", "delay", "bring forward", "start"], a: 1, vi: "“Postpone” = trì hoãn sang thời gian khác." },
+            { q: "The company plans to ___ 200 new workers this year.", o: ["recruit", "retreat", "reduce", "refuse"], a: 0, vi: "“Recruit” = tuyển dụng nhân sự mới." },
+            { q: "“Significant” is closest in meaning to ___.", o: ["unimportant", "important", "tiny", "silent"], a: 1, vi: "“Significant” = quan trọng, đáng kể." },
+            { q: "The two companies decided to ___ forces to win the contract.", o: ["join", "connect", "unite to", "gather"], a: 0, vi: "Cụm “join forces” = hợp lực, cùng hợp tác." },
+            { q: "His explanation was so ___ that even the teacher was confused.", o: ["convoluted", "straightforward", "obvious", "brief"], a: 0, vi: "“Convoluted” = rối rắm, khó hiểu." },
+            { q: "She is highly ___ — everyone trusts her work.", o: ["reckless", "remote", "reliable", "reluctant"], a: 2, vi: "“Reliable” = đáng tin cậy." },
+            { q: "The project was a success, ___ the limited budget.", o: ["despite of", "in spite", "despite", "although"], a: 2, vi: "“Despite” không đi với “of”: “despite the limited budget”." },
+            { q: "We need someone who can work under ___.", o: ["pressure", "press", "pressing", "pressures"], a: 0, vi: "Cụm cố định “work under pressure” = làm việc dưới áp lực." },
+            { q: "“Gradually” means ___.", o: ["suddenly", "little by little", "rarely", "loudly"], a: 1, vi: "“Gradually” = dần dần, từ từ." },
+            { q: "The government aims to ___ unemployment by 2%.", o: ["remind", "retire", "refuse", "reduce"], a: 3, vi: "“Reduce” = giảm (ở đây là giảm thất nghiệp)." },
+            { q: "He has a reputation ___ being fair and honest.", o: ["with", "for", "of", "about"], a: 1, vi: "Cụm “a reputation for…” = có tiếng về điều gì." }
+          ]
+        },
+        {
+          id: "mixed-fun", name: "Mixed Fun", mode: "quiz",
+          desc: "Easy general knowledge in simple English",
+          questions: [
+            { q: "How many legs does a spider have?", o: ["eight", "six", "four", "ten"], a: 0, vi: "Nhện có 8 chân." },
+            { q: "What is the capital of Japan?", o: ["Tokyo", "Beijing", "Seoul", "Bangkok"], a: 0, vi: "Thủ đô của Nhật Bản là Tokyo." },
+            { q: "Which planet is called the Red Planet?", o: ["Mars", "Venus", "Jupiter", "Saturn"], a: 0, vi: "Sao Hỏa (Mars) được gọi là Hành tinh Đỏ." },
+            { q: "How many minutes are there in two hours?", o: ["120", "90", "60", "200"], a: 0, vi: "2 giờ = 120 phút." },
+            { q: "Water is made of hydrogen and ___.", o: ["oxygen", "carbon", "nitrogen", "iron"], a: 0, vi: "Nước gồm hydro và oxy (H₂O)." },
+            { q: "Which is the largest ocean in the world?", o: ["Atlantic", "Indian", "Arctic", "Pacific"], a: 3, vi: "Thái Bình Dương (Pacific) là đại dương lớn nhất." },
+            { q: "What do bees make?", o: ["milk", "silk", "honey", "cheese"], a: 2, vi: "Ong làm ra mật ong (honey)." },
+            { q: "How many colours are there in a rainbow?", o: ["five", "six", "seven", "nine"], a: 2, vi: "Cầu vồng có 7 màu." },
+            { q: "Which is the largest land animal?", o: ["lion", "bear", "giraffe", "elephant"], a: 3, vi: "Voi (elephant) là động vật trên cạn lớn nhất." },
+            { q: "The Great Wall is in ___.", o: ["Japan", "Korea", "China", "India"], a: 2, vi: "Vạn Lý Trường Thành nằm ở Trung Quốc (China)." },
+            { q: "Which month has 28 days in a normal year?", o: ["January", "February", "March", "April"], a: 1, vi: "Tháng 2 có 28 ngày (29 ngày vào năm nhuận)." },
+            { q: "How many sides does a triangle have?", o: ["two", "three", "four", "five"], a: 1, vi: "Tam giác (triangle) có 3 cạnh." },
+            { q: "In the famous saying, which fruit “keeps the doctor away”?", o: ["banana", "orange", "apple", "grape"], a: 2, vi: "Câu nói nổi tiếng: “An apple a day keeps the doctor away.”" },
+            { q: "What is the fastest land animal?", o: ["horse", "cheetah", "tiger", "dog"], a: 1, vi: "Báo gêpa (cheetah) là động vật chạy nhanh nhất trên cạn." },
+            { q: "How many players of one football team are on the field?", o: ["nine", "ten", "eleven", "twelve"], a: 2, vi: "Mỗi đội bóng đá có 11 cầu thủ trên sân." },
+            { q: "Which country is home to kangaroos?", o: ["Brazil", "Australia", "Canada", "Egypt"], a: 1, vi: "Chuột túi (kangaroo) sống ở Úc (Australia)." },
+            { q: "Which is the smallest continent?", o: ["Europe", "Africa", "Australia", "Asia"], a: 2, vi: "Úc (Australia) là châu lục nhỏ nhất." },
+            { q: "How many hours are there in three days?", o: ["36", "48", "60", "72"], a: 3, vi: "3 ngày × 24 giờ = 72 giờ." },
+            { q: "Which animal is called the “King of the Jungle”?", o: ["tiger", "lion", "elephant", "wolf"], a: 1, vi: "Sư tử (lion) được gọi là chúa sơn lâm." },
+            { q: "What is the main language of Brazil?", o: ["Spanish", "Portuguese", "French", "Italian"], a: 1, vi: "Brazil nói tiếng Bồ Đào Nha (Portuguese)." },
+            { q: "Which instrument measures temperature?", o: ["microscope", "barometer", "speedometer", "thermometer"], a: 3, vi: "Nhiệt kế (thermometer) dùng để đo nhiệt độ." },
+            { q: "How many wheels does a car usually have?", o: ["two", "three", "four", "six"], a: 2, vi: "Ô tô thường có 4 bánh xe." },
+            { q: "Which of these is a vegetable?", o: ["cucumber", "apple", "grape", "peach"], a: 0, vi: "Dưa chuột (cucumber) là một loại rau." },
+            { q: "The sun sets in the ___.", o: ["north", "south", "east", "west"], a: 3, vi: "Mặt trời lặn ở phía tây (west)." },
+            { q: "Which country has the largest population today?", o: ["USA", "India", "China", "Indonesia"], a: 1, vi: "Ấn Độ (India) hiện là nước đông dân nhất thế giới." }
+          ]
+        },
+        {
+          id: "true-false", name: "True or False", mode: "tf",
+          desc: "Read the statement — is it true or false?",
+          questions: [
+            { q: "The sun rises in the west.", o: ["True", "False"], a: 1, vi: "Mặt trời mọc ở phía đông (the east)." },
+            { q: "The capital city of Vietnam is Hanoi.", o: ["True", "False"], a: 0, vi: "Đúng — thủ đô của Việt Nam là Hà Nội." },
+            { q: "Fish can live without water.", o: ["True", "False"], a: 1, vi: "Cá cần nước để sống." },
+            { q: "There are twelve months in a year.", o: ["True", "False"], a: 0, vi: "Đúng — một năm có 12 tháng." },
+            { q: "A triangle has four sides.", o: ["True", "False"], a: 1, vi: "Tam giác chỉ có 3 cạnh." },
+            { q: "The English word for “mèo” is “dog”.", o: ["True", "False"], a: 1, vi: "“Mèo” là “cat”; “dog” là con chó." },
+            { q: "Water boils at 100°C at sea level.", o: ["True", "False"], a: 0, vi: "Đúng — nước sôi ở 100°C ở mực nước biển." },
+            { q: "Penguins can fly.", o: ["True", "False"], a: 1, vi: "Chim cánh cụt không biết bay, nhưng bơi rất giỏi." },
+            { q: "“Yesterday” is the day after today.", o: ["True", "False"], a: 1, vi: "“Yesterday” là hôm qua; ngày mai là “tomorrow”." },
+            { q: "Australia is a continent.", o: ["True", "False"], a: 0, vi: "Đúng — Úc vừa là quốc gia vừa là một châu lục." },
+            { q: "The moon is a star.", o: ["True", "False"], a: 1, vi: "Mặt trăng là vệ tinh của Trái Đất, không phải ngôi sao." },
+            { q: "You use a knife to cut food.", o: ["True", "False"], a: 0, vi: "Đúng — ta dùng dao (knife) để cắt thức ăn." },
+            { q: "English has 30 letters in its alphabet.", o: ["True", "False"], a: 1, vi: "Bảng chữ cái tiếng Anh có 26 chữ cái." },
+            { q: "A week has seven days.", o: ["True", "False"], a: 0, vi: "Đúng — một tuần có 7 ngày." },
+            { q: "Snakes have legs.", o: ["True", "False"], a: 1, vi: "Rắn không có chân." },
+            { q: "A year has 365 days in a normal year.", o: ["True", "False"], a: 0, vi: "Đúng — năm thường có 365 ngày." },
+            { q: "Coffee comes from beans.", o: ["True", "False"], a: 0, vi: "Đúng — cà phê được làm từ hạt cà phê." },
+            { q: "The Pacific is the smallest ocean.", o: ["True", "False"], a: 1, vi: "Sai — Thái Bình Dương là đại dương lớn nhất." },
+            { q: "Vietnam is in Asia.", o: ["True", "False"], a: 0, vi: "Đúng — Việt Nam thuộc châu Á." },
+            { q: "A spider is an insect.", o: ["True", "False"], a: 1, vi: "Sai — nhện có 8 chân, côn trùng chỉ có 6 chân." },
+            { q: "Milk comes from cows.", o: ["True", "False"], a: 0, vi: "Đúng — sữa bò lấy từ con bò." },
+            { q: "The word “book” starts with the letter C.", o: ["True", "False"], a: 1, vi: "Sai — “book” bắt đầu bằng chữ B." },
+            { q: "Fire is cold.", o: ["True", "False"], a: 1, vi: "Sai — lửa rất nóng." },
+            { q: "People in Vietnam drive on the right side of the road.", o: ["True", "False"], a: 0, vi: "Đúng — ở Việt Nam, phương tiện đi bên phải đường." },
+            { q: "A dozen means ten.", o: ["True", "False"], a: 1, vi: "Sai — “a dozen” là một tá = 12." }
+          ]
+        },
+        {
+          id: "listen-choose", name: "Listen & Choose", mode: "listen",
+          desc: "Listen to the English sentence, choose the correct meaning",
+          questions: [
+            { q: "Listen and choose the correct meaning.", s: "The library opens at eight in the morning.", o: ["Thư viện mở cửa lúc 8 giờ tối", "Thư viện mở cửa lúc 6 giờ sáng", "Thư viện đóng cửa lúc 8 giờ sáng", "Thư viện mở cửa lúc 8 giờ sáng"], a: 3, vi: "“Opens at eight in the morning” = mở cửa lúc 8 giờ sáng." },
+            { q: "Listen and choose the correct meaning.", s: "She is reading a book in the garden.", o: ["Cô ấy đang đọc sách trong vườn", "Cô ấy đang viết một quyển sách", "Cô ấy đang ngủ trong vườn", "Cô ấy đang đọc báo ở thư viện"], a: 0, vi: "“Reading a book in the garden” = đang đọc sách trong vườn." },
+            { q: "Listen and choose the correct meaning.", s: "I usually go to school by bus.", o: ["Tôi thường đi bộ đến trường", "Tôi không bao giờ đi xe buýt", "Tôi luôn đến trường bằng xe đạp", "Tôi thường đến trường bằng xe buýt"], a: 3, vi: "“By bus” = bằng xe buýt; “usually” = thường." },
+            { q: "Listen and choose the correct meaning.", s: "The weather is cold and rainy today.", o: ["Hôm nay trời nóng và nắng", "Hôm nay trời có tuyết", "Hôm nay trời lạnh nhưng khô ráo", "Hôm nay trời lạnh và có mưa"], a: 3, vi: "“Cold and rainy” = lạnh và có mưa." },
+            { q: "Listen and choose the correct meaning.", s: "Can you help me with my homework, please?", o: ["Bạn giúp tôi làm bài tập được không?", "Bạn cho tôi mượn sách được không?", "Bạn kiểm tra bài tập giúp tôi được không?", "Bạn dạy tôi tiếng Anh được không?"], a: 0, vi: "“Help me with my homework” = giúp tôi làm bài tập." },
+            { q: "Listen and choose the correct meaning.", s: "My brother works in a hospital. He is a doctor.", o: ["Anh tôi là giáo viên ở trường học", "Anh tôi là y tá ở bệnh viện", "Anh tôi là bác sĩ ở bệnh viện", "Anh tôi làm việc ở ngân hàng"], a: 2, vi: "“Works in a hospital… a doctor” = bác sĩ ở bệnh viện." },
+            { q: "Listen and choose the correct meaning.", s: "We are going to visit our grandparents this weekend.", o: ["Chúng tôi đã thăm ông bà cuối tuần trước", "Chúng tôi không muốn thăm ông bà", "Chúng tôi thăm ông bà mỗi ngày", "Chúng tôi sẽ thăm ông bà cuối tuần này"], a: 3, vi: "“Are going to” diễn tả kế hoạch sắp tới — sẽ thăm cuối tuần này." },
+            { q: "Listen and choose the correct meaning.", s: "There are three apples on the table.", o: ["Có ba quả táo trên bàn", "Có hai quả táo trên bàn", "Có ba quả táo trong tủ lạnh", "Không có quả táo nào trên bàn"], a: 0, vi: "“Three apples on the table” = ba quả táo trên bàn." },
+            { q: "Listen and choose the correct meaning.", s: "He speaks English very well.", o: ["Anh ấy nói tiếng Anh rất tệ", "Anh ấy học tiếng Anh mỗi ngày", "Anh ấy nói tiếng Anh rất giỏi", "Anh ấy không biết tiếng Anh"], a: 2, vi: "“Very well” = rất giỏi / rất tốt." },
+            { q: "Listen and choose the correct meaning.", s: "The train leaves at half past six.", o: ["Tàu khởi hành lúc 6 giờ", "Tàu đến nơi lúc 6 giờ rưỡi", "Tàu khởi hành lúc 6 giờ rưỡi", "Tàu khởi hành lúc 7 giờ"], a: 2, vi: "“Half past six” = 6 giờ rưỡi; “leaves” = khởi hành." },
+            { q: "Listen and choose the correct meaning.", s: "I am hungry. Let's have lunch.", o: ["Tôi mệt. Hãy đi ngủ đi.", "Tôi khát. Hãy uống nước đi.", "Tôi đói. Hãy ăn trưa đi.", "Tôi no rồi. Đừng ăn nữa."], a: 2, vi: "“Hungry” = đói; “have lunch” = ăn trưa." },
+            { q: "Listen and choose the correct meaning.", s: "She bought a new dress yesterday.", o: ["Hôm qua cô ấy đã bán một chiếc váy mới", "Cô ấy đang mặc một chiếc váy mới", "Ngày mai cô ấy sẽ mua một chiếc váy", "Hôm qua cô ấy đã mua một chiếc váy mới"], a: 3, vi: "“Bought” là quá khứ của “buy” (mua)." },
+            { q: "Listen and choose the correct meaning.", s: "Turn left at the next corner, then go straight.", o: ["Rẽ phải ở góc đường tiếp theo", "Rẽ trái ở góc đường tiếp theo rồi đi thẳng", "Đi thẳng rồi rẽ trái", "Quay lại và rẽ trái"], a: 1, vi: "“Turn left… then go straight” = rẽ trái… rồi đi thẳng." },
+            { q: "Listen and choose the correct meaning.", s: "This shirt costs two hundred thousand dong.", o: ["Chiếc áo này giá 100.000 đồng", "Chiếc áo này giá 20.000 đồng", "Chiếc áo này giá 200.000 đồng", "Chiếc áo này giá 2.000.000 đồng"], a: 2, vi: "“Two hundred thousand” = hai trăm nghìn (200.000)." },
+            { q: "Listen and choose the correct meaning.", s: "Don't forget to bring your umbrella. It might rain.", o: ["Đừng quên mang ô. Trời có thể mưa.", "Đừng mang ô. Trời sẽ nắng.", "Hãy mang ô. Trời đang mưa to.", "Quên ô cũng được. Trời không mưa đâu."], a: 0, vi: "“Might rain” = có thể mưa — nên mang ô (umbrella)." },
+            { q: "Listen and choose the correct meaning.", s: "The meeting starts at three o'clock in the afternoon.", o: ["Cuộc họp bắt đầu lúc 3 giờ sáng", "Cuộc họp bắt đầu lúc 3 giờ chiều", "Cuộc họp kết thúc lúc 3 giờ chiều", "Cuộc họp bắt đầu lúc 3 giờ tối"], a: 1, vi: "“Three o'clock in the afternoon” = 3 giờ chiều." },
+            { q: "Listen and choose the correct meaning.", s: "She doesn't like coffee, but she loves tea.", o: ["Cô ấy thích cà phê và trà", "Cô ấy không thích trà", "Cô ấy không thích cà phê nhưng rất thích trà", "Cô ấy chỉ uống cà phê"], a: 2, vi: "“Doesn't like coffee, but loves tea” = không thích cà phê nhưng rất thích trà." },
+            { q: "Listen and choose the correct meaning.", s: "There is a bank between the school and the market.", o: ["Có một ngân hàng giữa trường học và chợ", "Ngân hàng ở sau trường học", "Chợ ở cạnh ngân hàng và trường học", "Có một ngân hàng trong chợ"], a: 0, vi: "“Between the school and the market” = ở giữa trường học và chợ." },
+            { q: "Listen and choose the correct meaning.", s: "He has two sisters and one brother.", o: ["Anh ấy có hai anh trai và một chị gái", "Anh ấy có hai chị/em gái và một anh/em trai", "Anh ấy có ba chị em gái", "Anh ấy là con một"], a: 1, vi: "“Two sisters and one brother” = hai chị/em gái và một anh/em trai." },
+            { q: "Listen and choose the correct meaning.", s: "The red bag is cheaper than the blue one.", o: ["Túi đỏ đắt hơn túi xanh", "Túi xanh rẻ hơn túi đỏ", "Hai túi bằng giá nhau", "Túi đỏ rẻ hơn túi xanh"], a: 3, vi: "“Cheaper than” = rẻ hơn — túi đỏ rẻ hơn túi xanh." },
+            { q: "Listen and choose the correct meaning.", s: "We need some eggs and a kilo of rice.", o: ["Chúng tôi cần vài quả trứng và một ký gạo", "Chúng tôi cần một ký trứng và ít gạo", "Chúng tôi không cần trứng", "Chúng tôi cần hai ký gạo"], a: 0, vi: "“Some eggs and a kilo of rice” = vài quả trứng và một ký gạo." },
+            { q: "Listen and choose the correct meaning.", s: "My father drives to work every day.", o: ["Bố tôi đi bộ đi làm mỗi ngày", "Bố tôi lái xe đi làm mỗi ngày", "Bố tôi đi làm bằng xe buýt", "Bố tôi làm việc ở nhà mỗi ngày"], a: 1, vi: "“Drives to work” = lái xe đi làm." },
+            { q: "Listen and choose the correct meaning.", s: "The children are playing football in the park.", o: ["Bọn trẻ đang học bài trong công viên", "Bọn trẻ đang chơi bóng đá trong công viên", "Bọn trẻ đang chơi bóng đá ở trường", "Bọn trẻ đang ngủ trong công viên"], a: 1, vi: "“Playing football in the park” = đang chơi bóng đá trong công viên." },
+            { q: "Listen and choose the correct meaning.", s: "It will be sunny and warm tomorrow.", o: ["Ngày mai trời sẽ mưa và lạnh", "Ngày mai trời sẽ nắng và ấm", "Hôm nay trời nắng và ấm", "Ngày mai trời sẽ có gió và lạnh"], a: 1, vi: "“Will be sunny and warm tomorrow” = ngày mai trời nắng và ấm." },
+            { q: "Listen and choose the correct meaning.", s: "Please write your name at the top of the page.", o: ["Hãy ký tên ở cuối trang", "Hãy viết tên của bạn ở đầu trang", "Hãy đọc tên của bạn", "Hãy viết tên của bạn ở mặt sau"], a: 1, vi: "“At the top of the page” = ở đầu trang." }
+          ]
+        },
+        {
+          id: "everyday-speaking", name: "Everyday Speaking", mode: "quiz",
+          desc: "Real conversations for A1–A2 speakers",
+          questions: [
+            { q: "— Hello! How are you? — ___", o: ["Yes, I do.", "Goodbye.", "It's a book.", "I'm fine, thanks."], a: 3, vi: "Khi được hỏi “How are you?”, trả lời lịch sự: “I'm fine, thanks.”" },
+            { q: "— What's your name? — ___", o: ["I'm 20 years old.", "I'm a student.", "I live in Hue.", "My name is Lan."], a: 3, vi: "Hỏi tên thì trả lời “My name is…”." },
+            { q: "— Where are you from? — ___", o: ["I speak English.", "It's Monday today.", "I'm from Vietnam.", "I'm fine, thanks."], a: 2, vi: "“Where are you from?” hỏi quê quán/nơi đến → “I'm from Vietnam.”" },
+            { q: "— What do you do? — ___", o: ["I'm doing my homework.", "I'm fine.", "I do exercise.", "I'm a teacher."], a: 3, vi: "“What do you do?” hỏi nghề nghiệp → “I'm a teacher.”" },
+            { q: "— How much is this shirt? — ___", o: ["It's blue.", "It's size M.", "It's 200,000 dong.", "It's new."], a: 2, vi: "Hỏi giá “How much…?” → trả lời bằng giá tiền." },
+            { q: "— Can I help you? (in a shop) — ___", o: ["You're welcome.", "I'm sorry.", "See you later.", "Yes, I'm looking for a jacket."], a: 3, vi: "Nhân viên hỏi “Can I help you?” → nói món đồ mình đang tìm: “I'm looking for…”." },
+            { q: "— Excuse me, where is the bank? — ___", o: ["It's next to the post office.", "It's very big.", "I like banks.", "At 9 o'clock."], a: 0, vi: "Hỏi đường thì chỉ vị trí: “It's next to…” (ở cạnh…)." },
+            { q: "— What time does the shop open? — ___", o: ["Every day.", "Yes, it does.", "It's near here.", "At 8 in the morning."], a: 3, vi: "Hỏi giờ mở cửa → “At 8 in the morning.”" },
+            { q: "— Hello, can I speak to Mr Nam, please? — ___", o: ["Just a moment, please.", "I don't know him.", "Call me tomorrow.", "He is speaking English."], a: 0, vi: "Khi nghe điện thoại và cần chờ máy: “Just a moment, please.” (Xin chờ một chút.)" },
+            { q: "— Would you like some coffee? — ___", o: ["Yes, I do homework.", "No, I don't like books.", "Yes, please. Thank you.", "It's hot today."], a: 2, vi: "Nhận lời mời lịch sự: “Yes, please.”" },
+            { q: "— How was your weekend? — ___", o: ["It was great, thanks.", "On Saturday.", "I am happy.", "Yes, it was."], a: 0, vi: "Hỏi cuối tuần thế nào → “It was great, thanks.”" },
+            { q: "— I'm sorry I'm late. — ___", o: ["You're late.", "That's OK. Please sit down.", "Thank you.", "Good luck."], a: 1, vi: "Đáp lại lời xin lỗi một cách nhẹ nhàng: “That's OK.”" },
+            { q: "— What's the weather like today? — ___", o: ["I like summer.", "At the beach.", "It's sunny and hot.", "In December."], a: 2, vi: "Hỏi thời tiết “What's the weather like?” → “It's sunny and hot.”" },
+            { q: "— Do you have any brothers or sisters? — ___", o: ["Yes, I have one sister.", "My sister is a nurse.", "I like my family.", "She is 12."], a: 0, vi: "Câu hỏi Yes/No về anh chị em → “Yes, I have one sister.”" },
+            { q: "— Can you swim? — ___", o: ["Yes, I swim in a pool.", "No, I can't.", "Swimming is fun.", "In the sea."], a: 1, vi: "Hỏi khả năng “Can you…?” → “Yes, I can” hoặc “No, I can't”." },
+            { q: "— How often do you exercise? — ___", o: ["In the morning.", "At the gym.", "Twice a week.", "Very well."], a: 2, vi: "“How often…?” hỏi mức độ thường xuyên → “Twice a week” (hai lần một tuần)." },
+            { q: "— Let's go to the cinema tonight. — ___", o: ["Good idea!", "I'm a student.", "It's a film.", "Yesterday."], a: 0, vi: "Đồng ý với lời rủ rê: “Good idea!” (Ý hay đấy!)" },
+            { q: "— What would you like to eat? — ___", o: ["In a restaurant.", "I'd like a bowl of pho, please.", "It's delicious.", "With my friends."], a: 1, vi: "Gọi món lịch sự: “I'd like…, please.”" },
+            { q: "— What's the matter? — ___", o: ["I have a headache.", "At the hospital.", "She is a doctor.", "It's Monday."], a: 0, vi: "“What's the matter?” hỏi có vấn đề gì → nói triệu chứng: “I have a headache.”" },
+            { q: "— Can I sit here? — ___", o: ["It's a chair.", "Yes, of course.", "I am sitting.", "Over there."], a: 1, vi: "Xin phép và cho phép lịch sự: “Yes, of course.”" },
+            { q: "— What are you doing now? — ___", o: ["I do my homework every day.", "I did it yesterday.", "I'm studying English.", "I will study tonight."], a: 2, vi: "Hỏi việc đang làm (now) → hiện tại tiếp diễn: “I'm studying…”." },
+            { q: "— What are you going to do this weekend? — ___", o: ["I visited my parents.", "I'm going to visit my parents.", "I visit my parents every week.", "I am happy."], a: 1, vi: "Hỏi kế hoạch sắp tới → “I'm going to…”." },
+            { q: "— I have to go now. Talk to you later! — ___", o: ["Hello!", "OK, bye!", "You're welcome.", "Please sit down."], a: 1, vi: "Kết thúc cuộc trò chuyện: “OK, bye!”" },
+            { q: "— Thank you very much for your help. — ___", o: ["You're welcome.", "I'm sorry.", "Excuse me.", "Never mind is wrong."], a: 0, vi: "Đáp lại lời cảm ơn: “You're welcome.” (Không có gì.)" },
+            { q: "— How do I get to the station? — ___", o: ["By bus is fine.", "Go straight, then turn left.", "It's a big station.", "At 7 o'clock."], a: 1, vi: "Chỉ đường: “Go straight, then turn left.” (Đi thẳng, rồi rẽ trái.)" }
+          ]
+        },
+        {
+          id: "english-for-work", name: "English for Work", mode: "quiz",
+          desc: "Office English for A2–B1",
+          questions: [
+            { q: "At the start of a formal email, you write: “___ Ms Lan,”", o: ["Hello", "Hi friend", "Dear", "To"], a: 2, vi: "Email trang trọng bắt đầu bằng “Dear + tên,”." },
+            { q: "“Please find ___ the report you asked for.” (in an email)", o: ["attach", "attaching", "attached", "attachment"], a: 2, vi: "Cụm cố định trong email: “Please find attached…” (Xin xem tệp đính kèm)." },
+            { q: "The meeting is scheduled ___ Monday at 9 a.m.", o: ["to", "at", "in", "for"], a: 3, vi: "“Scheduled for + ngày” = được lên lịch vào ngày…" },
+            { q: "A “deadline” is ___.", o: ["a day off", "a team leader", "the last day/time to finish something", "a kind of meeting"], a: 2, vi: "“Deadline” = hạn chót phải hoàn thành công việc." },
+            { q: "Could you ___ me the file by Friday, please?", o: ["sent", "sends", "send", "sending"], a: 2, vi: "Sau “Could you” dùng động từ nguyên mẫu: “send”." },
+            { q: "He is in charge ___ the sales team.", o: ["for", "of", "with", "to"], a: 1, vi: "Cụm “in charge of” = phụ trách." },
+            { q: "A “CV” is a document about your ___.", o: ["family", "work experience and education", "holiday plans", "favourite food"], a: 1, vi: "CV là bản tóm tắt kinh nghiệm làm việc và học vấn khi xin việc." },
+            { q: "“Salary” means ___.", o: ["money you pay for a house", "money you earn from your job every month", "a holiday", "a meeting room"], a: 1, vi: "“Salary” = lương tháng." },
+            { q: "A “colleague” is a person you ___ with.", o: ["live", "work", "travel", "study at school"], a: 1, vi: "“Colleague” = đồng nghiệp, người làm việc cùng." },
+            { q: "We need to ___ the meeting to next week — the manager is away.", o: ["protect", "promise", "prepare", "postpone"], a: 3, vi: "“Postpone” = hoãn lại sang thời gian khác." },
+            { q: "After five years of hard work, she got a ___ to team leader.", o: ["protection", "production", "promotion", "pronunciation"], a: 2, vi: "“Promotion” = sự thăng chức." },
+            { q: "Please ___ in this form and sign your name at the bottom.", o: ["fall", "full", "feel", "fill"], a: 3, vi: "Cụm “fill in a form” = điền vào mẫu đơn." },
+            { q: "Our office is on the third ___ of this building.", o: ["wall", "stairs", "roof", "floor"], a: 3, vi: "“Floor” = tầng (của tòa nhà)." },
+            { q: "I have an appointment ___ the dentist at 2 p.m.", o: ["to", "with", "for", "at"], a: 1, vi: "“An appointment with someone” = cuộc hẹn với ai." },
+            { q: "Our company ___ rice to many countries.", o: ["invents", "imports", "arrives", "exports"], a: 3, vi: "“Export” = xuất khẩu (bán hàng ra nước ngoài)." },
+            { q: "He works ___ a software company in District 1.", o: ["for", "of", "by", "from"], a: 0, vi: "“Work for a company” = làm việc cho một công ty." },
+            { q: "Let's ___ a short break — we've worked for three hours.", o: ["do", "take", "make", "give"], a: 1, vi: "Cụm cố định “take a break” = nghỉ giải lao." },
+            { q: "She is very ___ — she always finishes her work on time.", o: ["reliable", "noisy", "lazy", "rude"], a: 0, vi: "“Reliable” = đáng tin cậy, luôn hoàn thành đúng hạn." },
+            { q: "“Thank you for your email. I will ___ as soon as possible.”", o: ["reply", "repeat", "remove", "return ticket"], a: 0, vi: "“Reply” = trả lời (thư/email)." },
+            { q: "The new office opens ___ January.", o: ["at", "on", "in", "for"], a: 2, vi: "Tháng dùng giới từ “in”: “in January”." },
+            { q: "Can we ___ the price before we sign?", o: ["discuss", "discuss about", "talk the", "speak"], a: 0, vi: "“Discuss something” — không có “about” sau discuss." },
+            { q: "He ___ from his job last month and started his own business.", o: ["resigned", "retired at 25", "removed", "repeated"], a: 0, vi: "“Resign” = xin nghỉ việc, từ chức." },
+            { q: "A person who buys things from a shop is a ___.", o: ["seller", "customer", "manager", "guard"], a: 1, vi: "“Customer” = khách hàng (người mua)." },
+            { q: "Please switch off your phones ___ the meeting.", o: ["during", "while is", "when time", "in middle"], a: 0, vi: "“During + danh từ” = trong suốt (buổi họp)." },
+            { q: "She speaks English ___ — she can talk to foreign customers easily.", o: ["fluently", "fluent", "fluency", "more fluent"], a: 0, vi: "Sau động từ “speaks” cần trạng từ: “fluently” (một cách lưu loát)." }
+          ]
+        },
+        {
+          id: "toeic-mini", name: "TOEIC Mini", mode: "quiz",
+          desc: "Part 5 style sentence completion",
+          questions: [
+            { q: "The manager asked the team to complete the report ___ Friday.", o: ["at", "until", "by", "in"], a: 2, vi: "“By + thời hạn” = chậm nhất vào (hoàn thành trước thứ Sáu)." },
+            { q: "All employees must wear an ID card ___ entering the building.", o: ["among", "while is", "during", "when"], a: 3, vi: "“When + V-ing” rút gọn: “when entering” = khi vào." },
+            { q: "The new printer is much ___ than the old one.", o: ["fast", "fastest", "faster", "fastly"], a: 2, vi: "Có “than” → so sánh hơn: “faster”." },
+            { q: "Ms Tran has worked for this company ___ ten years.", o: ["since", "from", "for", "by"], a: 2, vi: "Khoảng thời gian (ten years) dùng “for”." },
+            { q: "The conference will take place ___ the Grand Hotel.", o: ["of", "to", "at", "by"], a: 2, vi: "Địa điểm cụ thể dùng “at”: “at the Grand Hotel”." },
+            { q: "Please keep all receipts ___ you can claim your travel expenses.", o: ["unless to", "because of", "instead", "so that"], a: 3, vi: "“So that + mệnh đề” = để mà (chỉ mục đích)." },
+            { q: "The shipment arrived two days ___ than expected.", o: ["early", "earlier", "earliest", "more early"], a: 1, vi: "So sánh hơn của “early” là “earlier” + than." },
+            { q: "Anyone who wants to use the gym must register ___ the front desk.", o: ["into", "in", "at", "onto"], a: 2, vi: "“Register at the front desk” = đăng ký tại quầy lễ tân." },
+            { q: "The director was impressed by the team's ___ presentation.", o: ["organise", "organised", "organisation", "organising to"], a: 1, vi: "Trước danh từ “presentation” cần tính từ: “organised” (được tổ chức tốt)." },
+            { q: "Customers can get a full ___ if they return the item within 30 days.", o: ["discount only", "refuse", "receipt paper", "refund"], a: 3, vi: "“Refund” = khoản tiền hoàn lại." },
+            { q: "The office will be closed ___ the public holiday next Monday.", o: ["because", "due to", "since of", "reason"], a: 1, vi: "“Due to + danh từ” = do, bởi vì." },
+            { q: "Mr Lee speaks three languages ___ .", o: ["fluent", "fluently", "fluency", "fluentness"], a: 1, vi: "Bổ nghĩa cho động từ “speaks” cần trạng từ “fluently”." },
+            { q: "The hotel offers a free airport ___ for all guests.", o: ["trip go", "shuttle bus go", "shuttle", "travel car"], a: 2, vi: "“Airport shuttle” = xe đưa đón sân bay." },
+            { q: "Sales increased ___ 15 percent last quarter.", o: ["of", "to", "with", "by"], a: 3, vi: "Mức tăng dùng “by”: “increased by 15 percent”." },
+            { q: "The instructions must be followed ___ to avoid mistakes.", o: ["careful", "carefully", "care", "carefulness"], a: 1, vi: "Sau động từ bị động “be followed” cần trạng từ: “carefully”." },
+            { q: "___ the rain, the outdoor event continued as planned.", o: ["Because", "Although", "However", "Despite"], a: 3, vi: "“Despite + danh từ (the rain)” = mặc dù." },
+            { q: "The company plans to open a new branch ___ Da Nang next year.", o: ["in", "at", "to", "on"], a: 0, vi: "Thành phố lớn dùng “in”: “in Da Nang”." },
+            { q: "Employees are ___ to attend the safety training every year.", o: ["required", "requiring", "require", "requires"], a: 0, vi: "Bị động: “are required to attend” = bắt buộc phải tham dự." },
+            { q: "The meeting was postponed ___ the director was ill.", o: ["because", "because of", "due", "reason why"], a: 0, vi: "Sau “because” là một mệnh đề đầy đủ (the director was ill)." },
+            { q: "This is the ___ hotel near the airport.", o: ["near", "nearest", "nearer", "most near"], a: 1, vi: "So sánh nhất: “the nearest” (gần nhất)." },
+            { q: "The warranty covers repairs for two years ___ the date of purchase.", o: ["from", "since of", "by at", "until to"], a: 0, vi: "“From the date of purchase” = kể từ ngày mua." },
+            { q: "Applicants must submit their forms ___ than 30 June.", o: ["no later", "not late", "no lately", "not laterly"], a: 0, vi: "Cụm cố định “no later than” = không muộn hơn." },
+            { q: "The factory produces over 500 cars ___ month.", o: ["each", "every each", "per monthly", "all of"], a: 0, vi: "“Each month” = mỗi tháng (500 chiếc mỗi tháng)." },
+            { q: "Mr Park is responsible ___ managing the marketing team.", o: ["for", "of", "to", "with"], a: 0, vi: "Cụm “responsible for + V-ing” = chịu trách nhiệm về." },
+            { q: "The report was ___ written, so the director approved it at once.", o: ["clear", "clearly", "clarity", "clearing"], a: 1, vi: "Bổ nghĩa cho “written” cần trạng từ: “clearly written” (viết rõ ràng)." }
+          ]
+        },
+        {
+          id: "christmas-party", name: "Christmas Party", mode: "quiz",
+          desc: "Easy, fun English for the class Christmas party",
+          questions: [
+            { q: "Christmas Day is on ___ .", o: ["November 25", "December 31", "January 1", "December 25"], a: 3, vi: "Ngày Giáng Sinh là 25 tháng 12." },
+            { q: "The man in red who brings gifts to children is ___.", o: ["the Easter Bunny", "Rudolph", "a snowman", "Santa Claus"], a: 3, vi: "Ông già Noel trong tiếng Anh là “Santa Claus”." },
+            { q: "People usually put a ___ in their living room and decorate it at Christmas.", o: ["bamboo", "palm tree", "banana tree", "Christmas tree"], a: 3, vi: "“Christmas tree” là cây thông Noel." },
+            { q: "At Christmas, we say “___ Christmas!”", o: ["Happy", "Good", "Merry", "Nice"], a: 2, vi: "Lời chúc cố định: “Merry Christmas!” (Giáng Sinh vui vẻ!)" },
+            { q: "Santa's animals that pull his sleigh are ___.", o: ["horses", "elephants", "reindeer", "dogs"], a: 2, vi: "“Reindeer” là tuần lộc — loài vật kéo xe cho ông già Noel." },
+            { q: "Rudolph is famous for his shiny red ___.", o: ["hat", "shoes", "nose", "bag"], a: 2, vi: "Chú tuần lộc Rudolph nổi tiếng với chiếc mũi đỏ sáng bóng." },
+            { q: "A man made of snow with a carrot nose is a ___.", o: ["snowboy", "sandman", "iceman", "snowman"], a: 3, vi: "“Snowman” là người tuyết." },
+            { q: "People put a ___ on top of the Christmas tree.", o: ["bell book", "sock", "candle box", "star"], a: 3, vi: "Một ngôi sao (star) thường được đặt trên đỉnh cây thông." },
+            { q: "Children hang ___ by the fireplace for Santa to fill with small gifts.", o: ["shoes", "hats", "stockings", "gloves"], a: 2, vi: "“Stockings” là những chiếc tất dài treo chờ quà." },
+            { q: "Santa lives at the ___ with his elves.", o: ["South Pole", "moon", "North Pole", "beach"], a: 2, vi: "Theo truyện, ông già Noel sống ở Bắc Cực (North Pole)." },
+            { q: "Santa's little helpers who make the toys are ___.", o: ["elves", "angels", "fairies only", "snowmen"], a: 0, vi: "“Elves” là các chú lùn giúp việc của ông già Noel." },
+            { q: "Santa comes into the house through the ___.", o: ["window", "door", "chimney", "roof door"], a: 2, vi: "Ông già Noel chui qua ống khói (chimney) để vào nhà." },
+            { q: "A famous Christmas song is “___ Bells”.", o: ["Jingle", "School", "Happy", "Morning"], a: 0, vi: "Bài hát Giáng Sinh nổi tiếng “Jingle Bells”." },
+            { q: "A Christmas song sung by a group of people is called a Christmas ___.", o: ["carol", "pop", "rock", "rap"], a: 0, vi: "“Carol” là bài hát thánh ca/bài hát Giáng Sinh truyền thống." },
+            { q: "In many Western countries, families eat ___ for Christmas dinner.", o: ["pho", "roast turkey", "sushi", "pizza only"], a: 1, vi: "Món truyền thống trong bữa tối Giáng Sinh ở phương Tây là gà tây quay (roast turkey)." },
+            { q: "A warm, sweet drink many people enjoy at Christmas is hot ___.", o: ["chocolate", "coffee black", "tea green", "soup"], a: 0, vi: "“Hot chocolate” là sô-cô-la nóng." },
+            { q: "At our class party, everyone brings a ___ worth at least 50,000 dong for the gift exchange.", o: ["gift", "ticket", "book only", "flower"], a: 0, vi: "Mỗi người chuẩn bị một món quà (gift) để trao đổi tại bữa tiệc của lớp." },
+            { q: "The season of Christmas in Europe and America is ___.", o: ["summer", "winter", "spring", "autumn"], a: 1, vi: "Giáng Sinh ở châu Âu và Mỹ rơi vào mùa đông (winter) — trời lạnh, có tuyết." },
+            { q: "On January 1, we say “Happy ___!”", o: ["Birthday", "New Year", "Christmas", "Holiday"], a: 1, vi: "Ngày 1/1 chúc nhau “Happy New Year!” (Chúc mừng năm mới!)" },
+            { q: "To “decorate” the tree means to make it ___.", o: ["clean", "beautiful", "heavy", "old"], a: 1, vi: "“Decorate” = trang trí, làm cho đẹp hơn." },
+            { q: "Snow is ___.", o: ["hot and dry", "white and cold", "black and warm", "green and soft"], a: 1, vi: "Tuyết (snow) màu trắng và lạnh." },
+            { q: "A gift is also called a ___.", o: ["present", "party", "card only", "game"], a: 0, vi: "“Present” cũng có nghĩa là món quà, giống “gift”." },
+            { q: "At a party, people often play ___.", o: ["games", "homework", "exams", "meetings"], a: 0, vi: "Ở bữa tiệc, mọi người thường chơi trò chơi (games)." },
+            { q: "“Secret Santa” is a game where you ___ .", o: ["sing a song", "give a gift to someone but they don't know it was you", "cook dinner", "tell a story"], a: 1, vi: "“Secret Santa” là trò tặng quà bí mật — người nhận không biết ai tặng mình." },
+            { q: "Before eating at the party, we can say: “___!”", o: ["Good night", "Enjoy your meal", "Be careful", "Hurry up"], a: 1, vi: "“Enjoy your meal!” = Chúc ngon miệng!" }
+          ]
+        }
+      ];
+
+      var MODE_LABEL = { quiz: "Quiz · 4 choices", tf: "True or False", listen: "Listen & Choose" };
+      var SHAPES = ["shape-tri", "shape-dia", "shape-cir", "shape-squ"];
+    </script>
+    <script>
+      "use strict";
+      /* ================= UTILITIES ================= */
+      function $(id) { return document.getElementById(id); }
+      function esc(s) {
+        return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+          return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+        });
+      }
+      var VIEWS = ["view-home", "view-host-setup", "view-host-lobby", "view-host-game", "view-host-board",
+        "view-host-podium", "view-join", "view-player", "view-solo-setup", "view-solo-game", "view-solo-results"];
+      function show(viewId) {
+        VIEWS.forEach(function (v) { $(v).classList.toggle("hidden", v !== viewId); });
+        window.scrollTo(0, 0);
+      }
+      var speechRate = 0.92; // "normal"; slow = 0.68
+      function speak(text) {
+        try {
+          if (!("speechSynthesis" in window)) return;
+          window.speechSynthesis.cancel();
+          var u = new SpeechSynthesisUtterance(text);
+          u.lang = "en-US"; u.rate = speechRate;
+          window.speechSynthesis.speak(u);
+        } catch (e) { /* speech is a bonus, never break the game */ }
+      }
+      document.querySelectorAll("[data-rate]").forEach(function (b) {
+        b.addEventListener("click", function () {
+          speechRate = b.getAttribute("data-rate") === "slow" ? 0.68 : 0.92;
+          document.querySelectorAll("[data-rate]").forEach(function (x) {
+            x.classList.toggle("selected", x.getAttribute("data-rate") === b.getAttribute("data-rate"));
+          });
+        });
+      });
+
+      /* ---------- Sound effects (WebAudio tones, no files) ---------- */
+      var soundOn = true;
+      var audioCtx = null;
+      function tone(freq, at, dur, type, vol) {
+        try {
+          if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          if (audioCtx.state === "suspended") audioCtx.resume();
+          var t0 = audioCtx.currentTime + at;
+          var o = audioCtx.createOscillator(), g = audioCtx.createGain();
+          o.type = type || "sine"; o.frequency.value = freq;
+          g.gain.setValueAtTime(0.0001, t0);
+          g.gain.exponentialRampToValueAtTime(vol || 0.16, t0 + 0.02);
+          g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+          o.connect(g); g.connect(audioCtx.destination);
+          o.start(t0); o.stop(t0 + dur + 0.05);
+        } catch (e) { /* sound is a bonus */ }
+      }
+      function sfx(kind) {
+        if (!soundOn) return;
+        if (kind === "correct") { tone(659, 0, 0.14); tone(880, 0.12, 0.22); }
+        else if (kind === "wrong") { tone(220, 0, 0.2, "triangle", 0.14); tone(165, 0.14, 0.28, "triangle", 0.14); }
+        else if (kind === "tick") { tone(1050, 0, 0.05, "square", 0.05); }
+        else if (kind === "fanfare") { tone(523, 0, 0.16); tone(659, 0.14, 0.16); tone(784, 0.28, 0.16); tone(1047, 0.42, 0.34); }
+      }
+      function refreshSoundButtons() {
+        document.querySelectorAll(".btn-sound").forEach(function (b) { b.textContent = "Sound: " + (soundOn ? "on" : "off"); });
+      }
+      document.querySelectorAll(".btn-sound").forEach(function (b) {
+        b.addEventListener("click", function () { soundOn = !soundOn; refreshSoundButtons(); });
+      });
+
+      /* ---------- Connection status pill ---------- */
+      function setConn(state, text) {
+        document.querySelectorAll("[data-conn-pill]").forEach(function (pill) {
+          pill.className = "conn-pill " + state;
+          var t = pill.querySelector("[data-conn-text]");
+          if (t) t.textContent = text;
+        });
+      }
+
+      /* ---------- Small helpers ---------- */
+      function shuffleArr(a) {
+        var arr = a.slice();
+        for (var i = arr.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+        }
+        return arr;
+      }
+      function storeGet(store, key) { try { return store.getItem(key); } catch (e) { return null; } }
+      function storeSet(store, key, val) { try { store.setItem(key, val); } catch (e) {} }
+      function storeDel(store, key) { try { store.removeItem(key); } catch (e) {} }
+
+      /* ---------- Confetti (CSS animation, off with reduced motion) ---------- */
+      function burstConfetti(scopeEl) {
+        if (!scopeEl) return;
+        var wrap = scopeEl.querySelector("[data-confetti]");
+        if (!wrap) return;
+        wrap.innerHTML = "";
+        var colors = ["var(--a-red)", "var(--a-blue)", "var(--a-amber)", "var(--a-green)", "var(--teal)", "var(--gold)"];
+        for (var i = 0; i < 26; i++) {
+          var s = document.createElement("span");
+          s.className = "confetti";
+          s.style.left = (4 + Math.random() * 92) + "%";
+          s.style.background = colors[i % colors.length];
+          s.style.animationDelay = (Math.random() * 0.7) + "s";
+          wrap.appendChild(s);
+        }
+        setTimeout(function () { wrap.innerHTML = ""; }, 4200);
+      }
+      function copyText(text, msgEl, okMsg) {
+        function done() { if (msgEl) msgEl.textContent = okMsg || "Copied."; }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, function () { fallback(); });
+        } else { fallback(); }
+        function fallback() {
+          var ta = document.createElement("textarea");
+          ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+          document.body.appendChild(ta); ta.select();
+          try { document.execCommand("copy"); done(); } catch (e) { if (msgEl) msgEl.textContent = "Copy failed — select the link and copy it manually."; }
+          document.body.removeChild(ta);
+        }
+      }
+      /* Scoring: 500 base + up to 500 speed bonus + streak bonus (+50 per consecutive
+         correct beyond the first, capped at +250). */
+      function scoreFor(correct, fracRemaining, streakBefore) {
+        if (!correct) return { points: 0, streak: 0 };
+        var streak = streakBefore + 1;
+        var bonus = Math.min((streak - 1) * 50, 250);
+        var points = 500 + Math.round(500 * Math.max(0, Math.min(1, fracRemaining))) + bonus;
+        return { points: points, streak: streak };
+      }
+      function runTimer(fillEl, startAt, durMs, onDone, opts) {
+        var lastTickSec = -1;
+        var iv = setInterval(tick, 100);
+        function tick() {
+          var remain = startAt + durMs - Date.now();
+          var frac = Math.max(0, remain / durMs);
+          if (fillEl) {
+            fillEl.style.width = (frac * 100) + "%";
+            fillEl.classList.toggle("low", remain <= 5000 && remain > 0);
+          }
+          if (opts && opts.tickSound && remain > 0 && remain <= 3200) {
+            var sec = Math.ceil(remain / 1000);
+            if (sec !== lastTickSec) { lastTickSec = sec; sfx("tick"); }
+          }
+          if (remain <= 0) { clearInterval(iv); if (onDone) onDone(); }
+        }
+        tick();
+        return iv;
+      }
+      function answerButtonHTML(i, text) {
+        return '<span class="shape ' + SHAPES[i % 4] + '" aria-hidden="true"></span><span>' + esc(text) + "</span>";
+      }
+
+      /* ================= PACK REGISTRY ================= */
+      var customPacks = [];
+      function allPacks() { return PACKS.concat(customPacks); }
+      function findPack(id) {
+        var ps = allPacks();
+        for (var i = 0; i < ps.length; i++) if (ps[i].id === id) return ps[i];
+        return null;
+      }
+      function renderPackList(containerId, selectedId, onPick) {
+        var c = $(containerId); c.innerHTML = "";
+        allPacks().forEach(function (p) {
+          var b = document.createElement("button");
+          b.type = "button"; b.className = "pack-option" + (p.id === selectedId ? " selected" : "");
+          b.setAttribute("role", "radio"); b.setAttribute("aria-checked", p.id === selectedId ? "true" : "false");
+          b.innerHTML = '<span><span class="pack-name">' + esc(p.name) + '</span>' +
+            '<span class="pack-meta">' + esc(MODE_LABEL[p.mode] || "Quiz") + " · " + p.questions.length + " questions · " + esc(p.desc || "") + "</span></span>" +
+            '<span class="pack-check" aria-hidden="true">Selected</span>';
+          b.addEventListener("click", function () { onPick(p.id); });
+          c.appendChild(b);
+        });
+      }
+      function wireSeconds(segId, initial, onChange) {
+        var seg = $(segId), current = initial;
+        seg.querySelectorAll("button").forEach(function (b) {
+          b.classList.toggle("selected", parseInt(b.getAttribute("data-sec"), 10) === current);
+          b.addEventListener("click", function () {
+            current = parseInt(b.getAttribute("data-sec"), 10);
+            seg.querySelectorAll("button").forEach(function (x) { x.classList.toggle("selected", x === b); });
+            onChange(current);
+          });
+        });
+      }
+
+      /* ================= CUSTOM PACKS ================= */
+      function registerCustomPack(name, questions) {
+        var pack = { id: "custom-" + Date.now(), name: name || "My Custom Pack", mode: "quiz", desc: "Your own questions", custom: true, questions: questions };
+        customPacks = customPacks.filter(function (p) { return !p.custom; });
+        customPacks.push(pack);
+        return pack;
+      }
+      function parsePastedPack(text) {
+        var blocks = text.replace(/\r\n/g, "\n").split(/\n\s*\n/);
+        var qs = [];
+        for (var i = 0; i < blocks.length; i++) {
+          var lines = blocks[i].split("\n").map(function (s) { return s.trim(); }).filter(function (s) { return s.length > 0; });
+          if (lines.length === 0) continue;
+          if (lines.length < 6) throw new Error("Question " + (qs.length + 1) + " needs a question line, 4 option lines and the answer letter (A–D).");
+          var letter = lines[5].toUpperCase().charAt(0);
+          var ai = "ABCD".indexOf(letter);
+          if (ai < 0) throw new Error("Question " + (qs.length + 1) + ": the 6th line must be the correct letter — A, B, C or D.");
+          qs.push({ q: lines[0], o: [lines[1], lines[2], lines[3], lines[4]], a: ai, vi: lines[6] || "" });
+        }
+        if (qs.length === 0) throw new Error("No questions found. Check the format and try again.");
+        return qs;
+      }
+      function packCode(pack) {
+        var payload = JSON.stringify({ n: pack.name, q: pack.questions });
+        return btoa(unescape(encodeURIComponent(payload))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+      }
+      function loadPackCode(code) {
+        var b64 = String(code || "").trim().replace(/-/g, "+").replace(/_/g, "/");
+        while (b64.length % 4) b64 += "=";
+        var data = JSON.parse(decodeURIComponent(escape(atob(b64))));
+        if (!data || !Array.isArray(data.q) || !data.q.length) throw new Error("That code doesn't contain a question pack.");
+        return registerCustomPack(data.n || "My Custom Pack", data.q);
+      }
+      function loadPackFromHash() {
+        if (location.hash.indexOf("#pack=") !== 0) return;
+        try {
+          var pack = loadPackCode(location.hash.slice(6));
+          hostSel.packId = pack.id; soloSel.packId = pack.id;
+          $("home-custom-note").classList.remove("hidden");
+        } catch (e) { /* a broken code just means no custom pack */ }
+      }
+      function showCustomShare(pack) {
+        $("custom-share").classList.remove("hidden");
+        $("custom-share-code").value = packCode(pack);
+        $("custom-copy-msg").textContent = "";
+      }
+
+      /* ================= NAVIGATION ================= */
+      document.querySelectorAll("[data-home]").forEach(function (b) {
+        b.addEventListener("click", function () { show("view-home"); });
+      });
+      $("btn-role-host").addEventListener("click", function () { refreshSetupLists(); show("view-host-setup"); });
+      $("btn-role-join").addEventListener("click", function () { show("view-join"); setTimeout(function () { $("join-name").focus(); }, 50); });
+      $("btn-role-solo").addEventListener("click", function () { refreshSetupLists(); show("view-solo-setup"); });
+
+      /* ================= SETUP STATE ================= */
+      var hostSel = { packId: PACKS[0].id, seconds: 20, shuffleQ: false, shuffleA: false, doubleFinal: true, teams: 0 };
+      var soloSel = { packId: PACKS[0].id, seconds: 20 };
+      function wireSwitch(id, initial, onChange) {
+        var el = $(id), val = initial;
+        el.setAttribute("aria-checked", val ? "true" : "false");
+        el.addEventListener("click", function () {
+          val = !val;
+          el.setAttribute("aria-checked", val ? "true" : "false");
+          onChange(val);
+        });
+      }
+      wireSwitch("set-shuffle-q", false, function (v) { hostSel.shuffleQ = v; });
+      wireSwitch("set-shuffle-a", false, function (v) { hostSel.shuffleA = v; });
+      wireSwitch("set-double-final", true, function (v) { hostSel.doubleFinal = v; });
+      wireSwitch("set-sound", true, function (v) { soundOn = v; refreshSoundButtons(); });
+      (function () {
+        var seg = $("host-teams");
+        seg.querySelectorAll("button").forEach(function (b) {
+          b.addEventListener("click", function () {
+            hostSel.teams = parseInt(b.getAttribute("data-teams"), 10);
+            seg.querySelectorAll("button").forEach(function (x) { x.classList.toggle("selected", x === b); });
+          });
+        });
+      })();
+      function refreshSetupLists() {
+        renderPackList("host-pack-list", hostSel.packId, function (id) { hostSel.packId = id; refreshSetupLists(); });
+        renderPackList("solo-pack-list", soloSel.packId, function (id) { soloSel.packId = id; refreshSetupLists(); });
+      }
+      wireSeconds("host-seconds", 20, function (s) { hostSel.seconds = s; });
+      wireSeconds("solo-seconds", 20, function (s) { soloSel.seconds = s; });
+
+      /* Custom pack: paste */
+      $("btn-custom-load").addEventListener("click", function () {
+        var msg = $("custom-paste-msg");
+        try {
+          var qs = parsePastedPack($("custom-paste").value);
+          var pack = registerCustomPack("My Custom Pack", qs);
+          hostSel.packId = pack.id; soloSel.packId = pack.id;
+          msg.textContent = "Loaded " + qs.length + " questions — “My Custom Pack” is selected above.";
+          showCustomShare(pack);
+          refreshSetupLists();
+        } catch (e) { msg.textContent = e.message; }
+      });
+      /* Custom pack: form */
+      var formDraft = [];
+      function refreshFormBtn() { $("btn-cf-use").textContent = "Use form pack (" + formDraft.length + " question" + (formDraft.length === 1 ? "" : "s") + ")"; $("btn-cf-use").disabled = formDraft.length === 0; }
+      $("btn-cf-add").addEventListener("click", function () {
+        var msg = $("custom-form-msg");
+        var q = $("cf-q").value.trim(), o = [$("cf-a").value.trim(), $("cf-b").value.trim(), $("cf-c").value.trim(), $("cf-d").value.trim()];
+        if (!q || o.some(function (x) { return !x; })) { msg.textContent = "Fill in the question and all four options first."; return; }
+        formDraft.push({ q: q, o: o, a: parseInt($("cf-correct").value, 10), vi: $("cf-vi").value.trim() });
+        ["cf-q", "cf-a", "cf-b", "cf-c", "cf-d", "cf-vi"].forEach(function (id) { $(id).value = ""; });
+        msg.textContent = "Added. " + formDraft.length + " question" + (formDraft.length === 1 ? "" : "s") + " in the pack so far.";
+        refreshFormBtn();
+        $("cf-q").focus();
+      });
+      $("btn-cf-use").addEventListener("click", function () {
+        var pack = registerCustomPack("My Custom Pack", formDraft.slice());
+        formDraft = [];
+        refreshFormBtn();
+        hostSel.packId = pack.id; soloSel.packId = pack.id;
+        $("custom-form-msg").textContent = "Form pack ready — “My Custom Pack” is selected above.";
+        showCustomShare(pack);
+        refreshSetupLists();
+      });
+      $("btn-custom-copy").addEventListener("click", function () {
+        copyText($("custom-share-code").value, $("custom-copy-msg"), "Pack code copied — save it somewhere safe to reuse this pack.");
+      });
+      $("btn-custom-import").addEventListener("click", function () {
+        var msg = $("custom-import-msg");
+        try {
+          var pack = loadPackCode($("custom-import").value);
+          hostSel.packId = pack.id; soloSel.packId = pack.id;
+          msg.textContent = "Pack loaded (" + pack.questions.length + " questions) — “My Custom Pack” is selected above.";
+          $("home-custom-note").classList.remove("hidden");
+          refreshSetupLists();
+        } catch (e) { msg.textContent = "That code could not be read. Check you pasted the whole code and try again."; }
+      });
+
+      /* ================= SOLO PRACTICE ================= */
+      var solo = null;
+      $("btn-solo-start").addEventListener("click", function () { startSolo(soloSel.packId, soloSel.seconds); });
+      $("btn-solo-again").addEventListener("click", function () { startSolo(soloSel.packId, soloSel.seconds); });
+      $("btn-solo-quit").addEventListener("click", function () {
+        if (solo && solo.timer) clearInterval(solo.timer);
+        if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+        show("view-solo-setup");
+      });
+      function startSolo(packId, seconds) {
+        var pack = findPack(packId);
+        if (!pack) return;
+        solo = { pack: pack, seconds: seconds, qi: 0, score: 0, streak: 0, bestStreak: 0, correctCount: 0, startAt: 0, timer: null, locked: false, log: [] };
+        $("solo-who").textContent = pack.name + " · solo practice";
+        show("view-solo-game");
+        soloQuestion();
+      }
+      function soloQuestion() {
+        var q = solo.pack.questions[solo.qi];
+        solo.locked = false;
+        $("solo-q-count").textContent = "Question " + (solo.qi + 1) + " of " + solo.pack.questions.length;
+        $("solo-q-score").textContent = "Score: " + solo.score;
+        $("solo-q-text").textContent = q.q;
+        $("solo-feedback").classList.add("hidden");
+        var isListen = solo.pack.mode === "listen";
+        $("solo-listen-row").classList.toggle("hidden", !isListen);
+        var grid = $("solo-answers");
+        grid.className = "answers-grid" + (q.o.length === 2 ? " two" : "");
+        grid.innerHTML = "";
+        q.o.forEach(function (opt, i) {
+          var b = document.createElement("button");
+          b.type = "button"; b.className = "ans-btn bg-" + i;
+          b.innerHTML = answerButtonHTML(i, opt);
+          b.addEventListener("click", function () { soloAnswer(i); });
+          grid.appendChild(b);
+        });
+        solo.startAt = Date.now();
+        var dur = solo.seconds * 1000;
+        if (solo.timer) clearInterval(solo.timer);
+        solo.timer = runTimer($("solo-timer"), solo.startAt, dur, function () { soloAnswer(-1); }, { tickSound: true });
+        if (isListen && q.s) setTimeout(function () { speak(q.s); }, 350);
+      }
+      function soloAnswer(choice) {
+        if (!solo || solo.locked) return;
+        solo.locked = true;
+        clearInterval(solo.timer);
+        var q = solo.pack.questions[solo.qi];
+        var frac = Math.max(0, 1 - (Date.now() - solo.startAt) / (solo.seconds * 1000));
+        var correct = choice === q.a;
+        var res = scoreFor(correct, frac, solo.streak);
+        solo.streak = res.streak;
+        solo.bestStreak = Math.max(solo.bestStreak, solo.streak);
+        solo.score += res.points;
+        if (correct) solo.correctCount++;
+        sfx(correct ? "correct" : "wrong");
+        solo.log.push({ q: q.q, correct: correct, answerText: q.o[q.a], yourText: choice >= 0 ? q.o[choice] : "(no answer)", vi: q.vi || "" });
+        var btns = $("solo-answers").querySelectorAll(".ans-btn");
+        btns.forEach(function (b, i) {
+          b.disabled = true;
+          if (i === q.a) b.classList.add("correct");
+          else if (i === choice) b.classList.add("wrong-pick");
+          else b.classList.add("dim");
+        });
+        $("solo-q-score").textContent = "Score: " + solo.score;
+        $("solo-fb-label").textContent = (correct ? "Correct! +" + res.points + " points" : (choice === -1 ? "Time's up!" : "Not quite")) + " · Giải thích";
+        $("solo-fb-text").textContent = (q.vi || ("Correct answer: " + q.o[q.a]));
+        $("btn-solo-next").textContent = solo.qi + 1 >= solo.pack.questions.length ? "See results" : "Next question";
+        $("solo-feedback").classList.remove("hidden");
+      }
+      $("btn-solo-next").addEventListener("click", function () {
+        if (!solo) return;
+        solo.qi++;
+        if (solo.qi >= solo.pack.questions.length) {
+          $("solo-res-score").textContent = solo.score;
+          $("solo-res-correct").textContent = solo.correctCount + "/" + solo.pack.questions.length;
+          $("solo-res-streak").textContent = solo.bestStreak;
+          var missed = solo.log.filter(function (item) { return !item.correct; });
+          $("solo-review-note").textContent = missed.length === 0
+            ? "Perfect score — you missed nothing. Tuyệt vời, em không sai câu nào!"
+            : "You missed " + missed.length + " question" + (missed.length === 1 ? "" : "s") + ". The correct answers and explanations are below.";
+          var ul = $("solo-review"); ul.innerHTML = "";
+          missed.forEach(function (item) {
+            var li = document.createElement("li");
+            li.innerHTML = '<span class="tag bad">Missed</span>' + esc(item.q) +
+              '<br><span class="muted">Your answer: ' + esc(item.yourText) + " · Correct answer: <strong>" + esc(item.answerText) + "</strong></span>" +
+              (item.vi ? '<br><span class="vi">' + esc(item.vi) + "</span>" : "");
+            ul.appendChild(li);
+          });
+          if (solo.correctCount === solo.pack.questions.length) sfx("fanfare");
+          show("view-solo-results");
+        } else { soloQuestion(); }
+      });
+      $("btn-solo-replay").addEventListener("click", function () {
+        if (solo) { var q = solo.pack.questions[solo.qi]; if (q && q.s) speak(q.s); }
+      });
+
+      /* Prefill join code from ?room=CODE links + remember the student's name/code on this device */
+      (function () {
+        var savedName = storeGet(window.localStorage, "cqg_name");
+        var savedCode = storeGet(window.localStorage, "cqg_code");
+        if (savedName) $("join-name").value = savedName;
+        if (savedCode) $("join-code").value = savedCode;
+        try {
+          var room = new URLSearchParams(location.search).get("room");
+          if (room) {
+            $("join-code").value = room.toUpperCase().slice(0, 6);
+            show("view-join");
+          }
+        } catch (e) { /* no query string — fine */ }
+        loadPackFromHash();
+        refreshSetupLists();
+      })();
+    </script>
+    <script>
+      "use strict";
+      /* ================= MULTIPLAYER (PeerJS) =================
+         The host's browser is the source of truth. Room code -> peer id
+         "davidenglish-<CODE>". Players connect to the host peer; the host
+         broadcasts state and scores answers with its own clock. */
+      var PEER_PREFIX = "davidenglish-";
+      var CODE_CHARS = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+      /* Public relay servers so peer connections also work on strict home/school NATs. */
+      var ICE_CONFIG = { iceServers: [
+        { urls: "stun:stun.l.google.com:19302" },
+        { urls: "stun:stun1.l.google.com:19302" },
+        { urls: "turn:openrelay.metered.ca:80", username: "openrelayproject", credential: "openrelayproject" },
+        { urls: "turn:openrelay.metered.ca:443", username: "openrelayproject", credential: "openrelayproject" }
+      ] };
+      function newCode() {
+        var code = "";
+        for (var i = 0; i < 6; i++) code += CODE_CHARS.charAt(Math.floor(Math.random() * CODE_CHARS.length));
+        return code;
+      }
+      var TEAM_DEFS = [
+        { name: "Red Team", cls: "team-0" }, { name: "Blue Team", cls: "team-1" },
+        { name: "Green Team", cls: "team-2" }, { name: "Gold Team", cls: "team-3" }
+      ];
+
+      function peerUnavailable() { return typeof window.Peer === "undefined"; }
+      function netErrorHTML(title, detail) {
+        return '<span class="err-title">' + esc(title) + "</span>" + esc(detail) +
+          '<div class="btn-row"><button class="btn btn-ghost" type="button" onclick="document.getElementById(\'btn-role-solo\').click()">Practice alone instead</button></div>';
+      }
+
+      /* ================= HOST ================= */
+      var host = null;
+      function newHostState(pack, seconds, code, settings) {
+        return {
+          peer: null, code: code, pack: pack, seconds: seconds, settings: settings,
+          questions: pack.questions,   // replaced by the play list (shuffles applied) at game start
+          players: {},            // key -> {name, score, streak, correct, answered, misses, team, conn, online}
+          kicked: {},             // key -> true (removed by the teacher this session)
+          locked: false, allowLate: true,
+          teamCount: 0,           // 0 = individual play
+          phase: "lobby",         // lobby | question | reveal | board | podium
+          qi: -1, startAt: 0, durMs: seconds * 1000,
+          answers: {},            // key -> {choice, points, correct, streakBefore}
+          timer: null, autoRevealAt: null,
+          paused: false, remainMs: 0,
+          reconnectTimer: null, reconnectDelay: 1000
+        };
+      }
+      function hostPlayersArr() {
+        return Object.keys(host.players).map(function (k) { return host.players[k]; });
+      }
+      function hostStandings() {
+        return hostPlayersArr().slice().sort(function (a, b) {
+          return b.score - a.score || a.name.localeCompare(b.name);
+        }).map(function (p) {
+          return { name: p.name, score: p.score, correct: p.correct, answered: p.answered, team: p.team };
+        });
+      }
+      function hostTeamStandings() {
+        if (!host || !host.teamCount) return [];
+        var teams = [];
+        for (var i = 0; i < host.teamCount; i++) {
+          teams.push({ idx: i, name: TEAM_DEFS[i].name, cls: TEAM_DEFS[i].cls, score: 0, correct: 0, answered: 0, topName: "", topScore: -1, members: 0 });
+        }
+        hostPlayersArr().forEach(function (p) {
+          if (p.team == null || !teams[p.team]) return;
+          var t = teams[p.team];
+          t.score += p.score; t.correct += p.correct; t.answered += p.answered; t.members++;
+          if (p.score > t.topScore) { t.topScore = p.score; t.topName = p.name; }
+        });
+        return teams.sort(function (a, b) { return b.score - a.score || a.idx - b.idx; });
+      }
+      function accuracyText(correct, answered) {
+        if (!answered) return "no answers yet";
+        return correct + "/" + answered + " correct · " + Math.round(correct / answered * 100) + "%";
+      }
+      function hostBroadcast(msg, exceptName) {
+        hostPlayersArr().forEach(function (p) {
+          if (p.conn && p.online && p.name !== exceptName) {
+            try { p.conn.send(msg); } catch (e) { /* dropped conn cleaned up on close */ }
+          }
+        });
+      }
+      function hostSendTo(p, msg) { if (p && p.conn) { try { p.conn.send(msg); } catch (e) {} } }
+
+      /* Room creation tries up to 3 routes before giving up:
+         1) the standard cloud sign-in, 2) an explicit secure cloud config with
+         relay servers and a fresh code, 3) the standard route again with a fresh
+         code and more time. The old version made ONE attempt with a hard 12s
+         cut-off, so a single slow or blocked sign-in dead-ended the teacher. */
+      $("btn-create-room").addEventListener("click", function () {
+        var errBox = $("host-create-error");
+        var status = $("host-create-status");
+        errBox.classList.add("hidden");
+        if (peerUnavailable()) {
+          errBox.innerHTML = netErrorHTML("Multiplayer library didn't load", "The game connection library could not be loaded — check your internet connection and reload the page. Students can still practise solo.");
+          errBox.classList.remove("hidden");
+          return;
+        }
+        var pack = findPack(hostSel.packId);
+        if (!pack) return;
+        var btn = $("btn-create-room");
+        btn.disabled = true;
+        status.classList.remove("hidden");
+
+        var attempts = [
+          { label: "Connecting to the game service…", timeout: 10000, fresh: false,
+            make: function (code) { return new Peer(PEER_PREFIX + code, { config: ICE_CONFIG }); } },
+          { label: "First route was slow — retrying on the backup route…", timeout: 12000, fresh: true,
+            make: function (code) { return new Peer(PEER_PREFIX + code, { host: "0.peerjs.com", port: 443, secure: true, path: "/", config: ICE_CONFIG }); } },
+          { label: "Still connecting — one more try with a fresh room code…", timeout: 15000, fresh: true,
+            make: function (code) { return new Peer(PEER_PREFIX + code, { config: ICE_CONFIG }); } }
+        ];
+        var settings = { shuffleQ: hostSel.shuffleQ, shuffleA: hostSel.shuffleA, doubleFinal: hostSel.doubleFinal, teams: hostSel.teams };
+        var code = newCode();
+        host = newHostState(pack, hostSel.seconds, code, settings);
+
+        function failAll() {
+          btn.disabled = false; btn.textContent = "Create room";
+          status.classList.add("hidden");
+          errBox.innerHTML = netErrorHTML("The connection service didn't answer",
+            "The room could not be created after three tries on two routes. Check the internet connection (a school or café network may block game connections — a phone hotspot often works), then press “Create room” again. Solo practice still works for the class in the meantime.");
+          errBox.classList.remove("hidden");
+          if (host) { try { if (host.peer) host.peer.destroy(); } catch (e) {} host = null; }
+        }
+        function tryAttempt(i) {
+          if (!host) return;
+          if (i >= attempts.length) { failAll(); return; }
+          var att = attempts[i];
+          if (att.fresh) { host.code = newCode(); }
+          btn.textContent = i === 0 ? "Creating room…" : "Retrying… (try " + (i + 1) + " of " + attempts.length + ")";
+          status.textContent = att.label;
+          var peer;
+          try { peer = att.make(host.code); }
+          catch (e) { setTimeout(function () { tryAttempt(i + 1); }, 600); return; }
+          host.peer = peer;
+          var settled = false;
+          var timer = setTimeout(function () {
+            if (settled) return; settled = true;
+            try { peer.destroy(); } catch (e) {}
+            tryAttempt(i + 1);
+          }, att.timeout);
+          peer.on("open", function () {
+            if (settled) return; settled = true;
+            clearTimeout(timer);
+            btn.disabled = false; btn.textContent = "Create room";
+            status.classList.add("hidden");
+            hostWirePeer(peer);
+            enterHostLobby();
+          });
+          peer.on("error", function (err) {
+            if (settled) return;
+            var t = err && err.type;
+            if (t === "unavailable-id" || t === "network" || t === "server-error" || t === "socket-error" || t === "socket-closed" || t === "ssl-unavailable") {
+              settled = true;
+              clearTimeout(timer);
+              try { peer.destroy(); } catch (e) {}
+              setTimeout(function () { tryAttempt(i + 1); }, 600);
+            }
+            /* other error types: let the attempt timer decide */
+          });
+        }
+        tryAttempt(0);
+      });
+
+      /* Peer-level events for a live host: incoming connections + self-healing
+         sign-in if the connection service drops us mid-game. */
+      function hostWirePeer(peer) {
+        peer.on("connection", function (conn) { hostWireConn(conn); });
+        peer.on("disconnected", function () {
+          if (!host || host.peer !== peer) return;
+          setConn("warn", "Reconnecting…");
+          scheduleHostReconnect(peer, 1000);
+        });
+        peer.on("error", function (err) {
+          if (!host || host.peer !== peer) return;
+          if (err && (err.type === "network" || err.type === "socket-closed" || err.type === "socket-error")) {
+            setConn("warn", "Reconnecting…");
+            scheduleHostReconnect(peer, 1500);
+          }
+        });
+      }
+      function scheduleHostReconnect(peer, delay) {
+        if (!host || host.peer !== peer) return;
+        if (host.reconnectTimer) clearTimeout(host.reconnectTimer);
+        host.reconnectTimer = setTimeout(function () {
+          if (!host || host.peer !== peer || peer.destroyed) return;
+          try { peer.reconnect(); } catch (e) {}
+          // PeerJS fires "open" again after a successful reconnect.
+          var check = setTimeout(function () {
+            if (!host || host.peer !== peer) return;
+            if (peer.disconnected) {
+              host.reconnectDelay = Math.min((host.reconnectDelay || 1000) * 2, 15000);
+              scheduleHostReconnect(peer, host.reconnectDelay);
+            } else {
+              host.reconnectDelay = 1000;
+              setConn("ok", "Connected");
+            }
+          }, 2500);
+          peer.once("open", function () {
+            clearTimeout(check);
+            if (host && host.peer === peer) { host.reconnectDelay = 1000; setConn("ok", "Connected"); }
+          });
+        }, delay);
+      }
+
+      function enterHostLobby() {
+        $("lobby-code").textContent = host.code;
+        setConn("ok", "Connected");
+        var s = host.settings || {};
+        var bits = [];
+        if (s.shuffleQ) bits.push("shuffled questions");
+        if (s.shuffleA) bits.push("shuffled answers");
+        if (s.doubleFinal) bits.push("final question ×2");
+        if (s.teams) bits.push(s.teams + " teams");
+        $("lobby-pack-info").textContent = "Pack: " + host.pack.name + " · " + host.pack.questions.length + " questions · " + host.seconds + " seconds per question" + (bits.length ? " · " + bits.join(" · ") : "");
+        renderHostLobby();
+        show("view-host-lobby");
+      }
+      function renderHostLobby() {
+        if (!host) return;
+        var arr = hostPlayersArr();
+        $("lobby-count").textContent = arr.length;
+        var box = $("lobby-players");
+        if (arr.length === 0) {
+          box.innerHTML = '<span class="muted small">Waiting for the first student to join…</span>';
+        } else {
+          box.innerHTML = "";
+          arr.forEach(function (p) {
+            var s = document.createElement("span");
+            s.className = "chip" + (p.online ? "" : " offline");
+            var label = document.createElement("span");
+            label.textContent = p.name + (p.online ? "" : " (away)");
+            s.appendChild(label);
+            if (host.phase === "lobby") {
+              var kick = document.createElement("button");
+              kick.type = "button"; kick.className = "kick"; kick.textContent = "Remove";
+              kick.setAttribute("aria-label", "Remove " + p.name + " from the room");
+              kick.addEventListener("click", function () { hostKick(p.name.toLowerCase()); });
+              s.appendChild(kick);
+            }
+            box.appendChild(s);
+          });
+        }
+        $("btn-start-game").disabled = arr.filter(function (p) { return p.online; }).length === 0;
+        $("btn-start-game").textContent = arr.length === 0 ? "Start game (waiting for students…)" : "Start game with " + arr.length + " student" + (arr.length === 1 ? "" : "s");
+      }
+      function hostKick(key) {
+        if (!host) return;
+        var p = host.players[key];
+        if (!p) return;
+        host.kicked[key] = true;
+        if (p.conn) {
+          try { p.conn.send({ t: "blocked", reason: "kicked" }); } catch (e) {}
+          try { p.conn.close(); } catch (e) {}
+        }
+        delete host.players[key];
+        hostBroadcast({ t: "lobbyCount", count: hostPlayersArr().filter(function (x) { return x.online; }).length });
+        if (host.phase === "lobby") renderHostLobby();
+      }
+      $("btn-copy-code").addEventListener("click", function () {
+        if (host) copyText(host.code, $("copy-code-msg"), "Room code " + host.code + " copied — paste it anywhere to share it.");
+      });
+      wireSwitch("set-lock-room", false, function (v) { if (host) host.locked = v; });
+      wireSwitch("set-late-join", true, function (v) { if (host) host.allowLate = v; });
+      $("btn-host-close-room").addEventListener("click", function () { teardownHost(); show("view-host-setup"); });
+
+      function hostWireConn(conn) {
+        conn.on("data", function (msg) { if (host) hostOnData(conn, msg); });
+        conn.on("close", function () {
+          if (!host) return;
+          hostPlayersArr().forEach(function (p) {
+            if (p.conn === conn) { p.online = false; p.conn = null; }
+          });
+          if (host.phase === "lobby") renderHostLobby();
+          if (host.phase === "question") renderHostAnswerCount();
+        });
+        conn.on("error", function () { /* close handler covers state */ });
+      }
+      function hostOnData(conn, msg) {
+        if (!msg || typeof msg !== "object") return;
+        if (msg.t === "hello") {
+          var name = String(msg.name || "").trim().slice(0, 24);
+          if (!name) return;
+          var key = name.toLowerCase();
+          var p = host.players[key];
+          var isNew = !p;
+          if (host.kicked[key]) {
+            try { conn.send({ t: "blocked", reason: "kicked" }); } catch (e) {}
+            return;
+          }
+          if (isNew && host.locked) {
+            try { conn.send({ t: "blocked", reason: "locked" }); } catch (e) {}
+            return;
+          }
+          if (isNew && host.phase !== "lobby" && !host.allowLate) {
+            try { conn.send({ t: "blocked", reason: "late" }); } catch (e) {}
+            return;
+          }
+          if (isNew) {
+            p = { name: name, score: 0, streak: 0, correct: 0, answered: 0, misses: [], team: null, conn: null, online: false };
+            host.players[key] = p;
+            // A brand-new player joining mid-game in team mode joins the smallest team.
+            if (host.teamCount && host.phase !== "lobby") assignTeamTo(p);
+          }
+          if (p.conn && p.conn !== conn) { try { p.conn.close(); } catch (e) {} }
+          p.conn = conn; p.online = true;
+          conn.__playerKey = key;
+          hostSendTo(p, { t: "joined", name: p.name, score: p.score, team: p.team, teamName: p.team != null ? TEAM_DEFS[p.team].name : null });
+          hostBroadcast({ t: "lobbyCount", count: hostPlayersArr().filter(function (x) { return x.online; }).length });
+          if (host.phase === "lobby") renderHostLobby();
+          else hostSendPhaseTo(p);
+          return;
+        }
+        if (msg.t === "answer") {
+          var key2 = conn.__playerKey;
+          if (!key2 || host.phase !== "question" || host.paused || msg.qi !== host.qi) return;
+          var pl = host.players[key2];
+          if (!pl || host.answers[key2]) return;
+          var q = host.questions[host.qi];
+          var elapsed = Date.now() - host.startAt;
+          if (elapsed > host.durMs + 1500) return; // too late
+          var frac = Math.max(0, 1 - elapsed / host.durMs);
+          var correct = msg.choice === q.a;
+          var streakBefore = pl.streak;
+          var res = scoreFor(correct, frac, streakBefore);
+          var points = res.points;
+          if (host.settings.doubleFinal && host.qi === host.questions.length - 1) points *= 2;
+          pl.streak = res.streak;
+          pl.score += points;
+          pl.answered++;
+          if (correct) { pl.correct++; }
+          else {
+            pl.misses.push({ qi: host.qi, q: q.q, correctText: q.o[q.a], yourText: msg.choice >= 0 && q.o[msg.choice] ? q.o[msg.choice] : "(no answer)", vi: q.vi || "" });
+          }
+          // The answer is recorded on the host the moment it arrives — if the
+          // student's connection drops a second later, the answer still counts.
+          host.answers[key2] = { choice: msg.choice, points: points, correct: correct, streakBefore: streakBefore };
+          renderHostAnswerCount();
+          maybeEarlyReveal();
+          return;
+        }
+        if (msg.t === "ping") { hostSendTo(host.players[conn.__playerKey], { t: "pong" }); }
+      }
+      function assignTeamTo(p) {
+        var counts = [], scores = [];
+        for (var i = 0; i < host.teamCount; i++) { counts.push(0); scores.push(0); }
+        hostPlayersArr().forEach(function (x) {
+          if (x !== p && x.team != null) { counts[x.team]++; scores[x.team] += x.score; }
+        });
+        var best = 0;
+        for (var j = 1; j < host.teamCount; j++) {
+          if (counts[j] < counts[best] || (counts[j] === counts[best] && scores[j] < scores[best])) best = j;
+        }
+        p.team = best;
+      }
+      function hostDistCounts(q) {
+        var counts = q.o.map(function () { return 0; });
+        Object.keys(host.answers).forEach(function (k) {
+          var c = host.answers[k].choice;
+          if (c >= 0 && counts[c] != null) counts[c]++;
+        });
+        return counts;
+      }
+      /* Send the current game phase to a (re)joining player so they land in sync. */
+      function hostSendPhaseTo(p) {
+        if (!host) return;
+        var q = host.questions[host.qi];
+        var key = p.name.toLowerCase();
+        var ans = host.answers[key];
+        if (host.phase === "question" && q) {
+          hostSendTo(p, { t: "question", qi: host.qi, total: host.questions.length, q: q.q, s: q.s || null, o: q.o, mode: host.pack.mode, startAt: host.startAt, durMs: host.durMs, score: p.score, double: !!(host.settings.doubleFinal && host.qi === host.questions.length - 1), yourAnswer: ans ? ans.choice : null, paused: host.paused, remainMs: host.remainMs });
+        } else if (host.phase === "reveal" && q) {
+          var standings = hostStandings();
+          var rank = standings.findIndex(function (s) { return s.name === p.name; }) + 1;
+          hostSendTo(p, { t: "reveal", qi: host.qi, correct: q.a, vi: q.vi || "", o: q.o, counts: hostDistCounts(q), yourChoice: ans ? ans.choice : -1, points: ans ? ans.points : 0, total: p.score, rank: rank, of: standings.length, streak: p.streak, skipped: !!host.lastSkipped });
+        } else if (host.phase === "board") {
+          hostSendBoardTo(p);
+        } else if (host.phase === "podium") {
+          hostSendPodiumTo(p);
+        } else {
+          hostSendTo(p, { t: "lobbyCount", count: hostPlayersArr().filter(function (x) { return x.online; }).length });
+        }
+      }
+      function hostSendBoardTo(p) {
+        if (host.teamCount) {
+          hostSendTo(p, { t: "board", teams: hostTeamStandings(), yourTeam: p.team });
+        } else {
+          hostSendTo(p, { t: "board", top: hostStandings().slice(0, 5), you: { name: p.name, score: p.score } });
+        }
+      }
+      function hostSendPodiumTo(p) {
+        var st = hostStandings();
+        var r = st.findIndex(function (s) { return s.name === p.name; }) + 1;
+        var msg = { t: "podium", top: st.slice(0, 3), rank: r, score: p.score, of: st.length, correct: p.correct, answered: p.answered, misses: p.misses };
+        if (host.teamCount) {
+          msg.teams = hostTeamStandings();
+          msg.yourTeam = p.team;
+          var ts = hostTeamStandings();
+          for (var i = 0; i < ts.length; i++) if (ts[i].idx === p.team) msg.yourTeamRank = i + 1;
+        }
+        hostSendTo(p, msg);
+      }
+
+      /* ---------- Host game flow ---------- */
+      function buildPlayQuestions() {
+        var qs = host.pack.questions.map(function (q) {
+          return { q: q.q, s: q.s, o: q.o.slice(), a: q.a, vi: q.vi };
+        });
+        if (host.settings.shuffleQ) qs = shuffleArr(qs);
+        if (host.settings.shuffleA) {
+          qs.forEach(function (q) {
+            if (q.o.length < 3) return; // True/False order stays as-is
+            var order = shuffleArr(q.o.map(function (_, i) { return i; }));
+            var oldA = q.a;
+            q.o = order.map(function (i) { return q.o[i]; });
+            q.a = order.indexOf(oldA);
+          });
+        }
+        return qs;
+      }
+      function startGame() {
+        if (!host) return;
+        host.questions = buildPlayQuestions();
+        host.teamCount = host.settings.teams || 0;
+        hostPlayersArr().forEach(function (p) {
+          p.score = 0; p.streak = 0; p.correct = 0; p.answered = 0; p.misses = []; p.team = null;
+        });
+        if (host.teamCount) {
+          var online = shuffleArr(hostPlayersArr().filter(function (p) { return p.online; }));
+          online.forEach(function (p, i) { p.team = i % host.teamCount; });
+          // Anyone offline keeps a balanced slot too, in case they reconnect.
+          hostPlayersArr().filter(function (p) { return p.team == null; }).forEach(function (p) { assignTeamTo(p); });
+          hostPlayersArr().forEach(function (p) {
+            hostSendTo(p, { t: "teamInfo", team: p.team, teamName: p.team != null ? TEAM_DEFS[p.team].name : null });
+          });
+        }
+        host.qi = -1;
+        hostNextQuestion();
+      }
+      $("btn-start-game").addEventListener("click", startGame);
+      function hostNextQuestion() {
+        host.qi++;
+        if (host.qi >= host.questions.length) { hostShowPodium(); return; }
+        host.phase = "question";
+        host.paused = false;
+        host.lastSkipped = false;
+        host.answers = {};
+        var q = host.questions[host.qi];
+        host.startAt = Date.now() + 400;
+        host.durMs = host.seconds * 1000;
+        hostBroadcast({
+          t: "question", qi: host.qi, total: host.questions.length,
+          q: q.q, s: q.s || null, o: q.o, mode: host.pack.mode,
+          startAt: host.startAt, durMs: host.durMs,
+          double: !!(host.settings.doubleFinal && host.qi === host.questions.length - 1)
+        });
+        // include each player's current score with a personal ping
+        hostPlayersArr().forEach(function (p) { hostSendTo(p, { t: "scoreUpdate", score: p.score }); });
+        renderHostQuestion();
+        show("view-host-game");
+        if (host.timer) clearInterval(host.timer);
+        host.timer = runTimer($("host-timer"), host.startAt, host.durMs, function () { hostReveal(); }, { tickSound: true });
+        if (host.autoRevealAt) clearTimeout(host.autoRevealAt);
+        host.autoRevealAt = setTimeout(function () { hostReveal(); }, host.durMs + 400 + 250);
+      }
+      function renderHostQuestion() {
+        var q = host.questions[host.qi];
+        $("host-paused").classList.add("hidden");
+        $("btn-host-pause").textContent = "Pause";
+        if (host.settings.doubleFinal && host.qi === host.questions.length - 1) {
+          $("host-q-pack").textContent = host.pack.name + " · FINAL — double points!";
+        }
+        $("host-live").classList.remove("hidden");
+        $("host-reveal").classList.add("hidden");
+        $("host-q-count").textContent = "Question " + (host.qi + 1) + " of " + host.questions.length;
+        if (!(host.settings.doubleFinal && host.qi === host.questions.length - 1)) $("host-q-pack").textContent = host.pack.name;
+        $("host-q-text").textContent = q.q;
+        var speakEl = $("host-speak-text");
+        var isListen = host.pack.mode === "listen";
+        $("host-listen-row").classList.toggle("hidden", !isListen);
+        if (isListen && q.s) { speakEl.textContent = "Sentence: “" + q.s + "”"; speakEl.classList.remove("hidden"); }
+        else speakEl.classList.add("hidden");
+        var grid = $("host-answers");
+        grid.className = "answers-grid" + (q.o.length === 2 ? " two" : "");
+        grid.innerHTML = "";
+        q.o.forEach(function (opt, i) {
+          var d = document.createElement("div");
+          d.className = "ans-display bg-" + i;
+          d.innerHTML = answerButtonHTML(i, opt);
+          grid.appendChild(d);
+        });
+        renderHostAnswerCount();
+      }
+      function renderHostAnswerCount() {
+        if (!host) return;
+        $("host-ans-count").textContent = Object.keys(host.answers).length;
+        $("host-ans-total").textContent = hostPlayersArr().filter(function (p) { return p.online; }).length;
+      }
+      function maybeEarlyReveal() {
+        var online = hostPlayersArr().filter(function (p) { return p.online; });
+        if (online.length > 0 && Object.keys(host.answers).length >= online.length) {
+          setTimeout(function () { if (host && host.phase === "question") hostReveal(); }, 600);
+        }
+      }
+      $("btn-host-speak").addEventListener("click", function () {
+        if (host) { var q = host.questions[host.qi]; if (q && q.s) speak(q.s); }
+      });
+      $("btn-host-reveal").addEventListener("click", function () { hostReveal(); });
+
+      /* Pause / resume: freeze the clock on the host, tell every player. */
+      $("btn-host-pause").addEventListener("click", function () {
+        if (!host || host.phase !== "question") return;
+        if (!host.paused) {
+          host.paused = true;
+          host.remainMs = Math.max(0, host.startAt + host.durMs - Date.now());
+          if (host.timer) clearInterval(host.timer);
+          if (host.autoRevealAt) clearTimeout(host.autoRevealAt);
+          $("host-timer").style.width = (host.durMs ? (host.remainMs / host.durMs * 100) : 0) + "%";
+          $("host-paused").classList.remove("hidden");
+          $("btn-host-pause").textContent = "Resume";
+          hostBroadcast({ t: "paused", remainMs: host.remainMs, durMs: host.durMs });
+        } else {
+          host.paused = false;
+          host.startAt = Date.now() + 300;
+          host.durMs = host.remainMs;
+          $("host-paused").classList.add("hidden");
+          $("btn-host-pause").textContent = "Pause";
+          hostBroadcast({ t: "resumed", startAt: host.startAt, durMs: host.durMs });
+          if (host.timer) clearInterval(host.timer);
+          host.timer = runTimer($("host-timer"), host.startAt, host.durMs, function () { hostReveal(); }, { tickSound: true });
+          if (host.autoRevealAt) clearTimeout(host.autoRevealAt);
+          host.autoRevealAt = setTimeout(function () { hostReveal(); }, host.durMs + 300 + 250);
+        }
+      });
+
+      /* Skip: nobody scores on this question; answers already given are undone. */
+      $("btn-host-skip").addEventListener("click", function () {
+        if (!host || host.phase !== "question") return;
+        Object.keys(host.answers).forEach(function (k) {
+          var pl = host.players[k], ans = host.answers[k];
+          if (!pl) return;
+          pl.score -= ans.points;
+          pl.streak = ans.streakBefore;
+          pl.answered--;
+          if (ans.correct) pl.correct--;
+          ans.points = 0;
+        });
+        hostPlayersArr().forEach(function (pl) {
+          pl.misses = pl.misses.filter(function (m) { return m.qi !== host.qi; });
+        });
+        host.lastSkipped = true;
+        hostReveal();
+      });
+
+      function hostReveal() {
+        if (!host || host.phase !== "question") return;
+        host.phase = "reveal";
+        host.paused = false;
+        if (host.timer) clearInterval(host.timer);
+        if (host.autoRevealAt) clearTimeout(host.autoRevealAt);
+        var q = host.questions[host.qi];
+        var standings = hostStandings();
+        var counts = hostDistCounts(q);
+        hostPlayersArr().forEach(function (p) {
+          var ans = host.answers[p.name.toLowerCase()];
+          var rank = standings.findIndex(function (s) { return s.name === p.name; }) + 1;
+          hostSendTo(p, {
+            t: "reveal", qi: host.qi, correct: q.a, vi: q.vi || "", o: q.o, counts: counts,
+            yourChoice: ans ? ans.choice : -1, points: ans ? ans.points : 0,
+            total: p.score, rank: rank, of: standings.length, streak: p.streak,
+            skipped: !!host.lastSkipped
+          });
+        });
+        $("host-live").classList.add("hidden");
+        var rv = $("host-reveal");
+        rv.classList.remove("hidden");
+        $("host-reveal-count").textContent = "Question " + (host.qi + 1) + " of " + host.pack.questions.length;
+        $("host-reveal-q").textContent = q.q;
+        var sp = $("host-reveal-speak");
+        if (host.pack.mode === "listen" && q.s) { sp.textContent = "Sentence: “" + q.s + "”"; sp.classList.remove("hidden"); }
+        else sp.classList.add("hidden");
+        var grid = $("host-reveal-answers");
+        grid.className = "answers-grid" + (q.o.length === 2 ? " two" : "");
+        grid.innerHTML = "";
+        q.o.forEach(function (opt, i) {
+          var d = document.createElement("div");
+          d.className = "ans-display bg-" + i + (i === q.a ? " correct" : " dim");
+          d.innerHTML = answerButtonHTML(i, opt) + (i === q.a ? '<span style="margin-left:auto;font-weight:700">Correct</span>' : "");
+          grid.appendChild(d);
+        });
+        var ex = $("host-reveal-explain");
+        if (q.vi) { ex.classList.remove("hidden"); $("host-reveal-explain-text").textContent = q.vi; }
+        else ex.classList.add("hidden");
+        var dist = $("host-dist");
+        dist.innerHTML = "";
+        var counts = q.o.map(function () { return 0; });
+        Object.keys(host.answers).forEach(function (k) { counts[host.answers[k].choice]++; });
+        var max = Math.max(1, Math.max.apply(null, counts));
+        q.o.forEach(function (opt, i) {
+          var row = document.createElement("div");
+          row.className = "dist-row";
+          row.innerHTML = '<span class="dist-label">' + esc(opt) + '</span>' +
+            '<span class="dist-track"><span class="dist-fill bg-' + i + '" style="display:block;width:' + (counts[i] / max * 100) + '%"></span></span>' +
+            '<span class="dist-num">' + counts[i] + "</span>";
+          dist.appendChild(row);
+        });
+        $("btn-host-to-board").textContent = host.qi + 1 >= host.pack.questions.length ? "Show final results" : "Show leaderboard";
+        show("view-host-game");
+      }
+      $("btn-host-to-board").addEventListener("click", function () {
+        if (!host) return;
+        if (host.qi + 1 >= host.questions.length) { hostShowPodium(); return; }
+        host.phase = "board";
+        hostPlayersArr().forEach(function (p) { hostSendBoardTo(p); });
+        if (host.teamCount) {
+          $("board-title").textContent = "Team leaderboard";
+          renderTeamList($("host-board-list"), hostTeamStandings(), null);
+          $("board-subtitle").textContent = "Team scores · after question " + (host.qi + 1) + " of " + host.questions.length;
+        } else {
+          $("board-title").textContent = "Leaderboard";
+          renderBoardList($("host-board-list"), hostStandings().slice(0, 5), null);
+          $("board-subtitle").textContent = "Top 5 · after question " + (host.qi + 1) + " of " + host.questions.length;
+        }
+        $("btn-host-next").textContent = "Next question (" + (host.qi + 2) + " of " + host.questions.length + ")";
+        show("view-host-board");
+      });
+      $("btn-host-next").addEventListener("click", function () { if (host) hostNextQuestion(); });
+
+      function renderBoardList(ol, list, myName, withStats) {
+        ol.innerHTML = "";
+        list.forEach(function (s, i) {
+          var li = document.createElement("li");
+          li.className = (i === 0 ? "p1" : i === 1 ? "p2" : i === 2 ? "p3" : "") + (myName && s.name === myName ? " me" : "");
+          var sub = "";
+          if (withStats && s.answered != null) sub = '<span class="b-sub">' + accuracyText(s.correct, s.answered) + "</span>";
+          else if (s.teamName) sub = '<span class="b-sub">' + esc(s.teamName) + "</span>";
+          li.innerHTML = '<span class="rank">' + (i + 1) + '</span><span class="b-name">' + esc(s.name) + sub + "</span>" +
+            (i === 0 ? '<span class="medal">Leader</span>' : "") +
+            '<span class="b-score">' + s.score + "</span>";
+          ol.appendChild(li);
+        });
+        if (list.length === 0) ol.innerHTML = '<li><span class="muted">No players yet.</span></li>';
+      }
+      function renderTeamList(ol, teams, myTeamIdx) {
+        ol.innerHTML = "";
+        teams.forEach(function (t, i) {
+          var li = document.createElement("li");
+          li.className = (i === 0 ? "p1" : i === 1 ? "p2" : i === 2 ? "p3" : "") + (myTeamIdx != null && t.idx === myTeamIdx ? " me" : "");
+          var sub = t.members + " player" + (t.members === 1 ? "" : "s") + " · " + accuracyText(t.correct, t.answered) +
+            (t.topName ? " · Top: " + t.topName + " (" + t.topScore + ")" : "");
+          li.innerHTML = '<span class="rank">' + (i + 1) + '</span><span class="team-dot ' + t.cls + '" aria-hidden="true"></span>' +
+            '<span class="b-name">' + esc(t.name) + '<span class="b-sub">' + esc(sub) + "</span></span>" +
+            (i === 0 ? '<span class="medal">Leader</span>' : "") +
+            '<span class="b-score">' + t.score + "</span>";
+          ol.appendChild(li);
+        });
+        if (teams.length === 0) ol.innerHTML = '<li><span class="muted">No teams yet.</span></li>';
+      }
+      function hostShowPodium() {
+        host.phase = "podium";
+        host.paused = false;
+        if (host.timer) clearInterval(host.timer);
+        if (host.autoRevealAt) clearTimeout(host.autoRevealAt);
+        hostPlayersArr().forEach(function (p) { hostSendPodiumTo(p); });
+        var st = hostStandings();
+        var teamWrap = $("host-podium-teams");
+        if (host.teamCount) {
+          teamWrap.classList.remove("hidden");
+          renderTeamList($("host-podium-team-list"), hostTeamStandings(), null);
+        } else {
+          teamWrap.classList.add("hidden");
+        }
+        renderBoardList($("host-podium-list"), st, null, true);
+        $("copy-results-msg").textContent = "";
+        show("view-host-podium");
+        $("view-host-podium").classList.remove("podium-pop");
+        void $("view-host-podium").offsetWidth;
+        $("view-host-podium").classList.add("podium-pop");
+        burstConfetti($("view-host-podium"));
+        sfx("fanfare");
+      }
+      $("btn-copy-results").addEventListener("click", function () {
+        if (!host) return;
+        var total = host.questions.length;
+        var lines = [host.pack.name + " — final results (room " + host.code + ")"];
+        if (host.teamCount) {
+          lines.push("", "Teams:");
+          hostTeamStandings().forEach(function (t, i) {
+            lines.push((i + 1) + ". " + t.name + " — " + t.score + " pts (" + t.correct + "/" + t.answered + " correct, top: " + (t.topName || "—") + ")");
+          });
+          lines.push("", "Players:");
+        }
+        hostStandings().forEach(function (s, i) {
+          lines.push((i + 1) + ". " + s.name + " — " + s.score + " pts (" + s.correct + "/" + total + " correct)");
+        });
+        copyText(lines.join("\n"), $("copy-results-msg"), "Results copied — paste them into Zalo or Messenger.");
+      });
+      $("btn-host-again").addEventListener("click", function () {
+        if (!host) return;
+        hostPlayersArr().forEach(function (p) { p.score = 0; p.streak = 0; p.correct = 0; p.answered = 0; p.misses = []; p.team = null; });
+        host.qi = -1; host.answers = {}; host.phase = "lobby"; host.teamCount = 0; host.questions = host.pack.questions;
+        hostBroadcast({ t: "backToLobby" });
+        renderHostLobby();
+        show("view-host-lobby");
+      });
+      function teardownHost() {
+        if (!host) return;
+        if (host.timer) clearInterval(host.timer);
+        if (host.autoRevealAt) clearTimeout(host.autoRevealAt);
+        if (host.reconnectTimer) clearTimeout(host.reconnectTimer);
+        hostBroadcast({ t: "ended" });
+        try { host.peer.destroy(); } catch (e) {}
+        host = null;
+        setConn("ok", "Connected");
+      }
+      ["btn-host-end-early", "btn-host-end-early-2", "btn-host-end-early-3"].forEach(function (id) {
+        $(id).addEventListener("click", function () { if (host) hostShowPodium(); });
+      });
+      $("btn-host-finish").addEventListener("click", function () { teardownHost(); show("view-host-setup"); });
+      window.addEventListener("beforeunload", function () {
+        if (host) { hostBroadcast({ t: "ended" }); }
+      });
+
+      /* ================= PLAYER ================= */
+      var player = null; // {peer, conn, code, name, score, qi, answeredChoice, timer, reconnectTimer}
+      function playerShowSub(id) {
+        ["p-wait", "p-question", "p-answered", "p-reveal", "p-board", "p-final", "p-ended", "p-lost", "p-blocked"].forEach(function (x) {
+          $(x).classList.toggle("hidden", x !== id);
+        });
+        window.scrollTo(0, 0);
+      }
+      function joinError(html) {
+        var e = $("join-error");
+        e.innerHTML = html;
+        e.classList.remove("hidden");
+      }
+      $("btn-join").addEventListener("click", function () { attemptJoin(false); });
+      $("btn-p-rejoin").addEventListener("click", function () {
+        if (!player) return;
+        player.reconnectDelay = 500;
+        schedulePlayerReconnect(0);
+      });
+      $("btn-player-leave").addEventListener("click", function () {
+        teardownPlayer(true);
+        show("view-home");
+      });
+      function teardownPlayer(clearSession) {
+        if (!player) { if (clearSession) storeDel(window.sessionStorage, "cqg_session"); return; }
+        player.manual = true;
+        if (player.timer) clearInterval(player.timer);
+        if (player.reconnectTimer) clearTimeout(player.reconnectTimer);
+        if (player.welcomeTimer) clearTimeout(player.welcomeTimer);
+        try { if (player.conn) player.conn.close(); } catch (e) {}
+        try { if (player.peer) player.peer.destroy(); } catch (e) {}
+        player = null;
+        if (clearSession) storeDel(window.sessionStorage, "cqg_session");
+        setConn("ok", "Connected");
+      }
+      function attemptJoin(isRestore) {
+        $("join-error").classList.add("hidden");
+        var code = $("join-code").value.trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+        var name = $("join-name").value.trim().slice(0, 24);
+        if (code.length !== 6) { joinError('<span class="err-title">Check the room code</span>The code has 6 letters/numbers — ask your teacher to show it again. <span class="vi">Mã phòng gồm 6 ký tự.</span>'); return; }
+        if (!name) { joinError('<span class="err-title">Add your name</span>Type your name so the teacher can see your score. <span class="vi">Em hãy nhập tên của mình.</span>'); return; }
+        if (peerUnavailable()) {
+          joinError(netErrorHTML("Multiplayer library didn't load", "The connection library could not be loaded — check your internet connection and reload the page. You can still practise solo."));
+          return;
+        }
+        storeSet(window.localStorage, "cqg_name", name);
+        storeSet(window.localStorage, "cqg_code", code);
+        teardownPlayer(false);
+        var btn = $("btn-join");
+        btn.disabled = true; btn.textContent = isRestore ? "Rejoining…" : "Joining…";
+        player = {
+          peer: null, conn: null, code: code, name: name, score: 0, qi: -1,
+          answeredChoice: -2, timer: null, gotWelcome: false, everWelcomed: false,
+          reconnectTimer: null, welcomeTimer: null, reconnectDelay: 1000,
+          manual: false, team: null, teamName: null, curDurMs: 0, currentSpeak: null,
+          pendingBoard: null, myBoardInfo: null, isRestore: !!isRestore
+        };
+        connectPlayer();
+      }
+      function connectPlayer() {
+        if (!player || player.manual) return;
+        if (player.peer) { try { player.peer.destroy(); } catch (e) {} player.peer = null; player.conn = null; }
+        var peer;
+        try { peer = new Peer({ config: ICE_CONFIG }); }
+        catch (e) { schedulePlayerReconnect(2000); return; }
+        player.peer = peer;
+        var welcomed = false;
+        player.welcomeTimer = setTimeout(function () {
+          if (!player || player.manual || welcomed || player.gotWelcome) return;
+          // No answer from the host on this attempt.
+          try { peer.destroy(); } catch (e) {}
+          if (player.everWelcomed) { schedulePlayerReconnect(player.reconnectDelay); }
+          else if (player.isRestore) { schedulePlayerReconnect(player.reconnectDelay); }
+          else {
+            var btn = $("btn-join");
+            btn.disabled = false; btn.textContent = "Join game";
+            joinError(netErrorHTML("The host didn't answer", "No game answered at code " + player.code + ". Check the code with your teacher — and make sure the teacher's game tab is still open."));
+            teardownPlayer(false);
+          }
+        }, 12000);
+        peer.on("open", function () {
+          if (!player || player.manual) return;
+          var conn = peer.connect(PEER_PREFIX + player.code, { reliable: true });
+          player.conn = conn;
+          conn.on("open", function () {
+            try { conn.send({ t: "hello", name: player.name }); } catch (e) {}
+          });
+          conn.on("data", function (msg) {
+            if (msg && msg.t === "joined") welcomed = true;
+            playerOnData(msg);
+          });
+          conn.on("close", function () { playerConnectionLost(); });
+          conn.on("error", function () { playerConnectionLost(); });
+        });
+        peer.on("error", function (err) {
+          if (!player || player.manual) return;
+          if (err && err.type === "peer-unavailable") {
+            if (player.everWelcomed || player.isRestore) {
+              // Host may be mid-reconnect itself — keep trying quietly.
+              if (player.welcomeTimer) clearTimeout(player.welcomeTimer);
+              try { peer.destroy(); } catch (e) {}
+              schedulePlayerReconnect(player.reconnectDelay);
+            } else {
+              if (player.welcomeTimer) clearTimeout(player.welcomeTimer);
+              var btn = $("btn-join");
+              btn.disabled = false; btn.textContent = "Join game";
+              joinError(netErrorHTML("Room not found", "No game is running with code " + player.code + " right now. Check the code, or ask your teacher to create the room again."));
+              teardownPlayer(false);
+            }
+          } else if (!player.gotWelcome && !player.everWelcomed && !player.isRestore) {
+            if (player.welcomeTimer) clearTimeout(player.welcomeTimer);
+            var btn2 = $("btn-join");
+            btn2.disabled = false; btn2.textContent = "Join game";
+            joinError(netErrorHTML("Connection problem", "The multiplayer service could not be reached. Check your internet connection and try again — or practise solo while you wait."));
+            teardownPlayer(false);
+          }
+        });
+        peer.on("disconnected", function () {
+          try { peer.reconnect(); } catch (e) {}
+        });
+      }
+      function schedulePlayerReconnect(delay) {
+        if (!player || player.manual) return;
+        if (player.reconnectTimer) clearTimeout(player.reconnectTimer);
+        setConn("warn", "Reconnecting…");
+        player.reconnectTimer = setTimeout(function () {
+          if (!player || player.manual) return;
+          player.reconnectDelay = Math.min((player.reconnectDelay || 1000) * 2, 15000);
+          connectPlayer();
+        }, delay != null ? delay : player.reconnectDelay);
+      }
+      function playerConnectionLost() {
+        if (!player || player.manual || !player.everWelcomed) return;
+        if (player.timer) clearInterval(player.timer);
+        if (player.welcomeTimer) clearTimeout(player.welcomeTimer);
+        show("view-player");
+        playerShowSub("p-lost");
+        schedulePlayerReconnect(player.reconnectDelay);
+      }
+      function playerOnData(msg) {
+        if (!player || !msg || typeof msg !== "object") return;
+        switch (msg.t) {
+          case "joined":
+            player.gotWelcome = true;
+            player.everWelcomed = true;
+            player.isRestore = false;
+            player.reconnectDelay = 1000;
+            if (player.welcomeTimer) clearTimeout(player.welcomeTimer);
+            if (player.reconnectTimer) clearTimeout(player.reconnectTimer);
+            player.score = msg.score || 0;
+            if (msg.team !== undefined) { player.team = msg.team; player.teamName = msg.teamName; }
+            storeSet(window.sessionStorage, "cqg_session", JSON.stringify({ code: player.code, name: player.name }));
+            setConn("ok", "Connected");
+            $("btn-join").disabled = false; $("btn-join").textContent = "Join game";
+            $("player-who").textContent = msg.name + " · Room " + player.code + (player.teamName ? " · " + player.teamName : "");
+            show("view-player");
+            playerShowSub("p-wait");
+            break;
+          case "teamInfo":
+            player.team = msg.team; player.teamName = msg.teamName;
+            $("player-who").textContent = player.name + " · Room " + player.code + (msg.teamName ? " · " + msg.teamName : "");
+            break;
+          case "blocked": {
+            var titles = { locked: "This room is locked", late: "The game already started", kicked: "You were removed from the room" };
+            var texts = {
+              locked: "Your teacher has locked the room, so new students can't join. Ask your teacher to unlock it. <span class='vi'>Thầy/cô đã khóa phòng — hãy nhờ thầy/cô mở khóa.</span>",
+              late: "This game already started and late joins are off. Ask your teacher about the next game. <span class='vi'>Trò chơi đã bắt đầu và không nhận người vào muộn.</span>",
+              kicked: "Your teacher removed you from this room. <span class='vi'>Thầy/cô đã mời em ra khỏi phòng này.</span>"
+            };
+            teardownPlayer(true);
+            show("view-player");
+            playerShowSub("p-blocked");
+            $("p-blocked-title").textContent = titles[msg.reason] || "Can't join this room";
+            $("p-blocked-text").innerHTML = texts[msg.reason] || texts.locked;
+            break;
+          }
+          case "lobbyCount":
+            $("p-wait-count").textContent = msg.count + " student" + (msg.count === 1 ? "" : "s") + " in the room";
+            break;
+          case "scoreUpdate":
+            player.score = msg.score;
+            break;
+          case "question": {
+            player.qi = msg.qi;
+            player.curDurMs = msg.durMs;
+            player.answeredChoice = -2;
+            show("view-player");
+            playerShowSub("p-question");
+            $("p-paused").classList.add("hidden");
+            $("p-q-count").textContent = "Question " + (msg.qi + 1) + " of " + msg.total + (msg.double ? " · Double points!" : "");
+            $("p-q-score").textContent = "Score: " + player.score;
+            $("p-q-text").textContent = msg.q;
+            $("p-timeup").classList.add("hidden");
+            var isListen = msg.mode === "listen";
+            $("p-listen-row").classList.toggle("hidden", !isListen);
+            player.currentSpeak = msg.s || null;
+            var grid = $("p-answers");
+            grid.className = "answers-grid" + (msg.o.length === 2 ? " two" : "");
+            grid.innerHTML = "";
+            msg.o.forEach(function (opt, i) {
+              var b = document.createElement("button");
+              b.type = "button"; b.className = "ans-btn bg-" + i;
+              b.innerHTML = answerButtonHTML(i, opt);
+              b.addEventListener("click", function () { playerAnswer(i); });
+              grid.appendChild(b);
+            });
+            if (player.timer) clearInterval(player.timer);
+            if (msg.paused) {
+              $("p-paused").classList.remove("hidden");
+              $("p-timer").style.width = (msg.durMs ? (msg.remainMs / msg.durMs * 100) : 0) + "%";
+            } else {
+              player.timer = runTimer($("p-timer"), msg.startAt, msg.durMs, function () {
+                if (player && player.answeredChoice === -2) {
+                  grid.querySelectorAll(".ans-btn").forEach(function (b) { b.disabled = true; });
+                  $("p-timeup").classList.remove("hidden");
+                }
+              }, { tickSound: true });
+            }
+            if (msg.yourAnswer != null) {
+              // The host already has this answer (e.g. we answered, then the
+              // connection dropped) — it still counts; just show it locked in.
+              player.answeredChoice = msg.yourAnswer;
+              grid.querySelectorAll(".ans-btn").forEach(function (b, bi) {
+                b.disabled = true;
+                if (bi === msg.yourAnswer) b.classList.add("picked"); else b.classList.add("dim");
+              });
+              setTimeout(function () {
+                if (player && player.answeredChoice === msg.yourAnswer && !$("p-question").classList.contains("hidden")) playerShowSub("p-answered");
+              }, 600);
+            }
+            if (isListen && msg.s) setTimeout(function () { speak(msg.s); }, 500);
+            break;
+          }
+          case "paused":
+            if (player.timer) clearInterval(player.timer);
+            $("p-paused").classList.remove("hidden");
+            $("p-timer").style.width = (msg.durMs ? (msg.remainMs / msg.durMs * 100) : 0) + "%";
+            break;
+          case "resumed": {
+            $("p-paused").classList.add("hidden");
+            if (player.timer) clearInterval(player.timer);
+            var grid2 = $("p-answers");
+            player.timer = runTimer($("p-timer"), msg.startAt, msg.durMs, function () {
+              if (player && player.answeredChoice === -2) {
+                grid2.querySelectorAll(".ans-btn").forEach(function (b) { b.disabled = true; });
+                $("p-timeup").classList.remove("hidden");
+              }
+            }, { tickSound: true });
+            break;
+          }
+          case "reveal": {
+            if (player.timer) clearInterval(player.timer);
+            player.score = msg.total;
+            show("view-player");
+            playerShowSub("p-reveal");
+            var v = $("p-verdict");
+            var mine = msg.yourChoice;
+            var wasCorrect = mine === msg.correct && mine >= 0;
+            v.className = "verdict " + (wasCorrect ? "good" : "bad");
+            $("p-verdict-title").textContent = msg.skipped ? "Question skipped by your teacher" : (mine < 0 ? "No answer this time" : (wasCorrect ? "Correct!" : "Not quite"));
+            $("p-verdict-points").textContent = msg.points > 0 ? "+" + msg.points + " points · Total: " + msg.total : "Total: " + msg.total;
+            $("p-verdict-rank").textContent = msg.skipped ? "" : "You are #" + msg.rank + " of " + msg.of + (msg.streak >= 2 ? " · " + msg.streak + " correct in a row!" : "");
+            if (!msg.skipped) sfx(wasCorrect ? "correct" : "wrong");
+            $("p-reveal-explain").textContent = msg.vi || "";
+            $("p-reveal-explain").parentElement.style.display = msg.vi ? "" : "none";
+            var dist = $("p-dist");
+            dist.innerHTML = "";
+            if (msg.o && msg.counts) {
+              var max = Math.max(1, Math.max.apply(null, msg.counts));
+              msg.o.forEach(function (opt, i) {
+                var row = document.createElement("div");
+                row.className = "dist-row";
+                row.innerHTML = '<span class="dist-label">' + esc(opt) + (i === msg.correct ? " ✓" : "") + '</span>' +
+                  '<span class="dist-track"><span class="dist-fill bg-' + i + '" style="display:block;width:' + (msg.counts[i] / max * 100) + '%"></span></span>' +
+                  '<span class="dist-num">' + msg.counts[i] + "</span>";
+                dist.appendChild(row);
+              });
+            }
+            break;
+          }
+          case "board": {
+            show("view-player");
+            playerShowSub("p-board");
+            if (msg.teams) {
+              $("p-board-title").textContent = "Team standings";
+              renderTeamList($("p-board-list"), msg.teams, msg.yourTeam);
+            } else {
+              $("p-board-title").textContent = "Top 5";
+              renderBoardList($("p-board-list"), msg.top, player.name);
+            }
+            break;
+          }
+          case "podium": {
+            if (player.timer) clearInterval(player.timer);
+            player.score = msg.score;
+            storeDel(window.sessionStorage, "cqg_session");
+            show("view-player");
+            playerShowSub("p-final");
+            if (msg.teams) {
+              $("p-final-rank").textContent = msg.yourTeamRank ? "Your team finished #" + msg.yourTeamRank + "!" : "Game over!";
+              $("p-final-score").textContent = "You scored " + msg.score + " points · #" + msg.rank + " of " + msg.of + " players";
+              $("p-final-list-title").textContent = "Team standings";
+              renderTeamList($("p-final-list"), msg.teams, msg.yourTeam);
+            } else {
+              $("p-final-rank").textContent = "You finished #" + msg.rank + " of " + msg.of;
+              $("p-final-score").textContent = msg.score + " points";
+              $("p-final-list-title").textContent = "Top 3";
+              renderBoardList($("p-final-list"), msg.top, player.name);
+            }
+            $("p-final-detail").textContent = msg.answered != null ? accuracyText(msg.correct, msg.answered) : "";
+            var misses = msg.misses || [];
+            var wrap = $("p-review-wrap");
+            if (misses.length) {
+              wrap.classList.remove("hidden");
+              var ul = $("p-review"); ul.innerHTML = "";
+              misses.forEach(function (m) {
+                var li = document.createElement("li");
+                li.innerHTML = '<span class="tag bad">Missed</span>' + esc(m.q) +
+                  '<br><span class="muted">Your answer: ' + esc(m.yourText) + " · Correct answer: <strong>" + esc(m.correctText) + "</strong></span>" +
+                  (m.vi ? '<br><span class="vi">' + esc(m.vi) + "</span>" : "");
+                ul.appendChild(li);
+              });
+            } else { wrap.classList.add("hidden"); }
+            $("view-player").classList.remove("podium-pop");
+            void $("view-player").offsetWidth;
+            $("view-player").classList.add("podium-pop");
+            burstConfetti($("view-player"));
+            sfx("fanfare");
+            break;
+          }
+          case "backToLobby":
+            if (player.timer) clearInterval(player.timer);
+            player.score = 0;
+            player.team = null; player.teamName = null;
+            storeSet(window.sessionStorage, "cqg_session", JSON.stringify({ code: player.code, name: player.name }));
+            show("view-player");
+            playerShowSub("p-wait");
+            break;
+          case "ended":
+            if (player.timer) clearInterval(player.timer);
+            storeDel(window.sessionStorage, "cqg_session");
+            show("view-player");
+            playerShowSub("p-ended");
+            break;
+        }
+      }
+      function renderPlayerBoard() { /* superseded by direct board messages */ }
+      function playerAnswer(i) {
+        if (!player || player.answeredChoice !== -2 || !player.conn) return;
+        player.answeredChoice = i;
+        var grid = $("p-answers");
+        grid.querySelectorAll(".ans-btn").forEach(function (b, bi) {
+          b.disabled = true;
+          if (bi === i) b.classList.add("picked"); else b.classList.add("dim");
+        });
+        try { player.conn.send({ t: "answer", qi: player.qi, choice: i }); } catch (e) {}
+        setTimeout(function () {
+          if (player && player.answeredChoice === i && !$("p-question").classList.contains("hidden")) playerShowSub("p-answered");
+        }, 450);
+      }
+      $("btn-p-replay").addEventListener("click", function () {
+        if (player && player.currentSpeak) speak(player.currentSpeak);
+      });
+
+      /* After a full page reload mid-game, rejoin automatically with the same
+         name — the host still holds the score and sends the current phase. */
+      (function () {
+        var raw = storeGet(window.sessionStorage, "cqg_session");
+        if (!raw) return;
+        try {
+          var sess = JSON.parse(raw);
+          if (sess && sess.code && sess.name) {
+            $("join-code").value = sess.code;
+            $("join-name").value = sess.name;
+            attemptJoin(true);
+          }
+        } catch (e) { /* no usable session — stay on the home screen */ }
+      })();
+    </script>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Thông báo về cookie" hidden>
+  <div class="wrap">
+    <p>Trang này dùng Google Analytics để biết nội dung nào hữu ích cho bạn — chỉ khi bạn đồng ý. Không có cookie quảng cáo, không bán dữ liệu. Bạn có thể đổi ý bất cứ lúc nào qua “Cài đặt cookie” ở chân trang. Xem <a href="/quyen-rieng-tu.html">Chính sách quyền riêng tư</a>.</p>
+    <div class="cookie-actions">
+      <button type="button" id="cookie-accept" class="btn">Đồng ý</button>
+      <button type="button" id="cookie-decline" class="btn">Từ chối</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY='de-consent';
+  var banner=document.getElementById('cookie-banner');
+  function loadGA(){
+    if(document.querySelector('script[src*="googletagmanager.com/gtag/js"]')){return;}
+    var s=document.createElement('script');
+    s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id=G-6WKB00FR9G';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-6WKB00FR9G');
+  }
+  function eraseGaCookies(){
+    document.cookie.split(';').forEach(function(c){
+      var name=c.split('=')[0].trim();
+      if(name.indexOf('_ga')===0){
+        document.cookie=name+'=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+      }
+    });
+  }
+  function showBanner(){banner.hidden=false;}
+  function hideBanner(){banner.hidden=true;}
+  function accept(){
+    try{localStorage.setItem(KEY,'granted');}catch(e){}
+    gtag('consent','update',{'analytics_storage':'granted'});
+    loadGA();
+    hideBanner();
+  }
+  function decline(){
+    try{localStorage.setItem(KEY,'denied');}catch(e){}
+    gtag('consent','update',{'analytics_storage':'denied'});
+    eraseGaCookies();
+    hideBanner();
+  }
+  document.getElementById('cookie-accept').addEventListener('click',accept);
+  document.getElementById('cookie-decline').addEventListener('click',decline);
+  var settings=document.getElementById('cookie-settings');
+  if(settings){settings.addEventListener('click',function(e){e.preventDefault();showBanner();});}
+  var stored=null;
+  try{stored=localStorage.getItem(KEY);}catch(e){}
+  if(stored==='granted'){
+    gtag('consent','update',{'analytics_storage':'granted'});
+    loadGA();
+  }else if(stored==='denied'){
+    /* Da tu choi: khong tai gtag.js, khong hien lai banner. */
+  }else{
+    showBanner();
+  }
+})();
+</script></body>
+</html>
