@@ -41,13 +41,13 @@ const MSG_ERROR = 'AI chưa tạo được bộ câu hỏi, mời thử lại ho
 function buildSystem(topic, level, count) {
   return [
     'Bạn là giáo viên tiếng Anh tạo bộ câu hỏi quiz cho học viên Việt Nam.',
-    `Chủ đề: "${topic}". Trình độ: ${level} (CEFR). Số câu cần tạo: ${count}.`,
+    `Chủ đề: "${topic}". Trình độ: ${level} (CEFR). Số câu cần tạo: ${count + 4}.`,
     'Trả lời DUY NHẤT bằng JSON hợp lệ, không thêm chữ nào ngoài JSON, đúng dạng:',
     '{"title": "tiêu đề ngắn bằng tiếng Anh", "questions": [ ... ]}',
     'Mỗi câu hỏi là một object thuộc một trong 6 dạng sau, trộn đều các dạng:',
     '1. mcq: {"type":"mcq","q":"câu hỏi","options":["a","b","c","d"],"answer":0,"explain":"giải thích tiếng Việt"} — options đúng 4 lựa chọn, answer là chỉ số 0-3 của đáp án đúng.',
     '2. type: {"type":"type","q":"câu hỏi","answer":"đáp án ngắn","accept":["cách viết khác cũng đúng"],"explain":"..."} — đáp án ngắn 1-4 từ.',
-    '3. order: {"type":"order","q":"Put the words in order","words":["I","went","to","school","yesterday"],"explain":"..."} — words là các từ của một câu đúng, theo đúng thứ tự, 4-8 từ.',
+    '3. order: {"type":"order","q":"Put the words in order","words":["I","went","to","school","yesterday"],"explain":"..."} — words là các từ của một câu đúng, PHẢI theo đúng thứ tự của câu đúng (trang web sẽ tự xáo trộn), 4-8 từ.',
     '4. match: {"type":"match","q":"Match the pairs","pairs":[["hot","cold"],["big","small"],["fast","slow"],["happy","sad"]],"explain":"..."} — đúng 4 cặp.',
     '5. fill: {"type":"fill","q":"She ___ to school by bus.","bank":["goes","go","went","going"],"answer":"goes","explain":"..."} — q chứa đúng một chỗ trống ___, bank có 4 từ gồm đáp án, answer phải nằm trong bank.',
     '6. listen: {"type":"listen","say":"câu tiếng Anh ngắn để nghe","answer":"câu đó","accept":[],"explain":"..."} — say là câu ngắn đúng trình độ.',
@@ -122,8 +122,16 @@ function validQuestion(raw) {
     return { type, q, answer, accept, explain };
   }
   if (type === 'order') {
-    const words = Array.isArray(raw.words) ? raw.words.map((w) => str(w, 40)).filter(Boolean) : [];
+    let words = Array.isArray(raw.words) ? raw.words.map((w) => str(w, 40)).filter(Boolean) : [];
     if (words.length < 3 || words.length > 10) return null;
+    // Model đôi khi xáo trộn words dù đã dặn; nếu explain nêu câu đúng
+    // ("Câu đúng là: ...") và cùng tập từ, dùng thứ tự trong explain.
+    const m = explain.match(/Câu đúng là:\s*(.+)/);
+    if (m) {
+      const tokens = m[1].replace(/[.!?]+$/, '').split(/\s+/).map((w) => w.trim()).filter(Boolean);
+      const norm = (arr) => arr.map((w) => w.toLowerCase()).sort().join('|');
+      if (tokens.length === words.length && norm(tokens) === norm(words)) words = tokens;
+    }
     return { type, q: str(raw.q, 120) || 'Put the words in order', words, explain };
   }
   if (type === 'match') {
