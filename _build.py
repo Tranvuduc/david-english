@@ -455,7 +455,7 @@ add("/", "Học tiếng Anh miễn phí", "Học tiếng Anh miễn phí, từ �
   <article class="card card-resource">{card_icon("resource")}<h2><a href="/tai-nguyen.html">Tài nguyên miễn phí</a></h2><p>Link tới tài nguyên học tiếng Anh miễn phí chất lượng cao trên mạng (British Council, BBC, Cambridge…).</p></article>
   <article class="card card-book">{card_icon("book")}<h2><a href="/sach/">Sách học</a></h2><p>Hướng dẫn tự học với các sách tiếng Anh phổ biến: Global Success, American English File, Barron's TOEIC, Mindset for IELTS.</p></article>
   <article class="card card-tool">{card_icon("dice")}<h2><a href="/tro-choi/">Trò chơi &amp; Công cụ</a></h2><p>Học tiếng Anh bằng trò chơi: luyện TOEIC, PTE, IELTS, kiểm tra trình độ, trò chơi theo lớp 4, 9, 10 và công cụ cho giáo viên.</p></article>
-  <article class="card card-skill">{card_icon("cap")}<h2><a href="/hoc-voi-david.html">Học với David</a></h2><p>Học tiếng Anh 1 kèm 1 với David — giao tiếp, tiếng Anh công việc, IELTS / TOEIC, trình độ A1–B1, học online và trực tiếp.</p></article>
+  <article class="card card-skill">{card_icon("cap")}<h2><a href="/hoc-voi-david.html">Học với David</a></h2><p>Học tiếng Anh 1 kèm 1 với David — giao tiếp, tiếng Anh công việc, IELTS / TOEIC, trình độ A1–B1, học online qua Zoom.</p></article>
 </div>
 </section>
 <section class="section section-alt">
@@ -1259,7 +1259,7 @@ add("/ke-hoach-hoc.html", "Kế hoạch học", "Kế hoạch học tiếng Anh 
 # ---------------- Học với David (học 1 kèm 1) ----------------
 # Trang giới thiệu lớp học 1 kèm 1 với David — KHÔNG thay trang chủ (thư viện
 # tự học miễn phí vẫn là cửa chính). Chỉ ghi sự thật đã kiểm chứng: 10 năm dạy,
-# TOEFL iBT 97, trình độ A1–B1, học 1 kèm 1 online (Zoom) và trực tiếp.
+# TOEFL iBT 97, trình độ A1–B1, học 1 kèm 1 online (Zoom).
 # Đã kiểm chứng (David 24/11): TESOL + du học Mỹ đúng; học phí 200k (giao tiếp/
 # công việc) + 300k (IELTS)/giờ; Zalo 0902821991; lịch trao đổi qua Zalo.
 # Học 1 kèm 1, KHÔNG "tối đa 3 học viên". Khoảng trắng giữa </b> và <span>
@@ -1267,7 +1267,7 @@ add("/ke-hoach-hoc.html", "Kế hoạch học", "Kế hoạch học tiếng Anh 
 # chữ vẫn phải đọc được (lỗi David báo 24/11: "10 nămKinh nghiệm").
 add("/hoc-voi-david.html", "Học với David", "Học tiếng Anh 1 kèm 1 với David",
     guide_sections(f"""
-<p class="lead">Trang này là lớp học 1 kèm 1 với David — khác với thư viện tự học miễn phí của trang web. Bạn học trực tiếp với giáo viên, theo lộ trình riêng của mình, trình độ A1–B1, online qua Zoom và trực tiếp.</p>
+<p class="lead">Trang này là lớp học 1 kèm 1 với David — khác với thư viện tự học miễn phí của trang web. Bạn học trực tiếp với giáo viên, theo lộ trình riêng của mình, trình độ A1–B1, online qua Zoom.</p>
 <div class="tutor-trust">
 <div class="tutor-trust-item"><b>10 năm</b> <span>Kinh nghiệm<br>giảng dạy tiếng Anh</span></div>
 <div class="tutor-trust-item"><b>TOEFL 97</b> <span>TOEFL iBT 97/120<br>tương đương IELTS 7.0</span></div>
@@ -1275,7 +1275,7 @@ add("/hoc-voi-david.html", "Học với David", "Học tiếng Anh 1 kèm 1 vớ
 <div class="tutor-trust-item"><b>A1–B1</b> <span>Trình độ học viên<br>học 1 kèm 1</span></div>
 </div>
 <h2>Học cùng ai</h2>
-<p>David — 10 năm kinh nghiệm giảng dạy tiếng Anh, chứng chỉ TESOL, TOEFL iBT 97/120 (tương đương IELTS 7.0), và từng du học tại Hoa Kỳ. Dạy học viên trình độ A1–B1, học 1 kèm 1, online qua Zoom và trực tiếp. Phương pháp tập trung vào sự rõ ràng, thực hành và tiến bộ bền vững.</p>
+<p>David — 10 năm kinh nghiệm giảng dạy tiếng Anh, chứng chỉ TESOL, TOEFL iBT 97/120 (tương đương IELTS 7.0), và từng du học tại Hoa Kỳ. Dạy học viên trình độ A1–B1, học 1 kèm 1, online qua Zoom. Phương pháp tập trung vào sự rõ ràng, thực hành và tiến bộ bền vững.</p>
 <p class="tutor-chips"><span>10 năm kinh nghiệm</span> <span>TESOL</span> <span>TOEFL iBT 97</span> <span>Du học Hoa Kỳ</span></p>
 <h2>Chọn mục tiêu của bạn</h2>
 <p>Không học dàn trải. Tập trung vào kỹ năng và mục tiêu bạn cần sử dụng.</p>
@@ -1304,7 +1304,7 @@ add("/hoc-voi-david.html", "Học với David", "Học tiếng Anh 1 kèm 1 vớ
 <details><summary>Lớp học có bao nhiêu học viên?</summary><p>Học 1 kèm 1 — chỉ có bạn và giáo viên, để đảm bảo thời gian thực hành và phản hồi cho từng buổi học.</p></details>
 <details><summary>Tôi chưa biết trình độ của mình thì sao?</summary><p>Làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> trước để được đánh giá trình độ, rồi trao đổi về lớp phù hợp.</p></details>
 <details><summary>Học bao lâu thì đạt A2, B1 hoặc IELTS 6.5?</summary><p>Thời gian phụ thuộc trình độ đầu vào, thời lượng tự học, mức độ tham gia và năng lực từng người. Các mốc trình độ là mục tiêu tham khảo, không phải cam kết kết quả. Với học viên A1–B1, phần IELTS bắt đầu từ củng cố nền tảng trước khi luyện dạng đề.</p></details>
-<details><summary>Lớp học diễn ra ở đâu?</summary><p>Học online qua Zoom và trực tiếp. Hình thức học và lịch cụ thể được thống nhất sau khi đánh giá trình độ.</p></details>
+<details><summary>Lớp học diễn ra ở đâu?</summary><p>Học online qua Zoom. Lịch học cụ thể được thống nhất sau khi đánh giá trình độ.</p></details>
 </div>
 <h2>Bắt đầu như thế nào</h2>
 <div class="tutor-cta">
@@ -1315,9 +1315,9 @@ add("/hoc-voi-david.html", "Học với David", "Học tiếng Anh 1 kèm 1 vớ
 </div>
 <p><a href="/trinh-do/">← Tự học miễn phí theo trình độ</a> · <a href="/ke-hoach-hoc.html">Xem kế hoạch học →</a> · <a href="/">← Về trang chủ</a></p>
 """), active="/hoc-voi-david.html", eyebrow="Học 1 kèm 1",
-    desc="Học tiếng Anh 1 kèm 1 với David — giao tiếp, tiếng Anh công việc, IELTS / TOEIC, trình độ A1–B1, học online qua Zoom và trực tiếp. Bắt đầu bằng bài English Level Check.",
+    desc="Học tiếng Anh 1 kèm 1 với David — giao tiếp, tiếng Anh công việc, IELTS / TOEIC, trình độ A1–B1, học online qua Zoom. Bắt đầu bằng bài English Level Check.",
     hero={
-        "eyebrow": "Học 1 kèm 1 · Online và trực tiếp",
+        "eyebrow": "Học 1 kèm 1 · Online qua Zoom",
         "title_html": "Tiếng Anh thực tế.<br><span class=\"tutor-lime\">Tiến bộ có định hướng.</span>",
         "lead": "Học giao tiếp, tiếng Anh công việc, IELTS hoặc TOEIC cùng David — học 1 kèm 1, có lộ trình, có phản hồi và có người đồng hành.",
         "cta_primary": ("Làm bài English Level Check", "/tro-choi/english-level-check.html"),
