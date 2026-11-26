@@ -480,7 +480,7 @@ add("/", "Học tiếng Anh miễn phí", "Học tiếng Anh miễn phí, từ �
 add("/bai-xep-lop.html", "Bài xếp lớp", "Bài xếp lớp",
     """
 <p class="lead">Bản demo giao diện bài xếp lớp — 3 câu mẫu để thử, chưa phải bài kiểm tra thật. 3 câu hỏi không thể đo trình độ của bạn, vì vậy trang này không đưa ra kết quả xếp lớp.</p>
-<p>Muốn kiểm tra thật? Làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> — bài kiểm tra tự thích ứng, ước lượng trình độ A1–C2 (chỉ có đọc/viết/ngữ pháp, chưa có nghe/nói), rồi gợi ý lộ trình học phù hợp.</p>
+<p>Muốn kiểm tra thật? Làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> — bài kiểm tra tự thích ứng, ước lượng trình độ A1–C2 (có ngữ pháp, từ vựng, đọc hiểu, nghe và một số bài viết ngắn được AI chấm; chưa có nói), rồi gợi ý lộ trình học phù hợp.</p>
 <p><span class="badge">Đang hoàn thiện</span> Đây là bản demo giao diện — bộ câu hỏi chính thức và cách chấm điểm thật chưa có. Kết quả dưới đây chỉ để thử giao diện, chưa dùng để xếp lớp thật.</p>
 <section class="section">
 <form id="placementForm">
@@ -620,7 +620,7 @@ AI_NOTE = ('<p><span class="badge">AI, chưa duyệt</span> Bài học do AI so�
 LEVEL_CHECK_LINE = ('Chưa biết mình ở trình độ nào? Làm bài '
     '<a href="/tro-choi/english-level-check.html">English Level Check</a>'
     ' — bài kiểm tra tự thích ứng, ước lượng trình độ A1–C2 '
-    '(chỉ có đọc/viết/ngữ pháp, chưa có nghe/nói).')
+    '(có ngữ pháp, từ vựng, đọc hiểu, nghe và một số bài viết ngắn được AI chấm; chưa có nói).')
 
 
 def _done_button(path):
@@ -1199,9 +1199,9 @@ def level_hub_body(slug, name, desc):
 add("/trinh-do/index.html", "Theo trình độ", "Học theo trình độ (A1–C2)",
     """
 <p class="lead">Chọn trình độ của bạn để đi đúng lộ trình — mỗi cấp độ sẽ có từ vựng, ngữ pháp, bài đọc, bài nghe và bài tập riêng.</p>
-<p>Chưa biết mình ở trình độ nào? Làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> — bài kiểm tra tự thích ứng, ước lượng trình độ A1–C2 (chỉ có đọc/viết/ngữ pháp, chưa có nghe/nói).</p>
+<p>Chưa biết mình ở trình độ nào? Làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> — bài kiểm tra tự thích ứng, ước lượng trình độ A1–C2 (có ngữ pháp, từ vựng, đọc hiểu, nghe và một số bài viết ngắn được AI chấm; chưa có nói).</p>
 <div class="de-progress-box" data-de-progress-box></div>
-<p><a href="/ke-hoach-hoc.html">Xem kế hoạch học →</a> · Bạn cũng có thể thử <a href="/bai-xep-lop.html">bản demo 3 câu mẫu</a> (chỉ để thử giao diện, không xếp lớp được).</p>
+<p><a href="/ke-hoach-hoc.html">Xem kế hoạch học →</a>.</p>
 <section class="section">
 <div class="cards">
 """ + level_cards() + """
@@ -1221,8 +1221,8 @@ add("/ke-hoach-hoc.html", "Kế hoạch học", "Kế hoạch học tiếng Anh 
     guide_sections("""
 <p class="lead">Bạn không cần học lan man: làm bài kiểm tra trình độ trước, bắt đầu đúng chỗ, học theo thứ tự, rồi theo dõi tiến độ ngay trên trang này. Trang này chỉ dẫn đường — mọi bài học đều nằm ở các trang đã có, bấm vào là tới.</p>
 <h2>Bước 1 — Làm bài English Level Check trước</h2>
-<p>Chưa biết mình ở trình độ nào? Làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> — bài kiểm tra tự thích ứng, ước lượng trình độ A1–C2 (chỉ có đọc/viết/ngữ pháp, chưa có nghe/nói). Bài kiểm tra gợi ý bạn nên bắt đầu ở trình độ nào, rồi quay lại trang này để xem bước tiếp theo.</p>
-<p>Trang <a href="/bai-xep-lop.html">Bài xếp lớp</a> chỉ là bản demo 3 câu mẫu để thử giao diện — trang đó không xếp lớp được, đừng dùng kết quả demo để chọn trình độ.</p>
+<p>Chưa biết mình ở trình độ nào? Làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> — bài kiểm tra tự thích ứng, ước lượng trình độ A1–C2 (có ngữ pháp, từ vựng, đọc hiểu, nghe và một số bài viết ngắn được AI chấm; chưa có nói). Bài kiểm tra gợi ý bạn nên bắt đầu ở trình độ nào, rồi quay lại trang này để xem bước tiếp theo.</p>
+<p>Trang <a href="/bai-xep-lop.html">Bài xếp lớp</a> giới thiệu bài kiểm tra và dẫn bạn vào bài English Level Check thật.</p>
 <h2>Bước 2 — Đọc kết quả, bắt đầu ở đâu</h2>
 <p>Tùy kết quả English Level Check, bạn bắt đầu ở đây:</p>
 <div class="table-wrap"><table><thead><tr><th>Kết quả kiểm tra</th><th>Bắt đầu ở đâu</th></tr></thead><tbody>
@@ -1270,12 +1270,12 @@ add("/hoc-voi-david.html", "Học với David", "Học tiếng Anh 1 kèm 1 vớ
 <p class="lead">Trang này là lớp học 1 kèm 1 với David — khác với thư viện tự học miễn phí của trang web. Bạn học trực tiếp với giáo viên, theo lộ trình riêng của mình, trình độ A1–B1, online qua Zoom và trực tiếp.</p>
 <div class="tutor-trust">
 <div class="tutor-trust-item"><b>10 năm</b> <span>Kinh nghiệm<br>giảng dạy tiếng Anh</span></div>
-<div class="tutor-trust-item"><b>TOEFL 97</b> <span>TOEFL iBT 97/120<br>tương đương IELTS 7.0–7.5</span></div>
+<div class="tutor-trust-item"><b>TOEFL 97</b> <span>TOEFL iBT 97/120<br>tương đương IELTS 7.0</span></div>
 <div class="tutor-trust-item"><b>1 kèm 1</b> <span>Học riêng với giáo viên<br>không học theo lớp đông</span></div>
 <div class="tutor-trust-item"><b>A1–B1</b> <span>Trình độ học viên<br>học 1 kèm 1</span></div>
 </div>
 <h2>Học cùng ai</h2>
-<p>David — 10 năm kinh nghiệm giảng dạy tiếng Anh, chứng chỉ TESOL, TOEFL iBT 97/120 (tương đương IELTS 7.0–7.5), và từng du học tại Hoa Kỳ. Dạy học viên trình độ A1–B1, học 1 kèm 1, online qua Zoom và trực tiếp. Phương pháp tập trung vào sự rõ ràng, thực hành và tiến bộ bền vững.</p>
+<p>David — 10 năm kinh nghiệm giảng dạy tiếng Anh, chứng chỉ TESOL, TOEFL iBT 97/120 (tương đương IELTS 7.0), và từng du học tại Hoa Kỳ. Dạy học viên trình độ A1–B1, học 1 kèm 1, online qua Zoom và trực tiếp. Phương pháp tập trung vào sự rõ ràng, thực hành và tiến bộ bền vững.</p>
 <p class="tutor-chips"><span>10 năm kinh nghiệm</span> <span>TESOL</span> <span>TOEFL iBT 97</span> <span>Du học Hoa Kỳ</span></p>
 <h2>Chọn mục tiêu của bạn</h2>
 <p>Không học dàn trải. Tập trung vào kỹ năng và mục tiêu bạn cần sử dụng.</p>
@@ -1303,7 +1303,7 @@ add("/hoc-voi-david.html", "Học với David", "Học tiếng Anh 1 kèm 1 vớ
 <div class="tutor-faq">
 <details><summary>Lớp học có bao nhiêu học viên?</summary><p>Học 1 kèm 1 — chỉ có bạn và giáo viên, để đảm bảo thời gian thực hành và phản hồi cho từng buổi học.</p></details>
 <details><summary>Tôi chưa biết trình độ của mình thì sao?</summary><p>Làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> trước để được đánh giá trình độ, rồi trao đổi về lớp phù hợp.</p></details>
-<details><summary>Học bao lâu thì đạt A2, B1 hoặc IELTS 6.5?</summary><p>Thời gian phụ thuộc trình độ đầu vào, thời lượng tự học, mức độ tham gia và năng lực từng người. Các mốc trình độ là mục tiêu tham khảo, không phải cam kết kết quả.</p></details>
+<details><summary>Học bao lâu thì đạt A2, B1 hoặc IELTS 6.5?</summary><p>Thời gian phụ thuộc trình độ đầu vào, thời lượng tự học, mức độ tham gia và năng lực từng người. Các mốc trình độ là mục tiêu tham khảo, không phải cam kết kết quả. Với học viên A1–B1, phần IELTS bắt đầu từ củng cố nền tảng trước khi luyện dạng đề.</p></details>
 <details><summary>Lớp học diễn ra ở đâu?</summary><p>Học online qua Zoom và trực tiếp. Hình thức học và lịch cụ thể được thống nhất sau khi đánh giá trình độ.</p></details>
 </div>
 <h2>Bắt đầu như thế nào</h2>
@@ -1387,7 +1387,7 @@ LEVEL_BODIES = {
 <li><strong>Tuần 5–6:</strong> Từ vựng theo 4 chủ đề (du lịch, sức khỏe, công việc, môi trường). Luyện nói: mỗi ngày kể một chuyện 2 phút, ghi âm lại và nghe lại.</li>
 <li><strong>Tuần 7–8:</strong> Viết email và đoạn văn 120–150 từ. Làm bài kiểm tra tổng hợp: nghe một đoạn hội thoại, đọc một bài báo ngắn, viết một đoạn văn.</li>
 </ul>
-<p>Muốn kiểm tra mình đang ở đâu? Hãy làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> — bài kiểm tra tự thích ứng, ước lượng trình độ A1–C2 (chỉ có đọc/viết/ngữ pháp, chưa có nghe/nói) — hoặc chơi <a href="/tro-choi/intermediate-quest.html">Intermediate Quest — trò chơi trình độ trung cấp</a> để ôn từ vựng và ngữ pháp B1.</p>
+<p>Muốn kiểm tra mình đang ở đâu? Hãy làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> — bài kiểm tra tự thích ứng, ước lượng trình độ A1–C2 (có ngữ pháp, từ vựng, đọc hiểu, nghe và một số bài viết ngắn được AI chấm; chưa có nói) — hoặc chơi <a href="/tro-choi/intermediate-quest.html">Intermediate Quest — trò chơi trình độ trung cấp</a> để ôn từ vựng và ngữ pháp B1.</p>
 <h2>Lỗi thường gặp</h2>
 <ul>
 <li><strong>Dịch từng từ từ tiếng Việt sang tiếng Anh:</strong> <em>"I very like it"</em> — sai, vì <em>very</em> không bổ nghĩa cho động từ. Viết đúng: <em>I like it very much.</em> Quy tắc: <em>very + tính từ/trạng từ</em>, còn động từ thì dùng <em>very much / a lot</em>.</li>
@@ -1801,7 +1801,7 @@ TESTS = [
     ("ielts", "IELTS", "Luyện thi IELTS (Academic & General): 4 kỹ năng, thang điểm 0–9, đề thi thử và mẹo làm bài từng phần."),
     ("toeic", "TOEIC", "Luyện thi TOEIC (Listening & Reading, Speaking & Writing): thang điểm 10–990, đề thi thử và chiến thuật làm bài."),
     ("pte", "PTE Academic", "Luyện thi PTE Academic: thi trên máy tính, chấm bằng AI, thang điểm 10–90."),
-    ("toefl", "TOEFL iBT", "Luyện thi TOEFL iBT: thi trên máy tính, thang điểm 0–120, cho mục đích du học Mỹ và quốc tế."),
+    ("toefl", "TOEFL iBT", "Luyện thi TOEFL iBT: thi trên máy tính, thang điểm mới 1–6 từ 2026, cho mục đích du học Mỹ và quốc tế."),
     ("vstep", "VSTEP", "Luyện thi VSTEP (khung năng lực 6 bậc của Việt Nam): bậc 3–5 (B1–C1), đề thi thử theo format chính thức."),
 ]
 add("/luyen-thi/index.html", "Luyện thi", "Luyện thi tiếng Anh",
@@ -1870,7 +1870,7 @@ Receptionist: Yes, of course.</em></p>
 <li><strong>Tuần 5–6:</strong> Luyện đề có bấm giờ: Listening + Reading trong 90 phút liên tục như thi thật. Chữa kỹ từng câu sai — hiểu vì sao sai quan trọng hơn làm nhiều đề.</li>
 <li><strong>Tuần 7–8:</strong> Làm 2 đề thi thử đầy đủ (4 kỹ năng) trong điều kiện thi thật. Tuần cuối: ôn lại lỗi cũ, nghỉ ngơi trước ngày thi 1 ngày.</li>
 </ul>
-<p>Muốn chơi mà vẫn ôn IELTS? Chơi <a href="/tro-choi/band-climb.html">Band Climb — luyện IELTS qua trò chơi</a>. Học theo sách? Xem <a href="/sach/mindset-for-ielts.html">hướng dẫn học với sách Mindset for IELTS</a> (từ Foundation tới Level 3, band 7.5). Cần band 6.5 để du học? Xem <a href="/du-hoc.html">chuẩn bị tiếng Anh đi du học</a>. Chưa rõ mình ở band nào? Hãy làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> (chỉ có đọc/viết/ngữ pháp, chưa có nghe/nói) hoặc xem <a href="/trinh-do/b2.html">trình độ B2</a> và <a href="/trinh-do/c1.html">trình độ C1</a>.</p>
+<p>Muốn chơi mà vẫn ôn IELTS? Chơi <a href="/tro-choi/band-climb.html">Band Climb — luyện IELTS qua trò chơi</a>. Học theo sách? Xem <a href="/sach/mindset-for-ielts.html">hướng dẫn học với sách Mindset for IELTS</a> (từ Foundation tới Level 3, band 7.5). Cần band 6.5 để du học? Xem <a href="/du-hoc.html">chuẩn bị tiếng Anh đi du học</a>. Chưa rõ mình ở band nào? Hãy làm bài <a href="/tro-choi/english-level-check.html">English Level Check</a> (có ngữ pháp, từ vựng, đọc hiểu, nghe và một số bài viết ngắn được AI chấm; chưa có nói) hoặc xem <a href="/trinh-do/b2.html">trình độ B2</a> và <a href="/trinh-do/c1.html">trình độ C1</a>.</p>
 """,
 "toeic": """
 <p class="lead">TOEIC là kỳ thi tiếng Anh công việc phổ biến nhất tại Việt Nam — nhiều công ty dùng điểm TOEIC để tuyển dụng và xét thăng chức. Bài thi Listening & Reading có 200 câu trắc nghiệm, làm trong 2 giờ, thang điểm 10–990. Trang này dạy bạn cấu trúc 7 phần thi, chiến thuật từng phần và bài tập tự biên soạn để luyện tập.</p>
@@ -2806,7 +2806,7 @@ if __name__ == "__main__":
     # KHÔNG ghi tay số bài học ở đây — lấy từ LESSONS_BY_LEVEL / B1 / B2.
     manifest_sections = [
         {"name": "Trang chủ", "url": "/", "status": "available"},
-        {"name": "Bài xếp lớp (bản demo 3 câu mẫu)", "url": "/bai-xep-lop.html", "status": "available", "note": "demo, không phải bài kiểm tra thật"},
+        {"name": "Bài xếp lớp", "url": "/bai-xep-lop.html", "status": "available", "note": "giới thiệu và dẫn vào bài kiểm tra trình độ thật"},
         {"name": "English Level Check — kiểm tra trình độ", "url": "/tro-choi/english-level-check.html", "status": "available"},
         {"name": "Trình độ A1", "url": "/trinh-do/a1.html", "status": "available", "lessons": len(LESSONS_BY_LEVEL["a1"])},
         {"name": "Trình độ A2", "url": "/trinh-do/a2.html", "status": "available", "lessons": len(LESSONS_BY_LEVEL["a2"])},
