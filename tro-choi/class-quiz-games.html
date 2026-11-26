@@ -205,6 +205,16 @@
       .join-link-row .btn { min-height: 44px; white-space: nowrap; }
       .qr-wrap { display: flex; justify-content: center; padding: 16px 0 8px; }
       .qr-wrap > div { background: #fff; padding: 12px; border-radius: var(--r-btn); line-height: 0; }
+      .share-grid { display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: center; justify-content: center; }
+      .share-grid .share-code-side { flex: 1 1 240px; min-width: 0; }
+      .share-grid .share-qr-side { flex: 0 1 auto; text-align: center; }
+      .share-grid .qr-wrap { padding-top: 4px; }
+      #qr-code img, #qr-code canvas { display: block; max-width: 100%; }
+      @media (max-width: 480px) {
+        .join-link-row { flex-wrap: wrap; }
+        .join-link-row input { flex: 1 1 100%; }
+        .join-link-row .btn { flex: 1 1 auto; }
+      }
       .player-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
       .chip {
         background: var(--surface-2); border-radius: 999px; padding: 8px 14px;
@@ -544,13 +554,31 @@ B
             <button class="btn btn-quiet" id="btn-host-close-room" type="button">Close room</button>
           </span>
         </div>
-        <p class="center muted" style="margin-bottom:0">Students: open this page, choose <strong>Join a game</strong>, and enter the code</p>
-        <div class="room-code" id="lobby-code">------</div>
-        <div class="center">
-          <button class="btn btn-ghost" id="btn-copy-code" type="button">Copy room code</button>
-          <p class="small" id="copy-code-msg" role="status" style="margin-top:8px"></p>
+        <div class="share-grid">
+          <div class="share-code-side">
+            <p class="center muted" style="margin-bottom:0">Students: open this page, choose <strong>Join a game</strong>, and enter the code — or scan the QR code</p>
+            <div class="room-code" id="lobby-code">------</div>
+            <div class="center">
+              <button class="btn btn-ghost" id="btn-copy-code" type="button">Copy room code</button>
+              <p class="small" id="copy-code-msg" role="status" style="margin-top:8px"></p>
+            </div>
+          </div>
+          <div class="share-qr-side" id="qr-side">
+            <div class="qr-wrap" id="qr-wrap"><div id="qr-code" role="img" aria-label="QR code for the student join link"></div></div>
+            <p class="small muted center" style="margin:0">Scan to join — the code fills in automatically<br><span class="vi">Quét mã để vào phòng — mã phòng tự điền sẵn</span></p>
+          </div>
         </div>
-        <div class="note">If your students don't have this page open yet, send it to them first with the app's <strong>Share</strong> button — then they just type the code above. The code is all they need.</div>
+
+        <label class="field" for="student-link-input">Student link — room code already included</label>
+        <div class="join-link-row">
+          <input type="text" id="student-link-input" readonly value="">
+          <button class="btn" id="btn-copy-link" type="button">Copy student link</button>
+        </div>
+        <div class="center">
+          <button class="btn btn-ghost hidden" id="btn-share-link" type="button">Share link…</button>
+        </div>
+        <p class="small" id="copy-link-msg" role="status" style="margin-top:8px"></p>
+        <div class="note">Send the <strong>student link</strong> to your class (Zalo, Messenger…) or show the <strong>QR code</strong> on the shared screen. Either way, students land on the join screen with the code already filled in — they only type their name. <span class="vi">Học sinh chỉ cần nhập tên của mình.</span></div>
 
         <button class="set-row" type="button" id="set-lock-room" role="switch" aria-checked="false">
           <span class="set-text"><span class="set-name">Lock room</span><span class="set-desc">No new students can join. Students already in can still reconnect.</span></span>
@@ -860,6 +888,7 @@ B
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <script>
       "use strict";
       /* ================= QUESTION PACKS ================= */
@@ -1859,6 +1888,7 @@ B
         if (s.doubleFinal) bits.push("final question ×2");
         if (s.teams) bits.push(s.teams + " teams");
         $("lobby-pack-info").textContent = "Pack: " + host.pack.name + " · " + host.pack.questions.length + " questions · " + host.seconds + " seconds per question" + (bits.length ? " · " + bits.join(" · ") : "");
+        renderStudentShare();
         renderHostLobby();
         show("view-host-lobby");
       }
@@ -1906,6 +1936,82 @@ B
       $("btn-copy-code").addEventListener("click", function () {
         if (host) copyText(host.code, $("copy-code-msg"), "Room code " + host.code + " copied — paste it anywhere to share it.");
       });
+
+      /* ---------- Student share link + QR (host lobby) ---------- */
+      /* The link is built from origin + pathname only, so any existing
+         ?room=…, other query params or #pack=… hash are stripped and the
+         current room code is the only thing appended. */
+      function studentLink() {
+        if (!host) return "";
+        var base;
+        if (location.origin && location.origin !== "null") base = location.origin + location.pathname;
+        else base = location.href.split(/[?#]/)[0];
+        return base + "?room=" + encodeURIComponent(host.code);
+      }
+      var lastQrLink = "";
+      function renderStudentShare() {
+        if (!host) return;
+        var link = studentLink();
+        var input = $("student-link-input");
+        if (input && input.value !== link) input.value = link;
+        var shareBtn = $("btn-share-link");
+        if (shareBtn) shareBtn.classList.toggle("hidden", typeof navigator.share !== "function");
+        var side = $("qr-side"), box = $("qr-code");
+        if (!side || !box) return;
+        if (typeof window.QRCode !== "function") {
+          /* QR library didn't load — hide the QR area; link + copy still work. */
+          side.classList.add("hidden");
+          return;
+        }
+        side.classList.remove("hidden");
+        if (link === lastQrLink && box.firstChild) return; // already showing this room's QR
+        box.innerHTML = "";
+        try {
+          new window.QRCode(box, {
+            text: link, width: 240, height: 240,
+            colorDark: "#000000", colorLight: "#ffffff",
+            correctLevel: window.QRCode.CorrectLevel ? window.QRCode.CorrectLevel.M : 1
+          });
+        } catch (e) {
+          side.classList.add("hidden");
+          return;
+        }
+        if (!box.firstChild) { side.classList.add("hidden"); return; }
+        lastQrLink = link;
+      }
+      $("btn-copy-link").addEventListener("click", function () {
+        if (!host) return;
+        var link = studentLink();
+        var msg = $("copy-link-msg");
+        var input = $("student-link-input");
+        if (input) input.value = link;
+        function done() { if (msg) msg.textContent = "Student link copied — send it to your class. Students only need to type their name."; }
+        function showManual() {
+          /* Clipboard unavailable: the full link stays visible in the input
+             above — select it so the teacher can copy it by hand. */
+          if (input) {
+            input.focus(); input.select();
+            try { input.setSelectionRange(0, input.value.length); } catch (e) {}
+          }
+          if (msg) msg.textContent = "Couldn't copy automatically — the link above is selected, copy it manually.";
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(link).then(done, showManual);
+        } else { showManual(); }
+      });
+      $("student-link-input").addEventListener("click", function () { this.select(); });
+      (function () {
+        var b = $("btn-share-link");
+        if (!b) return;
+        if (typeof navigator.share !== "function") b.classList.add("hidden");
+        b.addEventListener("click", function () {
+          if (!host || typeof navigator.share !== "function") return;
+          try {
+            var p = navigator.share({ title: "Class Quiz Games", text: "Join my quiz game — room code " + host.code, url: studentLink() });
+            if (p && typeof p.catch === "function") p.catch(function () { /* share sheet cancelled — nothing to do */ });
+          } catch (e) { /* share sheet unavailable on this device */ }
+        });
+      })();
       wireSwitch("set-lock-room", false, function (v) { if (host) host.locked = v; });
       wireSwitch("set-late-join", true, function (v) { if (host) host.allowLate = v; });
       $("btn-host-close-room").addEventListener("click", function () { teardownHost(); show("view-host-setup"); });
@@ -2346,6 +2452,7 @@ B
         hostPlayersArr().forEach(function (p) { p.score = 0; p.streak = 0; p.correct = 0; p.answered = 0; p.misses = []; p.team = null; });
         host.qi = -1; host.answers = {}; host.phase = "lobby"; host.teamCount = 0; host.questions = host.pack.questions;
         hostBroadcast({ t: "backToLobby" });
+        renderStudentShare();
         renderHostLobby();
         show("view-host-lobby");
       });
