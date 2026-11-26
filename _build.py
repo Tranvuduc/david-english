@@ -1297,7 +1297,7 @@ add("/hoc-voi-david.html", "Học với David", "Học tiếng Anh 1 kèm 1 vớ
 <p>Học phí tính theo giờ học và mỗi học viên. Ưu đãi áp dụng theo thời lượng đăng ký.</p>
 <div class="cards">
 <article class="card"><h3>Giao tiếp &amp; tiếng Anh công việc</h3><p class="tutor-amount">200.000đ <small>/ giờ / học viên</small></p><p>Học 1 kèm 1.</p><ul><li>Giảm 10% khi đăng ký 3 tháng</li><li>Giảm 15% khi đăng ký 6 tháng</li><li>Giáo trình Oxford &amp; Cambridge phù hợp trình độ</li></ul></article>
-<article class="card tutor-featured"><h3>IELTS</h3><p class="tutor-amount">300.000đ <small>/ giờ / học viên</small></p><p>Lộ trình luyện thi theo trình độ và mục tiêu.</p><ul><li>Đánh giá đầu vào và định hướng</li><li>Luyện kỹ năng có chiến lược</li><li>Phản hồi và bài tập theo tiến độ</li></ul></article>
+<article class="card tutor-featured"><h3>IELTS / TOEIC</h3><p class="tutor-amount">300.000đ <small>/ giờ / học viên</small></p><p>Lộ trình luyện thi theo trình độ và mục tiêu.</p><ul><li>Đánh giá đầu vào và định hướng</li><li>Luyện kỹ năng có chiến lược</li><li>Phản hồi và bài tập theo tiến độ</li></ul></article>
 </div>
 <h2>Câu hỏi thường gặp</h2>
 <div class="tutor-faq">
