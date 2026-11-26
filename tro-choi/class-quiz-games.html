@@ -398,6 +398,56 @@
       .podium-pop { animation: podium-pop 450ms ease-out; }
       @keyframes podium-pop { 0% { transform: scale(0.96); } 100% { transform: scale(1); } }
       @media (prefers-reduced-motion: reduce) { .podium-pop { animation: none; } }
+
+      /* ---------- Multi-format questions ---------- */
+      .fmt-badge {
+        display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+        background: var(--navy-solid); color: #fff; border-radius: 999px; padding: 4px 12px; margin-bottom: 12px;
+      }
+      .fmt-badge:empty { display: none; }
+      .type-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+      .type-row input { flex: 1 1 200px; font-size: 18px; min-height: 56px; }
+      .type-row .btn { min-height: 56px; }
+      .tile-bank, .built-row, .bank-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+      .built-row {
+        min-height: 56px; padding: 10px; background: var(--surface-2); border-radius: var(--r-btn);
+        align-items: center; margin-top: 16px;
+      }
+      .built-row .built-hint { color: var(--muted); font-size: 14px; }
+      .tile {
+        min-height: 48px; padding: 10px 16px; border-radius: var(--r-btn); cursor: pointer;
+        border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+        font: inherit; font-size: 17px; font-weight: 600; box-shadow: var(--shadow);
+      }
+      .tile:hover { background: var(--surface-2); }
+      .tile.used { opacity: 0.3; pointer-events: none; }
+      .tile.placed { background: var(--teal); color: #fff; border-color: transparent; }
+      .tile.bank-chip.selected { background: var(--teal); color: #fff; border-color: transparent; }
+      .fill-sentence { font-size: clamp(21px, 5vw, 30px); font-weight: 600; line-height: 1.5; margin-top: 8px; }
+      .fill-blank {
+        display: inline-block; min-width: 110px; text-align: center; padding: 2px 10px;
+        border-bottom: 3px solid var(--accent); color: var(--navy); font-weight: 700;
+      }
+      .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+      .match-item {
+        min-height: 56px; padding: 12px; border-radius: var(--r-btn); cursor: pointer; text-align: center;
+        border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+        font: inherit; font-size: 16px; font-weight: 600; box-shadow: var(--shadow); width: 100%;
+      }
+      .match-item.selected { box-shadow: inset 0 0 0 3px var(--accent); }
+      .match-item.locked { background: var(--good); color: #fff; border-color: transparent; pointer-events: none; opacity: 0.9; }
+      .match-item.wrongflash { box-shadow: inset 0 0 0 3px var(--bad); }
+      .correct-answer-box {
+        background: var(--surface-2); border-radius: var(--r-btn); padding: 14px 16px; margin: 16px 0; font-size: 16px;
+      }
+      .correct-answer-box .ca-label { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 4px; }
+      .ai-box { background: var(--surface); border-radius: var(--r-card); box-shadow: var(--shadow); padding: 24px; margin: 24px 0 16px; }
+      .ai-preview-list { list-style: none; margin: 12px 0; padding: 0; }
+      .ai-preview-list li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+      .ai-preview-list li:last-child { border-bottom: 0; }
+      .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: -3px; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      @media (prefers-reduced-motion: reduce) { .spinner { animation: none; } }
     </style>
   </head>
   <body><style>.de-back{margin:0;text-align:left;background:linear-gradient(135deg,#123a6d 0%,#0c2a50 100%);color:#fff;padding:0 16px;border-bottom:3px solid #e8a020}.de-back a{display:inline-flex;align-items:center;min-height:44px;color:#fff;font:600 15px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;text-decoration:none}.de-back a:hover{color:#e8a020;text-decoration:underline}.de-back a:focus-visible{outline:3px solid #e8a020;outline-offset:2px}</style><header class="de-back"><a href="/">← David English</a></header>
@@ -476,6 +526,47 @@
         </div>
         <p class="muted small" style="margin-top:8px">In team mode, students are split evenly when the game starts. Team scores add up from everyone's answers, and the leaderboard shows teams.</p>
 
+        <div class="ai-box" id="ai-box">
+          <h3 style="margin-top:0">✨ AI topic generator</h3>
+          <p class="small muted">Type any topic — in English or Vietnamese — and get a ready mixed-format pack (multiple choice, type the answer, word order, matching, fill the blank, listen &amp; type).</p>
+          <label class="field" for="ai-topic">Topic</label>
+          <input type="text" id="ai-topic" placeholder="e.g. travel, food and restaurants, Unit 5A: past tense" maxlength="120">
+          <div class="form-grid">
+            <div>
+              <label class="field" for="ai-level">Level</label>
+              <select id="ai-level">
+                <option value="A1">A1 — Beginner</option>
+                <option value="A2" selected>A2 — Elementary</option>
+                <option value="B1">B1 — Intermediate</option>
+                <option value="B2">B2 — Upper-intermediate</option>
+              </select>
+            </div>
+            <div>
+              <label class="field" for="ai-count">Questions</label>
+              <select id="ai-count">
+                <option value="10">10 questions</option>
+                <option value="15" selected>15 questions</option>
+                <option value="25">25 questions</option>
+              </select>
+            </div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-navy" id="btn-ai-generate" type="button">Generate pack</button>
+          </div>
+          <p class="small" id="ai-msg" role="status" style="margin-top:8px"></p>
+          <div id="ai-preview" class="hidden">
+            <h3 id="ai-preview-title">Preview</h3>
+            <ul class="ai-preview-list" id="ai-preview-list"></ul>
+            <div class="btn-row">
+              <button class="btn btn-navy" id="btn-ai-host" type="button">Host this pack</button>
+              <button class="btn" id="btn-ai-solo" type="button">Play solo</button>
+              <button class="btn btn-ghost" id="btn-ai-again" type="button">Generate again</button>
+              <button class="btn btn-ghost" id="btn-ai-save" type="button">Save as pack code</button>
+            </div>
+            <p class="small" id="ai-save-msg" role="status"></p>
+          </div>
+        </div>
+
         <h3>5. Create the room</h3>
         <p class="muted small">Up to 30+ students can join. Keep this tab open during the whole game — if it closes, the room closes too.</p>
         <button class="btn btn-navy btn-big btn-block" id="btn-create-room" type="button">Create room</button>
@@ -523,6 +614,22 @@ B
             <button class="btn" id="btn-cf-use" type="button" disabled>Use form pack (0 questions)</button>
           </div>
           <p class="small" id="custom-form-msg" role="status"></p>
+
+          <h3 style="margin-top:24px">…or add a “Type the answer” question</h3>
+          <p class="small muted">Students type the answer — grading ignores capital letters, extra spaces and full stops at the end. Add extra accepted spellings separated by commas (optional).</p>
+          <div class="form-grid">
+            <div style="grid-column:1/-1">
+              <label class="field" for="ct-q">Question</label>
+              <input type="text" id="ct-q" placeholder="e.g. What is the past tense of “go”?">
+            </div>
+            <div><label class="field" for="ct-answer">Correct answer</label><input type="text" id="ct-answer" placeholder="e.g. went"></div>
+            <div><label class="field" for="ct-accept">Also accept (comma separated, optional)</label><input type="text" id="ct-accept" placeholder="e.g. goed"></div>
+            <div style="grid-column:1/-1"><label class="field" for="ct-vi">Explanation in Vietnamese (optional)</label><input type="text" id="ct-vi"></div>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-ghost" id="btn-ct-add" type="button">Add typed question to form pack</button>
+          </div>
+          <p class="small" id="custom-type-msg" role="status"></p>
 
           <div id="custom-share" class="hidden">
             <h3>Save this pack for later</h3>
@@ -574,9 +681,6 @@ B
           <input type="text" id="student-link-input" readonly value="">
           <button class="btn" id="btn-copy-link" type="button">Copy student link</button>
         </div>
-        <div class="center">
-          <button class="btn btn-ghost hidden" id="btn-share-link" type="button">Share link…</button>
-        </div>
         <p class="small" id="copy-link-msg" role="status" style="margin-top:8px"></p>
         <div class="note">Send the <strong>student link</strong> to your class (Zalo, Messenger…) or show the <strong>QR code</strong> on the shared screen. Either way, students land on the join screen with the code already filled in — they only type their name. <span class="vi">Học sinh chỉ cần nhập tên của mình.</span></div>
 
@@ -614,8 +718,10 @@ B
           </div>
           <div class="timer-track"><div class="timer-fill" id="host-timer"></div></div>
           <div class="paused-banner hidden" id="host-paused">Paused — the timer is stopped for everyone</div>
+          <span class="fmt-badge" id="host-fmt"></span>
           <p class="q-speak-text hidden" id="host-speak-text"></p>
           <p class="q-text" id="host-q-text"></p>
+          <p class="muted" id="host-alt-note"></p>
           <div id="host-listen-row" class="hidden" style="margin-bottom:8px">
             <button class="btn" id="btn-host-speak" type="button">Play the sentence aloud</button>
             <span class="seg rate-seg" role="radiogroup" aria-label="Speech speed" style="margin-left:8px">
@@ -639,9 +745,11 @@ B
             <span class="q-count" id="host-reveal-count">Question 1 of 15</span>
             <span>Answer revealed</span>
           </div>
+          <span class="fmt-badge" id="host-reveal-fmt"></span>
           <p class="q-speak-text hidden" id="host-reveal-speak"></p>
           <p class="q-text" id="host-reveal-q"></p>
           <div class="answers-grid" id="host-reveal-answers"></div>
+          <div class="correct-answer-box hidden" id="host-reveal-correct"><span class="ca-label">Correct answer · Đáp án đúng</span><span id="host-reveal-correct-text"></span></div>
           <div class="explain" id="host-reveal-explain">
             <span class="ex-label">Explanation · Giải thích</span>
             <span id="host-reveal-explain-text"></span>
@@ -732,7 +840,9 @@ B
           </div>
           <div class="timer-track"><div class="timer-fill" id="p-timer"></div></div>
           <div class="paused-banner hidden" id="p-paused">Paused by your teacher<span class="dots"></span><br><span class="vi" style="font-weight:400;font-size:14px">Thầy/cô đang tạm dừng.</span></div>
+          <span class="fmt-badge" id="p-fmt"></span>
           <p class="q-text" id="p-q-text" style="font-size:clamp(21px,5vw,30px)"></p>
+          <div id="p-custom-ui"></div>
           <div id="p-listen-row" class="hidden">
             <button class="btn" id="btn-p-replay" type="button">Listen again</button>
             <span class="seg rate-seg" role="radiogroup" aria-label="Speech speed" style="margin-left:8px">
@@ -758,6 +868,7 @@ B
             <p class="v-points" id="p-verdict-points"></p>
             <p class="muted" id="p-verdict-rank" style="margin-top:8px"></p>
           </div>
+          <div class="correct-answer-box hidden" id="p-reveal-correct"><span class="ca-label">Correct answer · Đáp án đúng</span><span id="p-reveal-correct-text"></span></div>
           <div class="explain">
             <span class="ex-label">Explanation · Giải thích</span>
             <span id="p-reveal-explain"></span>
@@ -848,7 +959,9 @@ B
           <span id="solo-q-score">Score: 0</span>
         </div>
         <div class="timer-track"><div class="timer-fill" id="solo-timer"></div></div>
+        <span class="fmt-badge" id="solo-fmt"></span>
         <p class="q-text" id="solo-q-text" style="font-size:clamp(22px,5vw,32px)"></p>
+        <div id="solo-custom-ui"></div>
         <div id="solo-listen-row" class="hidden">
           <button class="btn" id="btn-solo-replay" type="button">Listen again</button>
           <span class="seg rate-seg" role="radiogroup" aria-label="Speech speed" style="margin-left:8px">
@@ -1235,10 +1348,103 @@ B
             { q: "“Secret Santa” is a game where you ___ .", o: ["sing a song", "give a gift to someone but they don't know it was you", "cook dinner", "tell a story"], a: 1, vi: "“Secret Santa” là trò tặng quà bí mật — người nhận không biết ai tặng mình." },
             { q: "Before eating at the party, we can say: “___!”", o: ["Good night", "Enjoy your meal", "Be careful", "Hurry up"], a: 1, vi: "“Enjoy your meal!” = Chúc ngon miệng!" }
           ]
+        },
+        {
+          id: "mixed-a1", name: "Mixed Formats A1", mode: "mixed",
+          desc: "All the game formats — beginners",
+          questions: [
+            { format: "mcq", q: "What colour is the sky on a sunny day?", o: ["blue", "green", "black", "pink"], a: 0, vi: "Bầu trời ngày nắng màu xanh dương — “blue”." },
+            { format: "type", q: "Type the English word for “mèo”.", answer: "cat", accept: ["a cat"], vi: "“Mèo” trong tiếng Anh là “cat”." },
+            { format: "order", q: "Put the words in order to make a sentence.", words: ["I", "am", "a", "student"], vi: "Câu đúng: “I am a student.” (Tôi là học sinh.)" },
+            { format: "match", q: "Match the opposites.", pairs: [["hot", "cold"], ["big", "small"], ["fast", "slow"], ["happy", "sad"]], vi: "Các cặp trái nghĩa: hot–cold (nóng–lạnh), big–small (to–nhỏ), fast–slow (nhanh–chậm), happy–sad (vui–buồn)." },
+            { format: "fill", q: "She ___ to school every day.", bank: ["goes", "go", "went", "going"], answer: "goes", vi: "Chủ ngữ “she” ở hiện tại đơn dùng “goes”." },
+            { format: "listen-type", q: "Listen and type what you hear.", s: "The cat is on the chair", answer: "The cat is on the chair", accept: ["the cat is on the chair"], vi: "Câu em nghe: “The cat is on the chair.” (Con mèo ở trên ghế.)" },
+            { format: "mcq", q: "How many legs does a dog have?", o: ["two", "three", "four", "six"], a: 2, vi: "Chó có 4 chân — “four”." },
+            { format: "type", q: "Type the past tense of “go”.", answer: "went", accept: [], vi: "Quá khứ của “go” là “went”." },
+            { format: "order", q: "Put the words in order to make a sentence.", words: ["My", "name", "is", "Lan"], vi: "Câu đúng: “My name is Lan.” (Tên tôi là Lan.)" },
+            { format: "fill", q: "I ___ breakfast at 7 o'clock.", bank: ["have", "has", "having", "haves"], answer: "have", vi: "Chủ ngữ “I” dùng “have”: “I have breakfast…” (Tôi ăn sáng…)." },
+            { format: "mcq", q: "Which one can you drink?", o: ["bread", "water", "rice", "cake"], a: 1, vi: "“Water” (nước) là thứ ta uống được." },
+            { format: "match", q: "Match the animal to its baby.", pairs: [["dog", "puppy"], ["cat", "kitten"], ["cow", "calf"], ["duck", "duckling"]], vi: "Con non: dog–puppy (chó con), cat–kitten (mèo con), cow–calf (bê), duck–duckling (vịt con)." },
+            { format: "type", q: "Type the opposite of “big”.", answer: "small", accept: ["little"], vi: "Trái nghĩa với “big” (to) là “small” (nhỏ)." },
+            { format: "listen-type", q: "Listen and type what you hear.", s: "I like apples", answer: "I like apples", accept: ["i like apples"], vi: "Câu em nghe: “I like apples.” (Tôi thích táo.)" },
+            { format: "order", q: "Put the words in order to make a question.", words: ["What", "is", "your", "name"], vi: "Câu hỏi đúng: “What is your name?” (Tên bạn là gì?)" },
+            { format: "fill", q: "They ___ football on Sundays.", bank: ["play", "plays", "playing", "played now"], answer: "play", vi: "Chủ ngữ “they” dùng động từ nguyên mẫu “play”." },
+            { format: "mcq", q: "You write with a ___.", o: ["spoon", "pen", "plate", "sock"], a: 1, vi: "Ta viết bằng “pen” (bút)." },
+            { format: "type", q: "How do you say “cảm ơn” in English? Type it.", answer: "thank you", accept: ["thanks"], vi: "“Cảm ơn” là “Thank you”." },
+            { format: "match", q: "Match the word to its colour.", pairs: [["banana", "yellow"], ["apple", "red"], ["grass", "green"], ["sky", "blue"]], vi: "banana–yellow (chuối–vàng), apple–red (táo–đỏ), grass–green (cỏ–xanh lá), sky–blue (bầu trời–xanh dương)." },
+            { format: "order", q: "Put the words in order to make a sentence.", words: ["She", "has", "two", "brothers"], vi: "Câu đúng: “She has two brothers.” (Cô ấy có hai anh/em trai.)" },
+            { format: "fill", q: "The bird can ___.", bank: ["fly", "swim in air", "run fastly", "jump high sea"], answer: "fly", vi: "Chim có thể “fly” (bay)." },
+            { format: "mcq", q: "What is the first day of the week in Vietnam?", o: ["Sunday", "Monday", "Friday", "Saturday"], a: 1, vi: "Ở Việt Nam, ngày đầu tuần là thứ Hai — “Monday”." },
+            { format: "type", q: "Type the number word for 7.", answer: "seven", accept: [], vi: "Số 7 viết là “seven”." },
+            { format: "listen-type", q: "Listen and type what you hear.", s: "This is my book", answer: "This is my book", accept: ["this is my book"], vi: "Câu em nghe: “This is my book.” (Đây là sách của tôi.)" },
+            { format: "match", q: "Match the place to what you do there.", pairs: [["school", "learn"], ["hospital", "see a doctor"], ["market", "buy food"], ["cinema", "watch a film"]], vi: "school–learn (trường–học), hospital–see a doctor (bệnh viện–khám bệnh), market–buy food (chợ–mua đồ ăn), cinema–watch a film (rạp–xem phim)." }
+          ]
+        },
+        {
+          id: "mixed-b1", name: "Mixed Formats B1", mode: "mixed",
+          desc: "All the game formats — intermediate",
+          questions: [
+            { format: "mcq", q: "I have lived in Hue ___ 2019.", o: ["for", "since", "from", "by"], a: 1, vi: "“Since” + mốc thời gian (2019)." },
+            { format: "type", q: "Type the past participle (V3) of “write”.", answer: "written", accept: [], vi: "write – wrote – written. V3 là “written”." },
+            { format: "order", q: "Put the words in order to make a sentence.", words: ["She", "has", "never", "been", "to", "Ha", "Long", "Bay"], vi: "Câu đúng: “She has never been to Ha Long Bay.”" },
+            { format: "match", q: "Match the word to its meaning.", pairs: [["reluctant", "unwilling"], ["ancient", "very old"], ["generous", "giving"], ["rapid", "very fast"]], vi: "reluctant = unwilling (miễn cưỡng), ancient = very old (cổ xưa), generous = giving (hào phóng), rapid = very fast (rất nhanh)." },
+            { format: "fill", q: "If it ___ tomorrow, we will stay at home.", bank: ["rains", "rain", "rained yesterday", "will rain"], answer: "rains", vi: "Câu điều kiện loại 1: If + hiện tại đơn “rains”, mệnh đề chính dùng “will”." },
+            { format: "listen-type", q: "Listen and type what you hear.", s: "The meeting has been moved to Friday morning", answer: "The meeting has been moved to Friday morning", accept: ["the meeting has been moved to friday morning"], vi: "Câu em nghe: “The meeting has been moved to Friday morning.” (Cuộc họp đã được dời sang sáng thứ Sáu.)" },
+            { format: "mcq", q: "The new bridge ___ last year.", o: ["built", "was built", "has build", "building"], a: 1, vi: "Bị động quá khứ đơn: “was built” (đã được xây)." },
+            { format: "type", q: "Type one word: She is interested ___ music. (preposition)", answer: "in", accept: [], vi: "Cụm cố định “interested in”." },
+            { format: "order", q: "Put the words in order to make a sentence.", words: ["I", "am", "looking", "forward", "to", "seeing", "you"], vi: "Câu đúng: “I am looking forward to seeing you.”" },
+            { format: "fill", q: "He denied ___ the money.", bank: ["taking", "take", "to take", "took"], answer: "taking", vi: "“Deny” đi với V-ing: “denied taking”." },
+            { format: "mcq", q: "“Postpone” means ___.", o: ["cancel forever", "delay", "start early", "repeat"], a: 1, vi: "“Postpone” = trì hoãn, dời sang lúc khác." },
+            { format: "match", q: "Match the phrasal verb to its meaning.", pairs: [["put off", "delay"], ["take over", "gain control"], ["look after", "take care of"], ["give up", "stop trying"]], vi: "put off = delay (hoãn), take over = gain control (tiếp quản), look after = take care of (chăm sóc), give up = stop trying (bỏ cuộc)." },
+            { format: "type", q: "Type the comparative form of “good”.", answer: "better", accept: [], vi: "So sánh hơn bất quy tắc: good → better." },
+            { format: "listen-type", q: "Listen and type what you hear.", s: "Could you send me the report by Thursday", answer: "Could you send me the report by Thursday", accept: ["could you send me the report by thursday"], vi: "Câu em nghe: “Could you send me the report by Thursday?”" },
+            { format: "order", q: "Put the words in order to make a question.", words: ["Have", "you", "ever", "tried", "pho"], vi: "Câu hỏi đúng: “Have you ever tried pho?”" },
+            { format: "fill", q: "The report must ___ by Friday.", bank: ["be finished", "finish", "finishing", "finishes"], answer: "be finished", vi: "Bị động với “must”: must + be + V3 → “be finished”." },
+            { format: "mcq", q: "She suggested ___ a short break.", o: ["take", "to take", "taking", "taken"], a: 2, vi: "“Suggest” đi với V-ing: “suggested taking”." },
+            { format: "type", q: "Type the noun form of “decide”.", answer: "decision", accept: [], vi: "Danh từ của “decide” là “decision” (quyết định)." },
+            { format: "match", q: "Match the job to the workplace.", pairs: [["surgeon", "hospital"], ["lecturer", "university"], ["cashier", "supermarket"], ["mechanic", "garage"]], vi: "surgeon–hospital (bác sĩ phẫu thuật–bệnh viện), lecturer–university (giảng viên–đại học), cashier–supermarket (thu ngân–siêu thị), mechanic–garage (thợ máy–ga-ra)." },
+            { format: "order", q: "Put the words in order to make a sentence.", words: ["The", "longer", "you", "wait", "the", "harder", "it", "gets"], vi: "Câu đúng: “The longer you wait, the harder it gets.”" },
+            { format: "fill", q: "I'm not used ___ up so early.", bank: ["to getting", "get", "to get", "getting to"], answer: "to getting", vi: "“Be used to + V-ing”: “to getting up”." },
+            { format: "mcq", q: "Neither the teacher nor the students ___ in the room.", o: ["was", "is", "were", "be"], a: 2, vi: "Động từ chia theo chủ ngữ gần nhất (students) → “were”." },
+            { format: "type", q: "Type the word that means “mặc dù” and goes before a noun phrase (as in: “___ the rain, the match continued.”)", answer: "despite", accept: ["in spite of"], vi: "“Despite” (+ cụm danh từ) nghĩa là mặc dù; cũng có thể dùng “in spite of”." },
+            { format: "listen-type", q: "Listen and type what you hear.", s: "She apologised for being late to the interview", answer: "She apologised for being late to the interview", accept: ["she apologised for being late to the interview", "she apologized for being late to the interview"], vi: "Câu em nghe: “She apologised for being late to the interview.”" },
+            { format: "match", q: "Match the word to its opposite.", pairs: [["ancient", "modern"], ["generous", "selfish"], ["permanent", "temporary"], ["scarce", "plentiful"]], vi: "ancient–modern (cổ–hiện đại), generous–selfish (hào phóng–ích kỷ), permanent–temporary (lâu dài–tạm thời), scarce–plentiful (khan hiếm–dồi dào)." }
+          ]
+        },
+        {
+          id: "word-games", name: "Word Games", mode: "mixed",
+          desc: "Order, match, spell and listen challenges",
+          questions: [
+            { format: "order", q: "Put the words in order to make a sentence.", words: ["The", "cat", "is", "under", "the", "table"], vi: "Câu đúng: “The cat is under the table.”" },
+            { format: "type", q: "Spell the word: the day after Monday.", answer: "tuesday", accept: ["Tuesday"], vi: "Ngày sau thứ Hai là thứ Ba — “Tuesday”." },
+            { format: "match", q: "Match the country to its capital.", pairs: [["Japan", "Tokyo"], ["France", "Paris"], ["Australia", "Canberra"], ["Canada", "Ottawa"]], vi: "Japan–Tokyo, France–Paris, Australia–Canberra, Canada–Ottawa." },
+            { format: "fill", q: "An apple a day ___ the doctor away.", bank: ["keeps", "keep", "keeping", "kept now"], answer: "keeps", vi: "Câu nói nổi tiếng: “An apple a day keeps the doctor away.”" },
+            { format: "listen-type", q: "Listen and type the word you hear.", s: "elephant", answer: "elephant", accept: ["Elephant"], vi: "Từ em nghe: “elephant” (con voi)." },
+            { format: "mcq", q: "Which word has a silent letter?", o: ["knife", "kite", "king", "kitchen"], a: 0, vi: "Trong “knife”, chữ “k” không phát âm (âm câm)." },
+            { format: "order", q: "Put the words in order to make a question.", words: ["Where", "do", "you", "live"], vi: "Câu hỏi đúng: “Where do you live?”" },
+            { format: "type", q: "Type the plural of “child”.", answer: "children", accept: [], vi: "Số nhiều bất quy tắc: child → children." },
+            { format: "match", q: "Match the sport to its equipment.", pairs: [["tennis", "racket"], ["football", "boots and a ball"], ["swimming", "goggles"], ["chess", "board and pieces"]], vi: "tennis–racket (vợt), football–boots and a ball (giày và bóng), swimming–goggles (kính bơi), chess–board and pieces (bàn cờ và quân cờ)." },
+            { format: "fill", q: "She speaks English very ___.", bank: ["well", "good", "bestly", "nice"], answer: "well", vi: "Bổ nghĩa cho động từ “speaks” dùng trạng từ “well”." },
+            { format: "order", q: "Put the words in order to make a sentence.", words: ["We", "are", "going", "to", "travel", "in", "July"], vi: "Câu đúng: “We are going to travel in July.”" },
+            { format: "listen-type", q: "Listen and type what you hear.", s: "Please close the window", answer: "Please close the window", accept: ["please close the window"], vi: "Câu em nghe: “Please close the window.”" },
+            { format: "type", q: "Type the word that rhymes with “night” and means “not heavy”.", answer: "light", accept: [], vi: "“Light” vừa vần với “night”, vừa nghĩa là nhẹ." },
+            { format: "match", q: "Match the word to the category.", pairs: [["violin", "instrument"], ["carrot", "vegetable"], ["eagle", "bird"], ["copper", "metal"]], vi: "violin–instrument (nhạc cụ), carrot–vegetable (rau củ), eagle–bird (chim), copper–metal (kim loại)." },
+            { format: "mcq", q: "Which word means “very happy”?", o: ["furious", "delighted", "exhausted", "nervous"], a: 1, vi: "“Delighted” = vô cùng vui mừng." },
+            { format: "fill", q: "The fastest land animal is the ___.", bank: ["cheetah", "tortoise", "snail", "sloth"], answer: "cheetah", vi: "Báo gêpa (cheetah) là động vật chạy nhanh nhất trên cạn." },
+            { format: "order", q: "Put the words in order to make a sentence.", words: ["He", "doesn't", "like", "coffee", "or", "tea"], vi: "Câu đúng: “He doesn't like coffee or tea.”" },
+            { format: "type", q: "Unscramble: type the word made from the letters O, K, B, O.", answer: "book", accept: [], vi: "Các chữ cái O, K, B, O xếp thành “book” (quyển sách)." },
+            { format: "listen-type", q: "Listen and type the number word you hear.", s: "seventy", answer: "seventy", accept: ["70"], vi: "Từ em nghe: “seventy” (bảy mươi)." },
+            { format: "match", q: "Match the beginning to the ending.", pairs: [["break", "fast"], ["sun", "shine"], ["book", "worm"], ["rain", "bow"]], vi: "breakfast, sunshine, bookworm, rainbow — các từ ghép quen thuộc." },
+            { format: "fill", q: "Two plus two ___ four.", bank: ["equals", "equal to be", "equaling", "equaled yesterday"], answer: "equals", vi: "“Two plus two equals four.” (Hai cộng hai bằng bốn.)" },
+            { format: "order", q: "Put the words in order to make a polite request.", words: ["Could", "you", "open", "the", "door", "please"], vi: "Câu đúng: “Could you open the door, please?”" },
+            { format: "mcq", q: "Which of these is a synonym of “begin”?", o: ["finish", "start", "stop", "end"], a: 1, vi: "“Start” đồng nghĩa với “begin” (bắt đầu)." },
+            { format: "type", q: "Type the missing word: “Once ___ a time…” (fairy-tale opening)", answer: "upon", accept: [], vi: "Câu mở đầu truyện cổ tích: “Once upon a time…”" },
+            { format: "match", q: "Match the sound to the animal.", pairs: [["dog", "bark"], ["cat", "meow"], ["cow", "moo"], ["duck", "quack"]], vi: "dog–bark (sủa), cat–meow (kêu meo), cow–moo (rống), duck–quack (kêu quạc)." }
+          ]
         }
       ];
 
-      var MODE_LABEL = { quiz: "Quiz · 4 choices", tf: "True or False", listen: "Listen & Choose" };
+      var MODE_LABEL = { quiz: "Quiz · 4 choices", tf: "True or False", listen: "Listen & Choose", mixed: "Mixed formats" };
       var SHAPES = ["shape-tri", "shape-dia", "shape-cir", "shape-squ"];
     </script>
     <script>
@@ -1390,6 +1596,243 @@ B
         return '<span class="shape ' + SHAPES[i % 4] + '" aria-hidden="true"></span><span>' + esc(text) + "</span>";
       }
 
+      /* ================= MULTI-FORMAT ENGINE ================= */
+      var FORMAT_LABEL = { mcq: "Multiple choice", type: "Type the answer", order: "Word order", match: "Match pairs", fill: "Fill the blank", "listen-type": "Listen & type" };
+      function qFormat(q, pack) {
+        if (q && q.format) return q.format;
+        return "mcq";
+      }
+      function normalizeAnswer(s) {
+        return String(s == null ? "" : s).toLowerCase().replace(/\s+/g, " ").replace(/^[ \t]+|[ \t]+$/g, "").replace(/[.!?]+$/, "").trim();
+      }
+      function gradeTyped(input, q) {
+        var n = normalizeAnswer(input);
+        if (!n) return false;
+        if (n === normalizeAnswer(q.answer)) return true;
+        return (q.accept || []).some(function (a) { return n === normalizeAnswer(a); });
+      }
+      function gradeOrder(built, q) {
+        if (!built || !q.words) return false;
+        return normalizeAnswer(built.join(" ")) === normalizeAnswer(q.words.join(" "));
+      }
+      function countMatchCorrect(matches, q) {
+        if (!q.pairs) return 0;
+        var correct = 0;
+        var used = {};
+        (matches || []).forEach(function (m) {
+          q.pairs.forEach(function (p, idx) {
+            if (!used[idx] && m[0] === p[0] && m[1] === p[1]) { correct++; used[idx] = true; }
+          });
+        });
+        return correct;
+      }
+      /* Grade any answer payload. Returns {correct, fraction, yourText}.
+         Payload shapes: mcq {choice} · type/fill/listen-type {text} · order {order:[words]} · match {matches:[[l,r],…]} */
+      function gradeAnswer(q, pack, payload) {
+        var f = qFormat(q, pack);
+        payload = payload || {};
+        if (f === "mcq") {
+          var c = typeof payload.choice === "number" ? payload.choice : -1;
+          return { correct: c === q.a, fraction: c === q.a ? 1 : 0, yourText: c >= 0 && q.o && q.o[c] ? q.o[c] : "(no answer)" };
+        }
+        if (f === "type" || f === "listen-type" || f === "fill") {
+          var t = payload.text || "";
+          var ok = gradeTyped(t, q);
+          return { correct: ok, fraction: ok ? 1 : 0, yourText: t.trim() ? t : "(no answer)" };
+        }
+        if (f === "order") {
+          var built = payload.order || [];
+          var ok2 = gradeOrder(built, q);
+          return { correct: ok2, fraction: ok2 ? 1 : 0, yourText: built.length ? built.join(" ") : "(no answer)" };
+        }
+        if (f === "match") {
+          var n = countMatchCorrect(payload.matches || [], q);
+          var total = q.pairs ? q.pairs.length : 4;
+          return { correct: n === total, fraction: total ? n / total : 0, matchCorrect: n, matchTotal: total, yourText: n + "/" + total + " pairs correct" };
+        }
+        return { correct: false, fraction: 0, yourText: "(no answer)" };
+      }
+      function pointsForGrade(grade, fracRemaining, streakBefore, isFinalDouble) {
+        if (!grade || grade.fraction <= 0) return { points: 0, streak: 0 };
+        var full = scoreFor(true, fracRemaining, streakBefore);
+        var pts = Math.round(full.points * grade.fraction);
+        if (isFinalDouble) pts *= 2;
+        return { points: pts, streak: grade.fraction >= 1 ? full.streak : 0 };
+      }
+      function correctAnswerText(q, pack) {
+        var f = qFormat(q, pack);
+        if (f === "mcq") return q.o && q.o[q.a] != null ? q.o[q.a] : "";
+        if (f === "order") return q.words ? q.words.join(" ") : "";
+        if (f === "match") return (q.pairs || []).map(function (p) { return p[0] + " → " + p[1]; }).join(" · ");
+        return q.answer || "";
+      }
+      function questionDurationMs(q, pack, baseSeconds) {
+        var f = qFormat(q, pack);
+        var min = 0;
+        if (f === "match") min = 45;
+        else if (f === "type" || f === "order" || f === "fill" || f === "listen-type") min = 30;
+        return Math.max(baseSeconds, min) * 1000;
+      }
+      /* Strip secrets for the wire: type/fill/listen answers stay on the host.
+         Match pairs and order words must travel so phones can render + lock matches. */
+      function clientQuestion(q, pack) {
+        var f = qFormat(q, pack);
+        var out = { format: f, q: q.q, vi: undefined };
+        if (f === "mcq") { out.o = q.o; if (q.s) out.s = q.s; }
+        else if (f === "order") { out.words = q.words; }
+        else if (f === "match") { out.pairs = q.pairs; }
+        else if (f === "fill") { out.bank = q.bank; }
+        else if (f === "listen-type") { out.s = q.s; }
+        return out;
+      }
+      /* Interactive widget for non-MCQ formats. Returns {getPayload, focus}.
+         onSubmit(payload) fires on the Submit button / Enter key. */
+      function buildFormatUI(container, q, pack, onSubmit) {
+        var f = qFormat(q, pack);
+        container.innerHTML = "";
+        if (f === "type" || f === "listen-type") {
+          var wrap = document.createElement("div");
+          if (f === "listen-type") {
+            var lb = document.createElement("button");
+            lb.type = "button"; lb.className = "btn"; lb.textContent = "▶ Listen";
+            lb.addEventListener("click", function () { if (q.s) speak(q.s); });
+            wrap.appendChild(lb);
+            var hint = document.createElement("span");
+            hint.className = "vi"; hint.style.marginLeft = "8px"; hint.textContent = "Nghe và gõ lại";
+            wrap.appendChild(hint);
+          }
+          var row = document.createElement("div"); row.className = "type-row";
+          var input = document.createElement("input");
+          input.type = "text"; input.placeholder = "Type your answer…"; input.autocomplete = "off"; input.setAttribute("aria-label", "Your answer");
+          var sb = document.createElement("button");
+          sb.type = "button"; sb.className = "btn btn-navy"; sb.textContent = "Submit";
+          function submit() { onSubmit({ text: input.value }); }
+          sb.addEventListener("click", submit);
+          input.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); submit(); } });
+          row.appendChild(input); row.appendChild(sb);
+          wrap.appendChild(row);
+          container.appendChild(wrap);
+          return { getPayload: function () { return { text: input.value }; }, focus: function () { try { input.focus(); } catch (e) {} } };
+        }
+        if (f === "fill") {
+          var wrap2 = document.createElement("div");
+          var sent = document.createElement("p"); sent.className = "fill-sentence";
+          var parts = String(q.q || "").split("___");
+          var blank = document.createElement("span"); blank.className = "fill-blank"; blank.textContent = "______";
+          sent.appendChild(document.createTextNode(parts[0] || ""));
+          sent.appendChild(blank);
+          sent.appendChild(document.createTextNode(parts[1] || ""));
+          wrap2.appendChild(sent);
+          var chosen = { text: "" };
+          var bankRow = document.createElement("div"); bankRow.className = "bank-row";
+          shuffleArr(q.bank || []).forEach(function (w) {
+            var chip = document.createElement("button");
+            chip.type = "button"; chip.className = "tile bank-chip"; chip.textContent = w;
+            chip.addEventListener("click", function () {
+              chosen.text = w; blank.textContent = w;
+              bankRow.querySelectorAll(".bank-chip").forEach(function (c) { c.classList.toggle("selected", c === chip); });
+            });
+            bankRow.appendChild(chip);
+          });
+          wrap2.appendChild(bankRow);
+          var sb2 = document.createElement("button");
+          sb2.type = "button"; sb2.className = "btn btn-navy btn-block"; sb2.textContent = "Submit"; sb2.style.marginTop = "16px";
+          sb2.addEventListener("click", function () { onSubmit({ text: chosen.text }); });
+          wrap2.appendChild(sb2);
+          container.appendChild(wrap2);
+          return { getPayload: function () { return { text: chosen.text }; }, focus: function () {} };
+        }
+        if (f === "order") {
+          var wrap3 = document.createElement("div");
+          var builtRow = document.createElement("div"); builtRow.className = "built-row";
+          var placed = [];
+          function renderBuilt() {
+            builtRow.innerHTML = "";
+            if (!placed.length) { builtRow.innerHTML = '<span class="built-hint">Tap the words below to build the sentence…</span>'; return; }
+            placed.forEach(function (item, idx) {
+              var t = document.createElement("button");
+              t.type = "button"; t.className = "tile placed"; t.textContent = item.word;
+              t.setAttribute("aria-label", "Remove word " + item.word);
+              t.addEventListener("click", function () {
+                placed.splice(idx, 1);
+                item.btn.classList.remove("used");
+                renderBuilt();
+              });
+              builtRow.appendChild(t);
+            });
+          }
+          var bank3 = document.createElement("div"); bank3.className = "tile-bank";
+          shuffleArr((q.words || []).map(function (w, i) { return { word: w, id: i }; })).forEach(function (item) {
+            var b = document.createElement("button");
+            b.type = "button"; b.className = "tile"; b.textContent = item.word;
+            item.btn = b;
+            b.addEventListener("click", function () {
+              if (b.classList.contains("used")) return;
+              b.classList.add("used");
+              placed.push(item);
+              renderBuilt();
+            });
+            bank3.appendChild(b);
+          });
+          renderBuilt();
+          wrap3.appendChild(builtRow); wrap3.appendChild(bank3);
+          var sb3 = document.createElement("button");
+          sb3.type = "button"; sb3.className = "btn btn-navy btn-block"; sb3.textContent = "Submit"; sb3.style.marginTop = "16px";
+          sb3.addEventListener("click", function () { onSubmit({ order: placed.map(function (p) { return p.word; }) }); });
+          wrap3.appendChild(sb3);
+          container.appendChild(wrap3);
+          return { getPayload: function () { return { order: placed.map(function (p) { return p.word; }) }; }, focus: function () {} };
+        }
+        if (f === "match") {
+          var wrap4 = document.createElement("div");
+          var state = { selectedLeft: null, matches: [] };
+          var grid = document.createElement("div"); grid.className = "match-grid";
+          var leftCol = document.createElement("div"); var rightCol = document.createElement("div");
+          leftCol.style.display = "grid"; leftCol.style.gap = "10px";
+          rightCol.style.display = "grid"; rightCol.style.gap = "10px";
+          var leftBtns = {}, rightBtns = {};
+          (q.pairs || []).forEach(function (p) {
+            var b = document.createElement("button");
+            b.type = "button"; b.className = "match-item"; b.textContent = p[0];
+            b.addEventListener("click", function () {
+              if (b.classList.contains("locked")) return;
+              state.selectedLeft = p[0];
+              Object.keys(leftBtns).forEach(function (k) { leftBtns[k].classList.toggle("selected", k === p[0]); });
+            });
+            leftBtns[p[0]] = b; leftCol.appendChild(b);
+          });
+          shuffleArr((q.pairs || []).slice()).forEach(function (p) {
+            var b = document.createElement("button");
+            b.type = "button"; b.className = "match-item"; b.textContent = p[1];
+            b.addEventListener("click", function () {
+              if (b.classList.contains("locked") || !state.selectedLeft) return;
+              var left = state.selectedLeft;
+              var isRight = (q.pairs || []).some(function (pr) { return pr[0] === left && pr[1] === p[1]; });
+              if (isRight) {
+                b.classList.add("locked");
+                leftBtns[left].classList.add("locked"); leftBtns[left].classList.remove("selected");
+                state.matches.push([left, p[1]]);
+                state.selectedLeft = null;
+                if (state.matches.length >= (q.pairs || []).length) onSubmit({ matches: state.matches.slice() });
+              } else {
+                b.classList.add("wrongflash");
+                setTimeout(function () { b.classList.remove("wrongflash"); }, 450);
+              }
+            });
+            rightBtns[p[1]] = b; rightCol.appendChild(b);
+          });
+          grid.appendChild(leftCol); grid.appendChild(rightCol);
+          wrap4.appendChild(grid);
+          var note = document.createElement("p");
+          note.className = "small muted"; note.style.marginTop = "10px";
+          note.textContent = "Tap a word on the left, then its match on the right. Matched pairs lock in — your score counts the pairs you finish.";
+          wrap4.appendChild(note);
+          container.appendChild(wrap4);
+          return { getPayload: function () { return { matches: state.matches.slice() }; }, focus: function () {} };
+        }
+        return { getPayload: function () { return {}; }, focus: function () {} };
+      }
+
       /* ================= PACK REGISTRY ================= */
       var customPacks = [];
       function allPacks() { return PACKS.concat(customPacks); }
@@ -1425,7 +1868,8 @@ B
 
       /* ================= CUSTOM PACKS ================= */
       function registerCustomPack(name, questions) {
-        var pack = { id: "custom-" + Date.now(), name: name || "My Custom Pack", mode: "quiz", desc: "Your own questions", custom: true, questions: questions };
+        var hasFormats = questions.some(function (q) { return q.format && q.format !== "mcq"; });
+        var pack = { id: "custom-" + Date.now(), name: name || "My Custom Pack", mode: hasFormats ? "mixed" : "quiz", desc: "Your own questions", custom: true, questions: questions };
         customPacks = customPacks.filter(function (p) { return !p.custom; });
         customPacks.push(pack);
         return pack;
@@ -1544,6 +1988,115 @@ B
         showCustomShare(pack);
         refreshSetupLists();
       });
+      $("btn-ct-add").addEventListener("click", function () {
+        var msg = $("custom-type-msg");
+        var q = $("ct-q").value.trim(), ans = $("ct-answer").value.trim();
+        if (!q || !ans) { msg.textContent = "Fill in the question and the correct answer first."; return; }
+        var accept = $("ct-accept").value.split(",").map(function (s) { return s.trim(); }).filter(function (s) { return s.length > 0; });
+        formDraft.push({ format: "type", q: q, answer: ans, accept: accept, vi: $("ct-vi").value.trim() });
+        ["ct-q", "ct-answer", "ct-accept", "ct-vi"].forEach(function (id) { $(id).value = ""; });
+        msg.textContent = "Typed question added to the form pack. " + formDraft.length + " question" + (formDraft.length === 1 ? "" : "s") + " in the pack so far — press “Use form pack” above when you're done.";
+        refreshFormBtn();
+        $("ct-q").focus();
+      });
+
+      /* ================= AI TOPIC GENERATOR ================= */
+      var aiPack = null;
+      function normalizeAiQuestion(raw) {
+        if (!raw || typeof raw !== "object") return null;
+        var ex = typeof raw.explain === "string" ? raw.explain : "";
+        try {
+          if (raw.type === "mcq") {
+            if (typeof raw.q !== "string" || !raw.q.trim() || !Array.isArray(raw.options) || raw.options.length < 2 || typeof raw.answer !== "number" || !raw.options[raw.answer]) return null;
+            return { format: "mcq", q: raw.q, o: raw.options.map(function (x) { return String(x); }), a: raw.answer, vi: ex };
+          }
+          if (raw.type === "type") {
+            if (typeof raw.q !== "string" || !raw.q.trim() || typeof raw.answer !== "string" || !raw.answer.trim()) return null;
+            return { format: "type", q: raw.q, answer: raw.answer, accept: Array.isArray(raw.accept) ? raw.accept.filter(function (x) { return typeof x === "string"; }) : [], vi: ex };
+          }
+          if (raw.type === "order") {
+            if (!Array.isArray(raw.words) || raw.words.length < 2 || raw.words.some(function (w) { return typeof w !== "string" || !w; })) return null;
+            return { format: "order", q: typeof raw.q === "string" && raw.q.trim() ? raw.q : "Put the words in order", words: raw.words.slice(), vi: ex };
+          }
+          if (raw.type === "match") {
+            if (!Array.isArray(raw.pairs) || raw.pairs.length < 2 || raw.pairs.some(function (p) { return !Array.isArray(p) || p.length !== 2 || typeof p[0] !== "string" || typeof p[1] !== "string"; })) return null;
+            return { format: "match", q: typeof raw.q === "string" && raw.q.trim() ? raw.q : "Match the pairs", pairs: raw.pairs.map(function (p) { return [p[0], p[1]]; }), vi: ex };
+          }
+          if (raw.type === "fill") {
+            if (typeof raw.q !== "string" || raw.q.indexOf("___") < 0 || !Array.isArray(raw.bank) || raw.bank.length < 2 || typeof raw.answer !== "string" || raw.bank.indexOf(raw.answer) < 0) return null;
+            return { format: "fill", q: raw.q, bank: raw.bank.map(function (x) { return String(x); }), answer: raw.answer, vi: ex };
+          }
+          if (raw.type === "listen") {
+            if (typeof raw.say !== "string" || !raw.say.trim() || typeof raw.answer !== "string" || !raw.answer.trim()) return null;
+            return { format: "listen-type", q: "Listen and type what you hear.", s: raw.say, answer: raw.answer, accept: Array.isArray(raw.accept) ? raw.accept.filter(function (x) { return typeof x === "string"; }) : [], vi: ex };
+          }
+        } catch (e) { return null; }
+        return null;
+      }
+      $("btn-ai-generate").addEventListener("click", function () {
+        var topic = $("ai-topic").value.trim();
+        var msg = $("ai-msg");
+        var btn = $("btn-ai-generate");
+        if (!topic) { msg.textContent = "Type a topic first — e.g. “travel” or “Unit 5A: past tense”."; $("ai-topic").focus(); return; }
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner" aria-hidden="true"></span> Generating…';
+        msg.textContent = "Asking the AI to build your pack — this can take a few seconds…";
+        $("ai-preview").classList.add("hidden");
+        var payload = { topic: topic, level: $("ai-level").value, count: parseInt($("ai-count").value, 10) || 15 };
+        function fail(text) {
+          btn.disabled = false; btn.textContent = "Generate pack";
+          msg.textContent = text;
+        }
+        function unavailable() {
+          fail("AI generation works on the David English website — it isn't available in this preview/offline copy. Your manual custom question builder below still works fully.");
+        }
+        var done = false;
+        var timer = setTimeout(function () { if (!done) { done = true; unavailable(); } }, 30000);
+        fetch("/api/quiz-generate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+          .then(function (r) { return r.json().catch(function () { return null; }).then(function (data) { return { status: r.status, data: data }; }); })
+          .then(function (res) {
+            if (done) return; done = true; clearTimeout(timer);
+            var data = res.data;
+            if (!data) { unavailable(); return; }
+            if (data.error) { fail(data.message || "The AI could not generate a pack right now. Please try again in a moment."); btn.disabled = false; btn.textContent = "Generate pack"; return; }
+            var rawQs = data.pack && Array.isArray(data.pack.questions) ? data.pack.questions : [];
+            var qs = rawQs.map(normalizeAiQuestion).filter(function (q) { return !!q; });
+            if (!qs.length) { fail("The AI returned no usable questions. Try a different topic or generate again."); btn.disabled = false; btn.textContent = "Generate pack"; return; }
+            var title = (data.pack && typeof data.pack.title === "string" && data.pack.title.trim()) ? data.pack.title.trim() : ("AI pack: " + topic);
+            aiPack = registerCustomPack(title, qs);
+            hostSel.packId = aiPack.id; soloSel.packId = aiPack.id;
+            refreshSetupLists();
+            $("ai-preview-title").textContent = "Preview — " + title + " (" + qs.length + " questions)";
+            var ul = $("ai-preview-list"); ul.innerHTML = "";
+            qs.forEach(function (q, i) {
+              var li = document.createElement("li");
+              var dispQ = q.format === "listen-type" ? ("Listen: “" + (q.s || "") + "”") : q.q;
+              li.innerHTML = '<span class="tag good">' + esc(FORMAT_LABEL[q.format] || "Multiple choice") + "</span>" + esc(dispQ) +
+                '<br><span class="muted">Answer: <strong>' + esc(correctAnswerText(q, aiPack)) + "</strong></span>";
+              ul.appendChild(li);
+            });
+            $("ai-preview").classList.remove("hidden");
+            $("ai-save-msg").textContent = "";
+            msg.textContent = "Pack ready — it's also selected in the pack list above. Host it, play it solo, or save the pack code to reuse it later.";
+            btn.disabled = false; btn.textContent = "Generate pack";
+          })
+          .catch(function () { if (!done) { done = true; clearTimeout(timer); unavailable(); } });
+      });
+      $("btn-ai-host").addEventListener("click", function () {
+        if (!aiPack) return;
+        hostSel.packId = aiPack.id; refreshSetupLists();
+        $("ai-msg").textContent = "“" + aiPack.name + "” is selected above — scroll down to “Create the room” when you're ready.";
+        var el = $("btn-create-room"); if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+      $("btn-ai-solo").addEventListener("click", function () { if (aiPack) startSolo(aiPack.id, soloSel.seconds); });
+      $("btn-ai-again").addEventListener("click", function () { $("ai-topic").focus(); $("ai-topic").scrollIntoView({ behavior: "smooth", block: "center" }); });
+      $("btn-ai-save").addEventListener("click", function () {
+        if (!aiPack) return;
+        showCustomShare(aiPack);
+        $("ai-save-msg").textContent = "Pack code shown in “Add your own questions” below — copy it to reuse this pack any time.";
+        var el = $("custom-share-code"); if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+
       $("btn-custom-copy").addEventListener("click", function () {
         copyText($("custom-share-code").value, $("custom-copy-msg"), "Pack code copied — save it somewhere safe to reuse this pack.");
       });
@@ -1578,52 +2131,73 @@ B
       function soloQuestion() {
         var q = solo.pack.questions[solo.qi];
         solo.locked = false;
+        solo.widget = null;
+        var f = qFormat(q, solo.pack);
         $("solo-q-count").textContent = "Question " + (solo.qi + 1) + " of " + solo.pack.questions.length;
         $("solo-q-score").textContent = "Score: " + solo.score;
+        $("solo-fmt").textContent = FORMAT_LABEL[f] || "";
         $("solo-q-text").textContent = q.q;
         $("solo-feedback").classList.add("hidden");
-        var isListen = solo.pack.mode === "listen";
-        $("solo-listen-row").classList.toggle("hidden", !isListen);
+        var isListenMcq = solo.pack.mode === "listen" && f === "mcq";
+        $("solo-listen-row").classList.toggle("hidden", !isListenMcq);
         var grid = $("solo-answers");
-        grid.className = "answers-grid" + (q.o.length === 2 ? " two" : "");
-        grid.innerHTML = "";
-        q.o.forEach(function (opt, i) {
-          var b = document.createElement("button");
-          b.type = "button"; b.className = "ans-btn bg-" + i;
-          b.innerHTML = answerButtonHTML(i, opt);
-          b.addEventListener("click", function () { soloAnswer(i); });
-          grid.appendChild(b);
-        });
+        var custom = $("solo-custom-ui");
+        grid.innerHTML = ""; custom.innerHTML = "";
+        if (f === "mcq") {
+          grid.className = "answers-grid" + (q.o.length === 2 ? " two" : "");
+          q.o.forEach(function (opt, i) {
+            var b = document.createElement("button");
+            b.type = "button"; b.className = "ans-btn bg-" + i;
+            b.innerHTML = answerButtonHTML(i, opt);
+            b.addEventListener("click", function () { soloAnswer({ choice: i }); });
+            grid.appendChild(b);
+          });
+        } else {
+          grid.className = "answers-grid hidden";
+          solo.widget = buildFormatUI(custom, q, solo.pack, function (payload) { soloAnswer(payload); });
+        }
+        if (f === "mcq") grid.classList.remove("hidden");
+        solo.durMs = questionDurationMs(q, solo.pack, solo.seconds);
         solo.startAt = Date.now();
-        var dur = solo.seconds * 1000;
         if (solo.timer) clearInterval(solo.timer);
-        solo.timer = runTimer($("solo-timer"), solo.startAt, dur, function () { soloAnswer(-1); }, { tickSound: true });
-        if (isListen && q.s) setTimeout(function () { speak(q.s); }, 350);
+        solo.timer = runTimer($("solo-timer"), solo.startAt, solo.durMs, function () {
+          soloAnswer(solo.widget ? solo.widget.getPayload() : { choice: -1 }, true);
+        }, { tickSound: true });
+        if ((isListenMcq || f === "listen-type") && q.s) setTimeout(function () { speak(q.s); }, 350);
+        if (solo.widget && solo.widget.focus) solo.widget.focus();
       }
-      function soloAnswer(choice) {
+      function soloAnswer(payload, timedOut) {
         if (!solo || solo.locked) return;
         solo.locked = true;
         clearInterval(solo.timer);
         var q = solo.pack.questions[solo.qi];
-        var frac = Math.max(0, 1 - (Date.now() - solo.startAt) / (solo.seconds * 1000));
-        var correct = choice === q.a;
-        var res = scoreFor(correct, frac, solo.streak);
+        var f = qFormat(q, solo.pack);
+        var frac = Math.max(0, 1 - (Date.now() - solo.startAt) / (solo.durMs || solo.seconds * 1000));
+        var grade = gradeAnswer(q, solo.pack, payload || {});
+        var isFinal = solo.qi === solo.pack.questions.length - 1;
+        var res = pointsForGrade(grade, frac, solo.streak, false);
         solo.streak = res.streak;
         solo.bestStreak = Math.max(solo.bestStreak, solo.streak);
         solo.score += res.points;
-        if (correct) solo.correctCount++;
-        sfx(correct ? "correct" : "wrong");
-        solo.log.push({ q: q.q, correct: correct, answerText: q.o[q.a], yourText: choice >= 0 ? q.o[choice] : "(no answer)", vi: q.vi || "" });
-        var btns = $("solo-answers").querySelectorAll(".ans-btn");
-        btns.forEach(function (b, i) {
-          b.disabled = true;
-          if (i === q.a) b.classList.add("correct");
-          else if (i === choice) b.classList.add("wrong-pick");
-          else b.classList.add("dim");
-        });
+        if (grade.correct) solo.correctCount++;
+        sfx(grade.correct ? "correct" : "wrong");
+        var dispQ = f === "listen-type" ? ("Listen: “" + (q.s || "") + "”") : q.q;
+        solo.log.push({ q: dispQ, correct: grade.correct, answerText: correctAnswerText(q, solo.pack), yourText: grade.yourText, vi: q.vi || "" });
+        if (f === "mcq") {
+          var btns = $("solo-answers").querySelectorAll(".ans-btn");
+          btns.forEach(function (b, i) {
+            b.disabled = true;
+            if (i === q.a) b.classList.add("correct");
+            else if (payload && i === payload.choice) b.classList.add("wrong-pick");
+            else b.classList.add("dim");
+          });
+        } else {
+          $("solo-custom-ui").querySelectorAll("button, input").forEach(function (el) { el.disabled = true; });
+        }
         $("solo-q-score").textContent = "Score: " + solo.score;
-        $("solo-fb-label").textContent = (correct ? "Correct! +" + res.points + " points" : (choice === -1 ? "Time's up!" : "Not quite")) + " · Giải thích";
-        $("solo-fb-text").textContent = (q.vi || ("Correct answer: " + q.o[q.a]));
+        var partial = f === "match" && grade.fraction > 0 && grade.fraction < 1;
+        $("solo-fb-label").textContent = (grade.correct ? "Correct! +" + res.points + " points" : (partial ? "Partly correct — " + grade.matchCorrect + "/" + grade.matchTotal + " pairs · +" + res.points + " points" : (timedOut && grade.fraction === 0 ? "Time's up!" : "Not quite"))) + " · Đáp án & giải thích";
+        $("solo-fb-text").textContent = "Correct answer: " + correctAnswerText(q, solo.pack) + (q.vi ? " — " + q.vi : "");
         $("btn-solo-next").textContent = solo.qi + 1 >= solo.pack.questions.length ? "See results" : "Next question";
         $("solo-feedback").classList.remove("hidden");
       }
@@ -1943,9 +2517,7 @@ B
          current room code is the only thing appended. */
       function studentLink() {
         if (!host) return "";
-        var base;
-        if (location.origin && location.origin !== "null") base = location.origin + location.pathname;
-        else base = location.href.split(/[?#]/)[0];
+        var base = (location.origin && location.origin !== "null") ? location.origin + location.pathname : location.pathname;
         return base + "?room=" + encodeURIComponent(host.code);
       }
       var lastQrLink = "";
@@ -1954,8 +2526,6 @@ B
         var link = studentLink();
         var input = $("student-link-input");
         if (input && input.value !== link) input.value = link;
-        var shareBtn = $("btn-share-link");
-        if (shareBtn) shareBtn.classList.toggle("hidden", typeof navigator.share !== "function");
         var side = $("qr-side"), box = $("qr-code");
         if (!side || !box) return;
         if (typeof window.QRCode !== "function") {
@@ -2000,18 +2570,6 @@ B
         } else { showManual(); }
       });
       $("student-link-input").addEventListener("click", function () { this.select(); });
-      (function () {
-        var b = $("btn-share-link");
-        if (!b) return;
-        if (typeof navigator.share !== "function") b.classList.add("hidden");
-        b.addEventListener("click", function () {
-          if (!host || typeof navigator.share !== "function") return;
-          try {
-            var p = navigator.share({ title: "Class Quiz Games", text: "Join my quiz game — room code " + host.code, url: studentLink() });
-            if (p && typeof p.catch === "function") p.catch(function () { /* share sheet cancelled — nothing to do */ });
-          } catch (e) { /* share sheet unavailable on this device */ }
-        });
-      })();
       wireSwitch("set-lock-room", false, function (v) { if (host) host.locked = v; });
       wireSwitch("set-late-join", true, function (v) { if (host) host.allowLate = v; });
       $("btn-host-close-room").addEventListener("click", function () { teardownHost(); show("view-host-setup"); });
@@ -2072,21 +2630,24 @@ B
           var elapsed = Date.now() - host.startAt;
           if (elapsed > host.durMs + 1500) return; // too late
           var frac = Math.max(0, 1 - elapsed / host.durMs);
-          var correct = msg.choice === q.a;
+          var payload = { choice: msg.choice, text: msg.text, order: msg.order, matches: msg.matches };
+          var grade = gradeAnswer(q, host.pack, payload);
+          var correct = grade.correct;
           var streakBefore = pl.streak;
-          var res = scoreFor(correct, frac, streakBefore);
+          var isFinalQ = host.qi === host.questions.length - 1;
+          var res = pointsForGrade(grade, frac, streakBefore, !!(host.settings.doubleFinal && isFinalQ));
           var points = res.points;
-          if (host.settings.doubleFinal && host.qi === host.questions.length - 1) points *= 2;
           pl.streak = res.streak;
           pl.score += points;
           pl.answered++;
           if (correct) { pl.correct++; }
           else {
-            pl.misses.push({ qi: host.qi, q: q.q, correctText: q.o[q.a], yourText: msg.choice >= 0 && q.o[msg.choice] ? q.o[msg.choice] : "(no answer)", vi: q.vi || "" });
+            var dispQ = qFormat(q, host.pack) === "listen-type" ? ("Listen: “" + (q.s || "") + "”") : q.q;
+            pl.misses.push({ qi: host.qi, q: dispQ, correctText: correctAnswerText(q, host.pack), yourText: grade.yourText, vi: q.vi || "" });
           }
           // The answer is recorded on the host the moment it arrives — if the
           // student's connection drops a second later, the answer still counts.
-          host.answers[key2] = { choice: msg.choice, points: points, correct: correct, streakBefore: streakBefore };
+          host.answers[key2] = { choice: typeof msg.choice === "number" ? msg.choice : -1, payload: payload, points: points, correct: correct, fraction: grade.fraction, matchCorrect: grade.matchCorrect || 0, matchTotal: grade.matchTotal || 0, yourText: grade.yourText, streakBefore: streakBefore };
           renderHostAnswerCount();
           maybeEarlyReveal();
           return;
@@ -2106,12 +2667,27 @@ B
         p.team = best;
       }
       function hostDistCounts(q) {
+        if (!q.o) return [];
         var counts = q.o.map(function () { return 0; });
         Object.keys(host.answers).forEach(function (k) {
           var c = host.answers[k].choice;
           if (c >= 0 && counts[c] != null) counts[c]++;
         });
         return counts;
+      }
+      function hostFormatStats(q) {
+        var f = qFormat(q, host.pack);
+        var ans = Object.keys(host.answers).map(function (k) { return host.answers[k]; });
+        if (f === "match") {
+          if (!ans.length) return "No answers yet.";
+          var sum = ans.reduce(function (s, a) { return s + (a.matchCorrect || 0); }, 0);
+          return "Average: " + (Math.round(sum / ans.length * 10) / 10) + " of " + (q.pairs ? q.pairs.length : 4) + " pairs correct · " + ans.length + " student" + (ans.length === 1 ? "" : "s") + " answered";
+        }
+        if (f !== "mcq") {
+          var ok = ans.filter(function (a) { return a.correct; }).length;
+          return ok + " of " + ans.length + " answered correctly";
+        }
+        return "";
       }
       /* Send the current game phase to a (re)joining player so they land in sync. */
       function hostSendPhaseTo(p) {
@@ -2120,11 +2696,12 @@ B
         var key = p.name.toLowerCase();
         var ans = host.answers[key];
         if (host.phase === "question" && q) {
-          hostSendTo(p, { t: "question", qi: host.qi, total: host.questions.length, q: q.q, s: q.s || null, o: q.o, mode: host.pack.mode, startAt: host.startAt, durMs: host.durMs, score: p.score, double: !!(host.settings.doubleFinal && host.qi === host.questions.length - 1), yourAnswer: ans ? ans.choice : null, paused: host.paused, remainMs: host.remainMs });
+          var cq = clientQuestion(q, host.pack);
+          hostSendTo(p, { t: "question", qi: host.qi, total: host.questions.length, format: cq.format, q: cq.q, s: cq.s || null, o: cq.o || null, words: cq.words || null, pairs: cq.pairs || null, bank: cq.bank || null, mode: host.pack.mode, startAt: host.startAt, durMs: host.durMs, score: p.score, double: !!(host.settings.doubleFinal && host.qi === host.questions.length - 1), yourAnswer: ans ? ans.choice : null, yourPayload: ans ? ans.payload : null, paused: host.paused, remainMs: host.remainMs });
         } else if (host.phase === "reveal" && q) {
           var standings = hostStandings();
           var rank = standings.findIndex(function (s) { return s.name === p.name; }) + 1;
-          hostSendTo(p, { t: "reveal", qi: host.qi, correct: q.a, vi: q.vi || "", o: q.o, counts: hostDistCounts(q), yourChoice: ans ? ans.choice : -1, points: ans ? ans.points : 0, total: p.score, rank: rank, of: standings.length, streak: p.streak, skipped: !!host.lastSkipped });
+          hostSendTo(p, { t: "reveal", qi: host.qi, format: qFormat(q, host.pack), correct: q.a, correctText: correctAnswerText(q, host.pack), vi: q.vi || "", o: q.o || null, counts: hostDistCounts(q), stats: hostFormatStats(q), yourChoice: ans ? ans.choice : -1, yourFraction: ans ? ans.fraction : 0, yourText: ans ? ans.yourText : "", matchCorrect: ans ? ans.matchCorrect : 0, matchTotal: ans ? ans.matchTotal : 0, points: ans ? ans.points : 0, total: p.score, rank: rank, of: standings.length, streak: p.streak, skipped: !!host.lastSkipped });
         } else if (host.phase === "board") {
           hostSendBoardTo(p);
         } else if (host.phase === "podium") {
@@ -2156,12 +2733,14 @@ B
       /* ---------- Host game flow ---------- */
       function buildPlayQuestions() {
         var qs = host.pack.questions.map(function (q) {
-          return { q: q.q, s: q.s, o: q.o.slice(), a: q.a, vi: q.vi };
+          var copy = { format: q.format || "mcq", q: q.q, s: q.s, vi: q.vi, answer: q.answer, accept: q.accept ? q.accept.slice() : undefined, words: q.words ? q.words.slice() : undefined, pairs: q.pairs ? q.pairs.map(function (p) { return p.slice(); }) : undefined, bank: q.bank ? q.bank.slice() : undefined };
+          if (q.o) { copy.o = q.o.slice(); copy.a = q.a; }
+          return copy;
         });
         if (host.settings.shuffleQ) qs = shuffleArr(qs);
         if (host.settings.shuffleA) {
           qs.forEach(function (q) {
-            if (q.o.length < 3) return; // True/False order stays as-is
+            if (qFormat(q, host.pack) !== "mcq" || !q.o || q.o.length < 3) return; // True/False order stays as-is
             var order = shuffleArr(q.o.map(function (_, i) { return i; }));
             var oldA = q.a;
             q.o = order.map(function (i) { return q.o[i]; });
@@ -2199,10 +2778,13 @@ B
         host.answers = {};
         var q = host.questions[host.qi];
         host.startAt = Date.now() + 400;
-        host.durMs = host.seconds * 1000;
+        host.durMs = questionDurationMs(q, host.pack, host.seconds);
+        var cq = clientQuestion(q, host.pack);
         hostBroadcast({
           t: "question", qi: host.qi, total: host.questions.length,
-          q: q.q, s: q.s || null, o: q.o, mode: host.pack.mode,
+          format: cq.format, q: cq.q, s: cq.s || null, o: cq.o || null,
+          words: cq.words || null, pairs: cq.pairs || null, bank: cq.bank || null,
+          mode: host.pack.mode,
           startAt: host.startAt, durMs: host.durMs,
           double: !!(host.settings.doubleFinal && host.qi === host.questions.length - 1)
         });
@@ -2227,20 +2809,28 @@ B
         $("host-q-count").textContent = "Question " + (host.qi + 1) + " of " + host.questions.length;
         if (!(host.settings.doubleFinal && host.qi === host.questions.length - 1)) $("host-q-pack").textContent = host.pack.name;
         $("host-q-text").textContent = q.q;
+        var f = qFormat(q, host.pack);
+        $("host-fmt").textContent = FORMAT_LABEL[f] || "";
         var speakEl = $("host-speak-text");
-        var isListen = host.pack.mode === "listen";
+        var isListen = host.pack.mode === "listen" && f === "mcq";
         $("host-listen-row").classList.toggle("hidden", !isListen);
         if (isListen && q.s) { speakEl.textContent = "Sentence: “" + q.s + "”"; speakEl.classList.remove("hidden"); }
         else speakEl.classList.add("hidden");
+        var notes = { type: "Students are typing their answers on their phones.", order: "Students are tapping word tiles to build the sentence.", match: "Students are matching the pairs on their phones.", fill: "Students are choosing a word from the word bank.", "listen-type": "Students listen on their phones and type what they hear. Sentence: “" + (q.s || "") + "”" };
+        $("host-alt-note").textContent = notes[f] || "";
         var grid = $("host-answers");
-        grid.className = "answers-grid" + (q.o.length === 2 ? " two" : "");
         grid.innerHTML = "";
-        q.o.forEach(function (opt, i) {
-          var d = document.createElement("div");
-          d.className = "ans-display bg-" + i;
-          d.innerHTML = answerButtonHTML(i, opt);
-          grid.appendChild(d);
-        });
+        if (f === "mcq" && q.o) {
+          grid.className = "answers-grid" + (q.o.length === 2 ? " two" : "");
+          q.o.forEach(function (opt, i) {
+            var d = document.createElement("div");
+            d.className = "ans-display bg-" + i;
+            d.innerHTML = answerButtonHTML(i, opt);
+            grid.appendChild(d);
+          });
+        } else {
+          grid.className = "answers-grid hidden";
+        }
         renderHostAnswerCount();
       }
       function renderHostAnswerCount() {
@@ -2313,12 +2903,13 @@ B
         var q = host.questions[host.qi];
         var standings = hostStandings();
         var counts = hostDistCounts(q);
+        var rf = qFormat(q, host.pack);
         hostPlayersArr().forEach(function (p) {
           var ans = host.answers[p.name.toLowerCase()];
           var rank = standings.findIndex(function (s) { return s.name === p.name; }) + 1;
           hostSendTo(p, {
-            t: "reveal", qi: host.qi, correct: q.a, vi: q.vi || "", o: q.o, counts: counts,
-            yourChoice: ans ? ans.choice : -1, points: ans ? ans.points : 0,
+            t: "reveal", qi: host.qi, format: rf, correct: q.a, correctText: correctAnswerText(q, host.pack), vi: q.vi || "", o: q.o || null, counts: counts, stats: hostFormatStats(q),
+            yourChoice: ans ? ans.choice : -1, yourFraction: ans ? ans.fraction : 0, yourText: ans ? ans.yourText : "", matchCorrect: ans ? ans.matchCorrect : 0, matchTotal: ans ? ans.matchTotal : 0, points: ans ? ans.points : 0,
             total: p.score, rank: rank, of: standings.length, streak: p.streak,
             skipped: !!host.lastSkipped
           });
@@ -2327,35 +2918,47 @@ B
         var rv = $("host-reveal");
         rv.classList.remove("hidden");
         $("host-reveal-count").textContent = "Question " + (host.qi + 1) + " of " + host.pack.questions.length;
+        $("host-reveal-fmt").textContent = FORMAT_LABEL[rf] || "";
         $("host-reveal-q").textContent = q.q;
         var sp = $("host-reveal-speak");
-        if (host.pack.mode === "listen" && q.s) { sp.textContent = "Sentence: “" + q.s + "”"; sp.classList.remove("hidden"); }
+        if ((host.pack.mode === "listen" && rf === "mcq") || rf === "listen-type") { if (q.s) { sp.textContent = "Sentence: “" + q.s + "”"; sp.classList.remove("hidden"); } else sp.classList.add("hidden"); }
         else sp.classList.add("hidden");
         var grid = $("host-reveal-answers");
-        grid.className = "answers-grid" + (q.o.length === 2 ? " two" : "");
         grid.innerHTML = "";
-        q.o.forEach(function (opt, i) {
-          var d = document.createElement("div");
-          d.className = "ans-display bg-" + i + (i === q.a ? " correct" : " dim");
-          d.innerHTML = answerButtonHTML(i, opt) + (i === q.a ? '<span style="margin-left:auto;font-weight:700">Correct</span>' : "");
-          grid.appendChild(d);
-        });
+        if (rf === "mcq" && q.o) {
+          grid.className = "answers-grid" + (q.o.length === 2 ? " two" : "");
+          q.o.forEach(function (opt, i) {
+            var d = document.createElement("div");
+            d.className = "ans-display bg-" + i + (i === q.a ? " correct" : " dim");
+            d.innerHTML = answerButtonHTML(i, opt) + (i === q.a ? '<span style="margin-left:auto;font-weight:700">Correct</span>' : "");
+            grid.appendChild(d);
+          });
+        } else { grid.className = "answers-grid hidden"; }
+        var cab = $("host-reveal-correct");
+        if (rf !== "mcq") { cab.classList.remove("hidden"); $("host-reveal-correct-text").textContent = correctAnswerText(q, host.pack); }
+        else cab.classList.add("hidden");
         var ex = $("host-reveal-explain");
         if (q.vi) { ex.classList.remove("hidden"); $("host-reveal-explain-text").textContent = q.vi; }
         else ex.classList.add("hidden");
         var dist = $("host-dist");
         dist.innerHTML = "";
-        var counts = q.o.map(function () { return 0; });
-        Object.keys(host.answers).forEach(function (k) { counts[host.answers[k].choice]++; });
-        var max = Math.max(1, Math.max.apply(null, counts));
-        q.o.forEach(function (opt, i) {
-          var row = document.createElement("div");
-          row.className = "dist-row";
-          row.innerHTML = '<span class="dist-label">' + esc(opt) + '</span>' +
-            '<span class="dist-track"><span class="dist-fill bg-' + i + '" style="display:block;width:' + (counts[i] / max * 100) + '%"></span></span>' +
-            '<span class="dist-num">' + counts[i] + "</span>";
-          dist.appendChild(row);
-        });
+        if (rf === "mcq" && q.o) {
+          var max = Math.max(1, Math.max.apply(null, counts.length ? counts : [0]));
+          q.o.forEach(function (opt, i) {
+            var row = document.createElement("div");
+            row.className = "dist-row";
+            row.innerHTML = '<span class="dist-label">' + esc(opt) + '</span>' +
+              '<span class="dist-track"><span class="dist-fill bg-' + i + '" style="display:block;width:' + ((counts[i] || 0) / max * 100) + '%"></span></span>' +
+              '<span class="dist-num">' + (counts[i] || 0) + "</span>";
+            dist.appendChild(row);
+          });
+        } else {
+          var srow = document.createElement("p");
+          srow.className = "count-big";
+          srow.style.fontSize = "17px";
+          srow.textContent = hostFormatStats(q);
+          dist.appendChild(srow);
+        }
         $("btn-host-to-board").textContent = host.qi + 1 >= host.pack.questions.length ? "Show final results" : "Show leaderboard";
         show("view-host-game");
       }
@@ -2660,51 +3263,69 @@ B
             player.qi = msg.qi;
             player.curDurMs = msg.durMs;
             player.answeredChoice = -2;
+            player.answeredFlag = false;
+            player.widget = null;
+            player.curFormat = msg.format || "mcq";
             show("view-player");
             playerShowSub("p-question");
             $("p-paused").classList.add("hidden");
             $("p-q-count").textContent = "Question " + (msg.qi + 1) + " of " + msg.total + (msg.double ? " · Double points!" : "");
             $("p-q-score").textContent = "Score: " + player.score;
+            $("p-fmt").textContent = FORMAT_LABEL[player.curFormat] || "";
             $("p-q-text").textContent = msg.q;
             $("p-timeup").classList.add("hidden");
-            var isListen = msg.mode === "listen";
+            var isListen = msg.mode === "listen" && player.curFormat === "mcq";
             $("p-listen-row").classList.toggle("hidden", !isListen);
             player.currentSpeak = msg.s || null;
             var grid = $("p-answers");
-            grid.className = "answers-grid" + (msg.o.length === 2 ? " two" : "");
-            grid.innerHTML = "";
-            msg.o.forEach(function (opt, i) {
-              var b = document.createElement("button");
-              b.type = "button"; b.className = "ans-btn bg-" + i;
-              b.innerHTML = answerButtonHTML(i, opt);
-              b.addEventListener("click", function () { playerAnswer(i); });
-              grid.appendChild(b);
-            });
+            var customUi = $("p-custom-ui");
+            grid.innerHTML = ""; customUi.innerHTML = "";
+            if (player.curFormat === "mcq" && msg.o) {
+              grid.className = "answers-grid" + (msg.o.length === 2 ? " two" : "");
+              msg.o.forEach(function (opt, i) {
+                var b = document.createElement("button");
+                b.type = "button"; b.className = "ans-btn bg-" + i;
+                b.innerHTML = answerButtonHTML(i, opt);
+                b.addEventListener("click", function () { playerAnswer(i); });
+                grid.appendChild(b);
+              });
+            } else {
+              grid.className = "answers-grid hidden";
+              var fakeQ = { format: player.curFormat, q: msg.q, s: msg.s, words: msg.words, pairs: msg.pairs, bank: msg.bank };
+              player.widget = buildFormatUI(customUi, fakeQ, null, function (payload) { playerSubmitPayload(payload); });
+            }
+            if (player.curFormat === "mcq") grid.classList.remove("hidden");
             if (player.timer) clearInterval(player.timer);
             if (msg.paused) {
               $("p-paused").classList.remove("hidden");
               $("p-timer").style.width = (msg.durMs ? (msg.remainMs / msg.durMs * 100) : 0) + "%";
             } else {
               player.timer = runTimer($("p-timer"), msg.startAt, msg.durMs, function () {
-                if (player && player.answeredChoice === -2) {
+                if (player && !player.answeredFlag) {
+                  // Time's up: send whatever is built/typed so far (match pairs keep partial credit).
+                  if (player.widget) { playerSubmitPayload(player.widget.getPayload(), true); }
                   grid.querySelectorAll(".ans-btn").forEach(function (b) { b.disabled = true; });
+                  customUi.querySelectorAll("button, input").forEach(function (el) { el.disabled = true; });
                   $("p-timeup").classList.remove("hidden");
                 }
               }, { tickSound: true });
             }
-            if (msg.yourAnswer != null) {
+            if (msg.yourPayload != null || msg.yourAnswer != null) {
               // The host already has this answer (e.g. we answered, then the
               // connection dropped) — it still counts; just show it locked in.
-              player.answeredChoice = msg.yourAnswer;
+              player.answeredFlag = true;
+              player.answeredChoice = msg.yourAnswer != null ? msg.yourAnswer : -1;
               grid.querySelectorAll(".ans-btn").forEach(function (b, bi) {
                 b.disabled = true;
                 if (bi === msg.yourAnswer) b.classList.add("picked"); else b.classList.add("dim");
               });
+              customUi.querySelectorAll("button, input").forEach(function (el) { el.disabled = true; });
               setTimeout(function () {
-                if (player && player.answeredChoice === msg.yourAnswer && !$("p-question").classList.contains("hidden")) playerShowSub("p-answered");
+                if (player && player.answeredFlag && !$("p-question").classList.contains("hidden")) playerShowSub("p-answered");
               }, 600);
             }
-            if (isListen && msg.s) setTimeout(function () { speak(msg.s); }, 500);
+            if ((isListen || player.curFormat === "listen-type") && msg.s) setTimeout(function () { speak(msg.s); }, 500);
+            if (player.widget && player.widget.focus) player.widget.focus();
             break;
           }
           case "paused":
@@ -2717,7 +3338,8 @@ B
             if (player.timer) clearInterval(player.timer);
             var grid2 = $("p-answers");
             player.timer = runTimer($("p-timer"), msg.startAt, msg.durMs, function () {
-              if (player && player.answeredChoice === -2) {
+              if (player && !player.answeredFlag) {
+                if (player.widget) playerSubmitPayload(player.widget.getPayload(), true);
                 grid2.querySelectorAll(".ans-btn").forEach(function (b) { b.disabled = true; });
                 $("p-timeup").classList.remove("hidden");
               }
@@ -2731,26 +3353,37 @@ B
             playerShowSub("p-reveal");
             var v = $("p-verdict");
             var mine = msg.yourChoice;
-            var wasCorrect = mine === msg.correct && mine >= 0;
-            v.className = "verdict " + (wasCorrect ? "good" : "bad");
-            $("p-verdict-title").textContent = msg.skipped ? "Question skipped by your teacher" : (mine < 0 ? "No answer this time" : (wasCorrect ? "Correct!" : "Not quite"));
+            var rfmt = msg.format || "mcq";
+            var wasCorrect = rfmt === "mcq" ? (mine === msg.correct && mine >= 0) : (msg.yourFraction >= 1);
+            var partial = rfmt === "match" && msg.yourFraction > 0 && msg.yourFraction < 1;
+            var noAnswer = rfmt === "mcq" ? mine < 0 : (!msg.yourText || msg.yourText === "(no answer)") && msg.yourFraction === 0 && !msg.points;
+            v.className = "verdict " + (wasCorrect || partial ? "good" : "bad");
+            $("p-verdict-title").textContent = msg.skipped ? "Question skipped by your teacher" : (partial ? "Partly correct — " + msg.matchCorrect + "/" + msg.matchTotal + " pairs!" : (noAnswer && !wasCorrect ? "No answer this time" : (wasCorrect ? "Correct!" : "Not quite")));
             $("p-verdict-points").textContent = msg.points > 0 ? "+" + msg.points + " points · Total: " + msg.total : "Total: " + msg.total;
             $("p-verdict-rank").textContent = msg.skipped ? "" : "You are #" + msg.rank + " of " + msg.of + (msg.streak >= 2 ? " · " + msg.streak + " correct in a row!" : "");
-            if (!msg.skipped) sfx(wasCorrect ? "correct" : "wrong");
+            if (!msg.skipped) sfx(wasCorrect || partial ? "correct" : "wrong");
+            var cab2 = $("p-reveal-correct");
+            if (rfmt !== "mcq" && msg.correctText) { cab2.classList.remove("hidden"); $("p-reveal-correct-text").textContent = msg.correctText; }
+            else cab2.classList.add("hidden");
             $("p-reveal-explain").textContent = msg.vi || "";
             $("p-reveal-explain").parentElement.style.display = msg.vi ? "" : "none";
             var dist = $("p-dist");
             dist.innerHTML = "";
-            if (msg.o && msg.counts) {
+            if (msg.o && msg.counts && msg.counts.length) {
               var max = Math.max(1, Math.max.apply(null, msg.counts));
               msg.o.forEach(function (opt, i) {
                 var row = document.createElement("div");
                 row.className = "dist-row";
                 row.innerHTML = '<span class="dist-label">' + esc(opt) + (i === msg.correct ? " ✓" : "") + '</span>' +
-                  '<span class="dist-track"><span class="dist-fill bg-' + i + '" style="display:block;width:' + (msg.counts[i] / max * 100) + '%"></span></span>' +
-                  '<span class="dist-num">' + msg.counts[i] + "</span>";
+                  '<span class="dist-track"><span class="dist-fill bg-' + i + '" style="display:block;width:' + ((msg.counts[i] || 0) / max * 100) + '%"></span></span>' +
+                  '<span class="dist-num">' + (msg.counts[i] || 0) + "</span>";
                 dist.appendChild(row);
               });
+            } else if (msg.stats) {
+              var srow2 = document.createElement("p");
+              srow2.className = "center muted";
+              srow2.textContent = msg.stats;
+              dist.appendChild(srow2);
             }
             break;
           }
@@ -2822,7 +3455,8 @@ B
       }
       function renderPlayerBoard() { /* superseded by direct board messages */ }
       function playerAnswer(i) {
-        if (!player || player.answeredChoice !== -2 || !player.conn) return;
+        if (!player || player.answeredFlag || !player.conn) return;
+        player.answeredFlag = true;
         player.answeredChoice = i;
         var grid = $("p-answers");
         grid.querySelectorAll(".ans-btn").forEach(function (b, bi) {
@@ -2833,6 +3467,24 @@ B
         setTimeout(function () {
           if (player && player.answeredChoice === i && !$("p-question").classList.contains("hidden")) playerShowSub("p-answered");
         }, 450);
+      }
+      function playerSubmitPayload(payload, silent) {
+        if (!player || player.answeredFlag || !player.conn) return;
+        player.answeredFlag = true;
+        player.answeredChoice = -1;
+        $("p-custom-ui").querySelectorAll("button, input").forEach(function (el) { el.disabled = true; });
+        var msg = { t: "answer", qi: player.qi };
+        if (payload) {
+          if (typeof payload.text === "string") msg.text = payload.text;
+          if (Array.isArray(payload.order)) msg.order = payload.order;
+          if (Array.isArray(payload.matches)) msg.matches = payload.matches;
+        }
+        try { player.conn.send(msg); } catch (e) {}
+        if (!silent) {
+          setTimeout(function () {
+            if (player && player.answeredFlag && !$("p-question").classList.contains("hidden")) playerShowSub("p-answered");
+          }, 450);
+        }
       }
       $("btn-p-replay").addEventListener("click", function () {
         if (player && player.currentSpeak) speak(player.currentSpeak);
