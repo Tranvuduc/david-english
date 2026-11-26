@@ -18,7 +18,7 @@
 .cookie-actions .btn{flex:1 1 160px;margin-top:0}
 </style>
 <title>Chữa bài viết bằng AI | David English</title>
-<meta name="description" content="Chữa bài viết tiếng Anh bằng AI: chỉ ra lỗi ngữ pháp, từ vựng và gợi ý cách viết hay hơn, giải thích bằng tiếng Việt.">
+<meta name="description" content="Chữa bài viết tiếng Anh bằng AI (tối đa 3.000 ký tự): chấm ước lượng 4 tiêu chí, chỉ ra điểm mạnh, chỗ cần cải thiện và ví dụ sửa lỗi, giải thích bằng tiếng Việt.">
 <meta property="og:title" content="Chữa bài viết bằng AI | David English">
 <meta property="og:description" content="Chữa bài viết tiếng Anh bằng AI: chỉ ra lỗi ngữ pháp, từ vựng và gợi ý cách viết hay hơn, giải thích bằng tiếng Việt.">
 <meta property="og:type" content="website">
@@ -74,15 +74,15 @@
   </div>
 </header>
 <main class="wrap">
-<div class="page-head"><p class="page-eyebrow">Công cụ AI</p><h1>Chữa bài viết bằng AI</h1><p class="lead">Dán đoạn văn tiếng Anh của bạn (tối đa 350 ký tự) — AI chỉ ra lỗi ngữ pháp, từ vựng và gợi ý cách viết hay hơn, giải thích bằng tiếng Việt.</p></div>
+<div class="page-head"><p class="page-eyebrow">Công cụ AI</p><h1>Chữa bài viết bằng AI</h1><p class="lead">Dán bài viết tiếng Anh của bạn (tối đa 3.000 ký tự, khoảng 500 từ) — AI chấm ước lượng theo 4 tiêu chí, chỉ ra điểm mạnh, chỗ cần cải thiện và ví dụ sửa lỗi, giải thích bằng tiếng Việt.</p></div>
 
 
 <p><span class="badge">AI, chưa duyệt</span> Góp ý do AI đưa ra, chưa được giáo viên duyệt.</p>
 <section class="section">
 <form id="writingForm">
-  <label for="writingText">Đoạn văn tiếng Anh của bạn:</label>
-  <textarea id="writingText" rows="6" maxlength="350" placeholder="VD: Yesterday I go to school and meet my friend. We was very happy…"></textarea>
-  <p class="muted" id="writingCount">0/350 ký tự</p>
+  <label for="writingText">Bài viết tiếng Anh của bạn:</label>
+  <textarea id="writingText" rows="10" maxlength="3000" placeholder="VD: Yesterday I go to school and meet my friend. We was very happy…"></textarea>
+  <p class="muted" id="writingCount">0/3.000 ký tự</p>
   <button type="submit" class="btn">Nhờ AI chữa bài</button>
 </form>
 <div id="writingResult" class="result" hidden></div>
@@ -109,34 +109,60 @@
       navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(); });
     } else { fallbackCopy(); }
   });
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
   input.addEventListener('input', function () {
-    count.textContent = input.value.length + '/350 ký tự';
+    count.textContent = input.value.length + '/3.000 ký tự';
   });
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var t = input.value.trim();
     if (!t) {
       out.hidden = false;
-      out.innerHTML = '<p>Vui lòng nhập đoạn văn tiếng Anh trước đã nhé.</p>';
+      out.innerHTML = '<p>Vui lòng nhập bài viết tiếng Anh trước đã nhé.</p>';
+      input.focus();
+      return;
+    }
+    if (t.length < 20) {
+      out.hidden = false;
+      out.innerHTML = '<p>Bài viết cần ít nhất 20 ký tự để AI chấm được — hãy viết thêm một chút nhé.</p>';
       input.focus();
       return;
     }
     out.hidden = false;
     copyBtn.hidden = true;
     out.innerHTML = '<p>Đang chữa bài…</p>';
-    fetch('/api/chat', {
+    fetch('/api/grade-writing', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question: 'Chữa đoạn văn tiếng Anh sau đây. Liệt kê lỗi ngữ pháp và từ vựng, sửa từng lỗi, giải thích bằng tiếng Việt, rồi gợi ý bản viết lại hay hơn: ' + t, mode: 'writing' })
+      body: JSON.stringify({ essay: t, prompt: '', context: 'Bài viết tự do của người học Việt Nam, không có đề bài cụ thể. Chấm tiêu chí task theo mức độ phát triển ý chung của bài.' })
     })
       .then(function (r) { return r.json().then(function (d) { return { status: r.status, d: d }; }); })
       .then(function (res) {
         var d = res.d || {};
-        if (res.status === 200 && d.answer) {
-          out.innerHTML = '<p>' + d.answer.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>') + '</p><p class="muted">AI, chưa duyệt.</p>';
+        if (res.status === 200 && d.graded_by) {
+          var html = '<p><strong>Điểm tổng thể ước lượng: ' + esc(d.overall) + '/9</strong></p>';
+          if (d.graded_by === 'ai' && d.task != null && d.coherence != null && d.lexical != null && d.grammar != null) {
+            html += '<ul>'
+              + '<li>Phát triển ý: ' + esc(d.task) + '/9</li>'
+              + '<li>Mạch lạc, liên kết ý: ' + esc(d.coherence) + '/9</li>'
+              + '<li>Từ vựng: ' + esc(d.lexical) + '/9</li>'
+              + '<li>Ngữ pháp: ' + esc(d.grammar) + '/9</li>'
+              + '</ul>';
+            if (d.strengths) { html += '<p><strong>Điểm mạnh:</strong> ' + esc(d.strengths) + '</p>'; }
+            if (d.improvements) { html += '<p><strong>Cần cải thiện:</strong> ' + esc(d.improvements) + '</p>'; }
+            if (d.examples && d.examples.length) {
+              html += '<p><strong>Ví dụ sửa lỗi:</strong></p><ul><li>' + d.examples.map(esc).join('</li><li>') + '</li></ul>';
+            }
+          } else {
+            html += '<p>Đây là ước lượng từ kiểm tra tự động đơn giản (AI chưa chấm được lúc này), chỉ để tham khảo.</p>';
+          }
+          html += '<p class="muted">Điểm là ước lượng của AI theo thang 3–9, không phải điểm thi chính thức. AI, chưa duyệt.</p>';
+          out.innerHTML = html;
           copyBtn.hidden = false;
         } else {
-          out.innerHTML = '<p>' + (d.message || 'Có lỗi xảy ra, mời thử lại sau.') + '</p>';
+          out.innerHTML = '<p>' + esc(d.message || 'Có lỗi xảy ra, mời thử lại sau.') + '</p>';
         }
       })
       .catch(function () { out.innerHTML = '<p>Không kết nối được, thử lại sau.</p>'; });
