@@ -64,7 +64,7 @@ label{font-weight:700;display:block;margin:12px 0 4px}
   <select id="lessonSel"></select>
   <p>
     <button class="btn" id="loadBtn" type="button">Mở bộ thẻ</button>
-    <button class="btn ghost" id="reviewBtn" type="button">Ôn từ chưa biết</button>
+    <button class="btn ghost" id="reviewBtn" type="button">Ôn từ đến hạn hôm nay</button>
   </p>
   <p class="muted" id="deckInfo"></p>
 </div>
@@ -98,7 +98,7 @@ label{font-weight:700;display:block;margin:12px 0 4px}
   <p><a id="lessonLink" href="#">Mở bài học này →</a></p>
 </div>
 
-<p class="muted">Tiến độ “Đã biết / Chưa biết” được lưu trên máy của bạn (cùng chỗ lưu tiến độ học của trang), không gửi về máy chủ.</p>
+<p class="muted">Mỗi từ bạn đánh dấu sẽ được hẹn ngày ôn lại: “Đã biết” thì khoảng cách ôn giãn dần (3, 7, 14 rồi 30 ngày), “Chưa biết” thì ôn lại vào ngày mai. Tiến độ được lưu trên máy của bạn (cùng chỗ lưu tiến độ học của trang), không gửi về máy chủ.</p>
 </main>
 <script>
 "use strict";
@@ -128,9 +128,21 @@ function loadProgress() {
 function saveProgress(p) {
   try { localStorage.setItem(KEY, JSON.stringify(p)); } catch (e) { /* bộ nhớ đầy/khóa */ }
 }
+// Ôn lặp lại theo lịch (spaced repetition): mỗi từ có hộp 0–4; bấm
+// "Đã biết" thì lên hộp và hẹn ôn lại sau 1/3/7/14/30 ngày, bấm
+// "Chưa biết" thì về hộp 0 và hẹn ôn ngày mai.
+const SRS_DAYS = [1, 3, 7, 14, 30];
+function dayStr(offset) {
+  const d = new Date();
+  d.setDate(d.getDate() + offset);
+  const pad = n => (n < 10 ? "0" : "") + n;
+  return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+}
 function mark(word, known, lesson, level) {
   const p = loadProgress();
-  p.words[word] = { known: !!known, lesson: lesson, level: level };
+  const prev = p.words[word] || {};
+  const box = known ? Math.min((prev.box || 0) + 1, 4) : 0;
+  p.words[word] = { known: !!known, lesson: lesson, level: level, box: box, due: dayStr(SRS_DAYS[box]) };
   saveProgress(p);
 }
 function knownCount() {
@@ -251,13 +263,19 @@ $("#loadBtn").addEventListener("click", async () => {
   }
 });
 
-// Ôn từ chưa biết: gom mọi từ đã đánh dấu known=false ở tất cả các bài.
+// Ôn từ đến hạn: gom mọi từ đã tới ngày ôn lại (due <= hôm nay) ở tất
+// cả các bài; từ đã đánh dấu trước khi có lịch ôn (chưa có due) và từ
+// "Chưa biết" đều tính là đến hạn.
 $("#reviewBtn").addEventListener("click", async () => {
-  $("#deckInfo").textContent = "Đang gom các từ chưa biết từ 28 bài học…";
+  $("#deckInfo").textContent = "Đang gom các từ đến hạn ôn từ 28 bài học…";
   const p = loadProgress();
-  const wanted = new Set(Object.keys(p.words).filter(w => p.words[w] && p.words[w].known === false));
+  const today = dayStr(0);
+  const wanted = new Set(Object.keys(p.words).filter(w => {
+    const rec = p.words[w];
+    return rec && (rec.known === false || !rec.due || rec.due <= today);
+  }));
   if (!wanted.size) {
-    showError("Bạn chưa đánh dấu từ nào là “Chưa biết”. Hãy mở một bộ thẻ và bấm “Chưa biết” cho các từ cần ôn.");
+    showError("Hôm nay chưa có từ nào đến hạn ôn. Hãy mở một bộ thẻ để học từ mới, hoặc quay lại vào ngày hẹn ôn tiếp theo.");
     $("#deckInfo").textContent = "";
     return;
   }
@@ -273,11 +291,11 @@ $("#reviewBtn").addEventListener("click", async () => {
     }));
     const words = all.flat();
     if (!words.length) {
-      showError("Không tìm thấy từ chưa biết nào trong các bài học (có thể các từ đó không còn trong bài).");
+      showError("Không tìm thấy từ đến hạn nào trong các bài học (có thể các từ đó không còn trong bài).");
       $("#deckInfo").textContent = "";
       return;
     }
-    startDeck(words, "Ôn từ chưa biết", "");
+    startDeck(words, "Ôn từ đến hạn hôm nay", "");
   } catch (e) {
     showError("Không tải được danh sách từ. Kiểm tra mạng rồi thử lại.");
     $("#deckInfo").textContent = "";
